@@ -99,7 +99,7 @@
   services.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  main-user.enable = "true";
+  main-user.enable = true;
   main-user.username = "pascal"; 
 
   programs.fuse.userAllowOther = true;
@@ -252,6 +252,9 @@
   #   enable = true;
   #   enableSSHSupport = true;
   # };
+
+  # Enable ZSH:
+  programs.zsh.enable = true;
 
   # List services that you want to enable:
 
