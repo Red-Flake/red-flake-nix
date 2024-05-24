@@ -82,7 +82,9 @@
       extraGroups = ["wheel sys tty log sudo wireshark docker systemd-journal uucp lp wheel adm"];
     };
   };
-
+  
+  ### Services
+  ##
   # This setups a SSH server. Very important if you're setting up a headless system.
   # Feel free to remove if you don't need it.
   services.openssh = {
@@ -95,6 +97,12 @@
       PasswordAuthentication = true;
     };
   };
+
+  services.xserver.enable = true;
+  services.displayManager.sddm.enable = true;
+  services.displayManager.defaultSession = "plasma";
+  services.desktopManager.plasma6.enable = true;
+  services.displayManager.sddm.wayland.enable = true;
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "23.05";
