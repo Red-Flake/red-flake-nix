@@ -23,9 +23,6 @@
       config.allowUnfree = true;
     });
   in {
-    nixosModules = import ./modules/nixos;
-    homeManagerModules = import ./modules/home-manager;
-
     nixosConfigurations = {
       default = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -37,7 +34,7 @@
     homeConfigurations = {
       "pascal@default" = home-manager.lib.homeManagerConfiguration {
         system = "x86_64-linux";
-        modules = [ ./home/pascal/default.nix ./home/pascal/nixpkgs.nix ];
+        modules = [ hosts/default/home.nix ];
         pkgs = pkgsFor.x86_64-linux;
         extraSpecialArgs = { inherit inputs; };
       };
