@@ -11,6 +11,8 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./main-user.nix
+      inputs.home-manager.nixosModules.default
     ];
 
   # nix settings
@@ -97,13 +99,11 @@
   services.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users."pascal" = {
-    isNormalUser = true;
-    description = "Pascal";
-    extraGroups = [ "networkmanager" "wheel" "docker" "wireshark" "adm" "uucp" "lp" "sys"];
-  };
+  main-user.enable = "true";
+  main-user.username = "pascal"; 
 
   programs.fuse.userAllowOther = true;
+  
   # Home-Manager
   home-manager = {
     # also pass inputs to home-manager modules

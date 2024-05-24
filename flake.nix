@@ -10,9 +10,14 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager } @ inputs: {
-    nixosConfigurations.default = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs;};
+  outputs = { self, nixpkgs, ... } @ inputs: {
+    let
+      system = "x86_64-linux";
+      pkgs = nixpkgs.legacyPackages.${system};
+    in
+    {
+      nixosConfigurations.default = nixpkgs.lib.nixosSystem {
+        extraSpecialArgs = {inherit inputs;};
         modules = [
           ./hosts/default/configuration.nix
           inputs.home-manager.nixosModules.default
