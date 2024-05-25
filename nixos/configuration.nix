@@ -52,6 +52,8 @@
       flake-registry = "";
       # Workaround for https://github.com/NixOS/nix/issues/9574
       nix-path = config.nix.nixPath;
+      # Enable deduplication
+      auto-optimise-store = true;
     };
     # Opinionated: disable channels
     channel.enable = false;
@@ -79,7 +81,13 @@
         # TODO: Add your SSH public key(s) here, if you plan on using SSH to connect
       ];
       # TODO: Be sure to add any other groups you need (such as networkmanager, audio, docker, etc)
-      extraGroups = ["wheel sys tty log sudo wireshark docker systemd-journal uucp lp wheel adm"];
+      extraGroups = [
+        "wheel"
+        "sudo"
+        "uucp"
+        "lp"
+        "adm"
+      ];
     };
   };
   
