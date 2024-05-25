@@ -51,8 +51,9 @@
   # programs.neovim.enable = true;
   # home.packages = with pkgs; [ steam ];
 
-  # Enable home-manager and git
-  programs.home-manager.enable = true;
+  # home manager
+  # set programs.home-manager.enable to false so it can be managed by nix!
+  programs.home-manager.enable = false;
   programs.git.enable = true;
   programs.firefox.enable = true;
 

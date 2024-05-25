@@ -5,9 +5,10 @@
 {
   programs.firefox = {
     enable = true;
-    isDefault = true;
 
     profiles.pascal = {
+  
+      isDefault = true;
 
       bookmarks = [
         {
