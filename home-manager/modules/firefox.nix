@@ -29,7 +29,7 @@
         darkreader
         wappalyzer
         waybackmachine
-        ublock-oriin        
+        ublock-origin        
       ];
 
     };
