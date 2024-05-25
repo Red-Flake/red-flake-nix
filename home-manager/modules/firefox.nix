@@ -5,6 +5,7 @@
 {
   programs.firefox = {
     enable = true;
+    isDefault = true;
 
     profiles.pascal = {
 
