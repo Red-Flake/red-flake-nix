@@ -20,6 +20,8 @@
         "uucp"
         "lp"
         "adm"
+        "input"
+        "uinput"
       ];
     };
   };
