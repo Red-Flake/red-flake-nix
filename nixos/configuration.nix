@@ -22,6 +22,8 @@
     ./packages.nix
     # Import user settings
     ./users.nix
+    # Import firefox settings
+    ./modules/firefox-policies.nix
   ];
 
   nixpkgs = {

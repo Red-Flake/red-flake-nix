@@ -17,11 +17,9 @@
     # ./nvim.nix
     #
     
-    inputs.nur.hmModules.nur
-
     # import firefox.nix
     #
-    ./modules/firefox.nix
+    #./modules/firefox.nix
   ];
 
   nixpkgs = {
@@ -60,7 +58,7 @@
   # set programs.home-manager.enable to false so it can be managed by nix!
   programs.home-manager.enable = false;
   programs.git.enable = true;
-  programs.firefox.enable = true;
+  #programs.firefox.enable = true;
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
