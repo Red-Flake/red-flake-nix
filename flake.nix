@@ -11,10 +11,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    firefox-addons = {
-      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    NUR.url = "github:nix-community/NUR";";
   };
 
   outputs = {
@@ -41,11 +38,11 @@
         modules = [
           ./nixos/configuration.nix
           home-manager.nixosModules.home-manager
-	  {
+	        {
             home-manager.useGlobalPkgs = false;
             home-manager.useUserPackages = true;
             home-manager.users.pascal = import ./home-manager/home.nix;
-	  }
+	        }
         ];
       };
     };

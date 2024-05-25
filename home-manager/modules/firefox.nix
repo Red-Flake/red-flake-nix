@@ -23,7 +23,7 @@
         "extensions.update.autoUpdateDefault" = false;
       };
 
-      extensions = with inputs.firefox-addons.packages."x86_64-linux"; [
+      extensions = with config.nur.repos.rycee.firefox-addons; [
         foxyproxy-standard
         dracula-dark-colorscheme
         darkreader
