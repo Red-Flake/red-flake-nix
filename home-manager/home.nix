@@ -16,7 +16,6 @@
     # You can also split up your configuration and import pieces of it here:
     # ./nvim.nix
     #
-    inputs.home-manager.nixosModules.home-manager
   ];
 
   nixpkgs = {
@@ -45,23 +44,12 @@
   home = {
     username = "pascal";
     homeDirectory = "/home/pascal";
+    stateVersion = "23.05"; # https://wiki.nixos.com/wiki/FAQ/When_do_I_update_stateVersion
   };
 
   # Add stuff for your user as you see fit:
   # programs.neovim.enable = true;
   # home.packages = with pkgs; [ steam ];
-
-  # home manager
-  #
-  home-manager = {
-    extraSpecialArgs = {inherit inputs outputs;};
-    useGlobalPkgs = false;
-    useUserPackages = true;
-    users = {
-      # Import your home-manager configuration
-      pascal = import ./home-manager;
-    };
-  };
 
   # set programs.home-manager.enable to false so it can be managed by nix!
   programs.home-manager.enable = false;
@@ -70,7 +58,4 @@
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
-
-  # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
-  home.stateVersion = "23.05";
 }
