@@ -11,7 +11,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    NUR.url = "github:nix-community/NUR";";
+    NUR.url = "github:nix-community/NUR";
   };
 
   outputs = {
@@ -20,8 +20,6 @@
     home-manager,
     ...
   } @ inputs: let
-    system = "x86_64-linux";
-
     unfreePkgs = import nixpkgs {
       system = "x86_64-linux";
       config.allowUnfree = true;

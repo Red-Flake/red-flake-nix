@@ -1,40 +1,17 @@
 {
   "nodes": {
-    "firefox-addons": {
-      "inputs": {
-        "flake-utils": "flake-utils",
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
+    "NUR": {
       "locked": {
-        "dir": "pkgs/firefox-addons",
-        "lastModified": 1716565155,
-        "narHash": "sha256-Kh9ki4i/09ZFrG1ANON1uLQSk0v0XIoIFNGY1KhPEuc=",
-        "owner": "rycee",
-        "repo": "nur-expressions",
-        "rev": "f5fc4f09306ab1003e7c8718004c127da594f659",
-        "type": "gitlab"
-      },
-      "original": {
-        "dir": "pkgs/firefox-addons",
-        "owner": "rycee",
-        "repo": "nur-expressions",
-        "type": "gitlab"
-      }
-    },
-    "flake-utils": {
-      "locked": {
-        "lastModified": 1629284811,
-        "narHash": "sha256-JHgasjPR0/J1J3DRm4KxM4zTyAj4IOJY8vIl75v/kPI=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "c5d161cc0af116a2e17f54316f0bf43f0819785c",
+        "lastModified": 1716609865,
+        "narHash": "sha256-yrD3ZIstDGJ2BkLKlCieye+8MYQhXUUZkpRVeetPOkg=",
+        "owner": "nix-community",
+        "repo": "NUR",
+        "rev": "a85cb4d2c000656aa5f7129345e2f5e886b708ad",
         "type": "github"
       },
       "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
+        "owner": "nix-community",
+        "repo": "NUR",
         "type": "github"
       }
     },
@@ -77,7 +54,7 @@
     },
     "root": {
       "inputs": {
-        "firefox-addons": "firefox-addons",
+        "NUR": "NUR",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs"
       }
