@@ -23,13 +23,13 @@
         "extensions.update.autoUpdateDefault" = false;
       };
 
-      extensions = with inputs.firefox-addons.packages."x86_64-linux"; [
+      extensions = with inputs.firefox-addons.packages."${pkgs.system}"; [
         foxyproxy-standard
         dracula-dark-colorscheme
         darkreader
         wappalyzer
         waybackmachine
-        ublock-origin        
+        ublock-oriin        
       ];
 
     };

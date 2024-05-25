@@ -7,7 +7,7 @@
 
     # Home manager
     home-manager = {
-      url = "github:nix-community/home-manager/release-23.11";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -41,11 +41,11 @@
         modules = [
           ./nixos/configuration.nix
           home-manager.nixosModules.home-manager
-	  {
+	        {
             home-manager.useGlobalPkgs = false;
             home-manager.useUserPackages = true;
             home-manager.users.pascal = import ./home-manager/home.nix;
-	  }
+	        }
         ];
       };
     };
