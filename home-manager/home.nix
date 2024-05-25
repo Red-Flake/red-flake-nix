@@ -16,6 +16,8 @@
     # You can also split up your configuration and import pieces of it here:
     # ./nvim.nix
     #
+    
+    inputs.nur.hmModules.nur
 
     # import firefox.nix
     #
