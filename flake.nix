@@ -41,7 +41,11 @@
         modules = [
           ./nixos/configuration.nix
           home-manager.nixosModules.home-manager
-          ./home-manager/home.nix
+	  {
+            home-manager.useGlobalPkgs = false;
+            home-manager.useUserPackages = true;
+            home-manager.users.pascal = import ./home-manager/home.nix;
+	  }
         ];
       };
     };
