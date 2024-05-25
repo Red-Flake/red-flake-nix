@@ -5,6 +5,7 @@
   lib,
   config,
   pkgs,
+  outputs,
   ...
 }: {
   # You can import other home-manager modules here
@@ -15,8 +16,7 @@
     # You can also split up your configuration and import pieces of it here:
     # ./nvim.nix
     #
-    # import firefox.nix
-    ./modules/firefox.nix
+    inputs.home-manager.nixosModules.home-manager
   ];
 
   nixpkgs = {
@@ -52,6 +52,17 @@
   # home.packages = with pkgs; [ steam ];
 
   # home manager
+  #
+  home-manager = {
+    extraSpecialArgs = {inherit inputs outputs;};
+    useGlobalPkgs = false;
+    useUserPackages = true;
+    users = {
+      # Import your home-manager configuration
+      pascal = import ./home-manager;
+    };
+  };
+
   # set programs.home-manager.enable to false so it can be managed by nix!
   programs.home-manager.enable = false;
   programs.git.enable = true;
