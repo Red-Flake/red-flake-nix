@@ -127,5 +127,6 @@
     rockyou
     metasploit
     sqlmap
+    freerdp3
   ];
 }
