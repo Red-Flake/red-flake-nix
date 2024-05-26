@@ -10,7 +10,6 @@ in {
     environment.systemPackages = [ setup-burp ];
 }
 
-system.activationScripts.setup.text =
-''
-setup-burp
+system.activationScripts.setup-burp.text = ''
+    setup-burp
 '';
