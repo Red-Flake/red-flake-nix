@@ -128,5 +128,7 @@
     metasploit
     sqlmap
     freerdp3
+    pwndbg
+    gef
   ];
 }
