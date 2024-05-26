@@ -15,7 +15,7 @@
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
-    }
+    };
 
     NUR.url = "github:nix-community/NUR";
   };
