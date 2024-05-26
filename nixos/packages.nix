@@ -48,6 +48,7 @@
     hashid
     hash-identifier
     hashcat
+    john
     vscodium
     thc-hydra
     onesixtyone

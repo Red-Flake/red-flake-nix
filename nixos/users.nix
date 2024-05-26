@@ -22,6 +22,7 @@
         "adm"
         "input"
         "uinput"
+        "docker"
       ];
     };
   };
