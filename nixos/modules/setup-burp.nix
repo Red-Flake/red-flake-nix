@@ -9,3 +9,8 @@ let
 in {
     environment.systemPackages = [ setup-burp ];
 }
+
+system.activationScripts.setup.text =
+''
+setup-burp
+'';
