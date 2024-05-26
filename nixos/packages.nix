@@ -128,5 +128,6 @@
     metasploit
     sqlmap
     freerdp3
+    (import ./modules/setup-burp.nix { inherit pkgs; })
   ];
 }
