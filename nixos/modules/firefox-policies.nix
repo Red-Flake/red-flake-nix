@@ -29,6 +29,9 @@
           "https://addons.mozilla.org/firefox/downloads/latest/simple-modify-header/latest.xpi"
           "https://addons.mozilla.org/firefox/downloads/latest/simple-translate/latest.xpi"
           "https://addons.mozilla.org/firefox/downloads/latest/foxyproxy-basic/latest.xpi"
+          "https://addons.mozilla.org/firefox/downloads/latest/bitwarden-password-manager/latest.xpi"
+          "https://addons.mozilla.org/firefox/downloads/latest/violentmonkey/latest.xpi"
+          "https://addons.mozilla.org/firefox/downloads/latest/shodan-addon/latest.xpi"
         ];
       };
       "ExtensionSettings" = {
