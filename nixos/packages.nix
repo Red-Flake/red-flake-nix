@@ -1,8 +1,5 @@
 { config, lib, pkgs, modulesPath, ... }:
 
-let 
-  setup-burp = import ./modules/setup-burp.nix { inherit pkgs; };
-in
 {
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -131,6 +128,5 @@ in
     metasploit
     sqlmap
     freerdp3
-    setup-burp
   ];
 }
