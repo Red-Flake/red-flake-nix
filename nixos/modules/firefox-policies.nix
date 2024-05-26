@@ -90,7 +90,7 @@
       };
       "UseSystemPrintDialog" = true;
       "Certificates" = {
-        "Install" = ["/etc/ca-certificates/trust-source/anchors/BurpSuiteCA.der"];
+        "Install" = ["/etc/ssl/certs/BurpSuiteCA.der"];
       };
       "3rdparty" = {
         "Extensions" = {
