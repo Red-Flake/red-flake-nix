@@ -24,6 +24,8 @@
     ./users.nix
     # Import firefox settings
     ./modules/firefox-policies.nix
+    # Setup burp suite
+    ./modules/setup-burp.nix
   ];
 
   nixpkgs = {

@@ -11,6 +11,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # nix-index-database
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    }
+
     NUR.url = "github:nix-community/NUR";
   };
 
@@ -18,6 +24,7 @@
     self,
     nixpkgs,
     home-manager,
+    nix-index-database,
     ...
   } @ inputs: let
     unfreePkgs = import nixpkgs {
@@ -35,8 +42,8 @@
         # > Our main nixos configuration file <
         modules = [
           ./nixos/configuration.nix
-          home-manager.nixosModules.home-manager
-	        {
+          nix-index-database.nixosModules.nix-index
+          home-manager.nixosModules.home-manager {
             home-manager.useGlobalPkgs = false;
             home-manager.useUserPackages = true;
             home-manager.users.pascal = import ./home-manager/home.nix;
