@@ -23,6 +23,7 @@
         "input"
         "uinput"
         "docker"
+        "lxd"
       ];
     };
   };
