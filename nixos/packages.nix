@@ -5,6 +5,8 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     git
+    file
+    tree
     vim
     nano
     wget
