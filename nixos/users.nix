@@ -10,6 +10,9 @@
       # Be sure to change it (using passwd) after rebooting!
       initialPassword = "correcthorsebatterystaple";
       isNormalUser = true;
+      # set shell for user
+      shell = pkgs.zsh;
+      # set ssh authorized_keys
       openssh.authorizedKeys.keys = [
         # TODO: Add your SSH public key(s) here, if you plan on using SSH to connect
       ];

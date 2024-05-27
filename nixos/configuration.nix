@@ -54,5 +54,10 @@
   virtualisation.lxd.enable = true;
   virtualisation.lxc.lxcfs.enable = true;
 
+  # set zsh as default shell:
+  users.defaultUserShell = pkgs.zsh;
+  environment.shells = with pkgs; [ zsh ];
+  programs.zsh.enable = true;
+
   system.stateVersion = "23.05";
 }
