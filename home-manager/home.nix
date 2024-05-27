@@ -7,6 +7,9 @@
     ./modules/zsh.nix
   ];
 
+  # disable warning about mismatched version between Home Manager and Nixpkgs
+  home.enableNixpkgsReleaseCheck = false;
+
   home.packages = with pkgs; [
     pkgs.oh-my-zsh
   ];
