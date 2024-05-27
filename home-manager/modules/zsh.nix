@@ -20,8 +20,8 @@ in
     enable = true;
 
     enableCompletion = true;
-    enableAutosuggestions = true;
-    enableSyntaxHighlighting = true;
+    autosuggestion.enable = true;
+    syntaxHighlighting.enable = true;
 
     initExtra = ''
       # The powerlevel theme I'm using is distgusting in TTY, let's default
