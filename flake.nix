@@ -19,7 +19,6 @@
     username = "pascal";
   in {
     # NixOS configuration entrypoint
-    # Available through 'nixos-rebuild --flake .#default'
     nixosConfigurations = {
       redflake = nixpkgs.lib.nixosSystem {
         inherit system;
