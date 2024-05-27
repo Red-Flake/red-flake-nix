@@ -18,9 +18,13 @@
     };
   };
 
-  #home.packages = with pkgs; [
-  #  pkgs.oh-my-zsh
-  #];
+  home.packages = with pkgs; [
+    oh-my-zsh
+    zsh-autosuggestions
+    zsh-completions
+    nix-zsh-completions
+    zsh-syntax-highlighting
+  ];
 
   xsession.enable = true;
 
