@@ -15,21 +15,18 @@
   };
 
   outputs = { self, nixpkgs, home-manager, ... } @ inputs: let
-    username = "pascal";
-    hostname = "nixos";
     system = "x86_64-linux";
+    username = "pascal";
   in {
     # NixOS configuration entrypoint
     # Available through 'nixos-rebuild --flake .#default'
     nixosConfigurations = {
-      # Replace with your hostname
       redflake = nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = { inherit inputs; };
-        # Main NixOS configuration file
         modules = [
           ./nixos/configuration.nix
-          { 
+          {
             # Home Manager integration as a NixOS module
             imports = [ inputs.home-manager.nixosModules.home-manager ];
 
@@ -40,8 +37,6 @@
                 home = import ./home-manager/home.nix { inherit pkgs; };
               };
             };
-            # Optionally, use home-manager.extraSpecialArgs to pass
-            # arguments to home.nix
             home-manager.extraSpecialArgs = { inherit inputs username; };
           }
         ];
