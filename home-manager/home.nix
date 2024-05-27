@@ -20,6 +20,9 @@
     # import firefox.nix
     #
     #./modules/firefox.nix
+
+    # import zsh.nix
+    ./modules/zsh.nix
   ];
 
   nixpkgs = {
@@ -54,10 +57,19 @@
   # Add stuff for your user as you see fit:
   # programs.neovim.enable = true;
   # home.packages = with pkgs; [ steam ];
+  home.packages = with pkgs; [
+    pkgs.oh-my-zsh
+  ];
+
+  # Home Manager includes a number of services intended to run in a graphical session, for example xscreensaver and dunst. 
+  # Unfortunately, such services will not be started automatically unless you let Home Manager start your X session.
+  xsession.enable = true;
+  #xsession.windowManager.command = "…";
 
   # set programs.home-manager.enable to false so it can be managed by nix!
   programs.home-manager.enable = false;
   programs.git.enable = true;
+  programs.zsh.enable = true;
   #programs.firefox.enable = true;
 
   # Nicely reload system units when changing configs

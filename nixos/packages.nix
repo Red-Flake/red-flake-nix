@@ -5,6 +5,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     git
+    home-manager
     file
     tree
     vim
