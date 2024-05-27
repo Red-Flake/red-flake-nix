@@ -17,11 +17,20 @@ in
     meslo-lgs-nf
   ];
   programs.zsh = {
+    ## See options: https://nix-community.github.io/home-manager/options.xhtml
+
+    # enable zsh
     enable = true;
 
+    # Enable zsh completion.
     enableCompletion = true;
+
+    # Enable zsh autosuggestions
     autosuggestion.enable = true;
+
+    # Enable zsh syntax highlighting.
     syntaxHighlighting.enable = true;
+
 
     initExtra = ''
       # The powerlevel theme I'm using is distgusting in TTY, let's default
@@ -52,4 +61,17 @@ in
       }
     ];
   };
+
+  ## load oh-my-zsh plugins
+  programs.zsh.oh-my-zsh.plugins {
+    git
+    zsh-autosuggestions
+    zsh-syntax-highlighting
+    docker
+    colorize
+    colored-man-pages
+    sudo
+    z
+  }
+
 }
