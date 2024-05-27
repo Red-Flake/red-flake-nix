@@ -11,11 +11,7 @@ let
 in
 {
   fonts.fontconfig.enable = true;
-  home.packages = with pkgs; [
-    # Meslo Nerd Font patched for Powerlevel10k
-    # Restart Konsole and configure it (profile) to choose MesloLGS NF
-    meslo-lgs-nf
-  ];
+
     programs = {
           zsh = {
                 ## See options: https://nix-community.github.io/home-manager/options.xhtml
@@ -33,7 +29,7 @@ in
                 syntaxHighlighting.enable = true;
 
 
-                initExtra = ''
+                initExtraFirst = ''
                   # The powerlevel theme I'm using is distgusting in TTY, let's default
                   # to something else
                   # See https://github.com/romkatv/powerlevel10k/issues/325
@@ -60,6 +56,11 @@ in
                     src = pkgs.zsh-powerlevel10k;
                     file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
                   }
+                  {
+                    name = "powerlevel10k-config";
+                    src = ./p10k-config;
+                    file = "p10k.zsh";
+                  }
                 ];
 
                 oh-my-zsh = {
@@ -75,7 +76,6 @@ in
                         "colored-man-pages"
                         "sudo"
                         "z"
-                        "powerlevel10k"
                     ];
 
                     theme = "powerlevel10k";

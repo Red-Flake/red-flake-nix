@@ -24,10 +24,13 @@
     zsh-completions
     nix-zsh-completions
     zsh-syntax-highlighting
+    zsh-powerlevel10k
+    meslo-lgs-nf
   ];
 
   xsession.enable = true;
 
   programs.home-manager.enable = false;
   programs.git.enable = true;
+  programs.zsh.enable = true;
 }
