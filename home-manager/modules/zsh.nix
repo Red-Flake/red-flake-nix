@@ -4,6 +4,11 @@
     programs.zsh = {
 
        enable = true;
+
+       initExtra = ''
+            [[ ! -f ${./p10k.zsh;} ]] || source ${./p10k.zsh}
+        '';
+
        enableCompletion = true;
        autosuggestion.enable = true;
        syntaxHighlighting.enable = true;
@@ -14,7 +19,7 @@
 
         oh-my-zsh = {
             enable = true;
-            theme = "agnoster";
+            theme = "powerlevel10k";
             plugins = [
                 "git"
                 "npm"
@@ -22,6 +27,7 @@
                 "node"
                 "rust"
                 "deno"
+                "powerlevel10k"
             ];
         };
 
