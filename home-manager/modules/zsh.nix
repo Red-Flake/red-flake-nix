@@ -62,7 +62,7 @@ in
             }
           ];
 
-          ohMyZsh = {
+          oh-my-zsh = {
               enable = true;
               theme = "powerlevel10k";
 
