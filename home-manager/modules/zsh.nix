@@ -10,7 +10,7 @@
         update = "sudo nixos-rebuild switch";
       };
     };
-    
+
     programs.oh-my-zsh = {
         enable = true;
         theme = "agnoster";
@@ -23,4 +23,4 @@
             "deno"
         ];
     };
-};
+}
