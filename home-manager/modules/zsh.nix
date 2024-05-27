@@ -18,6 +18,11 @@ in
   ];
   programs.zsh = {
     enable = true;
+
+    enableCompletion = true;
+    enableAutosuggestions = true;
+    enableSyntaxHighlighting = true;
+
     initExtra = ''
       # The powerlevel theme I'm using is distgusting in TTY, let's default
       # to something else
@@ -36,6 +41,7 @@ in
         [[ ! -f ${configThemeTTY} ]] || source ${configThemeTTY}
       fi
     '';
+
     plugins = [
       {
         # A prompt will appear the first time to configure it properly
