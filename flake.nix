@@ -19,11 +19,15 @@
     nixpkgs,
     home-manager,
     ...
-  } @ inputs: let
+  } @ inputs: 
+  let
     unfreePkgs = import nixpkgs {
       system = "x86_64-linux";
       config.allowUnfree = true;
     };
+    username = "pascal";
+    hostname = "nixos";
+    system = "x86_64-linux";
   in {
     # NixOS configuration entrypoint
     # Available through 'nixos-rebuild --flake .#default'
