@@ -7,7 +7,7 @@ let
   # again 'p10k configure'. Then, copy the generated file as:
   # $ mv ~/.p10k.zsh p10k-config/p10k.zsh
   configThemeNormal = ./p10k-config/p10k.zsh;
-  configThemeTTY = ./p10k-config/p10k_tty.zsh;
+  configThemeTTY = ./p10k-config/p10k-portable.zsh;
 in
 {
   fonts.fontconfig.enable = true;
