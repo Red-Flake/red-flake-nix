@@ -75,6 +75,7 @@ in
                         "colored-man-pages"
                         "sudo"
                         "z"
+                        "powerlevel10k"
                     ];
 
                     theme = "powerlevel10k";
