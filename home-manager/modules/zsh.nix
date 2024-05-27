@@ -27,7 +27,7 @@ in
                 enableCompletion = true;
 
                 # Enable zsh autosuggestions
-                autosuggestions.enable = true;
+                enableAutosuggestions = true;
 
                 # Enable zsh syntax highlighting.
                 syntaxHighlighting.enable = true;
