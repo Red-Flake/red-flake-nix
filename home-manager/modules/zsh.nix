@@ -69,16 +69,12 @@ in
 
                     plugins = [
                         "git"
-                        "zsh-autosuggestions"
-                        "zsh-syntax-highlighting"
                         "docker"
                         "colorize"
                         "colored-man-pages"
                         "sudo"
                         "z"
                     ];
-
-                    theme = "powerlevel10k";
 
                 };
 
