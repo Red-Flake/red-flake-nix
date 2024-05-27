@@ -6,8 +6,8 @@ let
   # before you ran powerlevel for the first time or if you want to run
   # again 'p10k configure'. Then, copy the generated file as:
   # $ mv ~/.p10k.zsh p10k-config/p10k.zsh
-  configThemeNormal = ./p10k-config/p10k.zsh;
-  configThemeTTY = ./p10k-config/p10k-portable.zsh;
+  configThemeNormal = "p10k.zsh";
+  configThemeTTY = "p10k-portable.zsh";
 in
 {
   fonts.fontconfig.enable = true;
@@ -59,7 +59,7 @@ in
                   {
                     name = "powerlevel10k-config";
                     src = ./p10k-config;
-                    file = "p10k.zsh";
+                    file = "${configThemeNormal}";
                   }
                 ];
 
