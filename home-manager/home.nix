@@ -5,7 +5,6 @@
   lib,
   config,
   pkgs,
-  outputs,
   ...
 }: {
   # You can import other home-manager modules here
@@ -47,7 +46,7 @@
     };
   };
 
-  # TODO: Set your username
+  # Set your username
   home = {
     username = "pascal";
     homeDirectory = "/home/pascal";
@@ -64,13 +63,13 @@
   # Home Manager includes a number of services intended to run in a graphical session, for example xscreensaver and dunst. 
   # Unfortunately, such services will not be started automatically unless you let Home Manager start your X session.
   xsession.enable = true;
-  #xsession.windowManager.command = "…";
+  # xsession.windowManager.command = "…";
 
-  # set programs.home-manager.enable to false so it can be managed by nix!
+  # Set programs.home-manager.enable to false so it can be managed by NixOS!
   programs.home-manager.enable = false;
   programs.git.enable = true;
   programs.zsh.enable = true;
-  #programs.firefox.enable = true;
+  # programs.firefox.enable = true;
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
