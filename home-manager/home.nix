@@ -18,9 +18,9 @@
     };
   };
 
-  home.packages = with pkgs; [
-    pkgs.oh-my-zsh
-  ];
+  #home.packages = with pkgs; [
+  #  pkgs.oh-my-zsh
+  #];
 
   xsession.enable = true;
 
