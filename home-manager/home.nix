@@ -7,14 +7,6 @@
     ./modules/zsh.nix
   ];
 
-  nixpkgs = {
-    overlays = [];
-    config = {
-      allowUnfree = true;
-      allowUnfreePredicate = _: true;
-    };
-  };
-
   home.packages = with pkgs; [
     pkgs.oh-my-zsh
   ];
