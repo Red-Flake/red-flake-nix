@@ -39,6 +39,7 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.pascal = import ./home-manager/home.nix;
+            home-manager.extraSpecialArgs = {inherit inputs username; };
             # Optionally, use home-manager.extraSpecialArgs to pass
             # arguments to home.nix
 	        }
@@ -46,4 +47,13 @@
       };
     };
   };
+
+  homeConfigurations.pascal = home-manager.lib.homeManagerConfiguration {
+      inherit pkgs;
+      extraSpecialArgs = { inherit inputs; };
+      modules = [ 
+        ./home-manager/home.nix
+      ];
+  };
+
 }
