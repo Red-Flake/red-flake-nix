@@ -6,7 +6,10 @@
   pkgs,
   inputs,
   ...
-}: {
+}:
+let
+  home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/master.tar.gz";
+in {
   # You can import other NixOS modules here
   imports = [
     # If you want to use modules from other flakes (such as nixos-hardware):
@@ -14,7 +17,7 @@
     # inputs.hardware.nixosModules.common-ssd
 
     # import home-manager
-    <home-manager/nixos>
+    (import "${home-manager}/nixos")
 
     # You can also split up your configuration and import pieces of it here:
     # ./users.nix
