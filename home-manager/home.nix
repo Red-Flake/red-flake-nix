@@ -10,6 +10,14 @@
   # disable warning about mismatched version between Home Manager and Nixpkgs
   home.enableNixpkgsReleaseCheck = false;
 
+  nixpkgs = {
+    overlays = [];
+    config = {
+      allowUnfree = true;
+      allowUnfreePredicate = _: true;
+    };
+  };
+
   home.packages = with pkgs; [
     pkgs.oh-my-zsh
   ];
