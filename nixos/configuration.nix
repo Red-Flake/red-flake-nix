@@ -11,6 +11,9 @@
     # User settings
     ./users.nix
 
+    # Services settings
+    ./modules/services.nix
+
     # Firefox settings
     ./modules/firefox-policies.nix
 
@@ -36,19 +39,7 @@
 
   networking.hostName = "nixos";
 
-  services.openssh = {
-    enable = true;
-    settings = {
-      PermitRootLogin = "yes";
-      PasswordAuthentication = true;
-    };
-  };
-
-  services.xserver.enable = true;
-  services.displayManager.sddm.enable = true;
-  services.displayManager.defaultSession = "plasma";
-  services.desktopManager.plasma6.enable = true;
-  services.displayManager.sddm.wayland.enable = true;
+  
 
   virtualisation.docker.enable = true;
   virtualisation.lxd.enable = true;
