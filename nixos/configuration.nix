@@ -6,10 +6,13 @@
     ./hardware-configuration.nix
 
     # System packages
-    ./packages.nix
+    ./modules/packages.nix
 
     # User settings
-    ./users.nix
+    ./modules/users.nix
+
+    # Shell settings
+    ./modules/setup-shell.nix
 
     # Services settings
     ./modules/services.nix
@@ -41,12 +44,6 @@
   };
 
   networking.hostName = "nixos";
-
-  # set zsh as default shell:
-  users.defaultUserShell = pkgs.zsh;
-  environment.shells = with pkgs; [ zsh ];
-  environment.pathsToLink = [ "/share/zsh" ];
-  programs.zsh.enable = true;
 
   system.stateVersion = "23.05";
 }
