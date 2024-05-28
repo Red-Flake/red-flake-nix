@@ -14,6 +14,9 @@
     # Services settings
     ./modules/services.nix
 
+    # Virtualization settings
+    ./modules/virtualisation.nix
+
     # Firefox settings
     ./modules/firefox-policies.nix
 
@@ -38,12 +41,6 @@
   };
 
   networking.hostName = "nixos";
-
-  
-
-  virtualisation.docker.enable = true;
-  virtualisation.lxd.enable = true;
-  virtualisation.lxc.lxcfs.enable = true;
 
   # set zsh as default shell:
   users.defaultUserShell = pkgs.zsh;
