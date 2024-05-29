@@ -78,6 +78,18 @@ in
 
                 };
 
+                # define shell aliases which are substituted anywhere on a line
+                # https://home-manager-options.extranix.com/?query=programs.zsh.shellAliase
+                shellGlobalAliases = {
+                    ls = "lsd";
+                    ll = "lsd -la";
+                    la = "lsd -la";
+                    lsa = "lsd -la";
+                    cat = "bat";
+                    cme = "nxc";
+                    crackmapexec = "netexec";
+                };
+
       };
    };  
 }
