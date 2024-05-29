@@ -28,7 +28,7 @@ in
                 # Enable zsh syntax highlighting.
                 syntaxHighlighting.enable = true;
 
-
+                # Commands that should be added to top of {file}.zshrc.
                 initExtraFirst = ''
                   # The powerlevel theme I'm using is distgusting in TTY, let's default
                   # to something else
@@ -47,6 +47,12 @@ in
                     [[ ! -f ${configThemeTTY} ]] || source ${configThemeTTY}
                   fi
                 '';
+
+                # Extra commands that should be added to {file}.zshrc.
+                initExtra = "
+                    # disable nomatch to fix weird compatility issues with bash
+                    setopt +o nomatch
+                ";
 
                 plugins = [
                   {
