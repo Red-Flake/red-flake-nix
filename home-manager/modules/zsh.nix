@@ -87,7 +87,7 @@ in
                 };
 
                 # define shell aliases which are substituted anywhere on a line
-                # https://home-manager-options.extranix.com/?query=programs.zsh.shellAliase
+                # https://home-manager-options.extranix.com/?query=programs.zsh.shellGlobalAliases&release=master
                 shellGlobalAliases = {
                     ls = "lsd";
                     ll = "lsd -la";
@@ -96,6 +96,13 @@ in
                     cat = "bat";
                     cme = "nxc";
                     crackmapexec = "netexec";
+                };
+
+                # define session variables
+                # https://home-manager-options.extranix.com/?query=programs.zsh.localVariables&release=master
+                localVariables = {
+                    LANG = "en_US.UTF-8";
+                    EDITOR = "vim";
                 };
 
       };
