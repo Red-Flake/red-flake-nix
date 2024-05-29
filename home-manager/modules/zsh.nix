@@ -49,10 +49,10 @@ in
                 '';
 
                 # Extra commands that should be added to {file}.zshrc.
-                initExtra = "
+                initExtra = ''
                     # disable nomatch to fix weird compatility issues with bash
                     setopt +o nomatch
-                ";
+                '';
 
                 plugins = [
                   {
