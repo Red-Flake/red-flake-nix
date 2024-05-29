@@ -5,6 +5,7 @@
   # You can import other home-manager modules here
   imports = [
     ./modules/zsh.nix
+    ./modules/msf.nix
   ];
 
   # disable warning about mismatched version between Home Manager and Nixpkgs
