@@ -52,6 +52,8 @@ in
                 initExtra = ''
                     # disable nomatch to fix weird compatility issues with bash
                     setopt +o nomatch
+                    # setup thefuck alias
+                    eval $(thefuck --alias)
                 '';
 
                 plugins = [
