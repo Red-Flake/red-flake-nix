@@ -26,6 +26,7 @@
     zsh-syntax-highlighting
     zsh-powerlevel10k
     meslo-lgs-nf
+    thefuck
   ];
 
   xsession.enable = true;
