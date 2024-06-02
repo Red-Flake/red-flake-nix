@@ -101,6 +101,8 @@ in
                     python2-shell = "NIXPKGS_ALLOW_INSECURE=1 nix-shell -p python2";
                     ruby-shell = "nix-shell -p ruby bundler";
                     node-shell = "nix-shell -p nodePackages_latest.nodejs";
+                    c-shell = "nix-shell -p gcc gnumake cmake";
+                    cpp-shell ="c-shell";
                 };
 
                 # define session variables
