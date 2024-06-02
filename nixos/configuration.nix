@@ -1,4 +1,5 @@
 { config, lib, pkgs, inputs, ... }:
+
 {
   # Import other NixOS modules here
   imports = [
@@ -43,7 +44,7 @@
     nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") inputs;
   };
 
-  networking.hostName = "nixos";
+  networking.hostName = "redflake";
 
   system.stateVersion = "23.05";
 }
