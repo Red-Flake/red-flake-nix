@@ -98,7 +98,7 @@ in
                     crackmapexec = "netexec";
                     python3-shell = "nix-shell -p python312 python312Packages.pip python312Packages.pipx";
                     python-shell = "python3-shell";
-                    python2-shell = "NIXPKGS_ALLOW_INSECURE=1 nix-shell -p python27Full";
+                    python2-shell = "NIXPKGS_ALLOW_INSECURE=1 nix-shell -p python2";
                 };
 
                 # define session variables
