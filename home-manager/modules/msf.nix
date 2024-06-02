@@ -5,9 +5,9 @@
         # http://r-7.co/MSF-DEV#set-up-postgresql
         development: &pgsql
             adapter: postgresql
-            database: msfdb 
-            username: msfuser
-            password: msfpass 
+            database: msf 
+            username: msf
+            password: msf 
             host: localhost
             port: 5432
             pool: 200
