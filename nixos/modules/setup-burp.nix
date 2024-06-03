@@ -1,6 +1,7 @@
 { pkgs, ... }:
 
 {
+  # run script to automatically provision the Burp Suite CA certificate
   system.activationScripts.setup-burp = {
     text = ''
       if ! [ -f /etc/ssl/certs/BurpSuiteCA.der ]; then
