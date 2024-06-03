@@ -103,6 +103,9 @@ in
                     node-shell = "nix-shell -p nodePackages_latest.nodejs";
                     c-shell = "nix-shell -p gcc gnumake cmake";
                     cpp-shell ="c-shell";
+                    rust-shell = "nix-shell -p rustup --command 'rustup default stable; return'";
+                    php-shell = "nix-shell -p php";
+                    go-shell = "nix-shell -p go";
                 };
 
                 # define session variables
