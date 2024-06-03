@@ -1,6 +1,7 @@
 { config, pkgs, lib, ... }:
 
 {
+  # define policies.json for firefox
   programs.firefox = {
     enable = true;
     policies = {
