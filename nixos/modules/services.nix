@@ -36,5 +36,10 @@
         CREATE DATABASE msf;
         GRANT ALL PRIVILEGES ON DATABASE msf TO msf;
     '';
-    };
+  };
+
+  services.neo4j = {
+    enable = true;
+  };
+
 }
