@@ -6,6 +6,7 @@
   imports = [
     ./modules/zsh.nix
     ./modules/msf.nix
+    ./modules/thefuck.nix
   ];
 
   # disable warning about mismatched version between Home Manager and Nixpkgs
