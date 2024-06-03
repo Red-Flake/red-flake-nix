@@ -87,6 +87,8 @@ in
                 # define shell aliases which are substituted anywhere on a line
                 # https://home-manager-options.extranix.com/?query=programs.zsh.shellGlobalAliases&release=master
                 shellGlobalAliases = {
+                    screenfetch = "fastfetch";
+                    neofetch = "fastfetch";
                     ls = "lsd";
                     ll = "lsd -la";
                     la = "lsd -la";
