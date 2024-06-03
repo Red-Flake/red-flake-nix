@@ -7,6 +7,7 @@
     ./modules/zsh.nix
     ./modules/msf.nix
     ./modules/thefuck.nix
+    ./modules/fastfetch.nix
   ];
 
   # disable warning about mismatched version between Home Manager and Nixpkgs
