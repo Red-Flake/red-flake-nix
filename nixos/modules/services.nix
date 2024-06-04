@@ -46,6 +46,7 @@
     https.enable = true;
     http.listenAddress = ":7474";
     https.listenAddress = ":7473";
+    https.sslPolicy = "dbms.ssl.policy.default.trust_all=true";
     bolt.listenAddress = ":7687";
   };
 
