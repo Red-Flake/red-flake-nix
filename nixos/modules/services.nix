@@ -41,6 +41,7 @@
   # Neo4j settings
   services.neo4j = {
     enable = true;
+    directories.home = "/var/lib/neo4j";
   };
 
 }
