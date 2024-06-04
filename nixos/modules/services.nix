@@ -49,7 +49,7 @@
     bolt.sslPolicy = "legacy";
     bolt.listenAddress = ":7687";
     bolt.enable = true;
-    https.enable = true;
+    https.enable = false;
   };
 
 }
