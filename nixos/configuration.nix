@@ -29,6 +29,9 @@
 
     # Setup Burp Suite
     ./modules/setup-burp.nix
+
+    # Setup Neo4j
+    ./modules/setup-neo4j.nix
   ];
 
   nixpkgs = {
