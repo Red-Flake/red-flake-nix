@@ -9,6 +9,9 @@
     # System packages
     ./modules/packages.nix
 
+    # Kernel packages
+    ./modules/kernel.nix
+
     # User settings
     ./modules/users.nix
 
