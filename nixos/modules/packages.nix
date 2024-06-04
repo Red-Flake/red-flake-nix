@@ -131,5 +131,6 @@
     freerdp3
     pwndbg
     gef
+    mariadb
   ];
 }
