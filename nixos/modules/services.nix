@@ -42,6 +42,11 @@
   services.neo4j = {
     enable = true;
     directories.home = "/var/lib/neo4j";
+    enableBolt = true;
+    enableHttps = true;
+    http.listenAddress = ":7474";
+    https.listenAddress = ":7473";
+    bolt.listenAddress = ":7687";
   };
 
 }
