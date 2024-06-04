@@ -38,6 +38,7 @@
     '';
   };
 
+  # Neo4j settings
   services.neo4j = {
     enable = true;
   };
