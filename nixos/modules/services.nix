@@ -42,13 +42,13 @@
   services.neo4j = {
     enable = true;
     directories.home = "/var/lib/neo4j";
-    bolt.enable = true;
-    https.enable = true;
+    https.sslPolicy = "legacy";
     http.listenAddress = ":7474";
     https.listenAddress = ":7473";
-    https.sslPolicy = "legacy";
-    bolt.listenAddress = ":7687";
     bolt.sslPolicy = "legacy";
+    bolt.listenAddress = ":7687";
+    bolt.enable = true;
+    https.enable = true;
   };
 
 }
