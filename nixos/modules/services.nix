@@ -45,7 +45,7 @@
     https.sslPolicy = "legacy";
     http.listenAddress = ":7474";
     https.listenAddress = ":7473";
-    bolt.tlsLevel = 2;
+    bolt.tlsLevel = "DISABLED";
     bolt.sslPolicy = "legacy";
     bolt.listenAddress = ":7687";
     bolt.enable = true;
