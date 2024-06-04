@@ -48,6 +48,7 @@
     https.listenAddress = ":7473";
     https.sslPolicy = "legacy";
     bolt.listenAddress = ":7687";
+    bolt.sslPolicy = "legacy";
   };
 
 }
