@@ -2,8 +2,7 @@
 
 {
   # Kernel Packages to install
-  boot.kernelPackages = with pkgs; [
-    # Switch to latest linux kernel
-    linuxPackages_latest
-  ];
+
+  # Switch to latest linux kernel
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 }
