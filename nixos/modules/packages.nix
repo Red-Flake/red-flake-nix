@@ -66,6 +66,7 @@
     jadx
     radare2
     social-engineer-toolkit
+    ettercap
     bettercap
     macchanger
     responder
@@ -132,5 +133,22 @@
     pwndbg
     gef
     mariadb
+    vesktop
+    irssi
+    telegram-desktop
+    libreoffice-qt6-fresh
+    lshw
+    lshw-gui
+    krita
+    mpv
+    vlc
+    nvtopPackages.full
+    pidgin
+    thunderbird-bin
+    tor-browser
+    wineWowPackages.stable
+    winetricks
+    wineWowPackages.waylandFull
+    bottles
   ];
 }
