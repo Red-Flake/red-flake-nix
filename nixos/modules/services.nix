@@ -52,4 +52,9 @@
     https.enable = false;
   };
 
+  # Fwupd settings
+  services.fwupd = {
+    enable = true;
+  };
+
 }
