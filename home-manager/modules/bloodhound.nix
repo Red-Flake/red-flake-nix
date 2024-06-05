@@ -76,11 +76,6 @@
                 "WriteSPN": true,
                 "AddKeyCredentialLink": true,
                 "DCSync": true
-            },
-            "databaseInfo": {
-                "url": "bolt://localhost:7687",
-                "user": "neo4j",
-                "password": "Password1337"
             }
         }
     '';
