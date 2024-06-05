@@ -142,7 +142,6 @@
     krita
     mpv
     vlc
-    nvtopPackages.full
     pidgin
     thunderbird-bin
     tor-browser
