@@ -4,7 +4,7 @@
   # Import other NixOS modules here
   imports = [
     # Hardware configuration
-    ./hardware-configuration.nix
+    /etc/nixos/hardware-configuration.nix
 
     # GPU configuration
     ./modules/gpu.nix
