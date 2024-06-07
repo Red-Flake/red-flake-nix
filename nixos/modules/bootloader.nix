@@ -27,9 +27,12 @@
   ];
 
   boot.loader = {
+    systemd-boot.enable = false;
+
     timeout = 3;
 
     efi = {
+      canTouchEfiVariables = true;
       efiSysMountPoint = "/boot";
     };
 
@@ -40,6 +43,7 @@
       efiSupport = true;
       efiInstallAsRemovable = true; # Otherwise /boot/EFI/BOOT/BOOTX64.EFI isn't generated
       devices = [ "nodev" ];
+      useOSProber = true;
 
       extraEntriesBeforeNixOS = true;
       extraEntries = ''
