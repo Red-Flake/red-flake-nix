@@ -19,6 +19,11 @@ nix-shell -p git
 git clone https://github.com/Red-Flake/red-flake-nix /root/red-flake-nix
 ```
 
+then enter the directory
+```bash
+cd /root/red-flake-nix
+```
+
 <br>
 
 ### hardware-configuration
