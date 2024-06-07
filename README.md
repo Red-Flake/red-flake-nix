@@ -1,9 +1,15 @@
 # red-flake-nix
 Red-Flake Nix flake
 
-# Install (as root)
+<br>
 
-## clone the repo
+## Install (as root)
+
+<br>
+
+### clone the repo
+
+<br>
 
 first clone the repo into /root
 ```bash
@@ -13,7 +19,11 @@ nix-shell -p git
 git clone https://github.com/Red-Flake/red-flake-nix /root/red-flake-nix
 ```
 
-## hardware-configuration
+<br>
+
+### hardware-configuration
+
+<br>
 
 then copy your system's `hardware-configuration.nix` into the `nixos` folder
 ```bash
@@ -26,7 +36,11 @@ nixos-generate-config
 ```
 the above command will generate a new hardware-configuration for you and save it to `/etc/nixos/hardware-configuration.nix`
 
-## installation
+<br>
+
+### installation
+
+<br>
 
 finally install the flake
 ```bash
