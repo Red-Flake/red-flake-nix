@@ -32,7 +32,7 @@
     timeout = 3;
 
     efi = {
-      canTouchEfiVariables = true;
+      canTouchEfiVariables = false;
       efiSysMountPoint = "/boot";
     };
 
