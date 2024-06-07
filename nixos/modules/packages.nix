@@ -149,5 +149,6 @@
     winetricks
     wineWowPackages.waylandFull
     bottles
+    helvum
   ];
 }
