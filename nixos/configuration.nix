@@ -12,6 +12,9 @@
     # GPU configuration
     ./modules/gpu.nix
 
+    # Networking configuration
+    ./modules/networking.nix
+
     # System packages
     ./modules/packages.nix
 
@@ -80,8 +83,6 @@
     registry = lib.mapAttrs (_: flake: {inherit flake;}) flakeInputs;
     nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
   };
-
-  networking.hostName = "redflake";
 
   system.stateVersion = "23.05";
 
