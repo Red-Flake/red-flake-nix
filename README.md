@@ -52,5 +52,5 @@ git update-index --assume-unchanged /root/red-flake-nix/nixos/hardware-configura
 
 finally install the flake
 ```bash
-nixos-rebuild switch --flake '/root/red-flake-nix#redflake'
+nixos-rebuild --install-bootloader switch --flake '/root/red-flake-nix#redflake'
 ```
