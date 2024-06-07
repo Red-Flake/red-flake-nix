@@ -43,7 +43,6 @@
       efiInstallAsRemovable = true; # Otherwise /boot/EFI/BOOT/BOOTX64.EFI isn't generated
       devices = [ "nodev" ];
       useOSProber = true;
-      '';
 
     };
 
