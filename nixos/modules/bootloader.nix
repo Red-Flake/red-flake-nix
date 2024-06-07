@@ -25,14 +25,33 @@
     "net.ifnames=0"
     "biosdevname=0"
   ];
+
   boot.loader = {
+    timeout = 3;
+
     efi = {
-      canTouchEfiVariables = true;
-      efiSysMountPoint = "/boot/efi";
+      efiSysMountPoint = "/boot";
     };
+
     grub = {
+      enable = true;
+      version = 2;
+
       efiSupport = true;
-      device = "nodev";
+      efiInstallAsRemovable = true; # Otherwise /boot/EFI/BOOT/BOOTX64.EFI isn't generated
+      devices = [ "nodev" ];
+
+      extraEntriesBeforeNixOS = true;
+      extraEntries = ''
+        menuentry "Reboot" {
+          reboot
+        }
+        menuentry "Poweroff" {
+          halt
+        }
+      '';
+
     };
+
   };
 }
