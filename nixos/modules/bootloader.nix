@@ -43,15 +43,6 @@
       efiInstallAsRemovable = true; # Otherwise /boot/EFI/BOOT/BOOTX64.EFI isn't generated
       devices = [ "nodev" ];
       useOSProber = true;
-
-      extraEntriesBeforeNixOS = true;
-      extraEntries = ''
-        menuentry "Reboot" {
-          reboot
-        }
-        menuentry "Poweroff" {
-          halt
-        }
       '';
 
     };
