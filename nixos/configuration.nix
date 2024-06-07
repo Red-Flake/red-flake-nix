@@ -6,6 +6,9 @@
     # Hardware configuration
     ./hardware-configuration.nix
 
+    # Bootloader configuration
+    ./modules/bootloader.nix
+
     # GPU configuration
     ./modules/gpu.nix
 
