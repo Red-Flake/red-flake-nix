@@ -1,5 +1,8 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-    powerManagement.cpuFreqGovernor = "performance";
+    powerManagement = {
+        enable = true;
+        cpuFreqGovernor = "performance";
+    };
 }
