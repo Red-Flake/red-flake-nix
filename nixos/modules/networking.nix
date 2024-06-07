@@ -5,7 +5,6 @@
   networking.wireless.iwd.enable = true;
   networking.networkmanager.wifi.backend = "iwd";
   networking.hostName = "redflake";
-  networking.timeServers = options.networking.timeServers.default ++ [ "ntp.example.com" ];
 
   # Get NTP Server via DHCP
   ## To use, put this in your configuration, switch to it, and restart NM:
