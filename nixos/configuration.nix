@@ -21,6 +21,9 @@
     # Kernel packages
     ./modules/kernel.nix
 
+    # Sysctl settings
+    ./modules/sysctl.nix
+
     # User settings
     ./modules/users.nix
 
