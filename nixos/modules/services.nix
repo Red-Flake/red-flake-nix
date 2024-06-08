@@ -71,4 +71,8 @@
     #jack.enable = true;
   };
 
+  # TRIM settings
+  # Enable periodic TRIM
+  services.fstrim.enable = true;
+
 }

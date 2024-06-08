@@ -44,6 +44,9 @@
 
     # performance optimizations
     ./modules/performance.nix
+
+    # theming
+    ./modules/theming.nix
   ];
 
   nixpkgs = {
