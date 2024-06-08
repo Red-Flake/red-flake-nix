@@ -33,6 +33,9 @@
     # Services settings
     ./modules/services.nix
 
+    # Desktop settings
+    ./modules/desktop.nix
+
     # Virtualization settings
     ./modules/virtualisation.nix
 
