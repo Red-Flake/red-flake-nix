@@ -3,6 +3,6 @@
 {
     powerManagement = {
         enable = true;
-        cpuFreqGovernor = "performance";
+        cpuFreqGovernor = lib.mkDefault "performance";
     };
 }
