@@ -75,4 +75,9 @@
   # Enable periodic TRIM
   services.fstrim.enable = true;
 
+  # DBus settings
+  # Enable DBus
+  dbus.enable = true;
+
+
 }

@@ -4,5 +4,6 @@
     powerManagement = {
         enable = true;
         cpuFreqGovernor = lib.mkDefault "performance";
+        powertop.enable = true;
     };
 }

@@ -1,7 +1,7 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-  # Enable Grub Bootloader
+  # Set kernel parameters
   boot.kernelParams = [
     "quiet"
     "splash"
@@ -26,16 +26,28 @@
     "biosdevname=0"
   ];
 
+  # Set kernel modules
+  boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod" ];
+  boot.initrd.kernelModules = [ ];
+  boot.kernelModules = [ "kvm-intel" "acpi_call" ];
+  boot.extraModulePackages = [ config.boot.kernelPackages.acpi_call ];
+
+  # Clear /tmp on boot
+  boot.tmp.cleanOnBoot = true;
+
+  # Bootloader settings
   boot.loader = {
     systemd-boot.enable = false;
 
     timeout = 3;
 
+    # EFI settings
     efi = {
       canTouchEfiVariables = false;
       efiSysMountPoint = "/boot";
     };
 
+    # Enable Grub Bootloader
     grub = {
       enable = true;
 
