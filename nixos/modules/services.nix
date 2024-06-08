@@ -1,6 +1,9 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
+  # Disable power-profiles-daemon (interferes with cpufreq)
+  services.power-profiles-daemon.enable = false;
+
   # OpenSSH settings
   services.openssh = {
     enable = true;
