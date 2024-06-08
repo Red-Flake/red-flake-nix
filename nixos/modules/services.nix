@@ -77,7 +77,7 @@
 
   # DBus settings
   # Enable DBus
-  dbus.enable = true;
+  services.dbus.enable = true;
 
 
 }
