@@ -150,5 +150,6 @@
     wineWowPackages.waylandFull
     bottles
     helvum
+    python312Packages.impacket
   ];
 }
