@@ -4,6 +4,7 @@
   networking.networkmanager.enable = true;
   networking.wireless.iwd.enable = true;
   networking.networkmanager.wifi.backend = "iwd";
+  networking.networkmanager.wifi.powersave = false;
   networking.hostName = "redflake";
 
   # Get NTP Server via DHCP
