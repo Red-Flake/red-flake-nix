@@ -5,11 +5,11 @@
     source = ./bloodhound/config.json;
     recursive = true;
     onChange = ''
-      cp ${config.xdg.configHome}/bloodhound/config.json ${home.homeDirectory}
+      cp ${config.xdg.configHome}/bloodhound/config.json ${config.home.homeDirectory}
       rm -f ${config.xdg.configHome}/bloodhound/config.json
-      cp ${home.homeDirectory}/config.json ${config.xdg.configHome}/bloodhound/config.json
+      cp ${config.home.homeDirectory}/config.json ${config.xdg.configHome}/bloodhound/config.json
       chmod u+w ${config.xdg.configHome}/bloodhound/config.json
-      rm -f ${home.homeDirectory}/config.json
+      rm -f ${config.home.homeDirectory}/config.json
     '';
   };
 }
