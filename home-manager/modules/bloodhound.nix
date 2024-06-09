@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 {
-  home.file.".config/bloodhound/config.json".text = lib.strings.indent 2 ''
+  home.file.".config/bloodhound/config.json".text = ''
 {
   "performance": {
     "edge": 5,
