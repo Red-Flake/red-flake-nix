@@ -1,25 +1,16 @@
 { config, lib, pkgs, ... }:
 
-let
-  configDir = "${config.xdg.configHome}/bloodhound";
-in
 {
-  # Ensure the directory exists
-  home.activation.ensureBloodhoundDir = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    mkdir -p ${configDir}
-  '';
-
-  # Create the configuration file
   home.file.".config/bloodhound/config1.json".text = ''
-{
-    "performance": {
+    {
+      "performance": {
         "edge": 5,
         "lowGraphics": false,
         "nodeLabels": 0,
         "edgeLabels": 0,
         "darkMode": true
-    },
-    "edgeincluded": {
+      },
+      "edgeincluded": {
         "MemberOf": true,
         "HasSession": true,
         "AdminTo": true,
@@ -53,7 +44,7 @@ in
         "AZMGGrantAppRoles": true,
         "AZNodeResourceGroup": true,
         "AZWebsiteContributor": true,
-        "AZLogicAppContributo": true,
+        "AZLogicAppContributor": true,
         "AZAutomationContributor": true,
         "AZAKSContributor": true,
         "AZAddMembers": true,
@@ -81,27 +72,36 @@ in
         "AZKeyVaultContributor": true,
         "AZVMAdminLogin": true,
         "AZVMContributor": true,
-        "AZLogicAppContributor": true,
         "AddSelf": true,
         "WriteSPN": true,
         "AddKeyCredentialLink": true,
         "DCSync": true
-    },
-    "databaseInfo": {
+      },
+      "databaseInfo": {
         "url": "bolt://localhost:7687",
         "user": "neo4j",
         "password": "Password1337"
-    }
-}
+      }
+    '';
+
+
+  # Ensure the directory exists
+  home.activation.ensureBloodhoundDir = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    echo "Creating directory: ${config.xdg.configHome}/bloodhound";
+    mkdir -p ${config.xdg.configHome}/bloodhound;
   '';
 
+
   # Activation script to copy the configuration file
-  home.activation.bloodhound = lib.hm.dag.entryAfter [ "writeBoundary" "ensureBloodhoundDir" ] ''
-    if [ -f "${configDir}/config1.json" ]; then
-      cp -L -f "${configDir}/config1.json" "${configDir}/config.json";
+  home.activation.bloodhound = lib.hm.dag.entryAfter [ "ensureBloodhoundDir" "writeBoundary" ] ''
+    echo "Checking if ${config.xdg.configHome}/bloodhound/config1.json exists";
+    if [ -f "${config.xdg.configHome}/bloodhound/config1.json" ]; then
+      echo "Copying ${config.xdg.configHome}/bloodhound/config1.json to ${config.xdg.configHome}/bloodhound/config.json";
+      cp -L -f "${config.xdg.configHome}/bloodhound/config1.json" "${config.xdg.configHome}/bloodhound/config.json";
     else
-      echo "Error: ${configDir}/config1.json does not exist";
+      echo "Error: ${config.xdg.configHome}/bloodhound/config1.json does not exist";
       exit 1;
     fi
   '';
+
 }
