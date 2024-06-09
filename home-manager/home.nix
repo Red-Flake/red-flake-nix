@@ -8,7 +8,7 @@
     ./modules/msf.nix
     ./modules/thefuck.nix
     ./modules/fastfetch.nix
-    #./modules/bloodhound.nix
+    ./modules/bloodhound.nix
   ];
 
   # disable warning about mismatched version between Home Manager and Nixpkgs
