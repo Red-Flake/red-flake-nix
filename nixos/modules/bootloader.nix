@@ -26,9 +26,19 @@
     "biosdevname=0"
   ];
 
+  # Switch to latest linux kernel
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
   # Set kernel modules
   boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod" ];
-  boot.initrd.kernelModules = [ ];
+  
+  # Set initramfs kernel modules
+  # Enable AMD video driver + Intel video driver via early KMS
+  boot.initrd.kernelModules = [
+    "amdgpu"
+    "i915"
+  ];
+
   boot.kernelModules = [ "kvm-intel" "acpi_call" ];
   boot.extraModulePackages = [ config.boot.kernelPackages.acpi_call ];
 
