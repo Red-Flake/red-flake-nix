@@ -6,6 +6,9 @@
   # Switch to latest linux kernel
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  # Enable AMD video driver
-  boot.initrd.kernelModules = [ "amdgpu" ];
+  # Enable AMD video driver + Intel video driver via early KMS
+  boot.initrd.kernelModules = [
+    "amdgpu"
+    "i915"
+  ];
 }
