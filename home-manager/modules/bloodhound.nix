@@ -1,6 +1,15 @@
 { config, lib, pkgs, ... }:
 
+let
+  configDir = "${config.xdg.configHome}/bloodhound";
+in
 {
+  # Ensure the directory exists
+  home.activation.ensureBloodhoundDir = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    mkdir -p ${configDir}
+  '';
+
+  # Create the configuration file
   home.file.".config/bloodhound/config1.json".text = ''
 {
     "performance": {
@@ -84,12 +93,15 @@
         "password": "Password1337"
     }
 }
-'';
-  
+  '';
 
-  # run script to automatically provision Bloodhound configuration
-  # home-manager cannot be used for this since this file cannot be a symlink
-  home.activation.bloodhound = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      cp -L -f "${config.xdg.configHome}/bloodhound/config1.json)" "${config.xdg.configHome}/bloodhound/config.json"
+  # Activation script to copy the configuration file
+  home.activation.bloodhound = lib.hm.dag.entryAfter [ "writeBoundary" "ensureBloodhoundDir" ] ''
+    if [ -f "${configDir}/config1.json" ]; then
+      cp -L -f "${configDir}/config1.json" "${configDir}/config.json";
+    else
+      echo "Error: ${configDir}/config1.json does not exist";
+      exit 1;
+    fi
   '';
 }
