@@ -2,9 +2,9 @@
 	"performance": {
 		"edge": 5,
 		"lowGraphics": false,
-		"nodeLabels": 0,
-		"edgeLabels": 0,
-		"darkMode": false
+		"nodeLabels": 1,
+		"edgeLabels": 1,
+		"darkMode": true
 	},
 	"edgeincluded": {
 		"MemberOf": true,
@@ -42,6 +42,41 @@
 		"AZWebsiteContributor": true,
 		"AZLogicAppContributo": true,
 		"AZAutomationContributor": true,
-		"AZAKSContributor": true
+		"AZAKSContributor": true,
+		"AZAddMembers": true,
+		"AZAddOwner": true,
+		"AZAddSecret": true,
+		"AZAvereContributor": true,
+		"AZContains": true,
+		"AZContributor": true,
+		"AZExecuteCommand": true,
+		"AZGetCertificates": true,
+		"AZGetKeys": true,
+		"AZGetSecrets": true,
+		"AZGlobalAdmin": true,
+		"AZHasRole": true,
+		"AZManagedIdentity": true,
+		"AZMemberOf": true,
+		"AZOwns": true,
+		"AZPrivilegedAuthAdmin": true,
+		"AZPrivilegedRoleAdmin": true,
+		"AZResetPassword": true,
+		"AZUserAccessAdministrator": true,
+		"AZAppAdmin": true,
+		"AZCloudAppAdmin": true,
+		"AZRunsAs": true,
+		"AZKeyVaultContributor": true,
+		"AZVMAdminLogin": true,
+		"AZVMContributor": true,
+		"AZLogicAppContributor": true,
+		"AddSelf": true,
+		"WriteSPN": true,
+		"AddKeyCredentialLink": true,
+		"DCSync": true
+	},
+	"databaseInfo": {
+		"url": "bolt://localhost:7687",
+		"user": "neo4j",
+		"password": "Password1337"
 	}
 }
