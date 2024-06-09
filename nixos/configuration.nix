@@ -18,9 +18,6 @@
     # System packages
     ./modules/packages.nix
 
-    # Kernel packages
-    ./modules/kernel.nix
-
     # Sysctl settings
     ./modules/sysctl.nix
 
