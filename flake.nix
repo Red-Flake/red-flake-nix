@@ -20,6 +20,7 @@
   } @ inputs: let
     system = "x86_64-linux";
     username = "pascal";
+    homeDirectory = "/home/pascal";
   in {
     nixosConfigurations = {
       redflake = nixpkgs.lib.nixosSystem {
@@ -41,7 +42,7 @@
               };
             };
             home-manager.backupFileExtension = "hm-backup";
-            home-manager.extraSpecialArgs = { inherit inputs username; };
+            home-manager.extraSpecialArgs = { inherit inputs username homeDirectory; };
           }
         ];
       };
