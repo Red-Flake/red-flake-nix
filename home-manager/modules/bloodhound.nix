@@ -13,8 +13,11 @@ in
         rm -f ${backupConfigJsonPath}
       fi
 
-      cp ${configJsonPath} ${config.home.homeDirectory}
-      rm -f ${configJsonPath}
+      # Ensure the existing config file is deleted
+      if [ -f ${configJsonPath} ]; then
+        rm -f ${configJsonPath}
+      fi
+
       cp ${config.home.homeDirectory}/config.json ${configJsonPath}
       chmod u+w ${configJsonPath}
       rm -f ${config.home.homeDirectory}/config.json
@@ -26,8 +29,11 @@ in
       rm -f ${backupConfigJsonPath}
     fi
 
-    cp ${configJsonPath} ${config.home.homeDirectory}
-    rm -f ${configJsonPath}
+    # Ensure the existing config file is deleted
+    if [ -f ${configJsonPath} ]; then
+      rm -f ${configJsonPath}
+    fi
+
     cp ${config.home.homeDirectory}/config.json ${configJsonPath}
     chmod u+w ${configJsonPath}
     rm -f ${config.home.homeDirectory}/config.json
