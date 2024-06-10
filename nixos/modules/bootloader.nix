@@ -39,9 +39,6 @@
     "i915"
   ];
 
-  boot.kernelModules = [ "kvm-intel" "acpi_call" ];
-  boot.extraModulePackages = [ config.boot.kernelPackages.acpi_call ];
-
   # Clear /tmp on boot
   boot.tmp.cleanOnBoot = true;
 

@@ -3,8 +3,11 @@
 {
   # Import other NixOS modules here
   imports = [
-    # Hardware configuration
+    # Installer-generated hardware configuration
     ./hardware-configuration.nix
+
+    # Additional hardware configuration
+    ./modules/hardware.nix
 
     # Bootloader configuration
     ./modules/bootloader.nix
