@@ -7,12 +7,23 @@ in
   xdg.configFile."bloodhound/config.json" = {
     source = ./bloodhound/config.json;
     recursive = true;
+    # We can still keep the onChange if needed
     onChange = ''
-      cp ${config.xdg.configHome}/bloodhound/config.json ${config.home.homeDirectory}
-      rm -f ${config.xdg.configHome}/bloodhound/config.json
-      cp ${config.home.homeDirectory}/config.json ${config.xdg.configHome}/bloodhound/config.json
-      chmod u+w ${config.xdg.configHome}/bloodhound/config.json
+      cp ${configJsonPath} ${config.home.homeDirectory}
+      rm -f ${configJsonPath}
+      cp ${config.home.homeDirectory}/config.json ${configJsonPath}
+      chmod u+w ${configJsonPath}
       rm -f ${config.home.homeDirectory}/config.json
     '';
   };
+
+  # Ensure commands are always run during activation
+  home.activation.postActivate = ''
+    cp ${configJsonPath} ${config.home.homeDirectory}
+    rm -f ${configJsonPath}
+    cp ${config.home.homeDirectory}/config.json ${configJsonPath}
+    chmod u+w ${configJsonPath}
+    rm -f ${config.home.homeDirectory}/config.json
+  '';
+
 }
