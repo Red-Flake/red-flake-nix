@@ -41,7 +41,6 @@
                 imports = [ ./home-manager/home.nix ];
               };
             };
-            home-manager.backupFileExtension = "hm-backup";
             home-manager.extraSpecialArgs = { inherit inputs username homeDirectory; };
           }
         ];
