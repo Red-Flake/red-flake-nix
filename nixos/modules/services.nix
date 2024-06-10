@@ -75,4 +75,7 @@
   services.dbus.enable = true;
 
 
+  # Fix Intel CPU throttling
+  services.throttled.enable = true;
+
 }
