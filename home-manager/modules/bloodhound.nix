@@ -2,7 +2,6 @@
 
 let
   configJsonPath = "${config.xdg.configHome}/bloodhound/config.json";
-  backupConfigJsonPath = "${config.xdg.configHome}/bloodhound/config.json.hm-backup";
 in
 {
   xdg.configFile."bloodhound/config.json" = {
@@ -12,8 +11,8 @@ in
 
   home.activation.preActivation = ''
     # Ensure the backup file is removed
-    if [ -f ${backupConfigJsonPath} ]; then
-      rm -f ${backupConfigJsonPath}
+    if [ -f ${configJsonPath} ]; then
+      rm -f ${configJsonPath}
     fi
   '';
 
