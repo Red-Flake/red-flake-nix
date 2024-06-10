@@ -78,6 +78,6 @@
   services.throttled.enable = true;
 
   # Enable timesyncd
-  services.systemd-timesyncd.enable = true;
+  services.timesyncd.enable = true;
 
 }
