@@ -1,14 +1,12 @@
 { config, lib, pkgs, ... }:
 
+let
+  configJsonPath = "${config.xdg.configHome}/bloodhound/config.json";
+in
 {
   xdg.configFile."bloodhound/config.json" = {
     source = ./bloodhound/config.json;
     recursive = true;
-    preStart = ''
-      if [ -f ${config.xdg.configHome}/bloodhound/config.json ]; then
-        rm -f ${config.xdg.configHome}/bloodhound/config.json
-      fi
-    '';
     onChange = ''
       cp ${config.xdg.configHome}/bloodhound/config.json ${config.home.homeDirectory}
       rm -f ${config.xdg.configHome}/bloodhound/config.json
