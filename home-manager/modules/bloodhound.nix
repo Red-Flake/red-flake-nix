@@ -2,28 +2,21 @@
 
 let
   configJsonPath = "${config.xdg.configHome}/bloodhound/config.json";
+  sourceConfigJsonPath = "${./bloodhound/config.json}";
 in
 {
-  xdg.configFile."bloodhound/config.json" = {
-    source = ./bloodhound/config.json;
-    recursive = false;
-  };
-
   home.activation.preActivation = ''
-    # Ensure the backup file is removed
+    # Ensure the existing config file is removed before activation
     if [ -f ${configJsonPath} ]; then
       rm -f ${configJsonPath}
     fi
+
+    # Copy the new config file
+    cp ${sourceConfigJsonPath} ${configJsonPath}
   '';
 
   home.activation.postActivate = ''
-    # Ensure the existing config file is deleted
-    if [ -f ${configJsonPath} ]; then
-      rm -f ${configJsonPath}
-    fi
-
-    cp ${config.home.homeDirectory}/config.json ${configJsonPath}
+    # Ensure the config file has the correct permissions
     chmod u+w ${configJsonPath}
-    rm -f ${config.home.homeDirectory}/config.json
   '';
 }
