@@ -6,7 +6,7 @@ in
 {
   xdg.configFile."bloodhound/config.json" = {
     source = ./bloodhound/config.json;
-    recursive = true;
+    recursive = false;
     # We can still keep the onChange if needed
     onChange = ''
       cp ${configJsonPath} ${config.home.homeDirectory}
