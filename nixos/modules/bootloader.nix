@@ -26,8 +26,8 @@
     "biosdevname=0"
   ];
 
-  # Switch to latest linux kernel
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # Switch to CachyOS LTO optimized kernel
+  boot.kernelPackages = pkgs.linuxPackages_cachyos-lto;
 
   # Set kernel modules
   boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod" ];
