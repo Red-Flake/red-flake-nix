@@ -10,11 +10,15 @@
     };
 
     NUR.url = "github:nix-community/NUR";
+
+    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
   };
 
   outputs = {
     self,
     nixpkgs,
+    chaotic,
+    NUR,
     home-manager, 
     ... 
   } @ inputs: let
@@ -28,6 +32,7 @@
         specialArgs = { inherit inputs; };
         modules = [
           ./nixos/configuration.nix
+          chaotic.nixosModules.default
           {
             imports = [ inputs.home-manager.nixosModules.home-manager ];
 
