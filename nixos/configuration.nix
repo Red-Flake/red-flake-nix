@@ -87,6 +87,9 @@
       nix-path = config.nix.nixPath;
       # Enable deduplication
       auto-optimise-store = true;
+      # Enable Cachix Binary Cache for Chaotic-Nyx
+      substituters = ["https://chaotic-nyx.cachix.org"];
+      trusted-public-keys = ["chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="];
     };
     # Opinionated: disable channels
     channel.enable = false;
