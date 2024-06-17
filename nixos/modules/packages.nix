@@ -6,6 +6,7 @@
   environment.systemPackages = with pkgs; [
     git
     home-manager
+    scx
     file
     tree
     vim

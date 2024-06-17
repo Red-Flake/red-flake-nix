@@ -2,22 +2,27 @@
   description = "Red-Flake";
 
   inputs = {
+    # chaotic-nyx
+    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+
+    # NUR
+    NUR.url = "github:nix-community/NUR";
+
+    # nixos-unstable 
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     
+    # home-manager
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    NUR.url = "github:nix-community/NUR";
-
-    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
   };
 
   outputs = {
     self,
-    nixpkgs,
     chaotic,
+    nixpkgs,
     NUR,
     home-manager, 
     ... 
