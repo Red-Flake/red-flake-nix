@@ -12,6 +12,11 @@ in
       # If not, create bloodhound folder
       mkdir -p "${bloodhoundPath}"
     fi
+
+    # Ensure the existing config file is removed before activation
+    if [ -f ${configJsonPath} ]; then
+      rm -f ${configJsonPath}
+    fi
     
     # Copy the new config file
     cp "${sourceConfigJsonPath}" "${configJsonPath}"
