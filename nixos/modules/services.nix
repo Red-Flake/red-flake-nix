@@ -80,8 +80,8 @@
   # Enable timesyncd
   services.timesyncd.enable = true;
 
-  # Enable automatic-timezoned
-  services.automatic-timezoned.enable = true;
+  # Enable localtimed
+  services.localtimed.enable = true;
 
 
 }
