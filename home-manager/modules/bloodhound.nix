@@ -14,8 +14,8 @@ in
     fi
 
     # Ensure the existing config file is removed before activation
-    if [ -f ${configJsonPath} ]; then
-      rm -f ${configJsonPath}
+    if [ -f "${configJsonPath}" ]; then
+      rm -f "${configJsonPath}"
     fi
     
     # Copy the new config file
