@@ -2,11 +2,11 @@
   "nodes": {
     "NUR": {
       "locked": {
-        "lastModified": 1716609865,
-        "narHash": "sha256-yrD3ZIstDGJ2BkLKlCieye+8MYQhXUUZkpRVeetPOkg=",
+        "lastModified": 1718621143,
+        "narHash": "sha256-TeU1Yun2IocjJiOgpanrgfb9CqZz6DuN6SykOZkxf0Q=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "a85cb4d2c000656aa5f7129345e2f5e886b708ad",
+        "rev": "ef9adc6e4f937a4a010867c5625ec14508338083",
         "type": "github"
       },
       "original": {
@@ -15,11 +15,13 @@
         "type": "github"
       }
     },
-    "chaotic": {
+    "chaotic-nyx": {
       "inputs": {
         "compare-to": "compare-to",
         "flake-schemas": "flake-schemas",
-        "home-manager": "home-manager",
+        "home-manager": [
+          "home-manager"
+        ],
         "jovian": "jovian",
         "nixpkgs": "nixpkgs",
         "systems": "systems",
@@ -54,6 +56,27 @@
         "url": "https://flakehub.com/f/chaotic-cx/nix-empty-flake/%3D0.1.2.tar.gz"
       }
     },
+    "flake-parts": {
+      "inputs": {
+        "nixpkgs-lib": [
+          "chaotic-nyx",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1717285511,
+        "narHash": "sha256-iKzJcpdXih14qYVcZ9QC9XuZYnPc6T8YImb6dX166kw=",
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "rev": "2a55567fcf15b1b1c7ed712a2c6fadaec7412ea8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "type": "github"
+      }
+    },
     "flake-schemas": {
       "locked": {
         "lastModified": 1693491534,
@@ -68,30 +91,31 @@
         "url": "https://flakehub.com/f/DeterminateSystems/flake-schemas/%3D0.1.1.tar.gz"
       }
     },
-    "home-manager": {
+    "gitignore": {
       "inputs": {
         "nixpkgs": [
-          "chaotic",
+          "pre-commit-hooks",
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1718526747,
-        "narHash": "sha256-sKrD/utGvmtQALvuDj4j0CT3AJXP1idOAq2p+27TpeE=",
-        "owner": "nix-community",
-        "repo": "home-manager",
-        "rev": "0a7ffb28e5df5844d0e8039c9833d7075cdee792",
+        "lastModified": 1709087332,
+        "narHash": "sha256-HG2cCnktfHsKV0s4XW83gU3F57gaTljL9KNSuG6bnQs=",
+        "owner": "hercules-ci",
+        "repo": "gitignore.nix",
+        "rev": "637db329424fd7e46cf4185293b9cc8c88c95394",
         "type": "github"
       },
       "original": {
-        "owner": "nix-community",
-        "repo": "home-manager",
+        "owner": "hercules-ci",
+        "repo": "gitignore.nix",
         "type": "github"
       }
     },
-    "home-manager_2": {
+    "home-manager": {
       "inputs": {
         "nixpkgs": [
+          "chaotic-nyx",
           "nixpkgs"
         ]
       },
@@ -114,7 +138,7 @@
       "inputs": {
         "nix-github-actions": "nix-github-actions",
         "nixpkgs": [
-          "chaotic",
+          "chaotic-nyx",
           "nixpkgs"
         ]
       },
@@ -135,7 +159,7 @@
     "nix-github-actions": {
       "inputs": {
         "nixpkgs": [
-          "chaotic",
+          "chaotic-nyx",
           "jovian",
           "nixpkgs"
         ]
@@ -155,6 +179,27 @@
         "type": "github"
       }
     },
+    "nix-index-database": {
+      "inputs": {
+        "nixpkgs": [
+          "chaotic-nyx",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1718507237,
+        "narHash": "sha256-xBEWCxWeRpWQggFFp8ugJCDa63cOJsVvx71R9F0Eowg=",
+        "owner": "nix-community",
+        "repo": "nix-index-database",
+        "rev": "6af2c5e58c20311276f59d247341cafeebfcb6f4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nix-index-database",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1718318537,
@@ -171,28 +216,48 @@
         "type": "github"
       }
     },
-    "nixpkgs_2": {
+    "pre-commit-hooks": {
+      "inputs": {
+        "flake-compat": [
+          "chaotic-nyx",
+          "nixpkgs"
+        ],
+        "gitignore": "gitignore",
+        "nixpkgs": [
+          "chaotic-nyx",
+          "nixpkgs"
+        ],
+        "nixpkgs-stable": [
+          "chaotic-nyx",
+          "nixpkgs"
+        ]
+      },
       "locked": {
-        "lastModified": 1716330097,
-        "narHash": "sha256-8BO3B7e3BiyIDsaKA0tY8O88rClYRTjvAp66y+VBUeU=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "5710852ba686cc1fd0d3b8e22b3117d43ba374c2",
+        "lastModified": 1717664902,
+        "narHash": "sha256-7XfBuLULizXjXfBYy/VV+SpYMHreNRHk9nKMsm1bgb4=",
+        "owner": "cachix",
+        "repo": "pre-commit-hooks.nix",
+        "rev": "cc4d466cb1254af050ff7bdf47f6d404a7c646d1",
         "type": "github"
       },
       "original": {
-        "owner": "nixos",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
+        "owner": "cachix",
+        "repo": "pre-commit-hooks.nix",
         "type": "github"
       }
     },
     "root": {
       "inputs": {
         "NUR": "NUR",
-        "chaotic": "chaotic",
-        "home-manager": "home-manager_2",
-        "nixpkgs": "nixpkgs_2"
+        "chaotic-nyx": "chaotic-nyx",
+        "flake-parts": "flake-parts",
+        "home-manager": "home-manager",
+        "nix-index-database": "nix-index-database",
+        "nixpkgs": [
+          "chaotic-nyx",
+          "nixpkgs"
+        ],
+        "pre-commit-hooks": "pre-commit-hooks"
       }
     },
     "systems": {
@@ -213,11 +278,11 @@
     "yafas": {
       "inputs": {
         "flake-schemas": [
-          "chaotic",
+          "chaotic-nyx",
           "flake-schemas"
         ],
         "systems": [
-          "chaotic",
+          "chaotic-nyx",
           "systems"
         ]
       },

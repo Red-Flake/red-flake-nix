@@ -57,9 +57,11 @@
 
   nixpkgs = {
     # You can add overlays here
-    overlays = [
+    overlays = with inputs; [
       # If you want to use overlays exported from other flakes:
       # neovim-nightly-overlay.overlays.default
+      chaotic-nyx.overlays.default
+      NUR.overlay
 
       # Or define it inline, for example:
       # (final: prev: {
@@ -78,19 +80,40 @@
   nix = let
     flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
   in {
+    # Don't warn about dirty flakes and accept flake configs by default
+    extraOptions = ''
+      accept-flake-config = true
+      warn-dirty = false
+    '';
     settings = {
+      # Use available binary caches, this is not Gentoo
+      # this also allows us to use remote builders to reduce build times and batter usage
+      builders-use-substitutes = true;
+
       # Enable flakes and new 'nix' command
-      experimental-features = "nix-command flakes";
+      experimental-features = [ "nix-command" "flakes" ];
+
       # Opinionated: disable global registry
       flake-registry = "";
+
       # Workaround for https://github.com/NixOS/nix/issues/9574
       nix-path = config.nix.nixPath;
+
       # Enable deduplication
       auto-optimise-store = true;
+
+      # A few extra binary caches and their public keys
       # Enable Cachix Binary Cache for Chaotic-Nyx
-      substituters = ["https://chaotic-nyx.cachix.org"];
-      trusted-public-keys = ["chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="];
+      extra-substituters = [ "https://chaotic-nyx.cachix.org" ];
+      extra-trusted-public-keys = [ "chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8=" ];
+
+      # Show more log lines for failed builds
+      log-lines = 20;
+
+      # Max number of parallel jobs
+      max-jobs = "auto";
     };
+
     # Opinionated: disable channels
     channel.enable = false;
 
