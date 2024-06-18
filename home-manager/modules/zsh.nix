@@ -93,7 +93,7 @@ in
                     ll = "lsd -la";
                     la = "lsd -la";
                     lsa = "lsd -la";
-                    tree = "lsd --tree";
+                    tree = "lsd --tree -a";
                     cat = "bat";
                     cme = "nxc";
                     crackmapexec = "netexec";
