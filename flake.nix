@@ -33,10 +33,10 @@
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "chaotic-nyx/nixpkgs";
     };
-    
+
     # Home configuration management
     home-manager = {
-      url = "github:nix-community/home-manager/master";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "chaotic-nyx/nixpkgs";
     };
 
@@ -59,30 +59,18 @@
     NUR.url = "github:nix-community/NUR";
   };
 
-  outputs = {
-    flake-parts,
-    nixpkgs,
-    pre-commit-hooks,
-    home-manager,
-    plasma-manager,
-    ... 
-  } @ inputs: let
+  outputs = { flake-parts, nixpkgs, pre-commit-hooks, home-manager, plasma-manager, ... } @ inputs: let
     system = "x86_64-linux";
     username = "pascal";
     homeDirectory = "/home/pascal";
   in {
     nixosConfigurations = {
-
       redflake = nixpkgs.lib.nixosSystem {
-
         inherit system;
         specialArgs = { inherit inputs; };
 
         modules = [
-          inputs.plasma-manager.homeManagerModules.plasma-manager
-
           ./nixos/configuration.nix
-
           {
             imports = [ inputs.home-manager.nixosModules.home-manager ];
 
@@ -94,13 +82,15 @@
                 home.username = "pascal";
                 home.homeDirectory = "/home/pascal";
                 home.stateVersion = "23.05";
-                imports = [ ./home-manager/home.nix ];
+                imports = [
+                  inputs.plasma-manager.homeManagerModules.plasma-manager
+                  ./home-manager/home.nix 
+                ];
               };
             };
-            
+
             home-manager.extraSpecialArgs = { inherit inputs username homeDirectory; };
           }
-          
         ];
       };
     };

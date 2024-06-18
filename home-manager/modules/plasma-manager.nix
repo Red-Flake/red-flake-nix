@@ -1,10 +1,14 @@
-{ config, lib, pkgs, ... }:
-{
-    imports = [
-      <plasma-manager/modules>
-    ];
+{ pkgs, ... }:
 
-    programs.plasma = {
-      enable = true;
-    }
+let
+  inherit (inputs.home-manager) lib;
+in
+{
+  imports = [
+    "${inputs.plasma-manager}/modules"
+  ];
+
+  programs.plasma = {
+    enable = true;
+  };
 }
