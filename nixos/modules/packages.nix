@@ -152,5 +152,6 @@
     bottles
     helvum
     python312Packages.impacket
+    mission-center
   ];
 }
