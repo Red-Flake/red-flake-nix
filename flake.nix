@@ -40,6 +40,13 @@
       inputs.nixpkgs.follows = "chaotic-nyx/nixpkgs";
     };
 
+    # https://github.com/pjones/plasma-manager
+    plasma-manager = {
+      url = "github:pjones/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
+
     # Easy linting of the flake and all kind of other stuff
     pre-commit-hooks = {
       url = "github:cachix/pre-commit-hooks.nix";
@@ -56,6 +63,8 @@
     flake-parts,
     nixpkgs,
     pre-commit-hooks,
+    home-manager,
+    plasma-manager,
     ... 
   } @ inputs: let
     system = "x86_64-linux";
@@ -63,16 +72,23 @@
     homeDirectory = "/home/pascal";
   in {
     nixosConfigurations = {
+
       redflake = nixpkgs.lib.nixosSystem {
+
         inherit system;
         specialArgs = { inherit inputs; };
+
         modules = [
+          inputs.plasma-manager.homeManagerModules.plasma-manager
+
           ./nixos/configuration.nix
+
           {
             imports = [ inputs.home-manager.nixosModules.home-manager ];
 
             home-manager.useGlobalPkgs = false;
             home-manager.useUserPackages = true;
+
             home-manager.users = {
               pascal = {
                 home.username = "pascal";
@@ -81,6 +97,7 @@
                 imports = [ ./home-manager/home.nix ];
               };
             };
+            
             home-manager.extraSpecialArgs = { inherit inputs username homeDirectory; };
           }
           
