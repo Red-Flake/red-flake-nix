@@ -1,14 +1,11 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 let
-  artworkPath = builtins.fetchGit {
-    url = "https://github.com/Red-Flake/artwork.git";
-    ref = "main";
-  };
+  artworkPath = "${inputs.artwork}/logos";
 in
 {
   home.file.".red-flake/artwork/logos/" = {
-    source = "${artworkPath}/logos";
+    source = artworkPath;
     recursive = true;
     force = true;
   };

@@ -57,9 +57,15 @@
     };
 
     NUR.url = "github:nix-community/NUR";
+
+    # Red-Flake artwork
+    artwork = {
+      url = "github:Red-Flake/artwork";
+      flake = false;
+    };
   };
 
-  outputs = { flake-parts, nixpkgs, pre-commit-hooks, home-manager, plasma-manager, ... } @ inputs: let
+  outputs = { flake-parts, nixpkgs, pre-commit-hooks, home-manager, plasma-manager, artwork, ... } @ inputs: let
     system = "x86_64-linux";
     username = "pascal";
     homeDirectory = "/home/pascal";
