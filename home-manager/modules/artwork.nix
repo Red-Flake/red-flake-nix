@@ -9,4 +9,10 @@ in
     recursive = true;
     force = true;
   };
+
+  home.file.".local/share/icons/red-flake/" = {
+    source = artworkPath;
+    recursive = true;
+    force = true;
+  };
 }
