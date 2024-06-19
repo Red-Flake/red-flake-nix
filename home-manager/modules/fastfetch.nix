@@ -7,7 +7,7 @@
         "$schema" = "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json";
         logo = {
           type = "iterm";
-          source = "/home/pascal/artwork/logos/RedFlake_Logo_512x512px.png";
+          source = "${config.home.homeDirectory}/.red-flake/artwork/logos/RedFlake_Logo_512x512px.png";
         };
         display = {
           color = {
