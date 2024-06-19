@@ -159,7 +159,7 @@
     enable = true;
     profiles = {
       "Red-Flake" = {
-        colorScheme = "Green-on-Black";
+        colorScheme = "Catppuccin-Mocha";
         command = "''${pkgs.zsh}/bin/zsh";
         font = {
           name = "Hack";
@@ -169,4 +169,15 @@
     };
     defaultProfile = "Red-Flake";
   };
+
+  xdg.dataFile."konsole/Catppuccin-Mocha.colorscheme".source =
+    pkgs.fetchFromGitHub
+      {
+        owner = "catppuccin";
+        repo = "konsole";
+        rev = "7d86b8a1e56e58f6b5649cdaac543a573ac194ca";
+        sha256 = "EwSJMTxnaj2UlNJm1t6znnatfzgm1awIQQUF3VPfCTM=";
+      }
+    + "/Catppuccin-Mocha.colorscheme";
+
 }
