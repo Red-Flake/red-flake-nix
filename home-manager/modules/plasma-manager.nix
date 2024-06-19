@@ -18,6 +18,13 @@
       wallpaper = "${pkgs.kdePackages.plasma-workspace-wallpapers}/share/wallpapers/Patak/contents/images/1080x1920.png";
     };
 
+    kwin = {
+      virtualDesktops = {
+        rows = 1;
+        number = 8;
+      };
+    };
+
     hotkeys.commands."launch-konsole" = {
       name = "Launch Konsole";
       key = "Ctrl+Alt+T";
@@ -35,6 +42,7 @@
       # Windows-like panel at the bottom
       {
         location = "bottom";
+        floating = false;
         height = 36;
         widgets = [
           # We can configure the widgets by adding the name and config
@@ -73,7 +81,7 @@
           # some modifications in which entries to show.
           {
             digitalClock = {
-              calendar.firstDayOfWeek = "sunday";
+              calendar.firstDayOfWeek = "monday";
               time.format = "12h";
             };
           }
@@ -85,11 +93,13 @@
                 "org.kde.plasma.volume"
                 "org.kde.plasma.battery"
                 "org.kde.plasma.bluetooth"
+                "org.kde.plasma.systemtray"
               ];
               # And explicitly hide networkmanagement and volume
               hidden = [
-                
+                "org.kde.plasma.brightness"
               ];
+              configs.battery.showPercentage = true;
             };
           }
         ];
@@ -111,7 +121,7 @@
     #
     shortcuts = {
       ksmserver = {
-        "Lock Session" = [ "Screensaver" "Meta+Ctrl+Alt+L" ];
+        "Lock Session" = [ "Screensaver" "Ctrl+Alt+L" ];
       };
 
       kwin = {
@@ -142,5 +152,21 @@
         "Greeter/Wallpaper/org.kde.potd/General".Provider = "bing";
       };
     };
+  };
+
+
+  programs.konsole = {
+    enable = true;
+    profiles = {
+      "Red-Flake" = {
+        colorScheme = "Green-on-Black";
+        command = "''${pkgs.zsh}/bin/zsh";
+        font = {
+          name = "Hack";
+          size = 12;
+        };
+      }; 
+    };
+    defaultProfile = "Red-Flake";
   };
 }
