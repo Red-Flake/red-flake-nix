@@ -20,4 +20,11 @@
       recursive = false;
       force = true;
     };
+
+    # deploy Kali-Dark colorscheme
+    home.file.".local/share/konsole/Kali-Dark.colorscheme" = {
+      source = ./konsole/Kali-Dark.colorscheme;
+      recursive = false;
+      force = true;
+    };
 }

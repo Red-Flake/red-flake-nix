@@ -154,4 +154,10 @@
     };
   };
 
+
+  programs.konsole = {
+    enable = true;
+    defaultProfile = "Red-Flake";
+  };
+
 }

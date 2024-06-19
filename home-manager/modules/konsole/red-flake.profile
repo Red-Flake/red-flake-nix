@@ -5,7 +5,7 @@ UseFontLineChararacters=true
 
 [General]
 AlternatingBackground=0
-Name=Red-Flake-Profile
+Name=Red-Flake
 Parent=FALLBACK/
 SemanticInputClick=true
 ShowTerminalSizeHint=false
