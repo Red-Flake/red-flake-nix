@@ -2,7 +2,7 @@
 {
     home.file.".red-flake/artwork/logos/" = {
       source = ../../artwork/logos;
-      recursive = false;
+      recursive = true;
       force = true;
     };
 }
