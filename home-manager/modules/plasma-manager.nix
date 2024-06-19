@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 
 {
   programs.plasma = {
@@ -43,7 +43,7 @@
       {
         location = "bottom";
         floating = false;
-        height = 36;
+        height = 40;
         widgets = [
           # We can configure the widgets by adding the name and config
           # attributes. For example to add the the kickoff widget and set the
@@ -53,7 +53,7 @@
           {
             name = "org.kde.plasma.kickoff";
             config = {
-              General.icon = "nix-snowflake-white";
+              General.icon = "${config.home.homeDirectory}/.local/share/icons/red-flake/RedFlake_Logo_32x32px.png";
             };
           }
           # Adding configuration to the widgets can also for example be used to
@@ -153,11 +153,5 @@
       };
     };
   };
-
-
-  #programs.konsole = {
-  #  enable = true;
-  #  defaultProfile = "Red-Flake";
-  #};
-
+  
 }
