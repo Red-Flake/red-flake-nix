@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 {
-    home.file.".red-flake/logos/" = {
-      source = ./konsole/red-flake.profile;
+    home.file.".red-flake/artwork/logos/" = {
+      source = ../../artwork/logos;
       recursive = false;
       force = true;
     };
