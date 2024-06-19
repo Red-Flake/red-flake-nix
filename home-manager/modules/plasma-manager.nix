@@ -155,9 +155,9 @@
   };
 
 
-  programs.konsole = {
-    enable = true;
-    defaultProfile = "Red-Flake";
-  };
+  #programs.konsole = {
+  #  enable = true;
+  #  defaultProfile = "Red-Flake";
+  #};
 
 }
