@@ -35,7 +35,7 @@
       # Windows-like panel at the bottom
       {
         location = "bottom";
-        height = 28;
+        height = 36;
         widgets = [
           # We can configure the widgets by adding the name and config
           # attributes. For example to add the the kickoff widget and set the
