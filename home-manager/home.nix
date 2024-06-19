@@ -11,6 +11,7 @@
     ./modules/bloodhound.nix
     ./modules/plasma-manager.nix
     ./modules/konsole.nix
+    ./modules/artwork.nix
   ];
 
   # disable warning about mismatched version between Home Manager and Nixpkgs
