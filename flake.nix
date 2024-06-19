@@ -47,6 +47,9 @@
       inputs.home-manager.follows = "home-manager";
     };
 
+    # https://github.com/catppuccin/nix
+    catppuccin.url = "github:catppuccin/nix";
+
     # Easy linting of the flake and all kind of other stuff
     pre-commit-hooks = {
       url = "github:cachix/pre-commit-hooks.nix";
@@ -59,7 +62,7 @@
     NUR.url = "github:nix-community/NUR";
   };
 
-  outputs = { flake-parts, nixpkgs, pre-commit-hooks, home-manager, plasma-manager, ... } @ inputs: let
+  outputs = { flake-parts, nixpkgs, pre-commit-hooks, home-manager, plasma-manager, catpuccin, ... } @ inputs: let
     system = "x86_64-linux";
     username = "pascal";
     homeDirectory = "/home/pascal";
@@ -91,6 +94,7 @@
 
             home-manager.extraSpecialArgs = { inherit inputs username homeDirectory; };
           }
+          catppuccin.nixosModules.catppuccin
         ];
       };
     };
