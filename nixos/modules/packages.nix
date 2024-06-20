@@ -8,6 +8,7 @@
     home-manager
     scx
     file
+    gparted
     tree
     vim
     nano
