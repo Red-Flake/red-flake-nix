@@ -12,6 +12,9 @@
     # Bootloader configuration
     ./modules/bootloader.nix
 
+    # Timezone configuration
+    ./modules/timezone.nix
+
     # GPU configuration
     ./modules/gpu.nix
 
