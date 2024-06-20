@@ -26,6 +26,12 @@ ThumbnailCtrl=true
 [UiSettings]
 ColorScheme=
 
+[SplitView]
+SplitViewVisibility=AlwaysHideSplitHeader
+
 [TabBar]
+CloseTabOnMiddleMouseButton=true
+ExpandTabWidth=true
+NewTabButton=true
 TabBarPosition=Bottom
-TabBarVisibility=Always
+TabBarVisibility=AlwaysShowTabBar
