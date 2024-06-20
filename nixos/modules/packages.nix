@@ -155,5 +155,6 @@
     mission-center
     wpscan
     joomscan
+    psmisc
   ];
 }
