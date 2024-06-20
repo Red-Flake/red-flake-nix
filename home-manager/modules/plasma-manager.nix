@@ -77,14 +77,6 @@
           # configuring the widgets. See modules/widgets for supported widgets
           # and options for these widgets. The widgets below shows two examples
           # of usage, one where we add a digital clock, setting 12h time and
-          # first day of the week to sunday and another adding a systray with
-          # some modifications in which entries to show.
-          {
-            digitalClock = {
-              calendar.firstDayOfWeek = "sunday";
-              time.format = "12h";
-            };
-          }
           {
             systemTray.items = {
               # We explicitly show bluetooth and battery
@@ -100,6 +92,12 @@
                 "org.kde.plasma.brightness"
               ];
               configs.battery.showPercentage = true;
+            };
+          }
+          {
+            digitalClock = {
+              calendar.firstDayOfWeek = "sunday";
+              time.format = "12h";
             };
           }
         ];
