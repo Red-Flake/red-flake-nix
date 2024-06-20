@@ -50,7 +50,7 @@
 
     # EFI settings
     efi = {
-      canTouchEfiVariables = false;
+      canTouchEfiVariables = true;
       efiSysMountPoint = "/boot";
     };
 
@@ -59,8 +59,7 @@
       enable = true;
 
       efiSupport = true;
-      efiInstallAsRemovable = true; # Otherwise /boot/EFI/BOOT/BOOTX64.EFI isn't generated
-      devices = [ "nodev" ];
+      device = "nodev";
       useOSProber = true;
 
     };
