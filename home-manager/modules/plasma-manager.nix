@@ -130,6 +130,8 @@
         "Switch Window Left" = "Meta+H";
         "Switch Window Right" = "Meta+L";
         "Switch Window Up" = "Meta+K";
+        "Switch One Desktop to the Left" = "Ctrl+Alt+Left";
+        "Switch One Desktop to the Right" = "Ctrl+Alt+Right";
       };
     };
 
