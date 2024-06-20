@@ -80,12 +80,6 @@
           # first day of the week to sunday and another adding a systray with
           # some modifications in which entries to show.
           {
-            digitalClock = {
-              calendar.firstDayOfWeek = "monday";
-              time.format = "12h";
-            };
-          }
-          {
             systemTray.items = {
               # We explicitly show bluetooth and battery
               shown = [
@@ -100,6 +94,13 @@
                 "org.kde.plasma.brightness"
               ];
               configs.battery.showPercentage = true;
+            };
+          }
+          {
+            digitalClock = {
+              calendar.firstDayOfWeek = "monday";
+              time.format = "12h";
+              date.enable = false;
             };
           }
         ];
