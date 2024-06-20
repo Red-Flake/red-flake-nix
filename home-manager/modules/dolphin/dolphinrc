@@ -1,0 +1,43 @@
+MenuBar=Enabled
+
+[$Version]
+update_info=dolphin_detailsmodesettings.upd:rename-leading-padding,dolphin_detailsmodesettings.upd:move-content-display
+
+[ContentDisplay]
+DirectorySizeCount=false
+DirectorySizeMode=ContentSize
+UsePermissionsFormat=CombinedFormat
+
+[ContextMenu]
+ShowCopyMoveMenu=true
+ShowViewMode=false
+
+[General]
+BrowseThroughArchives=true
+EditableUrl=true
+OpenExternallyCalledFolderInNewTab=true
+OpenNewTabAfterLastTab=true
+ShowFullPath=true
+ShowFullPathInTitlebar=true
+SortingChoice=CaseSensitiveSorting
+Version=202
+ViewPropsTimestamp=2023,9,15,23,33,33.106
+
+[KFileDialog Settings]
+Places Icons Auto-resize=false
+Places Icons Static Size=22
+
+[KPropertiesDialog]
+1280x800 screen: Height=616
+1280x800 screen: Width=439
+1536x864 screen: Height=616
+1536x864 screen: Width=438
+1920x1080 screen: Height=549
+1920x1080 screen: Width=521
+
+[MainWindow]
+MenuBar=Enabled
+ToolBarsMovable=Disabled
+
+[PreviewSettings]
+Plugins=appimagethumbnail,audiothumbnail,comicbookthumbnail,cursorthumbnail,djvuthumbnail,ebookthumbnail,exrthumbnail,directorythumbnail,fontthumbnail,imagethumbnail,jpegthumbnail,kraorathumbnail,windowsexethumbnail,windowsimagethumbnail,opendocumentthumbnail,gsthumbnail,svgthumbnail,textthumbnail,ffmpegthumbs
