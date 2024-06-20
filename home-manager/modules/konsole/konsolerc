@@ -25,3 +25,7 @@ ThumbnailCtrl=true
 
 [UiSettings]
 ColorScheme=
+
+[TabBar]
+TabBarPosition=Bottom
+TabBarVisibility=Always
