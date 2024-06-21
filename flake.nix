@@ -56,7 +56,7 @@
       inputs.nixpkgs-stable.follows = "chaotic-nyx/nixpkgs";
     };
 
-    NUR.url = "github:nix-community/NUR";
+    nur.url = "github:nix-community/NUR";
 
     # Red-Flake artwork
     artwork = {
@@ -80,7 +80,7 @@
           {
             imports = [ inputs.home-manager.nixosModules.home-manager ];
 
-            home-manager.useGlobalPkgs = false;
+            home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
 
             home-manager.users = {

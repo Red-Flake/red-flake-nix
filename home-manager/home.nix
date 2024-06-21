@@ -4,6 +4,7 @@
 {
   # import other home-manager
   imports = [
+    inputs.nur.hmModules.nur
     ./modules/zsh.nix
     ./modules/msf.nix
     ./modules/thefuck.nix
@@ -13,18 +14,11 @@
     ./modules/konsole.nix
     ./modules/dolphin.nix
     ./modules/artwork.nix
+    ./modules/firefox.nix
   ];
 
   # disable warning about mismatched version between Home Manager and Nixpkgs
   home.enableNixpkgsReleaseCheck = false;
-
-  nixpkgs = {
-    overlays = [];
-    config = {
-      allowUnfree = true;
-      allowUnfreePredicate = _: true;
-    };
-  };
 
   home.packages = with pkgs; [
     oh-my-zsh
@@ -36,6 +30,11 @@
     meslo-lgs-nf
     thefuck
   ];
+
+  home.sessionVariables = {
+    # This should be default soon
+    MOZ_ENABLE_WAYLAND = 1;
+  };
 
   xsession.enable = true;
 
