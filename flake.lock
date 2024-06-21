@@ -1,20 +1,5 @@
 {
   "nodes": {
-    "NUR": {
-      "locked": {
-        "lastModified": 1718859003,
-        "narHash": "sha256-zxJ3jCMflYhD65MrOTavfxa3W7FNi6dI+fgMTKuqVqQ=",
-        "owner": "nix-community",
-        "repo": "NUR",
-        "rev": "dd04618abb7619acc608bf3f98a7c295c153ff65",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "NUR",
-        "type": "github"
-      }
-    },
     "artwork": {
       "flake": false,
       "locked": {
@@ -231,6 +216,21 @@
         "type": "github"
       }
     },
+    "nur": {
+      "locked": {
+        "lastModified": 1718992251,
+        "narHash": "sha256-wHPXfpeleFtZZx4T/QJP4QDvVxjHE2sGmd+EDXBlWug=",
+        "owner": "nix-community",
+        "repo": "NUR",
+        "rev": "ec879287be7dbca645a82a9d9dfbd206835f3736",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "NUR",
+        "type": "github"
+      }
+    },
     "plasma-manager": {
       "inputs": {
         "home-manager": [
@@ -286,7 +286,6 @@
     },
     "root": {
       "inputs": {
-        "NUR": "NUR",
         "artwork": "artwork",
         "chaotic-nyx": "chaotic-nyx",
         "flake-parts": "flake-parts",
@@ -296,6 +295,7 @@
           "chaotic-nyx",
           "nixpkgs"
         ],
+        "nur": "nur",
         "plasma-manager": "plasma-manager",
         "pre-commit-hooks": "pre-commit-hooks"
       }
