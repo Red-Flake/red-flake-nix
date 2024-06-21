@@ -105,6 +105,9 @@
         "media.ffmpeg.vaapi.enabled" = true;
         "widget.dmabuf.force-enabled" = true;
       };
+
+      #extraConfig = "browser.theme.content-theme=2\nbrowser.theme.toolbar-theme=0";
+
     };
 
     policies = {
