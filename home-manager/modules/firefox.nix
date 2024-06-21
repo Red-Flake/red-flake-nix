@@ -113,34 +113,42 @@
         "addon@darkreader.org" = {
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/darkreader/latest.xpi";
           installation_mode = "force_installed";
+          default_area = "navbar";
         };
         "{446900e4-71c2-419f-a6a7-df9c091e268b}" = {
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/bitwarden-password-manager/latest.xpi";
           installation_mode = "force_installed";
+          default_area = "navbar";
         };
         "uBlock0@raymondhill.net" = {
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
           installation_mode = "force_installed";
+          default_area = "navbar";
         };
         "wappalyzer@crunchlabz.com" = {
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/wappalyzer/latest.xpi";
           installation_mode = "force_installed";
+          default_area = "navbar";
         };
         "{f6ca2dfb-43a6-4334-9fad-8d5a71a1fe67}" = {
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/simple-modify-header/latest.xpi";
           installation_mode = "force_installed";
+          default_area = "navbar";
         };
         "simple-translate@sienori" = {
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/simple-translate/latest.xpi";
           installation_mode = "force_installed";
+          default_area = "navbar";
         };
         "foxyproxy@eric.h.jung" = {
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/foxyproxy-standard/latest.xpi";
           installation_mode = "force_installed";
+          default_area = "navbar";
         };
         "{c3c10168-4186-445c-9c5b-63f12b8e2c87}" = {
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/cookie-editor/latest.xpi";
           installation_mode = "force_installed";
+          default_area = "navbar";
         };
       };
     };
