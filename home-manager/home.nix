@@ -29,32 +29,11 @@
     zsh-powerlevel10k
     meslo-lgs-nf
     thefuck
-    libsForQt5.qtstyleplugin-kvantum
-    kdePackages.qtstyleplugin-kvantum
-    libsForQt5.qt5ct
-    kdePackages.qt6ct
   ];
 
   home.sessionVariables = {
     # This should be default soon
     MOZ_ENABLE_WAYLAND = 1;
-  };
-
-  gtk = {
-    enable = true;
-    theme = {
-      name = "Breeze-Dark";
-      package = pkgs.libsForQt5.breeze-gtk;
-    };
-    gtk3 = {
-      extraConfig.gtk-application-prefer-dark-theme = true;
-    };
-  };
-
-  qt = {
-    enable = true;
-    platformTheme.name = "kde";
-    style.name = "breeze";
   };
 
   xsession.enable = true;
