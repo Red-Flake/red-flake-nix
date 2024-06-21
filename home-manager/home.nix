@@ -53,12 +53,8 @@
 
   qt = {
     enable = true;
-    platformTheme.name = "qtct";
-    style.name = "kvantum";
-  };
-
-  xdg.configFile."Kvantum/kvantum.kvconfig".source = (pkgs.formats.ini { }).generate "kvantum.kvconfig" {
-    General.theme = "Breeze-Dark";
+    platformTheme.name = "kde";
+    style.name = "breeze";
   };
 
   xsession.enable = true;
