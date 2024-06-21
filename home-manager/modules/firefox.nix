@@ -4,18 +4,7 @@
   lib,
   pkgs,
   ...
-}: let
-  extensions = with pkgs.nur.repos.rycee.firefox-addons; [
-    darkreader
-    ublock-origin
-    wappalyzer
-    header-editor
-    simple-translate
-    foxyproxy-standard
-    bitwarden
-    violentmonkey
-  ];
-in {
+}: {
   programs.firefox = {
     enable = true;
     package = pkgs.firefox-bin;
