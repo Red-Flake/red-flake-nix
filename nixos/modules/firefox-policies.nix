@@ -29,7 +29,7 @@
           "https://addons.mozilla.org/firefox/downloads/latest/wappalyzer/latest.xpi"
           "https://addons.mozilla.org/firefox/downloads/latest/simple-modify-header/latest.xpi"
           "https://addons.mozilla.org/firefox/downloads/latest/simple-translate/latest.xpi"
-          "https://addons.mozilla.org/firefox/downloads/latest/foxyproxy-standard/latest.xpi"
+          "https://addons.mozilla.org/firefox/downloads/latest/foxyproxy-basic/latest.xpi"
           "https://addons.mozilla.org/firefox/downloads/latest/bitwarden-password-manager/latest.xpi"
           "https://addons.mozilla.org/firefox/downloads/latest/violentmonkey/latest.xpi"
           "https://addons.mozilla.org/firefox/downloads/latest/shodan-addon/latest.xpi"
@@ -99,42 +99,42 @@
       "3rdparty" = {
         "Extensions" = {
           "foxyproxy@eric.h.jung" = {
-            "mode" = "disable";
-            "sync" = false;
-            "autoBackup" = false;
-            "showPatternProxy" = false;
-            "passthrough" = "";
-            "container" = {
-              "incognito" = "";
-              "container-1" = "";
-              "container-2" = "";
-              "container-3" = "";
-              "container-4" = "";
-            };
-            "commands" = {
-              "setProxy" = "";
-              "setTabProxy" = "";
-              "quickAdd" = "";
-            };
-            "data" = [
+            "mode": "disable",
+            "sync": false,
+            "autoBackup": false,
+            "passthrough": "",
+            "theme": "",
+            "container": {
+              "incognito": "",
+              "container-1": "",
+              "container-2": "",
+              "container-3": "",
+              "container-4": ""
+            },
+            "commands": {
+              "setProxy": "",
+              "setTabProxy": "",
+              "quickAdd": ""
+            },
+            "data": [
               {
-                "active" = true;
-                "title" = "BurpSuite";
-                "type" = "http";
-                "hostname" = "localhost";
-                "port" = "8080";
-                "username" = "";
-                "password" = "";
-                "cc" = "";
-                "city" = "";
-                "color" = "#e66100";
-                "pac" = "";
-                "pacString" = "";
-                "proxyDNS" = true;
-                "include" = [];
-                "exclude" = [];
+                "active": false,
+                "title": "BurpSuite",
+                "type": "http",
+                "hostname": "localhost",
+                "port": "8080",
+                "username": "",
+                "password": "",
+                "cc": "",
+                "city": "",
+                "color": "#e66100",
+                "pac": "",
+                "pacString": "",
+                "proxyDNS": true,
+                "include": [],
+                "exclude": []
               }
-            ];
+            ]
           };
         };
       };
