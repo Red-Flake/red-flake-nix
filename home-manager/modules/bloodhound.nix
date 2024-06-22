@@ -34,7 +34,7 @@ in
   xdg.desktopEntries.bloodhound = {
     name = "BloodHound";
     genericName = "BloodHound";
-    exec = "bloodhound";
+    exec = "BloodHound";
     icon = "kali-bloodhound";
   };
 }
