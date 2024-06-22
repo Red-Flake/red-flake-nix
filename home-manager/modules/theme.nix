@@ -13,7 +13,7 @@
     cursorTheme = {
       package = pkgs.kdePackages.breeze;
       name = "Breeze";
-      size = 24;
+      size = 32;
     };
     gtk3 = {
       extraConfig.gtk-application-prefer-dark-theme = true;
