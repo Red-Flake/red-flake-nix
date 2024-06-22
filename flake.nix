@@ -58,6 +58,9 @@
 
     nur.url = "github:nix-community/NUR";
 
+    # https://github.com/Melkor333/nixos-boot
+    nixos-boot.url = "github:Melkor333/nixos-boot";
+
     # Red-Flake artwork
     artwork = {
       url = "github:Red-Flake/artwork";
@@ -65,7 +68,7 @@
     };
   };
 
-  outputs = { flake-parts, nixpkgs, pre-commit-hooks, home-manager, plasma-manager, artwork, ... } @ inputs: let
+  outputs = { flake-parts, nixpkgs, pre-commit-hooks, home-manager, plasma-manager, artwork, nixos-boot, ... } @ inputs: let
     system = "x86_64-linux";
     username = "pascal";
     homeDirectory = "/home/pascal";
@@ -76,6 +79,7 @@
         specialArgs = { inherit inputs; };
 
         modules = [
+          nixos-boot.nixosModules.default
           ./nixos/configuration.nix
           {
             imports = [ inputs.home-manager.nixosModules.home-manager ];

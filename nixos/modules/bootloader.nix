@@ -42,6 +42,23 @@
   # Clear /tmp on boot
   boot.tmp.cleanOnBoot = true;
 
+  # Enable Plymouth
+  boot.plymouth.enable = true;
+  
+  # Enable nixos-boot
+  # https://github.com/Melkor333/nixos-boot
+  nixos-boot = {
+    enable  = true;
+
+    # Different colors
+    # bgColor.red   = 100; # 0 - 255
+    # bgColor.green = 100; # 0 - 255
+    # bgColor.blue  = 100; # 0 - 255
+
+    # If you want to make sure the theme is seen when your computer starts too fast
+    # duration = 3; # in seconds
+  };
+
   # Bootloader settings
   boot.loader = {
     systemd-boot.enable = false;

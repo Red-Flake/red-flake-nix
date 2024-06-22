@@ -5,6 +5,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     git
+    nix-index
     home-manager
     scx
     file
