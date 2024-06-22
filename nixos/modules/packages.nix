@@ -61,9 +61,9 @@
     reaverwps
     wifite2
     apktool
-    #cutter
-    #cutterPlugins.jsdec
-    #cutterPlugins.rz-ghidra
+    cutter
+    cutterPlugins.jsdec
+    cutterPlugins.rz-ghidra
     edb
     ghidra-bin
     jadx
