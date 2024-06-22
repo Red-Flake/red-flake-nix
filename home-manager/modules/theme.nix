@@ -23,7 +23,7 @@
   qt = {
     enable = true;
     platformTheme = {
-      name = "kde";
+      name = "qt6ct";
     };
     style = {
       name = "breeze";
