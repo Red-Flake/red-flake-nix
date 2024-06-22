@@ -59,7 +59,12 @@
         "browser.newtabpage.activity-stream.default.sites" = "";
 
         "browser.in-content.dark-mode" = true;
-        "ui.systemUsesDarkTheme" = true;
+        "ui.systemUsesDarkTheme" = 1;
+        # disable alt key bringing up window menu
+        "ui.key.menuAccessKeyFocuses" = false;
+
+        "browser.theme.toolbar-theme" = 0;
+        "browser.theme.content-theme" = 0;
 
         "media.eme.enabled" = true;
         "media.gmp-widevinecdm.visible" = true;
@@ -68,6 +73,7 @@
         "browser.discovery.enabled" = false;
         "extensions.getAddons.showPane" = false;
         "extensions.htmlaboutaddons.recommendations.enabled" = false;
+        "extensions.pocket.enabled" = false;
 
         "breakpad.reportURL" = "";
         "browser.tabs.crashReporting.sendReport" = false;
@@ -106,7 +112,39 @@
         "widget.dmabuf.force-enabled" = true;
       };
 
-      #extraConfig = "browser.theme.content-theme=2\nbrowser.theme.toolbar-theme=0";
+      extraConfig = ''
+        user_pref("browser.theme.content-theme", 0);
+        user_pref("browser.theme.toolbar-theme", 0);
+        user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
+        user_pref("full-screen-api.ignore-widgets", true);
+        user_pref("full-screen-api.warning.timeout", 0);
+        user_pref("media.hardware-video-decoding.enabled", true);
+        user_pref("media.hardware-video-decoding.force-enabled", true);
+        user_pref("media.ffmpeg.vaapi.enabled", true);
+        user_pref("media.rdd-vpx.enabled", true);
+        user_pref("apz.overscroll.enabled", true);
+        user_pref("browser.shell.checkDefaultBrowser", false);
+        user_pref("privacy.resistFingerprinting", false);
+        user_pref("ui.systemUsesDarkTheme", 1);
+        user_pref("browser.translations.automaticallyPopup", false);
+
+        user_pref("apz.gtk.kinetic_scroll.enabled", false);
+        user_pref("general.smoothScroll.lines.durationMaxMS", 125);
+        user_pref("general.smoothScroll.lines.durationMinMS", 125);
+        user_pref("general.smoothScroll.mouseWheel.durationMaxMS", 200);
+        user_pref("general.smoothScroll.mouseWheel.durationMinMS", 100);
+        user_pref("general.smoothScroll.msdPhysics.enabled", true);
+        user_pref("general.smoothScroll.other.durationMaxMS", 125);
+        user_pref("general.smoothScroll.other.durationMinMS", 125);
+        user_pref("general.smoothScroll.pages.durationMaxMS", 125);
+        user_pref("general.smoothScroll.pages.durationMinMS", 125);
+        user_pref("mousewheel.min_line_scroll_amount", 30);
+        user_pref("mousewheel.system_scroll_override_on_root_content.enabled", true);
+        user_pref("mousewheel.system_scroll_override_on_root_content.horizontal.factor", 175);
+        user_pref("mousewheel.system_scroll_override_on_root_content.vertical.factor", 175);
+        user_pref("toolkit.scrollbox.horizontalScrollDistance", 6);
+        user_pref("toolkit.scrollbox.verticalScrollDistance", 2);
+      '';
 
     };
 

@@ -12,4 +12,16 @@
    # Sound settings
    # Disable actkbd so KDE can handle media keys
    sound.mediaKeys.enable = false;
+
+   # enable dconf
+   programs.dconf.enable = true;
+
+   # enable xdg desktop portal
+   xdg.portal = {
+    enable = true;
+    wlr.enable = true;
+    # gtk portal needed to make gtk apps happy
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  };
+  
 }
