@@ -51,9 +51,9 @@
     enable  = true;
 
     # Different colors
-    # bgColor.red   = 100; # 0 - 255
-    # bgColor.green = 100; # 0 - 255
-    # bgColor.blue  = 100; # 0 - 255
+    bgColor.red   = 0; # 0 - 255
+    bgColor.green = 0; # 0 - 255
+    bgColor.blue  = 0; # 0 - 255
 
     # If you want to make sure the theme is seen when your computer starts too fast
     # duration = 3; # in seconds
