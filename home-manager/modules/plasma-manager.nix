@@ -65,6 +65,13 @@
               General.launchers = [
                 "applications:org.kde.dolphin.desktop"
                 "applications:org.kde.konsole.desktop"
+                "applications:firefox.desktop"
+                "applications:vscodium.desktop"
+                "applications:burpsuite.desktop"
+                "applications:bloodhound.desktop"
+                "applications:ghidra.desktop"
+                "applications:re.rizin.cutter.desktop"
+                "applications:org.wireshark.Wireshark.desktop"
               ];
             };
           }
