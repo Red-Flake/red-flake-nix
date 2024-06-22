@@ -66,7 +66,7 @@
                 "applications:org.kde.dolphin.desktop"
                 "applications:org.kde.konsole.desktop"
                 "applications:firefox.desktop"
-                "applications:vscodium.desktop"
+                "applications:codium.desktop"
                 "applications:burpsuite.desktop"
                 "applications:bloodhound.desktop"
                 "applications:ghidra.desktop"
