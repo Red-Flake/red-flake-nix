@@ -11,6 +11,7 @@
       name = "Flat-Remix-Blue-Dark";
     };
     cursorTheme = {
+      package = pkgs.kdePackages.breeze;
       name = "Breeze";
       size = 24;
     };
@@ -26,7 +27,7 @@
     };
     style = {
       name = "breeze";
-      package = pkgs.libsForQt5.breeze-qt5;
+      package = pkgs.kdePackages.breeze;
     };
   };
 

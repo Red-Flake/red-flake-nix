@@ -200,6 +200,21 @@
         "type": "github"
       }
     },
+    "nixos-boot": {
+      "locked": {
+        "lastModified": 1714108925,
+        "narHash": "sha256-gL1qrQsDT3SmcmoXZ+XFDaSQ1KLHWvNNjeXZsUHNPAw=",
+        "owner": "Melkor333",
+        "repo": "nixos-boot",
+        "rev": "b77ad68a6fd069b6031ecd5818c90efc62bef251",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Melkor333",
+        "repo": "nixos-boot",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1718530797,
@@ -291,6 +306,7 @@
         "flake-parts": "flake-parts",
         "home-manager": "home-manager",
         "nix-index-database": "nix-index-database",
+        "nixos-boot": "nixos-boot",
         "nixpkgs": [
           "chaotic-nyx",
           "nixpkgs"
