@@ -20,6 +20,7 @@
     };
   };
 
+  # Enabling this seems to break the KDE settings app ...
   #qt = {
   #  enable = true;
   #  platformTheme.name = "kde";
