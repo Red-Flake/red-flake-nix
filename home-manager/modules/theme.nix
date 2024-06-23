@@ -1,18 +1,18 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 {
   gtk = {
     enable = true;
     theme = {
-      package = pkgs.gnome.gnome-themes-extra;
-      name = "Adwaita-dark";
+      name = "Breeze-Dark";
+      package = pkgs.kdePackages.breeze-gtk;
     };
     iconTheme = {
-      package = pkgs.flat-remix-icon-theme;
       name = "Flat-Remix-Blue-Dark";
+      package = pkgs.flat-remix-icon-theme;
     };
     cursorTheme = {
-      package = pkgs.kdePackages.breeze;
       name = "Breeze";
+      package = pkgs.kdePackages.breeze;
       size = 32;
     };
     gtk3 = {
@@ -22,13 +22,8 @@
 
   qt = {
     enable = true;
-    platformTheme = {
-      name = "qt6ct";
-    };
-    style = {
-      name = "breeze";
-      package = pkgs.kdePackages.breeze;
-    };
+    platformTheme.name = "kde";
+    style.name = "Breeze-Dark";
   };
 
   dconf = {
