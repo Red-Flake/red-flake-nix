@@ -3,6 +3,8 @@
 {
   networking.networkmanager.enable = true;
   networking.wireless.iwd.enable = true;
+  networking.interfaces.wlan0.useDHCP = true;
+  networking.wireless.interfaces = ["wlan0"];
   networking.wireless.iwd.settings = {
     IPv6 = {
       Enabled = true;
