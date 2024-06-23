@@ -28,6 +28,8 @@
         "docker"
         "lxd"
         "wireshark"
+        "networkmanager"
+        "audio"
       ];
     };
   };
