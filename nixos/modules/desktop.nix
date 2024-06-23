@@ -15,11 +15,14 @@
     # Set default session to KDE Plasma
     defaultSession = "plasma";
 
-    # Enable Plasma 6
-    plasma6.enable = true;
-
     # Run SDDM under Wayland
     sddm.wayland.enable = true;
+  };
+
+  # Desktop-Manager settings
+  services.desktopManager = {
+    # Enable Plasma 6
+    plasma6.enable = true;
   };
 
   # Sound settings
