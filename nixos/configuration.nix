@@ -52,6 +52,9 @@
     # Setup Neo4j
     ./modules/setup-neo4j.nix
 
+    # Setup Wireshark
+    ./modules/wireshark.nix
+
     # performance optimizations
     ./modules/performance.nix
 
