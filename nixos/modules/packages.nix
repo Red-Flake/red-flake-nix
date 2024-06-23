@@ -74,7 +74,6 @@
     macchanger
     responder
     tcpdump
-    wireshark
     zeek
     proxychains-ng
     binwalk
