@@ -30,7 +30,6 @@
     zsh-powerlevel10k
     meslo-lgs-nf
     thefuck
-    kdePackages.qt6ct
   ];
 
   home.sessionVariables = {
