@@ -20,12 +20,13 @@
     };
   };
 
-  qt = {
-    enable = true;
-    platformTheme.name = "kde";
-    style.name = "Breeze-Dark";
-  };
+  #qt = {
+  #  enable = true;
+  #  platformTheme.name = "kde";
+  #  style.name = "Breeze-Dark";
+  #};
 
+  # Fix GTK themes not applied in Wayland
   dconf = {
     enable = true;
     settings = {
