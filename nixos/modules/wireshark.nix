@@ -5,5 +5,5 @@
   programs.wireshark.enable = true;
 
   # Use Wireshark-QT
-  programs.wireshark.package = "pkgs.wireshark";    
+  programs.wireshark.package = pkgs.wireshark;    
 }
