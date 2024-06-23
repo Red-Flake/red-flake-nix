@@ -2,27 +2,41 @@
 
 {
   # X11 / Wayland settings
-   services.xserver.enable = true;
-   services.xserver.videoDrivers = [ "intel amdgpu nvidia" ];
-   services.displayManager.sddm.enable = true;
-   services.displayManager.defaultSession = "plasma";
-   services.desktopManager.plasma6.enable = true;
-   services.displayManager.sddm.wayland.enable = true;
+  services.xserver = {
+     enable = true;
+     videoDrivers = [ "intel amdgpu nvidia" ];
+  };
+   
+  # Display-Manager settings
+  services.displayManager = {
+    # Enable SDDM
+    sddm.enable = true;
 
-   # Sound settings
-   # Disable actkbd so KDE can handle media keys
-   sound.mediaKeys.enable = false;
+    # Set default session to KDE Plasma
+    defaultSession = "plasma";
 
-   # enable dconf
-   programs.dconf.enable = true;
+    # Enable Plasma 6
+    plasma6.enable = true;
 
-   # enable xdg desktop portal
-   xdg.portal = {
-    enable = true;
-    extraPortals = with pkgs; [
-      kdePackages.xdg-desktop-portal-kde
-      xdg-desktop-portal-gtk
-    ];
+    # Run SDDM under Wayland
+    sddm.wayland.enable = true;
+  };
+
+  # Sound settings
+  # Disable actkbd so KDE can handle media keys
+  sound.mediaKeys.enable = false;
+  
+  # enable dconf
+  # Fix GTK themes not applied in Wayland
+  programs.dconf.enable = true;
+  
+  # enable xdg desktop portal
+  xdg.portal = {
+   enable = true;
+   extraPortals = with pkgs; [
+     kdePackages.xdg-desktop-portal-kde
+     xdg-desktop-portal-gtk
+   ];
   };
   
 }
