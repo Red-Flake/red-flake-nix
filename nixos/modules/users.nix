@@ -27,6 +27,7 @@
         "uinput"
         "docker"
         "lxd"
+        "wireshark"
       ];
     };
   };
