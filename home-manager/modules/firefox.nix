@@ -116,7 +116,6 @@
         user_pref("browser.theme.content-theme", 0);
         user_pref("browser.theme.toolbar-theme", 0);
         user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
-        user_pref("full-screen-api.ignore-widgets", true);
         user_pref("full-screen-api.warning.timeout", 0);
         user_pref("media.hardware-video-decoding.enabled", true);
         user_pref("media.hardware-video-decoding.force-enabled", true);
