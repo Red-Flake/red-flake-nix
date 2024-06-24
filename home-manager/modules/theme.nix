@@ -20,6 +20,9 @@
     };
   };
 
+  # force creation of .gtkrc-2.0 otherwise home-manager will fail
+  home.file.".gtkrc-2.0".force = true
+
   # Enabling this seems to break the KDE settings app ...
   #qt = {
   #  enable = true;
