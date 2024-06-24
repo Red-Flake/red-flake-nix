@@ -26,24 +26,6 @@
         "browser.newtabpage.enabled" = true;
         "browser.newtabpage.activity-stream.topSitesRows" = 2;
         "browser.newtabpage.storageVersion" = 1;
-        "browser.newtabpage.pinned" = [
-          {
-            label = "GitHub";
-            url = "https://github.com";
-          }
-          {
-            label = "YouTube";
-            url = "https://youtube.com";
-          }
-          {
-            label = "YT Music";
-            url = "https://music.youtube.com";
-          }
-          {
-            label = "Monkeytype";
-            url = "https://monkeytype.com";
-          }
-        ];
 
         "browser.newtab.preload" = false;
         "browser.newtabpage.activity-stream.telemetry" = false;
@@ -143,7 +125,19 @@
         user_pref("mousewheel.system_scroll_override_on_root_content.vertical.factor", 175);
         user_pref("toolkit.scrollbox.horizontalScrollDistance", 6);
         user_pref("toolkit.scrollbox.verticalScrollDistance", 2);
+
+        user_pref("browser.bookmarks.defaultLocation", "toolbar");
+        user_pref("browser.toolbars.bookmarks.visibility", "always");
       '';
+
+      bookmarks = [
+        {
+          name = "Red-Flake";
+          tags = [ "redflake" ];
+          keyword = "redflake";
+          url = "https://github.com/Red-Flake";
+        }
+      ];
 
     };
 
