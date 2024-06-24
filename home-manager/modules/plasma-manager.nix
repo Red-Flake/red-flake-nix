@@ -78,6 +78,7 @@
           # If no configuration is needed, specifying only the name of the
           # widget will add them with the default configuration.
           "org.kde.plasma.marginsseparator"
+          "org.kde.plasma.pager"
           # If you need configuration for your widget, instead of specifying the
           # the keys and values directly using the config attribute as shown
           # above, plasma-manager also provides some higher-level interfaces for
