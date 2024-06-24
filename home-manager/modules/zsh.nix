@@ -167,8 +167,11 @@ in
                     impacket-wmiquery = "wmiquery.py";
 
                     ## distrobox
-                    #arch-box = "distrobox create -n arch -i archlinux:latest --additional-packages 'git nano' --init && distrobox enter archlinux";
+                    #arch-box = "distrobox create -n arch -i archlinux:latest --additional-packages 'git nano' --init && distrobox enter archlinux"; # disabled for now due to issues
                     kali-box = "distrobox create -n kali -i docker.io/kalilinux/kali-rolling:latest --additional-packages 'git nano neofetch' --init && distrobox enter kali";
+                    debian-box = "distrobox create -n debian -i debian:latest --additional-packages 'systemd libpam-systemd git nano neofetch' --init && distrobox enter debian";
+                    ubuntu-box = "distrobox create -n ubuntu -i ubuntu:latest --additional-packages 'git nano neofetch' --init && distrobox enter ubuntu";
+                    fedora-box = "distrobox create -n fedora -i fedora:latest --additional-packages 'git nano neofetch' --init && distrobox enter fedora";
                 };
 
                 # define session variables
