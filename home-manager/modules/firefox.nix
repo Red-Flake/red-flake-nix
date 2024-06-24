@@ -22,7 +22,9 @@
       settings = {
         "browser.aboutConfig.showWarning" = false;
         "toolkit.telemetry.enabled" = false;
-        "browser.startup.page" = 1;
+        "browser.startup.page" = 3; # Open windows and tabs from the last session
+        "browser.sessionstore.resume_from_crash" = true;
+        "browser.sessionstore.max_resumed_crashes" = -1;
         "browser.newtabpage.enabled" = true;
         "browser.newtabpage.activity-stream.topSitesRows" = 2;
         "browser.newtabpage.storageVersion" = 1;
@@ -78,8 +80,8 @@
         "privacy.trackingprotection.cryptomining.enabled" = true;
         "privacy.trackingprotection.fingerprinting.enabled" = true;
         "privacy.fingerprintingProtection" = true;
-        "privacy.resistFingerprinting" = true;
-        "privacy.resistFingerprinting.pbmode" = true;
+        "privacy.resistFingerprinting" = false;
+        "privacy.resistFingerprinting.pbmode" = false;
         "privacy.firstparty.isolate" = true;
         "privacy.query_stripping.enabled" = true;
         "privacy.query_stripping.enabled.pbmode" = true;
