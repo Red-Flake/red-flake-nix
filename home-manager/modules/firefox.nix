@@ -84,7 +84,7 @@
         "media.autoplay.default" = 5;
         "layout.css.prefers-color-scheme.content-override" = 0;
         "dom.security.https_only_mode" = false;
-        "network.trr.mode" = 2;
+        "network.trr.mode" = 1;
         "network.trr.uri" = "https://mozilla.cloudflare-dns.com/dns-query";
         "network.dns.echconfig.enabled" = true;
         "network.dns.http3_echconfig.enabled" = true;
@@ -189,6 +189,10 @@
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/cookie-editor/latest.xpi";
           installation_mode = "force_installed";
           default_area = "navbar";
+        };
+        "default-compact-dark-theme@glitchii.github.io" = {
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/default-compact-dark-theme/latest.xpi";
+          installation_mode = "force_installed";
         };
       };
     };
