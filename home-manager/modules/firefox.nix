@@ -134,10 +134,16 @@
 
       bookmarks = [
         {
-          name = "Red-Flake";
-          tags = [ "redflake" ];
-          keyword = "redflake";
-          url = "https://github.com/Red-Flake";
+          name = "toolbar";
+          toolbar = true;
+          bookmarks = [
+            {
+              name = "Red-Flake";
+              tags = [ "redflake" ];
+              keyword = "redflake";
+              url = "https://github.com/Red-Flake";
+            }
+          ];
         }
       ];
 
