@@ -13,7 +13,7 @@
     cursorTheme = {
       name = "Breeze";
       package = pkgs.kdePackages.breeze;
-      size = 24;
+      size = 26;
     };
     gtk3 = {
       extraConfig.gtk-application-prefer-dark-theme = true;
@@ -21,7 +21,7 @@
   };
 
   # force creation of .gtkrc-2.0 otherwise home-manager will fail
-  home.file.".gtkrc-2.0".force = true;
+  #home.file.".gtkrc-2.0".force = true;
 
   # Enabling this seems to break the KDE settings app ...
   #qt = {
