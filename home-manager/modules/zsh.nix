@@ -87,8 +87,6 @@ in
                 # define shell aliases which are substituted anywhere on a line
                 # https://home-manager-options.extranix.com/?query=programs.zsh.shellGlobalAliases&release=master
                 shellGlobalAliases = {
-                    screenfetch = "fastfetch";
-                    neofetch = "fastfetch";
                     ls = "lsd";
                     ll = "lsd -la";
                     la = "lsd -la";
@@ -167,6 +165,10 @@ in
                     impacket-wmiexec = "wmiexec.py";
                     impacket-wmipersist = "wmipersist.py";
                     impacket-wmiquery = "wmiquery.py";
+
+                    ## distrobox
+                    #arch-box = "distrobox create -n arch -i archlinux:latest --additional-packages 'git nano' --init && distrobox enter archlinux";
+                    kali-box = "distrobox create -n kali -i docker.io/kalilinux/kali-rolling:latest --additional-packages 'git nano neofetch' --init && distrobox enter kali";
                 };
 
                 # define session variables
