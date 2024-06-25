@@ -49,8 +49,5 @@
   # Firefox
   ## Enable wayland for firefox
   environment.sessionVariables.MOZ_ENABLE_WAYLAND = "1";
-
-  # Run GTK applications under wayland
-  environment.sessionVariables.GDK_BACKEND = "wayland";
   
 }
