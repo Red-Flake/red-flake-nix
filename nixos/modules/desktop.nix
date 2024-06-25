@@ -51,6 +51,6 @@
   environment.sessionVariables.MOZ_ENABLE_WAYLAND = "1";
 
   # Run GTK applications under wayland
-  GDK_BACKEND = "wayland";
+  environment.sessionVariables.GDK_BACKEND = "wayland";
   
 }
