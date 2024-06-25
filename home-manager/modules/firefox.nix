@@ -415,6 +415,10 @@
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/default-compact-dark-theme/latest.xpi";
           installation_mode = "force_installed";
         };
+        "cache-favicons@jeffersonscher.com" = {
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/cache-favicons-for-bookmarks/latest.xpi";
+          installation_mode = "force_installed";
+        };
       };
     };
 
