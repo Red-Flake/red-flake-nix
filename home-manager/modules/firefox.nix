@@ -375,7 +375,7 @@
               name = "Crackstation";
               tags = [ "crackstation" ];
               keyword = "crackstation";
-              url = "https://crackstation.com";
+              url = "https://crackstation.net";
             }
             {
               name = "CyberChef";
