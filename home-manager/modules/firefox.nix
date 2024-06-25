@@ -9,10 +9,6 @@
     enable = true;
     package = pkgs.firefox-bin;
 
-    preferences = {
-      "widget.use-xdg-desktop-portal.file-picker" = 1;
-    };
-
     profiles.redflake = {
       id = 0;
       name = "Red-Flake";
@@ -98,6 +94,8 @@
         "gfx.webrender.all" = true;
         "media.ffmpeg.vaapi.enabled" = true;
         "widget.dmabuf.force-enabled" = true;
+
+        "widget.use-xdg-desktop-portal.file-picker" = 1;
       };
 
       extraConfig = ''
@@ -134,6 +132,8 @@
 
         user_pref("browser.bookmarks.defaultLocation", "toolbar");
         user_pref("browser.toolbars.bookmarks.visibility", "always");
+
+        user_pref("browser.tabs.loadBookmarksInTabs", true);
       '';
 
       bookmarks = [
@@ -146,6 +146,221 @@
               tags = [ "redflake" ];
               keyword = "redflake";
               url = "https://github.com/Red-Flake";
+            }
+            {
+              name = "Platforms";
+              bookmarks = [
+                {
+                  name = "HTB Main";
+                  tags = [ "htb" ];
+                  keyword = "htb";
+                  url = "https://app.hackthebox.com";
+                }
+                {
+                  name = "HTB Academy";
+                  tags = [ "htb" ];
+                  keyword = "htb";
+                  url = "https://academy.hackthebox.com";
+                }
+                {
+                  name = "HTB CTF";
+                  tags = [ "htb" ];
+                  keyword = "htb";
+                  url = "https://ctf.hackthebox.com";
+                }
+                {
+                  name = "TryHackMe";
+                  tags = [ "thm" ];
+                  keyword = "thm";
+                  url = "https://tryhackme.com/";
+                }
+                {
+                  name = "OverTheWire";
+                  tags = [ "overthewire" ];
+                  keyword = "overthewire";
+                  url = "https://overthewire.org/wargames/";
+                }
+                {
+                  name = "PortSwigger Academy";
+                  tags = [ "portswigger" ];
+                  keyword = "portswigger";
+                  url = "https://portswigger.net/web-security";
+                }
+              ];
+            }
+            {
+              name = "AI";
+              bookmarks = [
+                {
+                  name = "ChatGPT";
+                  tags = [ "chatgpt" ];
+                  keyword = "chatgpt";
+                  url = "https://chatgpt.com";
+                }
+              ];
+            }
+            {
+              name = "Git";
+              bookmarks = [
+                {
+                  name = "GitHub";
+                  tags = [ "github" ];
+                  keyword = "github";
+                  url = "https://github.com";
+                }
+                {
+                  name = "GitLab";
+                  tags = [ "gitlab" ];
+                  keyword = "gitlab";
+                  url = "https://gitlab.com";
+                }
+                {
+                  name = "Codeberg";
+                  tags = [ "codeberg" ];
+                  keyword = "codeberg";
+                  url = "https://codeberg.org/";
+                }
+              ];
+            }
+            {
+              name = "OSINT";
+              bookmarks = [
+                {
+                  name = "WayBackMachine";
+                  tags = [ "WayBackMachine" ];
+                  keyword = "WayBackMachine";
+                  url = "https://archive.org/";
+                }
+                {
+                  name = "Shodan";
+                  tags = [ "shodan" ];
+                  keyword = "shodan";
+                  url = "https://www.shodan.io/";
+                }
+                {
+                  name = "censys";
+                  tags = [ "censys" ];
+                  keyword = "censys";
+                  url = "https://search.censys.io/";
+                }
+                {
+                  name = "URLHaus abuse";
+                  tags = [ "abuse" ];
+                  keyword = "abuse";
+                  url = "https://urlhaus.abuse.ch/browse/";
+                }
+                {
+                  name = "C2 Tracker";
+                  tags = [ "tracker" ];
+                  keyword = "tracker";
+                  url = "https://tracker.viriback.com/";
+                }
+                {
+                  name = "Threatcenter";
+                  tags = [ "threatcenter" ];
+                  keyword = "threatcenter";
+                  url = "https://threatcenter.crdf.fr/";
+                }
+                {
+                  name = "intelx";
+                  tags = [ "intelx" ];
+                  keyword = "intelx";
+                  url = "https://intelx.io/";
+                }
+                {
+                  name = "OSINT Framework";
+                  tags = [ "osint" ];
+                  keyword = "osint";
+                  url = "https://osintframework.com/";
+                }
+                {
+                  name = "IntelTechniques";
+                  tags = [ "inteltechniques" ];
+                  keyword = "inteltechniques";
+                  url = "https://inteltechniques.com/tools/Search.html";
+                }
+              ];
+            }
+            {
+              name = "BugBounty";
+              bookmarks = [
+                {
+                  name = "HackerOne";
+                  tags = [ "hackerone" ];
+                  keyword = "hackerone";
+                  url = "https://www.hackerone.com/";
+                }
+                {
+                  name = "bugcrowd";
+                  tags = [ "bugcrowd" ];
+                  keyword = "bugcrowd";
+                  url = "https://www.bugcrowd.com/";
+                }
+              ];
+            }
+            {
+              name = "Auth";
+              bookmarks = [
+                {
+                  name = "jwt.io";
+                  tags = [ "jwt.io" ];
+                  keyword = "jwt.io";
+                  url = "https://jwt.io/";
+                }
+                {
+                  name = "oauth.tools";
+                  tags = [ "oauth.tools" ];
+                  keyword = "oauth.tools";
+                  url = "https://oauth.tools/";
+                }
+              ];
+            }
+            {
+              name = "GTFOBins";
+              bookmarks = [
+                {
+                  name = "GTFOBins";
+                  tags = [ "gtfobins" ];
+                  keyword = "gtfobins";
+                  url = "https://gtfobins.github.io/";
+                }
+                {
+                  name = "LOLBAS ";
+                  tags = [ "lolbas" ];
+                  keyword = "lolbas";
+                  url = "https://lolbas-project.github.io/";
+                }
+              ];
+            }
+            {
+              name = "Crackstation";
+              tags = [ "crackstation" ];
+              keyword = "crackstation";
+              url = "https://crackstation.com";
+            }
+            {
+              name = "CyberChef";
+              tags = [ "cyberchef" ];
+              keyword = "cyberchef";
+              url = "https://cyberchef.com";
+            }
+            {
+              name = "HackTricks";
+              tags = [ "hacktricks" ];
+              keyword = "hacktricks";
+              url = "https://book.hacktricks.xyz/";
+            }
+            {
+              name = "Synk Code Checker";
+              tags = [ "snyk" ];
+              keyword = "synk";
+              url = "https://snyk.io/code-checker/";
+            }
+            {
+              name = "IP Adderss Converter";
+              tags = [ "ip, converter" ];
+              keyword = "converter";
+              url = "https://www.abuseipdb.com/tools/ip-address-converter";
             }
           ];
         }
