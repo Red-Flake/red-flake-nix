@@ -9,6 +9,10 @@
     enable = true;
     package = pkgs.firefox-bin;
 
+    preferences = {
+      "widget.use-xdg-desktop-portal.file-picker" = 1;
+    };
+
     profiles.redflake = {
       id = 0;
       name = "Red-Flake";
