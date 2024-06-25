@@ -56,11 +56,44 @@
 
         "browser.discovery.enabled" = false;
         "extensions.getAddons.showPane" = false;
+        "extensions.getAddons.cache.enabled" = false;
         "extensions.htmlaboutaddons.recommendations.enabled" = false;
         "extensions.pocket.enabled" = false;
+        "extensions.screenshots.disabled" = true;
+        "extensions.blocklist.enabled" = false;
+        "identity.fxaccounts.enabled" = false;
 
         "breakpad.reportURL" = "";
         "browser.tabs.crashReporting.sendReport" = false;
+        "datareporting.policy.dataSubmissionEnabled" = false;
+        "datareporting.healthreport.uploadEnabled" = false;
+        "toolkit.coverage.endpoint.base" = "";
+        "toolkit.coverage.opt-out" = true;
+        "toolkit.telemetry.coverage.opt-out" = true;
+        "browser.region.update.enabled" = false;
+        "browser.region.network.url" = "";
+
+        "browser.safebrowsing.phishing.enabled" = false;
+        "browser.safebrowsing.malware.enabled" = false;
+        "browser.safebrowsing.blockedURIs.enabled" = false;
+        "browser.safebrowsing.downloads.enabled" = false;
+        "browser.safebrowsing.downloads.remote.enabled" = false;
+        "browser.safebrowsing.downloads.remote.block_dangerous" = false;
+        "browser.safebrowsing.downloads.remote.block_dangerous_host" = false;
+        "browser.safebrowsing.downloads.remote.block_potentially_unwanted" = false;
+        "browser.safebrowsing.downloads.remote.block_uncommon" = false;
+        "browser.safebrowsing.downloads.remote.url" = "";
+        "browser.safebrowsing.provider.*.gethashURL" = "";
+        "browser.safebrowsing.provider.*.updateURL" = "";
+        "browser.pagethumbnails.capturing_disabled" = true;
+        "browser.startup.homepage_override.mstone" = "ignore";
+        "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.addons" = false;
+        "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.features" = false;
+        "extensions.ui.lastCategory" = "about:addons";
+        "browser.vpn_promo.enabled" = false;
+        "app.normandy.enabled" = false;
+        "extensions.webextensions.restrictedDomains" = "";
+        "network.connectivity-service.enabled" = false;
 
         "cookiebanners.service.mode" = 2;
         "cookiebanners.service.mode.privateBrowsing" = 2;
@@ -89,11 +122,17 @@
         "geo.provider.network.url" = "https://location.services.mozilla.com/v1/geolocate?key=%MOZILLA_API_KEY%";
         "signon.rememberSignons" = false;
         "signon.autofillForms" = false;
+        "browser.formfill.enable" = false;
+        "extensions.formautofill.addresses.enabled" = false;
+        "extensions.formautofill.creditCards.enabled" = false;
+        "extensions.formautofill.heuristics.enabled" = false;
         "signon.formlessCapture.enabled" = false;
         "network.auth.subresource-http-auth-allow" = 1;
         "gfx.webrender.all" = true;
         "media.ffmpeg.vaapi.enabled" = true;
         "widget.dmabuf.force-enabled" = true;
+        "webgl.enable-debug-renderer-info" = false;
+        "network.http.speculative-parallel-limit" = 0;
 
         "widget.use-xdg-desktop-portal.file-picker" = 1;
       };
@@ -413,10 +452,6 @@
         };
         "default-compact-dark-theme@glitchii.github.io" = {
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/default-compact-dark-theme/latest.xpi";
-          installation_mode = "force_installed";
-        };
-        "cache-favicons@jeffersonscher.com" = {
-          install_url = "https://addons.mozilla.org/firefox/downloads/latest/cache-favicons-for-bookmarks/latest.xpi";
           installation_mode = "force_installed";
         };
       };
