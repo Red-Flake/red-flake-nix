@@ -72,6 +72,8 @@
         "toolkit.telemetry.coverage.opt-out" = true;
         "browser.region.update.enabled" = false;
         "browser.region.network.url" = "";
+        "browser.aboutHomeSnippets.updateUrl" = "";
+        "browser.selfsupport" = false;
 
         "browser.safebrowsing.phishing.enabled" = false;
         "browser.safebrowsing.malware.enabled" = false;
@@ -94,6 +96,7 @@
         "app.normandy.enabled" = false;
         "extensions.webextensions.restrictedDomains" = "";
         "network.connectivity-service.enabled" = false;
+        "browser.search.geoip.url" = "";
 
         "cookiebanners.service.mode" = 2;
         "cookiebanners.service.mode.privateBrowsing" = 2;
@@ -105,6 +108,8 @@
         "network.trr.uri" = "https://mozilla.cloudflare-dns.com/dns-query";
         "network.dns.echconfig.enabled" = true;
         "network.dns.http3_echconfig.enabled" = true;
+        "network.prefetch-next" = false;
+        "network.dns.disablePrefetch" = true;
         "browser.contentblocking.category" = "strict";
         "privacy.trackingprotection.enabled" = true;
         "privacy.trackingprotection.pbmode.enabled" = true;
