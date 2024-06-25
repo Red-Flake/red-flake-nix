@@ -381,7 +381,7 @@
               name = "CyberChef";
               tags = [ "cyberchef" ];
               keyword = "cyberchef";
-              url = "https://cyberchef.com";
+              url = "https://gchq.github.io/CyberChef/";
             }
             {
               name = "HackTricks";
