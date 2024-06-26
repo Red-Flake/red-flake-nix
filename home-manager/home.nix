@@ -5,6 +5,7 @@
   # import other home-manager
   imports = [
     inputs.nur.hmModules.nur
+    ./modules/artwork.nix
     ./modules/theme.nix
     ./modules/zsh.nix
     ./modules/msf.nix
@@ -14,7 +15,6 @@
     ./modules/plasma-manager.nix
     ./modules/konsole.nix
     ./modules/dolphin.nix
-    ./modules/artwork.nix
     ./modules/firefox.nix
     ./modules/burpsuite.nix
     ./modules/psd.nix
