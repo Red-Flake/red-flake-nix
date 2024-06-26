@@ -179,6 +179,7 @@ in
                 localVariables = {
                     LANG = "en_US.UTF-8";
                     EDITOR = "vim";
+                    XDG_RUNTIME_DIR = "/run/user/$UID";
                 };
 
       };
