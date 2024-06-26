@@ -15,7 +15,7 @@
         theme = "Breeze";
         size = 24;
       };
-      lookAndFeel = "org.kde.breezedark.desktop"; # The Plasma look and feel theme. Run plasma-apply-lookandfeel --list for valid options.
+      lookAndFeel = "org.kde.breeze.desktop"; # The Plasma look and feel theme. Run plasma-apply-lookandfeel --list for valid options.
       iconTheme = "Flat-Remix-Magenta-Dark"; # The Plasma icon theme.
       wallpaper = "${config.home.homeDirectory}/.local/share/wallpapers/red-flake/Red-Flake-Wallpaper_1920x1080.png"; # The Plasma wallpaper. Can be either be the path to an image file or a kpackage.
     };
