@@ -17,6 +17,7 @@
     ./modules/firefox.nix
     ./modules/theme.nix
     ./modules/burpsuite.nix
+    ./modules/psd.nix
   ];
 
   # disable warning about mismatched version between Home Manager and Nixpkgs
