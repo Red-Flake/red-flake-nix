@@ -42,10 +42,6 @@
     # Virtualization settings
     ./modules/virtualisation.nix
 
-    # Firefox settings
-    #./modules/firefox-policies.nix
-    #./modules/firefox.nix
-
     # Setup Burp Suite
     ./modules/setup-burp.nix
 
