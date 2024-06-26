@@ -17,7 +17,7 @@
       };
       lookAndFeel = "org.kde.breezedark.desktop"; # The Plasma look and feel theme. Run plasma-apply-lookandfeel --list for valid options.
       iconTheme = "Flat-Remix-Magenta-Dark"; # The Plasma icon theme.
-      wallpaper = "${pkgs.kdePackages.plasma-workspace-wallpapers}/share/wallpapers/Patak/contents/images/1080x1920.png"; # The Plasma wallpaper. Can be either be the path to an image file or a kpackage.
+      wallpaper = "${config.home.homeDirectory}/.local/share/wallpapers/red-flake/Red-Flake-Wallpaper_1920x1080.png"; # The Plasma wallpaper. Can be either be the path to an image file or a kpackage.
     };
 
     kwin = {
@@ -157,12 +157,12 @@
         # Forces kde to not change this value (even through the settings app).
         immutable = true;
       };
-      "kscreenlockerrc" = {
-        "Greeter"."WallpaperPlugin" = "org.kde.potd";
+      #"kscreenlockerrc" = {
+      #  "Greeter"."WallpaperPlugin" = "org.kde.potd";
         # To use nested groups use / as a separator. In the below example,
         # Provider will be added to [Greeter][Wallpaper][org.kde.potd][General].
-        "Greeter/Wallpaper/org.kde.potd/General".Provider = "bing";
-      };
+      #  "Greeter/Wallpaper/org.kde.potd/General".Provider = "bing";
+      #};
     };
   };
   
