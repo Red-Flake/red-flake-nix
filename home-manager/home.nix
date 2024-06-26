@@ -5,6 +5,7 @@
   # import other home-manager
   imports = [
     inputs.nur.hmModules.nur
+    ./modules/theme.nix
     ./modules/zsh.nix
     ./modules/msf.nix
     ./modules/thefuck.nix
@@ -15,7 +16,6 @@
     ./modules/dolphin.nix
     ./modules/artwork.nix
     ./modules/firefox.nix
-    ./modules/theme.nix
     ./modules/burpsuite.nix
     ./modules/psd.nix
   ];
