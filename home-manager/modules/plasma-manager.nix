@@ -9,13 +9,15 @@
     #
     workspace = {
       clickItemTo = "open"; # If you liked the click-to-open default from plasma 5
-      lookAndFeel = "org.kde.breezedark.desktop";
+      theme = "breeze-dark"; # The Plasma theme. Run plasma-apply-desktoptheme --list-themes for valid options.
+      colorScheme = "GradientDarkColorScheme"; # The Plasma colorscheme. Run plasma-apply-colorscheme --list-schemes for valid options.
       cursor = {
         theme = "Breeze";
         size = 24;
       };
-      iconTheme = "Flat-Remix-Blue-Dark";
-      wallpaper = "${pkgs.kdePackages.plasma-workspace-wallpapers}/share/wallpapers/Patak/contents/images/1080x1920.png";
+      lookAndFeel = "org.kde.breezedark.desktop"; # The Plasma look and feel theme. Run plasma-apply-lookandfeel --list for valid options.
+      iconTheme = "Flat-Remix-Magenta-Dark"; # The Plasma icon theme.
+      wallpaper = "${pkgs.kdePackages.plasma-workspace-wallpapers}/share/wallpapers/Patak/contents/images/1080x1920.png"; # The Plasma wallpaper. Can be either be the path to an image file or a kpackage.
     };
 
     kwin = {
