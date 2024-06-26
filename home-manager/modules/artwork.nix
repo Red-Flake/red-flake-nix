@@ -1,17 +1,24 @@
 { config, lib, pkgs, inputs, ... }:
 
 let
-  artworkPath = "${inputs.artwork}/logos";
+  logoPath = "${inputs.artwork}/logos";
+  wallpaperPath = "${inputs.artwork}/wallpapers";
 in
 {
   home.file.".red-flake/artwork/logos/" = {
-    source = artworkPath;
+    source = logoPath;
     recursive = true;
     force = true;
   };
 
   home.file.".local/share/icons/red-flake/" = {
-    source = artworkPath;
+    source = logoPath;
+    recursive = true;
+    force = true;
+  };
+
+  home.file.".local/share/wallpapers/red-flake/" = {
+    source = wallpaperPath;
     recursive = true;
     force = true;
   };
