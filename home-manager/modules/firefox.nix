@@ -42,6 +42,8 @@
         "browser.newtabpage.activity-stream.section.highlights.includePocket" = false;
         "browser.newtabpage.activity-stream.default.sites" = "";
 
+        "browser.tabs.tabmanager.enabled" = false;
+
         "browser.in-content.dark-mode" = true;
         "ui.systemUsesDarkTheme" = 1;
         # disable alt key bringing up window menu
