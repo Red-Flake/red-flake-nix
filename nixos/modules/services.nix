@@ -84,4 +84,7 @@
   services.psd.enable = true;
   services.psd.resyncTimer = "30min";
 
+  # Enable Flatpak support
+  services.flatpak.enable = true;
+
 }

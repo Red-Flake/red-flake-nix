@@ -18,6 +18,7 @@
     ./modules/firefox.nix
     ./modules/burpsuite.nix
     ./modules/psd.nix
+    ./modules/flatpak.nix
   ];
 
   # disable warning about mismatched version between Home Manager and Nixpkgs
@@ -32,6 +33,7 @@
     zsh-powerlevel10k
     meslo-lgs-nf
     thefuck
+    flatpak
   ];
 
   home.sessionVariables = {
