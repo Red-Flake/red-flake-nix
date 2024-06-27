@@ -25,6 +25,7 @@
   home.enableNixpkgsReleaseCheck = false;
 
   home.packages = with pkgs; [
+    papirus-icon-theme
     oh-my-zsh
     zsh-autosuggestions
     zsh-completions

@@ -22,8 +22,6 @@
     cmake
     fastfetch
     lsb-release
-    flat-remix-icon-theme
-    meslo-lgs-nf
     distrobox
     boxbuddy
     nmap
