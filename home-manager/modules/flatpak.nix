@@ -1,8 +1,8 @@
 { config, lib, pkgs, ... }:
 
 {
-  home.activation.postActivate = ''
+  home.activation.flatpak = ''
     # add flathub repo
-    flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+    ${lib.getExe' pkgs.flatpak "flatpak"} remote-add --if-not-exists --user flathub https://dl.flathub.org/repo/flathub.flatpakrepo
   '';
 }
