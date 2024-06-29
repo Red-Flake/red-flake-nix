@@ -70,6 +70,8 @@
                 "applications:org.kde.dolphin.desktop"
                 "applications:org.kde.konsole.desktop"
                 "applications:firefox.desktop"
+                "applications:org.telegram.desktop.desktop"
+                "applications:vesktop.desktop"
                 "applications:codium.desktop"
                 "applications:burpsuite.desktop"
                 "applications:bloodhound.desktop"
@@ -77,7 +79,7 @@
                 "applications:re.rizin.cutter.desktop"
                 "applications:org.wireshark.Wireshark.desktop"
               ];
-              General.showOnlyCurrentDesktop = false;
+              General.showonlycurrentdesktop = false;
             };
           }
           # If no configuration is needed, specifying only the name of the
