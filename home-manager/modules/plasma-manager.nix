@@ -66,19 +66,24 @@
           {
             name = "org.kde.plasma.icontasks";
             config = {
-              General.launchers = [
-                "applications:org.kde.dolphin.desktop"
-                "applications:org.kde.konsole.desktop"
-                "applications:firefox.desktop"
-                "applications:org.telegram.desktop.desktop"
-                "applications:vesktop.desktop"
-                "applications:codium.desktop"
-                "applications:burpsuite.desktop"
-                "applications:bloodhound.desktop"
-                "applications:ghidra.desktop"
-                "applications:re.rizin.cutter.desktop"
-                "applications:org.wireshark.Wireshark.desktop"
-              ];
+              General = {
+                showOnlyCurrentDesktop = "false";
+                showOnlyCurrentActivity = "true";
+                showOnlyCurrentScreen = "true";
+                launchers = [
+                  "applications:org.kde.dolphin.desktop"
+                  "applications:org.kde.konsole.desktop"
+                  "applications:firefox.desktop"
+                  "applications:org.telegram.desktop.desktop"
+                  "applications:vesktop.desktop"
+                  "applications:codium.desktop"
+                  "applications:burpsuite.desktop"
+                  "applications:bloodhound.desktop"
+                  "applications:ghidra.desktop"
+                  "applications:re.rizin.cutter.desktop"
+                  "applications:org.wireshark.Wireshark.desktop"
+                ];
+              };
             };
           }
           # If no configuration is needed, specifying only the name of the
@@ -115,6 +120,7 @@
               date.enable = false;
             };
           }
+          "org.kde.plasma.showdesktop"
         ];
         hiding = "normalpanel";
       }
