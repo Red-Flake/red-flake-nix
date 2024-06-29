@@ -79,7 +79,6 @@
                 "applications:re.rizin.cutter.desktop"
                 "applications:org.wireshark.Wireshark.desktop"
               ];
-              General.showonlycurrentdesktop = false;
             };
           }
           # If no configuration is needed, specifying only the name of the
