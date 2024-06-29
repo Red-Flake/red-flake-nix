@@ -153,11 +153,14 @@
     configFile = {
       "kdeglobals"."General"."AccentColor" = "160,31,52";
       "baloofilerc"."Basic Settings"."Indexing-Enabled" = false;
-      "kwinrc"."org.kde.kdecoration2"."ButtonsOnLeft" = "SF";
-      "kwinrc"."Desktops"."Number" = {
-        value = 8;
-        # Forces kde to not change this value (even through the settings app).
-        immutable = true;
+      "kwinrc" = {
+        "KDE"."AnimationDurationFactor" = 0.8;
+        "org.kde.kdecoration2"."ButtonsOnLeft" = "SF";
+        "Desktops"."Number" = {
+          value = 8;
+          # Forces kde to not change this value (even through the settings app).
+          immutable = true;
+        };
       };
       #"kscreenlockerrc" = {
       #  "Greeter"."WallpaperPlugin" = "org.kde.potd";
