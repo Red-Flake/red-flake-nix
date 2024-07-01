@@ -79,6 +79,8 @@
       efiSupport = true;
       device = "nodev";
       useOSProber = true;
+      fontSize = 20;
+      configurationName = "Red Flake";
 
       # Use Dark Matter GRUB Theme
       darkmatter-theme = {
