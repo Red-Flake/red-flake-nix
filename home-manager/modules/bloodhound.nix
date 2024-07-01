@@ -35,6 +35,6 @@ in
     name = "BloodHound";
     genericName = "BloodHound";
     exec = "BloodHound";
-    icon = "kali-bloodhound";
+    icon = "${config.home.homeDirectory}/.local/share/icons/red-flake/bloodhound.svg";
   };
 }
