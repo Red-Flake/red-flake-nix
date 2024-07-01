@@ -74,10 +74,19 @@
     # Enable Grub Bootloader
     grub = {
       enable = true;
+      version = 2;
 
       efiSupport = true;
       device = "nodev";
       useOSProber = true;
+
+      # Use Dark Matter GRUB Theme
+      darkmatter-theme = {
+        enable = true;
+        style = "nixos";
+        icon = "color";
+        resolution = "1080p";
+      };
 
     };
 
