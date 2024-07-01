@@ -14,3 +14,4 @@ StartInCurrentSessionDir=false
 [Scrolling]
 HighlightScrolledLines=false
 HistoryMode=2
+ReflowLines=false
