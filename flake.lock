@@ -57,6 +57,43 @@
         "url": "https://flakehub.com/f/chaotic-cx/nix-empty-flake/%3D0.1.2.tar.gz"
       }
     },
+    "darkmatter-grub-theme": {
+      "inputs": {
+        "flake-compat": "flake-compat",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1683347392,
+        "narHash": "sha256-snW+8pJvBQ1B11FmUf6kSgARZW5OvW9uXgxA2VrlzcQ=",
+        "owner": "VandalByte",
+        "repo": "darkmatter-grub-theme",
+        "rev": "efe1abbde0aa9410217247d415ff734583af9711",
+        "type": "gitlab"
+      },
+      "original": {
+        "owner": "VandalByte",
+        "repo": "darkmatter-grub-theme",
+        "type": "gitlab"
+      }
+    },
+    "flake-compat": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1673956053,
+        "narHash": "sha256-4gtG9iQuiKITOjNQQeQIpoIB6b16fm+504Ch3sNKLd8=",
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "rev": "35bb57c0c8d8b62bbfd284272c928ceb64ddbde9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "type": "github"
+      }
+    },
     "flake-parts": {
       "inputs": {
         "nixpkgs-lib": [
@@ -303,6 +340,7 @@
       "inputs": {
         "artwork": "artwork",
         "chaotic-nyx": "chaotic-nyx",
+        "darkmatter-grub-theme": "darkmatter-grub-theme",
         "flake-parts": "flake-parts",
         "home-manager": "home-manager",
         "nix-index-database": "nix-index-database",

@@ -79,8 +79,7 @@
       efiSupport = true;
       device = "nodev";
       useOSProber = true;
-      fontSize = 20;
-      configurationName = "Red Flake";
+      fontSize = 24;
 
       # Use Dark Matter GRUB Theme
       darkmatter-theme = {
@@ -93,4 +92,25 @@
     };
 
   };
+
+  # fix bug that bootloader entry name cannot be set via boot.loader.grub.configurationName
+  # see: https://github.com/NixOS/nixpkgs/issues/15416
+  system.activationScripts.update-grub-menu = {
+    text = ''
+      echo "Updating GRUB menu entry name..."
+
+      GRUB_CFG="/boot/grub/grub.cfg"
+      BACKUP_GRUB_CFG="/boot/grub/grub.cfg.bak"
+      SEARCH_STR="\"NixOS"
+      REPLACE_STR="\"Red Flake"
+
+      if [ -f "$GRUB_CFG" ]; then
+          cp "$GRUB_CFG" "$BACKUP_GRUB_CFG"
+          ${pkgs.gnused}/bin/sed -i "s/$SEARCH_STR/$REPLACE_STR/g" "$GRUB_CFG"
+      else
+          echo "Error: GRUB configuration file not found."
+      fi
+    '';
+  };
+
 }
