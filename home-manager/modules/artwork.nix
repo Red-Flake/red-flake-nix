@@ -2,6 +2,7 @@
 
 let
   logoPath = "${inputs.artwork}/logos";
+  iconPath = "${inputs.artwork}/icons";
   wallpaperPath = "${inputs.artwork}/wallpapers";
 in
 {
@@ -12,7 +13,7 @@ in
   };
 
   home.file.".local/share/icons/red-flake/" = {
-    source = logoPath;
+    source = iconPath;
     recursive = true;
     force = true;
   };
