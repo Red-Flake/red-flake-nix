@@ -169,6 +169,14 @@
           # Forces kde to not change this value (even through the settings app).
           immutable = true;
         };
+        "Effect-hidecursor" = {
+          "HideOnTyping" = true;
+          "InactivityDuration" = 10;
+        };
+        "Plugins" = {
+          "dimscreenEnabled" = true;
+          "hidecursorEnabled"= true;
+        };
       };
       #"kscreenlockerrc" = {
       #  "Greeter"."WallpaperPlugin" = "org.kde.potd";
