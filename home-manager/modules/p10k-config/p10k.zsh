@@ -190,6 +190,7 @@
   # Custom icon.
   # typeset -g POWERLEVEL9K_OS_ICON_CONTENT_EXPANSION='⭐'
   # https://unicode.org/emoji/charts/full-emoji-list.html
+  # Nr: 1057  Code: U+2744
   typeset -g POWERLEVEL9K_OS_ICON_CONTENT_EXPANSION='❄'
 
   ################################[ prompt_char: prompt symbol ]################################
