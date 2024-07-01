@@ -61,6 +61,12 @@
     # https://github.com/Melkor333/nixos-boot
     nixos-boot.url = "github:Melkor333/nixos-boot";
 
+    # https://gitlab.com/VandalByte/darkmatter-grub-theme
+    darkmatter-grub-theme = {
+      url = gitlab:VandalByte/darkmatter-grub-theme;
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Red-Flake artwork
     artwork = {
       url = "github:Red-Flake/artwork";
@@ -68,7 +74,7 @@
     };
   };
 
-  outputs = { flake-parts, nixpkgs, pre-commit-hooks, home-manager, plasma-manager, artwork, nixos-boot, ... } @ inputs: let
+  outputs = { flake-parts, nixpkgs, pre-commit-hooks, home-manager, plasma-manager, artwork, nixos-boot, darkmatter-grub-theme, ... } @ inputs: let
     system = "x86_64-linux";
     username = "pascal";
     homeDirectory = "/home/pascal";
@@ -80,6 +86,7 @@
 
         modules = [
           nixos-boot.nixosModules.default
+          darkmatter-grub-theme.nixosModule
           ./nixos/configuration.nix
           {
             imports = [ inputs.home-manager.nixosModules.home-manager ];
