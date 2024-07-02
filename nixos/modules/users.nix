@@ -28,6 +28,7 @@
         "docker"
         "lxd"
         "libvirtd"
+        "vboxsf"
         "vboxusers"
         "wireshark"
         "networkmanager"
