@@ -12,7 +12,7 @@
       package = pkgs.papirus-icon-theme;
     };
     cursorTheme = {
-      name = "Breeze";
+      name = "breeze_cursors";
       package = pkgs.kdePackages.breeze;
       size = 24;
     };
@@ -52,15 +52,19 @@
     settings = {
       "org/gnome/desktop/interface" = {
         gtk-theme = lib.mkForce "Breeze-Dark";
-        color-scheme = "prefer-dark";
+        icon-theme = lib.mkForce "Papirus-Dark";
+        color-scheme = lib.mkForce "prefer-dark";
+        cursor-theme = lib.mkForce "breeze_cursors";
+        cursor-size = lib.mkForce 24;
       };
     };
   };
 
   # Set X11 cursor theme
   home.pointerCursor = {
-    name = "Breeze";
+    name = "breeze_cursors";
     gtk.enable = true;
+    x11.enable = true;
     package = pkgs.kdePackages.breeze;
     size = 24;
   };
