@@ -19,6 +19,7 @@
     ./modules/burpsuite.nix
     ./modules/psd.nix
     ./modules/flatpak.nix
+    ./modules/virtualisation.nix
   ];
 
   # disable warning about mismatched version between Home Manager and Nixpkgs
