@@ -22,6 +22,9 @@
     gtk3 = {
       extraConfig.gtk-application-prefer-dark-theme = true;
     };
+    gtk4 = {
+      extraConfig.gtk-application-prefer-dark-theme = true;
+    };
   };
 
   # force creation of .gtkrc-2.0 otherwise home-manager will fail
