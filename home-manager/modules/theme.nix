@@ -49,7 +49,7 @@
     enable = true;
     settings = {
       "org/gnome/desktop/interface" = {
-        gtk-theme = lib.mkForce "Breeze";
+        gtk-theme = lib.mkForce "Breeze-Dark";
         color-scheme = "prefer-dark";
       };
     };
