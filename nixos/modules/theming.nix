@@ -1,5 +1,10 @@
-{ config, lib, pkgs, modulesPath, ... }:
+{ inputs, config, lib, pkgs, modulesPath, ... }:
 
+let
+  logoPath = "${inputs.artwork}/logos";
+  iconPath = "${inputs.artwork}/icons";
+  wallpaperPath = "${inputs.artwork}/wallpapers";
+in
 {
     environment.etc = {
 
@@ -25,7 +30,7 @@
             ID=redflake
             IMAGE_ID="rolling"
             IMAGE_VERSION="rolling"
-            LOGO="nix-snowflake"
+            LOGO="${logoPath}/RedFlake_Logo_128x128px.png"
             NAME="Red Flake"
             PRETTY_NAME="Red Flake"
             SUPPORT_URL="https://github.com/Red-Flake/"
@@ -34,8 +39,5 @@
             VERSION_ID="rolling"
         '';
     };
-
-    
-
 
 }
