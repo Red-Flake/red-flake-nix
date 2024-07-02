@@ -157,5 +157,7 @@
     wpscan
     joomscan
     psmisc
+    #kdePackages.krdc
+    remmina
   ];
 }
