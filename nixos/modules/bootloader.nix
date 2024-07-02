@@ -39,6 +39,9 @@
     "i915"
   ];
 
+  # Set extra kernel module options
+  boot.extraModprobeConfig = "options kvm_intel nested=1";
+
   # Clear /tmp on boot
   boot.tmp.cleanOnBoot = true;
 

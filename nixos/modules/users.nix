@@ -27,6 +27,8 @@
         "uinput"
         "docker"
         "lxd"
+        "libvirtd"
+        "vboxusers"
         "wireshark"
         "networkmanager"
         "audio"
