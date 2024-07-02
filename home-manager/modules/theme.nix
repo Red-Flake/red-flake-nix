@@ -12,7 +12,7 @@
       package = pkgs.flat-remix-icon-theme;
     };
     cursorTheme = {
-      name = "Breeze";
+      name = "breeze_cursors";
       package = pkgs.kdePackages.breeze;
       size = 24;
     };
@@ -59,7 +59,7 @@
   home.pointerCursor = {
     gtk.enable = true;
     package = pkgs.kdePackages.breeze;
-    name = "Breeze";
+    name = "breeze_cursors";
     size = 24;
   };
 
