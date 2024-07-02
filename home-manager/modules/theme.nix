@@ -14,7 +14,7 @@
     cursorTheme = {
       name = "Breeze";
       package = pkgs.kdePackages.breeze;
-      size = 28;
+      size = 32;
     };
     gtk2 = {
       configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
@@ -28,7 +28,7 @@
   };
 
   # force creation of .gtkrc-2.0 otherwise home-manager will fail
-  #home.file.".gtkrc-2.0".force = true;
+  home.file.${config.gtk.gtk2.configLocation}.force = true;
 
   # Enabling this seems to break the KDE settings app ...
   #qt = {
