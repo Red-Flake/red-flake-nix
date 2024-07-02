@@ -14,7 +14,7 @@
     cursorTheme = {
       name = "Breeze";
       package = pkgs.kdePackages.breeze;
-      size = 28;
+      size = 24;
     };
     gtk2 = {
       configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
@@ -52,6 +52,14 @@
         color-scheme = "prefer-dark";
       };
     };
+  };
+
+  # Set X11 cursor theme
+  home.pointerCursor = {
+    gtk.enable = true;
+    package = pkgs.kdePackages.breeze;
+    name = "Breeze";
+    size = 24;
   };
 
   # Color scheme Gradient Dark
