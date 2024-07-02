@@ -74,7 +74,7 @@ in
   environment.sessionVariables.MOZ_ENABLE_WAYLAND = "1";
 
   # Set X11 cursor size to 24
-  environment.sessionVariables.XCURSOR_SIZE = "24";
+  #environment.sessionVariables.XCURSOR_SIZE = "24";
 
   # Set GTK Theme to Breeze
   environment.sessionVariables.GTK_THEME = "Breeze";

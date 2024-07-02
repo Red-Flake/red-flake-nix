@@ -12,9 +12,9 @@
       package = pkgs.flat-remix-icon-theme;
     };
     cursorTheme = {
-      name = "breeze_cursors";
+      name = "Breeze";
       package = pkgs.kdePackages.breeze;
-      size = 24;
+      size = 28;
     };
     gtk2 = {
       configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
@@ -56,12 +56,12 @@
   };
 
   # Set X11 cursor theme
-  home.pointerCursor = {
-    gtk.enable = true;
-    package = pkgs.kdePackages.breeze;
-    name = "breeze_cursors";
-    size = 24;
-  };
+  #home.pointerCursor = {
+  #  gtk.enable = true;
+  #  package = pkgs.kdePackages.breeze;
+  #  name = "breeze_cursors";
+  #  size = 26;
+  #};
 
   # Color scheme Gradient Dark
   # https://store.kde.org/p/2078411
