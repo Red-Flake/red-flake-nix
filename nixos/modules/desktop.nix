@@ -75,5 +75,8 @@ in
 
   # Set X11 cursor size to 24
   environment.sessionVariables.XCURSOR_SIZE = "24";
+
+  # Set GTK Theme to Breeze
+  environment.sessionVariables.GTK_THEME = "Breeze";
   
 }
