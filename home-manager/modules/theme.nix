@@ -16,6 +16,9 @@
       package = pkgs.kdePackages.breeze;
       size = 28;
     };
+    gtk2 = {
+      configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
+    };
     gtk3 = {
       extraConfig.gtk-application-prefer-dark-theme = true;
     };
