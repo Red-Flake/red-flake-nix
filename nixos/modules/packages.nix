@@ -159,5 +159,6 @@
     psmisc
     #kdePackages.krdc
     remmina
+    avalonia-ilspy
   ];
 }
