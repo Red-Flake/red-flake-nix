@@ -1,5 +1,15 @@
-{ config, lib, pkgs, modulesPath, ... }:
+{ config, lib, pkgs, modulesPath, inputs, ... }:
 
+let
+  background-package = pkgs.stdenvNoCC.mkDerivation {
+    name = "background-image";
+    src = "${inputs.artwork}/wallpapers";
+    dontUnpack = true;
+    installPhase = ''
+      cp $src/Red-Flake-Wallpaper_1920x1080.png $out
+    '';
+  };
+in
 {
   # X11 / Wayland settings
   services.xserver = {
@@ -17,7 +27,20 @@
 
     # Run SDDM under Wayland
     sddm.wayland.enable = true;
+
+    # Set SDDM theme to breeze
+    sddm.theme = "breeze";
   };
+
+  # Install custom sddm theme.conf.user
+  environment.systemPackages = [
+    (
+      pkgs.writeTextDir "share/sddm/themes/breeze/theme.conf.user" ''
+        [General]
+        background = ${background-package}
+      ''
+    )
+  ];
 
   # Desktop-Manager settings
   services.desktopManager = {
