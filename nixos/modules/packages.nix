@@ -139,6 +139,7 @@
     irssi
     telegram-desktop
     libreoffice-qt6-fresh
+    freeoffice
     lshw
     lshw-gui
     krita
