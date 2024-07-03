@@ -160,5 +160,11 @@
     #kdePackages.krdc
     remmina
     avalonia-ilspy
+    aha
+    pciutils
+    clinfo
+    glxinfo
+    vulkan-tools
+    wayland-utils
   ];
 }
