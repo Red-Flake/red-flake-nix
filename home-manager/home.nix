@@ -27,6 +27,7 @@
 
   home.packages = with pkgs; [
     papirus-icon-theme
+    bibata-cursors
     oh-my-zsh
     zsh-autosuggestions
     zsh-completions
