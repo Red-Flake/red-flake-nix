@@ -14,7 +14,7 @@
     cursorTheme = {
       name = "Bibata-Modern-Classic";
       package = pkgs.bibata-cursors;
-      # size = 24;
+      size = 24;
     };
     gtk2 = {
       configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
@@ -55,7 +55,7 @@
         icon-theme = lib.mkForce "Papirus-Dark";
         color-scheme = lib.mkForce "prefer-dark";
         cursor-theme = lib.mkForce "Bibata-Modern-Classic";
-        #cursor-size = lib.mkForce 26;
+        cursor-size = lib.mkForce 24;
       };
     };
   };
@@ -66,7 +66,7 @@
     gtk.enable = true;
     x11.enable = true;
     package = pkgs.bibata-cursors;
-    #size = 26;
+    size = 24;
   };
   #home.pointerCursor = {
   #  gtk.enable = true;
