@@ -20,6 +20,7 @@
     ./modules/psd.nix
     ./modules/flatpak.nix
     ./modules/virtualisation.nix
+    ./modules/desktop-files.nix
   ];
 
   # disable warning about mismatched version between Home Manager and Nixpkgs
