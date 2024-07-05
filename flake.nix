@@ -12,15 +12,11 @@
   ];
 
   inputs = {
-    # Chaotic's Nyx
-    chaotic-nyx = {
-      url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
-      inputs.home-manager.follows = "home-manager";
-    };
+    # Nixpkgs-Unstable
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    # If you need to, override this to use a different nixpkgs version
-    # by default we follow Chaotic Nyx' nyxpkgs-unstable branch
-    nixpkgs.follows = "chaotic-nyx/nixpkgs";
+    # Chaotic's Nyx
+    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
 
     # Modules support for flakes
     flake-parts = {
@@ -37,7 +33,7 @@
     # Home configuration management
     home-manager = {
       url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "chaotic-nyx/nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # https://github.com/pjones/plasma-manager
@@ -50,10 +46,10 @@
     # Easy linting of the flake and all kind of other stuff
     pre-commit-hooks = {
       url = "github:cachix/pre-commit-hooks.nix";
-      inputs.flake-compat.follows = "chaotic-nyx/nixpkgs";
-      inputs.nixpkgs.follows = "chaotic-nyx/nixpkgs";
+      inputs.flake-compat.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
       # Only used for the tests of pre-commit-hooks. Override stops double fetch
-      inputs.nixpkgs-stable.follows = "chaotic-nyx/nixpkgs";
+      inputs.nixpkgs-stable.follows = "nixpkgs";
     };
 
     nur.url = "github:nix-community/NUR";
@@ -74,7 +70,7 @@
     };
   };
 
-  outputs = { flake-parts, nixpkgs, pre-commit-hooks, home-manager, plasma-manager, artwork, nixos-boot, darkmatter-grub-theme, ... } @ inputs: let
+  outputs = { self, nixpkgs, chaotic, flake-parts, pre-commit-hooks, home-manager, plasma-manager, artwork, nixos-boot, darkmatter-grub-theme, ... } @ inputs: let
     system = "x86_64-linux";
     username = "pascal";
     homeDirectory = "/home/pascal";
@@ -85,6 +81,7 @@
         specialArgs = { inherit inputs; };
 
         modules = [
+          chaotic.nixosModules.default
           nixos-boot.nixosModules.default
           darkmatter-grub-theme.nixosModule
           ./nixos/configuration.nix

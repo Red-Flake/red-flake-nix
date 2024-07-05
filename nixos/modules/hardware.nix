@@ -1,4 +1,4 @@
-{ config, lib, pkgs, modulesPath, ... }:
+{ config, lib, pkgsx86_64_v3, modulesPath, ... }:
 
 {
   # addtional Hardware related config

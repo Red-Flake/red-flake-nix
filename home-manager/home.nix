@@ -1,6 +1,6 @@
 # This is your home-manager configuration file
 # Use this to configure your home environment (it replaces ~/.config/nixpkgs/home.nix)
-{ inputs, lib, config, pkgs, ... }:
+{ inputs, lib, config, pkgsx86_64_v3, ... }:
 {
   # import other home-manager
   imports = [
@@ -26,7 +26,7 @@
   # disable warning about mismatched version between Home Manager and Nixpkgs
   home.enableNixpkgsReleaseCheck = false;
 
-  home.packages = with pkgs; [
+  home.packages = with pkgsx86_64_v3; [
     papirus-icon-theme
     bibata-cursors
     oh-my-zsh

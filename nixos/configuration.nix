@@ -1,4 +1,4 @@
-{ config, lib, pkgs, inputs, ... }:
+{ config, lib, pkgsx86_64_v3, inputs, ... }:
 
 {
   # Import other NixOS modules here
