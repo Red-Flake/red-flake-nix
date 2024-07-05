@@ -1,7 +1,7 @@
-{ config, lib, pkgs, modulesPath, inputs, ... }:
+{ config, lib, pkgsx86_64_v3, modulesPath, inputs, ... }:
 
 let
-  background-package = pkgs.stdenvNoCC.mkDerivation {
+  background-package = pkgsx86_64_v3.stdenvNoCC.mkDerivation {
     name = "background-image";
     src = "${inputs.artwork}/wallpapers";
     dontUnpack = true;
@@ -35,7 +35,7 @@ in
   # Install custom sddm theme.conf.user
   environment.systemPackages = [
     (
-      pkgs.writeTextDir "share/sddm/themes/breeze/theme.conf.user" ''
+      pkgsx86_64_v3.writeTextDir "share/sddm/themes/breeze/theme.conf.user" ''
         [General]
         background = ${background-package}
       ''
@@ -59,7 +59,7 @@ in
   # enable xdg desktop portal
   xdg.portal = {
    enable = true;
-   extraPortals = with pkgs; [
+   extraPortals = with pkgsx86_64_v3; [
      kdePackages.xdg-desktop-portal-kde
      xdg-desktop-portal-gtk
    ];

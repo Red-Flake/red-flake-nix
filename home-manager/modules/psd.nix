@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgsx86_64_v3, ... }:
 {
     home.file.".config/psd/psd.conf".text = ''
         #

@@ -1,4 +1,4 @@
-{ config, lib, pkgs, modulesPath, ... }:
+{ config, lib, pkgsx86_64_v3, modulesPath, ... }:
 
 {
     # enable Docker support
@@ -12,12 +12,12 @@
     virtualisation.libvirtd = {
         enable = true;
         qemu = {
-          package = pkgs.qemu_kvm;
+          package = pkgsx86_64_v3.qemu_kvm;
           runAsRoot = true;
           swtpm.enable = true;
           ovmf = {
             enable = true;
-            packages = [(pkgs.OVMF.override {
+            packages = [(pkgsx86_64_v3.OVMF.override {
               secureBoot = true;
               tpmSupport = true;
             }).fd];

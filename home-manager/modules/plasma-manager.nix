@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgsx86_64_v3, config, ... }:
 
 {
   programs.plasma = {

@@ -1,9 +1,9 @@
-{ config, lib, pkgs, modulesPath, ... }:
+{ config, lib, pkgsx86_64_v3, modulesPath, ... }:
 
 {
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = with pkgsx86_64_v3; [
     git
     nix-index
     home-manager
@@ -66,8 +66,8 @@
         activate = 1
       '';
     in
-    pkgs.evil-winrm.overrideAttrs (o: {
-      nativeBuildInputs = o.nativeBuildInputs ++ [ pkgs.makeWrapper ];
+    pkgsx86_64_v3.evil-winrm.overrideAttrs (o: {
+      nativeBuildInputs = o.nativeBuildInputs ++ [ pkgsx86_64_v3.makeWrapper ];
       postFixup =
         (o.postFixup or "")
         + ''

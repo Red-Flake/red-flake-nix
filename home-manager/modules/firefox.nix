@@ -2,12 +2,12 @@
   inputs,
   config,
   lib,
-  pkgs,
+  pkgsx86_64_v3,
   ...
 }: {
   programs.firefox = {
     enable = true;
-    package = pkgs.firefox-bin;
+    package = pkgsx86_64_v3.firefox-bin;
 
     profiles.redflake = {
       id = 0;
