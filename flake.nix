@@ -21,13 +21,13 @@
     # Modules support for flakes
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
-      inputs.nixpkgs-lib.follows = "chaotic-nyx/nixpkgs";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
     # Have a local index of nixpkgs for fast launching of apps
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
-      inputs.nixpkgs.follows = "chaotic-nyx/nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Home configuration management
