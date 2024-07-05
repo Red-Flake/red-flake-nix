@@ -1,4 +1,4 @@
-{ config, lib, pkgsx86_64_v3, ... }:
+{ config, lib, pkgs, ... }:
 {
     # https://home-manager-options.extranix.com/?query=fastfetch&release=master
     programs.fastfetch = {

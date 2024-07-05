@@ -1,4 +1,4 @@
-{ config, lib, pkgsx86_64_v3, inputs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 let
   logoPath = "${inputs.artwork}/logos";

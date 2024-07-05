@@ -1,4 +1,4 @@
-{ config, lib, pkgsx86_64_v3, modulesPath, ... }:
+{ config, lib, pkgs, modulesPath, ... }:
 
 {
   # Set kernel parameters
@@ -27,7 +27,7 @@
   ];
 
   # Switch to CachyOS LTO optimized kernel
-  boot.kernelPackages = pkgsx86_64_v3.linuxPackages_cachyos-lto;
+  boot.kernelPackages = pkgs.linuxPackages_cachyos-lto;
 
   # Set kernel modules
   boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod" ];
@@ -108,7 +108,7 @@
 
       if [ -f "$GRUB_CFG" ]; then
           cp "$GRUB_CFG" "$BACKUP_GRUB_CFG"
-          ${pkgsx86_64_v3.gnused}/bin/sed -i "s/$SEARCH_STR/$REPLACE_STR/g" "$GRUB_CFG"
+          ${pkgs.gnused}/bin/sed -i "s/$SEARCH_STR/$REPLACE_STR/g" "$GRUB_CFG"
       else
           echo "Error: GRUB configuration file not found."
       fi

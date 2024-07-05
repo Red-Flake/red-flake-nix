@@ -1,4 +1,4 @@
-{ config, lib, pkgsx86_64_v3, ... }:
+{ config, lib, pkgs, ... }:
 {
     # deploy UserConfigCommunity.json
     home.file.".BurpSuite/UserConfigCommunity.json" = {

@@ -1,4 +1,4 @@
-{ config, lib, pkgsx86_64_v3, modulesPath, ... }:
+{ config, lib, pkgs, modulesPath, ... }:
 
 {
 # TODO: Configure your system-wide user settings (groups, etc), add more users as needed.
@@ -11,7 +11,7 @@
       initialPassword = "correcthorsebatterystaple";
       isNormalUser = true;
       # set shell for user
-      shell = pkgsx86_64_v3.zsh;
+      shell = pkgs.zsh;
       # set ssh authorized_keys
       openssh.authorizedKeys.keys = [
         # TODO: Add your SSH public key(s) here, if you plan on using SSH to connect

@@ -1,9 +1,9 @@
-{ config, lib, pkgsx86_64_v3, modulesPath, ... }:
+{ config, lib, pkgs, modulesPath, ... }:
 
 {  
     # set zsh as default shell:
-    users.defaultUserShell = pkgsx86_64_v3.zsh;
-    environment.shells = with pkgsx86_64_v3; [ zsh ];
+    users.defaultUserShell = pkgs.zsh;
+    environment.shells = with pkgs; [ zsh ];
     environment.pathsToLink = [ "/share/zsh" ];
     programs.zsh.enable = true;
 }
