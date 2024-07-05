@@ -463,7 +463,6 @@
     genericName = "";
     type = "Directory";
     icon = "kali-system-services-trans";
-    terminal = null;
   };
   xdg.desktopEntries.defectdojo_directory = {
     name = "Defectdojo";

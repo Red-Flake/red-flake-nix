@@ -112,7 +112,7 @@
     audacity
     dbeaver-bin
     filezilla
-    gnome.ghex
+    ghex
     keepassxc
     powershell
     sonic-visualiser
