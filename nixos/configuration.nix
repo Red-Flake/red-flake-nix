@@ -1,4 +1,4 @@
-{ config, lib, pkgsx86_64_v3, inputs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 {
   # Import other NixOS modules here
@@ -63,7 +63,7 @@
     overlays = with inputs; [
       # If you want to use overlays exported from other flakes:
       # neovim-nightly-overlay.overlays.default
-      chaotic-nyx.overlays.default
+      chaotic.overlays.default
       nur.overlay
 
       # Or define it inline, for example:

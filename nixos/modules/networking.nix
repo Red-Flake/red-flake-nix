@@ -1,4 +1,4 @@
-{ config, lib, pkgsx86_64_v3, modulesPath, ... }:
+{ config, lib, pkgs, modulesPath, ... }:
 
 {
   networking.networkmanager.enable = true;
@@ -27,7 +27,7 @@
       # https://wiki.archlinux.org/title/NetworkManager#Dynamically_set_NTP_servers_received_via_DHCP_with_systemd-timesyncd
       # You can debug with sudo journalctl -u NetworkManager-dispatcher -e
       # make sure to restart NM as described above
-      source = pkgsx86_64_v3.writeText "10-update-timesyncd" ''
+      source = pkgs.writeText "10-update-timesyncd" ''
         [ -z "$CONNECTION_UUID" ] && exit 0
         INTERFACE="$1"
         ACTION="$2"

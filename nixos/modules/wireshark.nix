@@ -1,9 +1,9 @@
-{ config, lib, pkgsx86_64_v3, modulesPath, ... }:
+{ config, lib, pkgs, modulesPath, ... }:
 
 {
   # Enable Wireshark
   programs.wireshark.enable = true;
 
   # Use Wireshark-QT
-  programs.wireshark.package = pkgsx86_64_v3.wireshark;    
+  programs.wireshark.package = pkgs.wireshark;    
 }

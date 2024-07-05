@@ -1,6 +1,6 @@
 {
   config,
-  pkgsx86_64_v3,
+  pkgs,
   lib,
   ...
 }: let

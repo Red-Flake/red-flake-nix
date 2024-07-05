@@ -1,4 +1,4 @@
-{ config, lib, pkgsx86_64_v3, modulesPath, ... }:
+{ config, lib, pkgs, modulesPath, ... }:
 
 {
   # Disable power-profiles-daemon (interferes with cpufreq)
@@ -20,14 +20,14 @@
     settings = {
         port = 5432;
     };
-    authentication = pkgsx86_64_v3.lib.mkOverride 10 ''
+    authentication = pkgs.lib.mkOverride 10 ''
       #type database  DBuser  auth-method
       local all       all     trust
       host all all      ::1/128      trust
       host all postgres 127.0.0.1/32 trust
       host all msf 127.0.0.1/32 trust
     '';
-    initialScript = pkgsx86_64_v3.writeText "backend-initScript" ''
+    initialScript = pkgs.writeText "backend-initScript" ''
         CREATE ROLE msf WITH LOGIN PASSWORD 'msf' CREATEDB;
         CREATE DATABASE msf;
         GRANT ALL PRIVILEGES ON DATABASE msf TO msf;

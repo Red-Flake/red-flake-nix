@@ -1,4 +1,4 @@
-{ config, lib, pkgsx86_64_v3, ... }:
+{ config, lib, pkgs, ... }:
 let
   # load the configuration that we was generated the first
   # time zsh were loaded with powerlevel enabled.
@@ -59,7 +59,7 @@ in
                     # A prompt will appear the first time to configure it properly
                     # make sure to select MesloLGS NF as the font in Konsole
                     name = "powerlevel10k";
-                    src = pkgsx86_64_v3.zsh-powerlevel10k;
+                    src = pkgs.zsh-powerlevel10k;
                     file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
                   }
                   {

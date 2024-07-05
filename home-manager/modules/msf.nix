@@ -1,4 +1,4 @@
-{ config, lib, pkgsx86_64_v3, ... }:
+{ config, lib, pkgs, ... }:
 {
     home.file.".msf4/database.yml".text = ''
         # To set up a metasploit database, follow the directions hosted at:

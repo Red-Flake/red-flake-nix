@@ -1,19 +1,19 @@
-{ config, lib, pkgsx86_64_v3, inputs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 {
 
   gtk = {
     enable = true;
     theme = {
       name = "Breeze-Dark";
-      package = pkgsx86_64_v3.kdePackages.breeze-gtk;
+      package = pkgs.kdePackages.breeze-gtk;
     };
     iconTheme = {
       name = "Papirus-Dark";
-      package = pkgsx86_64_v3.papirus-icon-theme;
+      package = pkgs.papirus-icon-theme;
     };
     cursorTheme = {
       name = "Bibata-Modern-Classic";
-      package = pkgsx86_64_v3.bibata-cursors;
+      package = pkgs.bibata-cursors;
       size = 24;
     };
     gtk2 = {
@@ -65,7 +65,7 @@
     name = "Bibata-Modern-Classic";
     gtk.enable = true;
     x11.enable = true;
-    package = pkgsx86_64_v3.bibata-cursors;
+    package = pkgs.bibata-cursors;
     size = 24;
   };
   #home.pointerCursor = {

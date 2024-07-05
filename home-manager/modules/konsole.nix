@@ -1,4 +1,4 @@
-{ config, lib, pkgsx86_64_v3, ... }:
+{ config, lib, pkgs, ... }:
 {
     # deploy konsole profile
     home.file.".local/share/konsole/red-flake.profile" = {

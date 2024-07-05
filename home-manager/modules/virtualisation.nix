@@ -1,4 +1,4 @@
-{ config, lib, pkgsx86_64_v3, ... }:
+{ config, lib, pkgs, ... }:
 {
   home.file.".config/libvirt/qemu.conf".text = ''
       # Adapted from /var/lib/libvirt/qemu.conf
