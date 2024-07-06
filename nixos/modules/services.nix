@@ -92,6 +92,9 @@
     enable = true;
     package = pkgs.ananicy-cpp;
     rulesProvider = pkgs.ananicy-rules-cachyos;
+    settings = {
+      apply_nice = true;
+    };
   };
 
 }
