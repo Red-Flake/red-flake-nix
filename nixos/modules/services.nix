@@ -87,4 +87,11 @@
   # Enable Flatpak support
   services.flatpak.enable = true;
 
+  # Enable Ananicy-Cpp with CachyOS rulesets
+  services.ananicy = {
+    enable = true;
+    package = pkgs.ananicy-cpp;
+    rulesProvider = pkgs.ananicy-rules-cachyos;
+  };
+
 }
