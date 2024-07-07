@@ -32,7 +32,9 @@
         "vboxusers"
         "wireshark"
         "networkmanager"
+        "network"
         "audio"
+        "storage"
       ];
     };
   };

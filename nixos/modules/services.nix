@@ -55,8 +55,12 @@
 
   # Pipewire settings
   # Remove sound.enable or set it to false if you had it set previously, as sound.enable is only meant for ALSA-based configurations
+  sound.enable = false;
+  # Disable Pulseaudio
+  hardware.pulseaudio.enable = false;
   # rtkit is optional but recommended
   security.rtkit.enable = true;
+  # Enable Pipewire
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -96,5 +100,19 @@
       apply_nice = true;
     };
   };
+
+   # Make nixos boot slightly faster by turning these off during boot
+  systemd.services.NetworkManager-wait-online.enable = false;
+  systemd.services.systemd-udev-settle.enable = false;
+
+  # Schedulers from https://wiki.archlinux.org/title/improving_performance
+  services.udev.extraRules = ''
+    # HDD
+    ACTION=="add|change", KERNEL=="sd[a-z]*", ATTR{queue/rotational}=="1", ATTR{queue/scheduler}="bfq"
+    # SSD
+    ACTION=="add|change", KERNEL=="sd[a-z]*|mmcblk[0-9]*", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="bfq"
+    # NVMe SSD
+    ACTION=="add|change", KERNEL=="nvme[0-9]*", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="none"
+  '';
 
 }
