@@ -30,7 +30,7 @@
   boot.kernelPackages = pkgs.linuxPackages_cachyos-lto;
 
   # Set kernel modules
-  boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "usbhid" "sd_mod" "ahci" ];
   
   # Set initramfs kernel modules
   # Enable AMD video driver + Intel video driver via early KMS
@@ -42,8 +42,11 @@
   # Set extra kernel module options
   boot.extraModprobeConfig = "options kvm_intel nested=1";
 
-  # Clear /tmp on boot
-  boot.tmp.cleanOnBoot = true;
+  # Clear /tmp on boot & use tmpfs
+  boot.tmp = {
+    cleanOnBoot = true;
+    useTmpfs = true;
+  };
 
   # Enable Plymouth
   boot.plymouth.enable = true;

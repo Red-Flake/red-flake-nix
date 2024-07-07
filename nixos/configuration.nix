@@ -88,11 +88,20 @@
   nix = let
     flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
   in {
+    optimise.automatic = true;
+
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 7d";
+    };
+
     # Don't warn about dirty flakes and accept flake configs by default
     extraOptions = ''
       accept-flake-config = true
       warn-dirty = false
     '';
+
     settings = {
       # Use available binary caches, this is not Gentoo
       # this also allows us to use remote builders to reduce build times and batter usage
@@ -109,6 +118,17 @@
 
       # Enable deduplication
       auto-optimise-store = true;
+
+      # Substituters
+      substituters = [
+        "https://nix-community.cachix.org"
+        "https://cache.nixos.org/"
+      ];
+
+      # Trusted public keys
+      trusted-public-keys = [
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      ];
 
       # A few extra binary caches and their public keys
       # Enable Cachix Binary Cache for Chaotic-Nyx
