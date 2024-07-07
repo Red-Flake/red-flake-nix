@@ -65,18 +65,25 @@ in
    ];
   };
 
-  # Electron and Chromium
-  ## As of NixOS 22.05 ("Quokka"), you can enable Ozone Wayland support in Chromium and Electron based applications by setting the environment variable NIXOS_OZONE_WL=1. For example, in a configuration.nix: 
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+  # Env Variables
+  environment.sessionVariables = {
 
-  # Firefox
-  ## Enable wayland for firefox
-  environment.sessionVariables.MOZ_ENABLE_WAYLAND = "1";
+    # Electron and Chromium
+    ## As of NixOS 22.05 ("Quokka"), you can enable Ozone Wayland support in Chromium and Electron based applications by setting the environment variable NIXOS_OZONE_WL=1. For example, in a configuration.nix: 
+    NIXOS_OZONE_WL = "1";
 
-  # Set X11 cursor size to 24
-  environment.sessionVariables.XCURSOR_SIZE = "24";
+    # Firefox
+    ## Enable wayland for firefox
+    MOZ_ENABLE_WAYLAND = "1";
 
-  # Set GTK Theme to Breeze
-  environment.sessionVariables.GTK_THEME = "Breeze";
+    # Set X11 cursor size to 24
+    XCURSOR_SIZE = "24";
+
+    # Try to fix cursor size inconsistency
+    WLR_NO_HARDWARE_CURSORS = "1";
+
+    # Set GTK Theme to Breeze
+    GTK_THEME = "Breeze";
+  };
   
 }
