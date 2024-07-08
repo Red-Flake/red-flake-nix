@@ -56,6 +56,9 @@
 
     # theming
     ./modules/theming.nix
+
+    # symlinks for wordlists
+    ./modules/wordlists.nix
   ];
 
   nixpkgs = {
