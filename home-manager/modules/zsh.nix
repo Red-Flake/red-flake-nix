@@ -93,6 +93,7 @@ in
                     lsa = "lsd -la";
                     tree = "lsd --tree -a";
                     cat = "bat";
+                    pcat = "'cat'";
                     cme = "nxc";
                     crackmapexec = "netexec";
                     joomscan = "joomscan.pl";
