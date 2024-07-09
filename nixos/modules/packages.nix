@@ -7,7 +7,7 @@
     git
     nix-index
     home-manager
-    scx
+    #scx
     file
     gparted
     tree
@@ -102,7 +102,7 @@
     tcpdump
     zeek
     proxychains-ng
-    binwalk
+    #binwalk
     foremost
     scalpel
     pdf-parser
@@ -129,11 +129,11 @@
     redis
     imagemagick
     strace
-    clamav
+    #clamav
     dig
     steghide
     stegseek
-    xsser
+    #xsser
     lsd
     bat
     android-tools

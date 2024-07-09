@@ -32,6 +32,6 @@
     virtualisation.virtualbox.host.enable = true;
 
     # enable VirtualBox ExtensionPack
-    virtualisation.virtualbox.host.enableExtensionPack = true;
+    #virtualisation.virtualbox.host.enableExtensionPack = true;
 
 }
