@@ -28,7 +28,7 @@
 
   # Switch to CachyOS LTO optimized kernel
   #boot.kernelPackages = pkgs.linuxPackages_cachyos-lto;
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
 
   # Set kernel modules
   boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "usbhid" "sd_mod" "ahci" ];
