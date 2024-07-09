@@ -91,15 +91,16 @@
   # Enable Flatpak support
   services.flatpak.enable = true;
 
+  # DISABLE ANANICY CPP for now since build is failing
   # Enable Ananicy-Cpp with CachyOS rulesets
-  services.ananicy = {
-    enable = true;
-    package = pkgs.ananicy-cpp;
-    rulesProvider = pkgs.ananicy-rules-cachyos;
-    settings = {
-      apply_nice = true;
-    };
-  };
+  #services.ananicy = {
+  #  enable = true;
+  #  package = pkgs.ananicy-cpp;
+  #  rulesProvider = pkgs.ananicy-rules-cachyos;
+  #  settings = {
+  #    apply_nice = true;
+  #  };
+  #};
 
    # Make nixos boot slightly faster by turning these off during boot
   systemd.services.NetworkManager-wait-online.enable = false;
