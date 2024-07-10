@@ -74,9 +74,16 @@
       url = "github:Red-Flake/webshells";
       flake = false;
     };
+
+    # Red-Flake tools
+    tools = {
+      url = "github:Red-Flake/tools";
+      flake = false;
+    };
+    
   };
 
-  outputs = { self, nixpkgs, chaotic, flake-parts, pre-commit-hooks, home-manager, plasma-manager, artwork, nixos-boot, darkmatter-grub-theme, ... } @ inputs: let
+  outputs = { self, nixpkgs, chaotic, flake-parts, pre-commit-hooks, home-manager, plasma-manager, artwork, webshells, tools, nixos-boot, darkmatter-grub-theme, ... } @ inputs: let
     system = "x86_64-linux";
     username = "pascal";
     homeDirectory = "/home/pascal";
