@@ -45,6 +45,20 @@
     MOZ_ENABLE_WAYLAND = 1;
   };
 
+  xdg.mimeApps = {
+    enable = true;
+  
+    # set default browser to firefox
+    defaultApplications = {
+      "text/html" = "firefox.desktop";
+      "x-scheme-handler/http" = "firefox.desktop";
+      "x-scheme-handler/https" = "firefox.desktop";
+      "x-scheme-handler/about" = "firefox.desktop";
+      "x-scheme-handler/unknown" = "firefox.desktop";
+    };
+  };
+
+
   xsession.enable = true;
 
   programs.home-manager.enable = false;
