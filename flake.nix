@@ -68,6 +68,12 @@
       url = "github:Red-Flake/artwork";
       flake = false;
     };
+
+    # Red-Flake webshells
+    webshells = {
+      url = "github:Red-Flake/webshells";
+      flake = false;
+    };
   };
 
   outputs = { self, nixpkgs, chaotic, flake-parts, pre-commit-hooks, home-manager, plasma-manager, artwork, nixos-boot, darkmatter-grub-theme, ... } @ inputs: let
