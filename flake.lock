@@ -302,11 +302,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1720539898,
-        "narHash": "sha256-K3wbv5af4MiB2Hzgn3cVtz7f2h44Z6HfuxtAnWY51lc=",
+        "lastModified": 1720622117,
+        "narHash": "sha256-nS3nJcwtfI/WxFnmCQ2QnWLOnFNqWBuhNdh+7+fzSYM=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "a9a6774215cc62417ec27e4c3cdd3dd571aca554",
+        "rev": "dcb8645b3f41f58b608845104def437b434997c7",
         "type": "github"
       },
       "original": {
@@ -325,11 +325,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1720369165,
-        "narHash": "sha256-MLRzgdEEmckPVwwllD8+4zkqnnxfMgFw5zk6O3JUiks=",
+        "lastModified": 1720603727,
+        "narHash": "sha256-A5qYbCT3rHvVi95u8Zy12cRmW5OPT7yFl1LrTDSejyE=",
         "owner": "pjones",
         "repo": "plasma-manager",
-        "rev": "995d818078778b366e6302ea32d83c2ba586e015",
+        "rev": "f0691e1a9fff4684ce399c345c3a941d2ef0fe78",
         "type": "github"
       },
       "original": {
@@ -377,7 +377,8 @@
         "nixpkgs": "nixpkgs_2",
         "nur": "nur",
         "plasma-manager": "plasma-manager",
-        "pre-commit-hooks": "pre-commit-hooks"
+        "pre-commit-hooks": "pre-commit-hooks",
+        "webshells": "webshells"
       }
     },
     "systems": {
@@ -392,6 +393,22 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default-linux",
+        "type": "github"
+      }
+    },
+    "webshells": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1720622852,
+        "narHash": "sha256-X1nJD007Bpt2XbZerUc0mj2zntr4g+CdaxkLzluuzWs=",
+        "owner": "Red-Flake",
+        "repo": "webshells",
+        "rev": "c6f85322dd23af0fcd83f3b16cf4a28313db16eb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Red-Flake",
+        "repo": "webshells",
         "type": "github"
       }
     },

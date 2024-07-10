@@ -60,6 +60,9 @@
     # symlinks for wordlists
     ./modules/wordlists.nix
 
+    # symlinks for webshells
+    ./modules/webshells.nix
+
     # apply various system tweaks which are required for red-flake to work
     ./modules/tweaks.nix
 
