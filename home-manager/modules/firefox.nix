@@ -106,6 +106,7 @@
         "media.autoplay.default" = 5;
         "layout.css.prefers-color-scheme.content-override" = 0;
         "dom.security.https_only_mode" = false;
+        "dom.serviceWorkers.enabled" = false;
         "network.trr.mode" = 1;
         "network.trr.uri" = "https://mozilla.cloudflare-dns.com/dns-query";
         "network.dns.echconfig.enabled" = true;
