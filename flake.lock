@@ -399,11 +399,11 @@
     "webshells": {
       "flake": false,
       "locked": {
-        "lastModified": 1720622852,
-        "narHash": "sha256-X1nJD007Bpt2XbZerUc0mj2zntr4g+CdaxkLzluuzWs=",
+        "lastModified": 1720624690,
+        "narHash": "sha256-HFQnDjmYryxZ0/NE6JQxEsRuYz8oOnWkw76tCDcjY9U=",
         "owner": "Red-Flake",
         "repo": "webshells",
-        "rev": "c6f85322dd23af0fcd83f3b16cf4a28313db16eb",
+        "rev": "fd3870f3ed06a05b974b49411d3a108ce2f6027e",
         "type": "github"
       },
       "original": {
