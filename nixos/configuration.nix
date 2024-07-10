@@ -59,6 +59,10 @@
 
     # symlinks for wordlists
     ./modules/wordlists.nix
+
+    # apply various system tweaks which are required for red-flake to work
+    ./modules/tweaks.nix
+
   ];
 
   nixpkgs = {
@@ -87,7 +91,6 @@
         wordlists = prev.wordlists.override { wfuzz = prev.python311Packages.wfuzz; };
         thefuck = prev.thefuck.overridePythonAttrs { doCheck = false; };
         ananicy-cpp = prev.ananicy-cpp.overrideAttrs { hardeningDisable = [ "zerocallusedregs" ]; };
-        #scx = prev.scx.overrideAttrs { hardeningDisable = [ "zerocallusedregs" ]; };
       })
 
     ];
@@ -168,6 +171,7 @@
     nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
   };
 
+  # Do not modify this value
   system.stateVersion = "23.05";
 
 }
