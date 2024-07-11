@@ -74,6 +74,12 @@ in
     "x-scheme-handler/unknown" = "firefox.desktop";
   };
 
+  # enable XDG Desktop Menu specification
+  xdg.menus.enable = true;
+
+  # set /etc/xdg/menus/applications-merged
+  environment.etc."xdg/menus/applications-merged/redflake-applications.menu".source = ./xdg/redflake-applications.menu;
+
   # Env Variables
   environment.sessionVariables = {
 

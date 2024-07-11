@@ -1,0 +1,695 @@
+<?xml version="1.0"?>
+<!DOCTYPE Menu PUBLIC "-//freedesktop//DTD Menu 1.0//EN" "http://www.freedesktop.org/standards/menu-spec/1.0/menu.dtd">
+<Menu>
+  <Name>Applications</Name>
+  <Layout>
+    <Menuname>Usual Applications</Menuname>
+    <Menuname>Information Gathering</Menuname>
+    <Menuname>Vulnerability Analysis</Menuname>
+    <Menuname>Web Application Analysis</Menuname>
+    <Menuname>Database Assessment</Menuname>
+    <Menuname>Password Attacks</Menuname>
+    <Menuname>Wireless Attacks</Menuname>
+    <Menuname>Reverse Engineering</Menuname>
+    <Menuname>Exploit Frameworks</Menuname>
+    <Menuname>Sniffing - Spoofing</Menuname>
+    <Menuname>Maintaining Access</Menuname>
+    <Menuname>Forensic Tools</Menuname>
+    <Menuname>Reporting Tools</Menuname>
+    <Menuname>Social Engineering Tools</Menuname>
+    <Menuname>System Services</Menuname>
+    <Merge type="all"/>
+  </Layout>
+
+  <Menu>
+    <Name>Usual Applications</Name>
+    <Directory>usual-apps.directory</Directory>
+    <!-- This is the target of <Move> at the end ... -->
+  </Menu>
+
+  <Menu>
+    <Name>Information Gathering</Name>
+    <Directory>X-info-gathering.directory</Directory>
+    <Include>
+      <And>
+        <Category>X-info-gathering</Category>
+      </And>
+    </Include>
+    <Menu>
+      <Name>DNS Analysis</Name>
+      <Directory>X-dns-analysis.directory</Directory>
+      <Include>
+        <And>
+          <Category>X-dns-analysis</Category>
+        </And>
+      </Include>
+    </Menu>
+    <Menu>
+      <Name>SMTP Analysis</Name>
+      <Directory>X-smtp-analysis.directory</Directory>
+      <Include>
+        <And>
+          <Category>X-smtp-analysis</Category>
+        </And>
+      </Include>
+    </Menu>
+    <Menu>
+      <Name>OSINT Analysis</Name>
+      <Directory>X-osint-analysis.directory</Directory>
+      <Include>
+        <And>
+          <Category>X-osint-analysis</Category>
+        </And>
+      </Include>
+    </Menu>
+    <Menu>
+      <Name>SMB Analysis</Name>
+      <Directory>X-smb-analysis.directory</Directory>
+      <Include>
+        <And>
+          <Category>X-smb-analysis</Category>
+        </And>
+      </Include>
+    </Menu>
+    <Menu>
+      <Name>Route Analysis</Name>
+      <Directory>X-route-analysis.directory</Directory>
+      <Include>
+        <And>
+          <Category>X-route-analysis</Category>
+        </And>
+      </Include>
+    </Menu>
+    <Menu>
+      <Name>Host Identification</Name>
+      <Directory>X-identify-live-hosts.directory</Directory>
+      <Include>
+        <And>
+          <Category>X-identify-live-hosts</Category>
+        </And>
+      </Include>
+    </Menu>
+    <Menu>
+      <Name>SSL Analysis</Name>
+      <Directory>X-ssl-analysis.directory</Directory>
+      <Include>
+        <And>
+          <Category>X-ssl-analysis</Category>
+        </And>
+      </Include>
+    </Menu>
+    <Menu>
+      <Name>Firewall Tools</Name>
+      <Directory>X-ids-ips-identification.directory</Directory>
+      <Include>
+        <And>
+          <Category>X-ids-ips-identification</Category>
+        </And>
+      </Include>
+    </Menu>
+    <Menu>
+      <Name>SNMP Analysis</Name>
+      <Directory>X-snmp-analysis.directory</Directory>
+      <Include>
+        <And>
+          <Category>X-snmp-analysis</Category>
+        </And>
+      </Include>
+    </Menu>
+    <Menu>
+      <Name>Network and Port Scanners</Name>
+      <Directory>X-network-scanners.directory</Directory>
+      <Include>
+        <And>
+          <Category>X-network-scanners</Category>
+        </And>
+      </Include>
+    </Menu>
+  </Menu>
+
+
+  <Menu>
+    <Name>Vulnerability Analysis</Name>
+    <Directory>X-vulnerability-analysis.directory</Directory>
+    <Include>
+      <And>
+        <Category>X-vulnerability-analysis</Category>
+      </And>
+    </Include>
+    <Menu>
+      <Name>Cisco Tools</Name>
+      <Directory>X-cisco-tools.directory</Directory>
+      <Include>
+        <And>
+          <Category>X-cisco-tools</Category>
+        </And>
+      </Include>
+    </Menu>
+
+    <Menu>
+      <Name>Fuzzing Tools</Name>
+      <Directory>X-fuzzers.directory</Directory>
+      <Include>
+        <And>
+          <Category>X-fuzzers</Category>
+        </And>
+      </Include>
+    </Menu>
+
+    <Menu>
+      <Name>VoIP Tools</Name>
+      <Directory>X-voip-tools.directory</Directory>
+      <Include>
+        <And>
+          <Category>X-voip-tools</Category>
+        </And>
+      </Include>
+    </Menu>
+
+    <Menu>
+      <Name>Nessus</Name>
+      <Directory>X-nessus.directory</Directory>
+      <Include>
+        <And>
+          <Category>X-nessus</Category>
+        </And>
+      </Include>
+    </Menu>
+
+    <Menu>
+      <Name>OpenVAS</Name>
+      <Directory>X-openvas.directory</Directory>
+      <Include>
+        <And>
+          <Category>X-openvas</Category>
+        </And>
+      </Include>
+    </Menu>
+
+    <Menu>
+      <Name>Stress Testing</Name>
+      <Directory>X-stress-testing.directory</Directory>
+      <Include>
+        <And>
+          <Category>X-stress-testing</Category>
+        </And>
+      </Include>
+    </Menu>
+
+  </Menu>
+
+
+  <Menu>
+    <Name>Web Application Analysis</Name>
+    <Directory>X-webapp-analysis.directory</Directory>
+    <Include>
+      <And>
+        <Category>X-webapp-analysis</Category>
+      </And>
+    </Include>
+    <Menu>
+      <Name>CMS and Site Identification</Name>
+      <Directory>X-cms-identification.directory</Directory>
+      <Include>
+        <And>
+          <Category>X-cms-identification</Category>
+        </And>
+      </Include>
+    </Menu>
+    <Menu>
+      <Name>Web Crawlers</Name>
+      <Directory>X-web-crawlers.directory</Directory>
+      <Include>
+        <And>
+          <Category>X-web-crawlers</Category>
+        </And>
+      </Include>
+    </Menu>
+    <Menu>
+      <Name>WebApp Proxies</Name>
+      <Directory>X-web-application-proxies.directory</Directory>
+      <Include>
+        <And>
+          <Category>X-web-application-proxies</Category>
+        </And>
+      </Include>
+    </Menu>
+    <Menu>
+      <Name>Web Vulnerability Scanners</Name>
+      <Directory>X-web-vulnerability-scanners.directory</Directory>
+      <Include>
+        <And>
+          <Category>X-web-vulnerability-scanners</Category>
+        </And>
+      </Include>
+    </Menu>
+  </Menu>
+
+
+  <Menu>
+    <Name>Database Assessment</Name>
+    <Directory>X-database-assessment.directory</Directory>
+    <Include>
+      <And>
+        <Category>X-database-assessment</Category>
+      </And>
+    </Include>
+  </Menu>
+
+
+
+  <Menu>
+    <Name>Password Attacks</Name>
+    <Directory>X-password-attacks.directory</Directory>
+    <Include>
+      <And>
+        <Category>X-password-attacks</Category>
+      </And>
+    </Include>
+    <Menu>
+      <Name>Online Attacks</Name>
+      <Directory>X-online-attacks.directory</Directory>
+      <Include>
+        <And>
+          <Category>X-online-attacks</Category>
+        </And>
+      </Include>
+    </Menu>
+    <Menu>
+      <Name>Offline Attacks</Name>
+      <Directory>X-offline-attacks.directory</Directory>
+      <Include>
+        <And>
+          <Category>X-offline-attacks</Category>
+        </And>
+      </Include>
+    </Menu>
+    <Menu>
+      <Name>Passing the Hash</Name>
+      <Directory>X-pass-hash.directory</Directory>
+      <Include>
+        <And>
+          <Category>X-pass-hash</Category>
+        </And>
+      </Include>
+    </Menu>
+    <Menu>
+      <Name>Password Profiling</Name>
+      <Directory>X-profile.directory</Directory>
+      <Include>
+        <And>
+          <Category>X-profile</Category>
+        </And>
+      </Include>
+    </Menu>
+  </Menu>
+
+
+  <Menu>
+    <Name>Wireless Attacks</Name>
+    <Directory>06-wireless-attacks.directory</Directory>
+    <Include>
+      <And>
+        <Category>06-wireless-attacks</Category>
+      </And>
+    </Include>
+    <Menu>
+      <Name>802.11 Wireless Analysis</Name>
+      <Directory>X-wireless-tools.directory</Directory>
+      <Include>
+        <And>
+          <Category>X-wireless-tools</Category>
+        </And>
+      </Include>
+    </Menu>
+    <Menu>
+      <Name>Bluetooth Tools</Name>
+      <Directory>X-bluetooth-tools.directory</Directory>
+      <Include>
+        <And>
+          <Category>X-bluetooth-tools</Category>
+        </And>
+      </Include>
+    </Menu>
+    <Menu>
+      <Name>Software Defined Radio</Name>
+      <Directory>X-radio-tools.directory</Directory>
+      <Include>
+        <And>
+          <Category>X-radio-tools</Category>
+        </And>
+      </Include>
+    </Menu>
+    <Menu>
+      <Name>RFID NFC Tools</Name>
+      <Directory>X-rfid-nfc-tools.directory</Directory>
+      <Include>
+        <And>
+          <Category>X-rfid-nfc-tools</Category>
+        </And>
+      </Include>
+    </Menu>
+    <Menu>
+      <Name>Other Wireless Tools</Name>
+      <Directory>X-other-wireless.directory</Directory>
+      <Include>
+        <And>
+          <Category>X-other-wireless</Category>
+        </And>
+      </Include>
+    </Menu>
+  </Menu>
+
+
+  <Menu>
+    <Name>Reverse Engineering</Name>
+    <Directory>X-reverseengineer.directory</Directory>
+    <Include>
+      <And>
+        <Category>X-reverseengineer</Category>
+      </And>
+    </Include>
+  </Menu>
+
+
+  <Menu>
+    <Name>Exploit Frameworks</Name>
+    <Directory>X-exploitation-tools.directory</Directory>
+    <Include>
+      <And>
+        <Category>X-exploitation-tools</Category>
+      </And>
+    </Include>
+  </Menu>
+
+ <Menu>
+    <Name>Sniffing - Spoofing</Name>
+    <Directory>X-sniffing-spoofing.directory</Directory>
+    <Include>
+      <And>
+        <Category>X-sniffing-spoofing</Category>
+      </And>
+    </Include>
+    <Menu>
+      <Name>Network Sniffers</Name>
+      <Directory>X-network-sniffers.directory</Directory>
+      <Include>
+        <And>
+          <Category>X-network-sniffers</Category>
+        </And>
+      </Include>
+    </Menu>
+    <Menu>
+      <Name>Network Spoofing</Name>
+      <Directory>X-network-spoofing.directory</Directory>
+      <Include>
+        <And>
+          <Category>X-network-spoofing</Category>
+        </And>
+      </Include>
+    </Menu>
+  </Menu>
+
+  <Menu>
+    <Name>Maintaining Access</Name>
+    <Directory>X-maintaining-access.directory</Directory>
+    <Include>
+      <And>
+        <Category>X-maintaining-access</Category>
+      </And>
+    </Include>
+    <Menu>
+      <Name>OS Backdoors</Name>
+      <Directory>X-os-backdoors.directory</Directory>
+      <Include>
+        <And>
+          <Category>X-os-backdoors</Category>
+        </And>
+      </Include>
+    </Menu>
+    <Menu>
+      <Name>Web Backdoors</Name>
+      <Directory>X-web-backdoors.directory</Directory>
+      <Include>
+        <And>
+          <Category>X-web-backdoors</Category>
+        </And>
+      </Include>
+    </Menu>
+    <Menu>
+      <Name>Command and Control</Name>
+      <Directory>X-command-control.directory</Directory>
+      <Include>
+        <And>
+          <Category>X-command-control</Category>
+        </And>
+      </Include>
+    </Menu>
+    <Menu>
+      <Name>Tunneling</Name>
+      <Directory>X-tunneling.directory</Directory>
+      <Include>
+        <And>
+          <Category>X-tunneling</Category>
+        </And>
+      </Include>
+    </Menu>
+  </Menu>
+
+
+  <Menu>
+    <Name>Forensic Tools</Name>
+    <Directory>X-forensics.directory</Directory>
+    <Include>
+      <And>
+        <Category>X-forensics</Category>
+      </And>
+    </Include>
+    <Menu>
+      <Name>PDF Forensics Tools</Name>
+      <Directory>X-pdf-forensics-tools.directory</Directory>
+      <Include>
+        <And>
+          <Category>X-pdf-forensics-tools</Category>
+        </And>
+      </Include>
+    </Menu>
+    <Menu>
+      <Name>Forensics Analysis Suites</Name>
+      <Directory>X-forensic-suites.directory</Directory>
+      <Include>
+        <And>
+          <Category>X-forensic-suites</Category>
+        </And>
+      </Include>
+    </Menu>
+    <Menu>
+      <Name>Digital Forensics</Name>
+      <Directory>X-digital-forensics.directory</Directory>
+      <Include>
+        <And>
+          <Category>X-digital-forensics</Category>
+        </And>
+      </Include>
+      <Include>
+        <And>
+          <Category>X-forensic-analysis-tools</Category>
+        </And>
+      </Include>
+    </Menu>
+    <Menu>
+      <Name>Forensic Carving Tools</Name>
+      <Directory>X-forensic-carving-tools.directory</Directory>
+      <Include>
+        <And>
+          <Category>X-forensic-carving-tools</Category>
+        </And>
+      </Include>
+    </Menu>
+    <Menu>
+      <Name>Forensic Imaging Tools</Name>
+      <Directory>X-forensic-imaging-tools.directory</Directory>
+      <Include>
+        <And>
+          <Category>X-forensic-imaging-tools</Category>
+        </And>
+      </Include>
+    </Menu>
+    <Menu>
+      <Name>Forensic Hashing Tools</Name>
+      <Directory>X-forensic-hashing-tools.directory</Directory>
+      <Include>
+        <And>
+          <Category>X-forensic-hashing-tools</Category>
+        </And>
+      </Include>
+    </Menu>
+  </Menu>
+
+  <Menu>
+    <Name>Reporting Tools</Name>
+    <Directory>X-reporting.directory</Directory>
+    <Include>
+      <And>
+        <Category>X-reporting</Category>
+      </And>
+    </Include>
+  </Menu>
+ 
+  <Menu>
+    <Name>Social Engineering Tools</Name>
+    <Directory>X-social-engineering-tools.directory</Directory>
+    <Include>
+      <And>
+        <Category>X-social-engineering-tools</Category>
+      </And>
+    </Include>
+  </Menu>
+
+  <Menu>
+    <Name>System Services</Name>
+    <Directory>X-services.directory</Directory>
+    <Include>
+      <And>
+        <Category>X-services</Category>
+      </And>
+    </Include>
+    <Menu>
+      <Name>BEEF XSS Framework</Name>
+      <Directory>X-beef-service.directory</Directory>
+      <Include>
+        <And>
+          <Category>X-beef-service</Category>
+        </And>
+      </Include>
+    </Menu>
+    <Menu>
+      <Name>Metasploit</Name>
+      <Directory>X-metasploit-service.directory</Directory>
+      <Include>
+        <And>
+          <Category>X-metasploit-service</Category>
+        </And>
+      </Include>
+    </Menu>
+    <Menu>
+      <Name>Dradis</Name>
+      <Directory>X-dradis-service.directory</Directory>
+      <Include>
+        <And>
+          <Category>X-dradis-service</Category>
+        </And>
+      </Include>
+    </Menu>
+    <Menu>
+      <Name>OpenVas</Name>
+      <Directory>X-openvas-service.directory</Directory>
+      <Include>
+        <And>
+          <Category>X-openvas-service</Category>
+        </And>
+      </Include>
+    </Menu>
+    <Menu>
+      <Name>Xplico</Name>
+      <Directory>X-xplico-service.directory</Directory>
+      <Include>
+        <And>
+          <Category>X-xplico-service</Category>
+        </And>
+      </Include>
+    </Menu>
+    <Menu>
+      <Name>GVM</Name>
+      <Directory>X-gvm-service.directory</Directory>
+      <Include>
+        <And>
+          <Category>X-gvm-service</Category>
+        </And>
+      </Include>
+    </Menu>
+    <Menu>
+      <Name>Defectdojo</Name>
+      <Directory>X-defectdojo-service.directory</Directory>
+      <Include>
+        <And>
+          <Category>X-defectdojo-service</Category>
+        </And>
+      </Include>
+    </Menu>
+  </Menu>
+
+  <!-- Move default top-level menus one level deeper -->
+  <Move>
+    <Old>Accessories</Old>
+    <New>Usual Applications/Accessories</New>
+  </Move>
+  <Move>
+    <Old>Universal Access</Old>
+    <New>Usual Applications/Universal Access</New>
+  </Move>
+  <Move>
+    <Old>Electronics</Old>
+    <New>Usual Applications/Electronics</New>
+  </Move>
+  <Move>
+    <Old>Development</Old>
+    <New>Usual Applications/Development</New>
+  </Move>
+  <Move>
+    <Old>Education</Old>
+    <New>Usual Applications/Education</New>
+  </Move>
+  <Move>
+    <Old>Science</Old>
+    <New>Usual Applications/Science</New>
+  </Move>
+  <Move>
+    <Old>Games</Old>
+    <New>Usual Applications/Games</New>
+  </Move>
+  <Move>
+    <Old>Graphics</Old>
+    <New>Usual Applications/Graphics</New>
+  </Move>
+  <Move>
+    <Old>Internet</Old>
+    <New>Usual Applications/Internet</New>
+  </Move>
+  <Move>
+    <Old>Web Applications</Old>
+    <New>Usual Applications/Web Applications</New>
+  </Move>
+  <Move>
+    <Old>Multimedia</Old>
+    <New>Usual Applications/Multimedia</New>
+  </Move>
+  <Move>
+    <Old>Office</Old>
+    <New>Usual Applications/Office</New>
+  </Move>
+  <Move>
+    <Old>Sundry</Old>
+    <New>Usual Applications/Sundry</New>
+  </Move>
+  <Move>
+    <Old>System</Old>
+    <New>Usual Applications/System</New>
+  </Move>
+  <Move>
+    <Old>System Settings</Old>
+    <New>Usual Applications/System Settings</New>
+  </Move>
+  <Move>
+    <Old>Utilities</Old>
+    <New>Usual Applications/Utilities</New>
+  </Move>
+  <Move>
+    <Old>Other</Old>
+    <New>Usual Applications/Other</New>
+  </Move>
+  <Move>
+    <Old>Hamradio</Old>
+    <New>Usual Applications/Hamradio</New>
+  </Move>
+</Menu>
