@@ -1,7 +1,7 @@
 [![NixOS Unstable](https://img.shields.io/badge/NixOS-unstable-informational?style=flat-square&logo=NixOS&logoColor=white)](https://nixos.org)
 [![Nix](https://img.shields.io/badge/Nix-5277C3?logo=nixos&logoColor=fff)](#)
 
-<h1 align="center">
+<h1 align="center" style="h1,h2,h3,h4 { border-bottom: 0; }">
    <img src="https://raw.githubusercontent.com/Red-Flake/artwork/main/logos/RedFlake_Logo_256x256px.png" width="160"/> 
    <br>
    Red-Flake Nix Flake
