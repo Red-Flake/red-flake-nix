@@ -97,6 +97,9 @@ in
                     cme = "nxc";
                     crackmapexec = "netexec";
                     joomscan = "joomscan.pl";
+                    davtest = "davtest.pl";
+                    patator = "patator.py";
+                    pdf-parser = "pdf-parser.py";
 
                     # shell aliases
                     python3-shell = "nix-shell -p python312 python312Packages.pip python312Packages.pipx";
