@@ -8,6 +8,8 @@
    <br>
 </h1>
 
+<br>
+
 ## Install (as root)
 
 ### Clone the Repo
@@ -19,6 +21,8 @@ nix-shell -p git
 git clone https://github.com/Red-Flake/red-flake-nix /root/red-flake-nix
 cd /root/red-flake-nix
 ```
+
+<br>
 
 ### Hardware Configuration
 
@@ -34,6 +38,8 @@ Track the generated file with Git:
 git add --intent-to-add /root/red-flake-nix/nixos/hardware-configuration.nix
 git update-index --assume-unchanged /root/red-flake-nix/nixos/hardware-configuration.nix
 ```
+
+<br>
 
 ### Installation
 
