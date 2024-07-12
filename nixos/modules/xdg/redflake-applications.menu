@@ -10,6 +10,7 @@
     <Menuname>Database Assessment</Menuname>
     <Menuname>Password Attacks</Menuname>
     <Menuname>Wireless Attacks</Menuname>
+    <Menuname>Mobile Attacks</Menuname>
     <Menuname>Reverse Engineering</Menuname>
     <Menuname>Exploit Frameworks</Menuname>
     <Menuname>Sniffing - Spoofing</Menuname>
@@ -307,10 +308,10 @@
 
   <Menu>
     <Name>Wireless Attacks</Name>
-    <Directory>06-wireless-attacks.directory</Directory>
+    <Directory>X-wireless-attacks.directory</Directory>
     <Include>
       <And>
-        <Category>06-wireless-attacks</Category>
+        <Category>X-wireless-attacks</Category>
       </And>
     </Include>
     <Menu>
@@ -355,6 +356,25 @@
       <Include>
         <And>
           <Category>X-other-wireless</Category>
+        </And>
+      </Include>
+    </Menu>
+  </Menu>
+
+  <Menu>
+    <Name>Mobile Attacks</Name>
+    <Directory>X-mobile-attacks.directory</Directory>
+    <Include>
+      <And>
+        <Category>X-mobile-attacks</Category>
+      </And>
+    </Include>
+    <Menu>
+      <Name>Android Attacks</Name>
+      <Directory>X-android-attacks.directory</Directory>
+      <Include>
+        <And>
+          <Category>X-android-attacks</Category>
         </And>
       </Include>
     </Menu>
