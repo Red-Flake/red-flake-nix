@@ -3,10 +3,10 @@
 
 # red-flake-nix
 
-<p align="center">
+<div align="center">
 <img src="https://raw.githubusercontent.com/Red-Flake/artwork/main/logos/RedFlake_Logo_256x256px.png">
-</p>
 <p style="text-align: center;">Red-Flake Nix flake</p>
+</div>
 
 <br>
 
