@@ -434,6 +434,7 @@
   xdg.desktopEntries.information_gathering_directory = {
     name = "Information Gathering";
     genericName = "";
+    icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/binwalk.svg";
     type = "Directory";
     terminal = null;
   };
