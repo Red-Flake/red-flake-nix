@@ -1033,7 +1033,7 @@
   xdg.desktopEntries.patator = {
     name = "patator";
     genericName = "";
-    exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"patator -h && zsh\"";
+    exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"patator.py -h && zsh\"";
     icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/patator.svg";
     type = "Application";
     categories = [ "X-online-attacks" ];
@@ -1097,7 +1097,7 @@
   xdg.desktopEntries.davtest = {
     name = "davtest";
     genericName = "";
-    exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"davtest && zsh\"";
+    exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"davtest.pl && zsh\"";
     icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/davtest.svg";
     type = "Application";
     categories = [ "X-web-vulnerability-scanners" ];
@@ -1105,7 +1105,7 @@
   xdg.desktopEntries.reaver = {
     name = "reaver";
     genericName = "";
-    exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"reaver -h && zsh\"";
+    exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"sudo reaver -h && zsh\"";
     icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/reaver.svg";
     type = "Application";
     categories = [ "X-wireless-attacks" ];
@@ -1121,7 +1121,7 @@
   xdg.desktopEntries.metasploit_framework_1 = {
     name = "metasploit framework";
     genericName = "";
-    exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"sudo msfdb init && msfconsole && zsh\"";
+    exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"msfconsole && zsh\"";
     icon = "metasploit-framework";
     type = "Application";
     categories = [ "X-exploitation-tools" ];
@@ -1177,7 +1177,7 @@
   xdg.desktopEntries.joomscan = {
     name = "joomscan";
     genericName = "";
-    exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"joomscan && zsh\"";
+    exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"joomscan.pl && zsh\"";
     icon = "${config.home.homeDirectory}/.red-flake/artwork/logos/RedFlake_Logo_32x32px.png";
     type = "Application";
     categories = [ "X-cms-identification" ];

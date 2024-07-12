@@ -96,6 +96,7 @@
         compiler-rt = prev.compiler-rt.override { python3 = prev.python311; };
         wordlists = prev.wordlists.override { wfuzz = prev.python311Packages.wfuzz; };
         thefuck = prev.thefuck.overridePythonAttrs { doCheck = false; };
+        #xsser = prev.xsser.override { python3 = prev.python311; };
         ananicy-cpp = prev.ananicy-cpp.overrideAttrs { hardeningDisable = [ "zerocallusedregs" ]; };
       })
 

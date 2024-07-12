@@ -7,7 +7,6 @@
     git
     nix-index
     home-manager
-    #scx
     file
     gparted
     tree
@@ -102,7 +101,7 @@
     tcpdump
     zeek
     proxychains-ng
-    #binwalk
+    python311Packages.binwalk-full
     foremost
     scalpel
     pdf-parser
@@ -129,10 +128,12 @@
     redis
     imagemagick
     strace
+    # clamav broken at the moment
     #clamav
     dig
     steghide
     stegseek
+    # xsser broken at the moment due to python nose
     #xsser
     lsd
     bat
@@ -184,6 +185,7 @@
     wpscan
     joomscan
     psmisc
+    # krdc broken: Unknown error
     #kdePackages.krdc
     remmina
     avalonia-ilspy
@@ -193,5 +195,6 @@
     glxinfo
     vulkan-tools
     wayland-utils
+    python312Packages.patator
   ];
 }
