@@ -197,5 +197,7 @@
     wayland-utils
     python312Packages.patator
     jdk
+    sqlcmd
+    sqsh
   ];
 }
