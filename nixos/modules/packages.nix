@@ -196,5 +196,6 @@
     vulkan-tools
     wayland-utils
     python312Packages.patator
+    jdk
   ];
 }
