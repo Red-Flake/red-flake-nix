@@ -996,7 +996,7 @@
     exec = "sh -c \"apktool;\\${SHELL:-zsh}\"";
     icon = "apktool";
     type = "Application";
-    categories = [ "X-android-tools" ];
+    categories = [ "X-android-attacks" ];
   };
   xdg.desktopEntries.wifite = {
     name = "wifite";
