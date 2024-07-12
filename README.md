@@ -4,60 +4,41 @@
 <h1 align="center">
    <img src="https://raw.githubusercontent.com/Red-Flake/artwork/main/logos/RedFlake_Logo_256x256px.png" width="160"/> 
    <br>
-      Red-Flake Nix flake
+   Red-Flake Nix Flake
    <br>
 </h1>
 
-<br>
-
 ## Install (as root)
 
-<br>
+### Clone the Repo
 
-### clone the repo
+First, clone the repo into `/root`:
 
-<br>
-
-first clone the repo into /root
 ```bash
 nix-shell -p git
-```
-```bash
 git clone https://github.com/Red-Flake/red-flake-nix /root/red-flake-nix
-```
-
-then enter the directory
-```bash
 cd /root/red-flake-nix
 ```
 
-<br>
+### Hardware Configuration
 
-### hardware-configuration
+Generate your system's `hardware-configuration.nix`:
 
-<br>
-
-then generate your system's `hardware-configuration.nix`
 ```bash
 nixos-generate-config --show-hardware-config > /root/red-flake-nix/nixos/hardware-configuration.nix
 ```
 
-After you generated `hardware-configuration.nix` you need to track it by Git because otherwise it cannot be built using the flake.
-```bash
-git add --intent-to-add /root/red-flake-nix/nixos/hardware-configuration.nix
-```
+Track the generated file with Git:
 
 ```bash
+git add --intent-to-add /root/red-flake-nix/nixos/hardware-configuration.nix
 git update-index --assume-unchanged /root/red-flake-nix/nixos/hardware-configuration.nix
 ```
 
-<br>
+### Installation
 
-### installation
+Finally, install the flake:
 
-<br>
-
-finally install the flake
 ```bash
 nixos-rebuild --install-bootloader switch --flake '/root/red-flake-nix#redflake'
 ```
