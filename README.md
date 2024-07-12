@@ -2,6 +2,9 @@
 [![Nix](https://img.shields.io/badge/Nix-5277C3?logo=nixos&logoColor=fff)](#)
 
 # red-flake-nix
+
+![Red-Flake Logo](https://raw.githubusercontent.com/Red-Flake/artwork/main/logos/RedFlake_Logo_256x256px.png)
+
 Red-Flake Nix flake
 
 <br>
