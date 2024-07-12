@@ -809,7 +809,7 @@
     name = "binwalk";
     genericName = "";
     exec = "sh -c \"binwalk -h;\\${SHELL:-zsh}\"";
-    icon = "binwalk";
+    icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/binwalk.svg";
     type = "Application";
     categories = [ "X-forensics" ];
   };
@@ -817,7 +817,7 @@
     name = "tcpdump";
     genericName = "";
     exec = "sh -c \"tcpdump -h;\\${SHELL:-zsh}\"";
-    icon = "tcpdump";
+    icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/tcpdump.svg";
     type = "Application";
     categories = [ "X-sniffing-spoofing" ];
   };
@@ -833,7 +833,7 @@
     name = "sqlmap";
     genericName = "";
     exec = "sh -c \"sqlmap --wizard;\\${SHELL:-zsh}\"";
-    icon = "sqlmap";
+    icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/sqlmap.svg";
     type = "Application";
     categories = [ "X-database-assessment" ];
   };
@@ -857,7 +857,7 @@
     name = "beef start";
     genericName = "";
     exec = "sh -c \"sudo beef;\\${SHELL:-zsh}\"";
-    icon = "beef-xss";
+    icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/beef-xss.svg";
     type = "Application";
     categories = [ "X-beef-service" ];
   };
@@ -881,7 +881,7 @@
     name = "pdf-parser";
     genericName = "";
     exec = "sh -c \"pdf-parser -h;\\${SHELL:-zsh}\"";
-    icon = "pdf-parser";
+    icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/pdf-parser.svg";
     type = "Application";
     categories = [ "X-pdf-forensics-tools"  ];
   };
@@ -889,7 +889,7 @@
     name = "hash-identifier";
     genericName = "";
     exec = "hash-identifier";
-    icon = "hash-identifier";
+    icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/hash-identifier.svg";
     type = "Application";
     categories = [ "X-offline-attacks" ];
   };
@@ -905,7 +905,7 @@
     name = "crackmapexec";
     genericName = "";
     exec = "sh -c \"crackmapexec -h;\\${SHELL:-zsh}\"";
-    icon = "crackmapexec";
+    icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/crackmapexec.svg";
     type = "Application";
     categories = [ "X-exploitation-tools" ];
   };
@@ -929,7 +929,7 @@
     name = "bettercap";
     genericName = "";
     exec = "sh -c \"sudo bettercap;\\${SHELL:-zsh}\"";
-    icon = "bettercap";
+    icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/bettercap.svg";
     type = "Application";
     categories = [ "X-sniffing-spoofing" ];
   };
@@ -937,7 +937,7 @@
     name = "veil";
     genericName = "";
     exec = "veil -h";
-    icon = "veil";
+    icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/veil.svg";
     type = "Application";
     categories = [ "X-maintaining-access" ];
   };
@@ -945,7 +945,7 @@
     name = "onesixtyone";
     genericName = "";
     exec = "sh -c \"onesixtyone;\\${SHELL:-zsh}\"";
-    icon = "onesixtyone";
+    icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/onesixtyone.svg";
     type = "Application";
     categories = [ "X-snmp-analysis" ];
   };
@@ -953,7 +953,7 @@
     name = "foremost";
     genericName = "";
     exec = "sh -c \"foremost -h;\\${SHELL:-zsh}\"";
-    icon = "foremost";
+    icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/foremost.svg";
     type = "Application";
     categories = [ "X-forensics" ];
   };
@@ -961,7 +961,7 @@
     name = "impacket";
     genericName = "";
     exec = "sh -c \"(cd /usr/bin/ && ls --color=auto impacket-*);\\${SHELL:-zsh}\"";
-    icon = "impacket";
+    icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/impacket.svg";
     type = "Application";
     categories = [ "X-maintaining-access" ];
   };
@@ -969,7 +969,7 @@
     name = "PowerShell";
     genericName = "";
     exec = "pwsh";
-    icon = "pwsh";
+    icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/pwsh.svg";
     type = "Application";
     categories = [ "X-Utility"  ];
   };
@@ -977,7 +977,7 @@
     name = "hydra";
     genericName = "";
     exec = "sh -c \"hydra | grep --color=auto '^\|Supported services:'; hydra-wizard;\\${SHELL:-zsh}\"";
-    icon = "hydra";
+    icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/hydra.svg";
     type = "Application";
     categories = [ "X-password-attacks" ];
   };
@@ -985,7 +985,7 @@
     name = "radare2";
     genericName = "";
     exec = "sh -c \"radare2 -h;\\${SHELL:-zsh}\"";
-    icon = "radare2";
+    icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/radare2.svg";
     type = "Application";
     categories = [ "X-reverse_engineering" ];
   };
@@ -1001,7 +1001,7 @@
     name = "wifite";
     genericName = "";
     exec = "sh -c \"wifite --help;\\${SHELL:-zsh}\"";
-    icon = "wifite";
+    icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/wifite.svg";
     type = "Application";
     categories = [ "X-wireless-attacks" ];
   };
@@ -1017,7 +1017,7 @@
     name = "whatweb";
     genericName = "";
     exec = "sh -c \"whatweb -h;\\${SHELL:-zsh}\"";
-    icon = "whatweb";
+    icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/whatweb.svg";
     type = "Application";
     categories = [ "X-web-vulnerability-scanners" ];
   };
@@ -1033,7 +1033,7 @@
     name = "patator";
     genericName = "";
     exec = "sh -c \"patator -h;\\${SHELL:-zsh}\"";
-    icon = "patator";
+    icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/patator.svg";
     type = "Application";
     categories = [ "X-online-attacks" ];
   };
@@ -1057,7 +1057,7 @@
     name = "social engineering toolkit (root)";
     genericName = "";
     exec = "sudo setoolkit";
-    icon = "set";
+    icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/set.svg";
     type = "Application";
     categories = [ "X-social-engineering-tools" ];
   };
@@ -1065,7 +1065,7 @@
     name = "smbmap";
     genericName = "";
     exec = "sh -c \"smbmap -h;\\${SHELL:-zsh}\"";
-    icon = "smbmap";
+    icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/smbmap.svg";
     type = "Application";
     categories = [ "X-smb-analysis" ];
   };
@@ -1073,7 +1073,7 @@
     name = "hashcat";
     genericName = "";
     exec = "sh -c \"hashcat --help;\\${SHELL:-zsh}\"";
-    icon = "hashcat";
+    icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/hashcat.svg";
     type = "Application";
     categories = [ "X-password-attacks" ];
   };
@@ -1081,7 +1081,7 @@
     name = "httrack";
     genericName = "";
     exec = "sh -c \"httrack -h;\\${SHELL:-zsh}\"";
-    icon = "sqlmap";
+    icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/httrack.svg";
     type = "Application";
     categories = [ "X-webapp-analysis" ];
   };
@@ -1089,7 +1089,7 @@
     name = "evil-winrm";
     genericName = "";
     exec = "sh -c \"evil-winrm -h;\\${SHELL:-zsh}\"";
-    icon = "evil-winrm";
+    icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/evil-winrm.svg";
     type = "Application";
     categories = [ "X-maintaining-access" ];
   };
@@ -1097,7 +1097,7 @@
     name = "davtest";
     genericName = "";
     exec = "sh -c \"davtest;\\${SHELL:-zsh}\"";
-    icon = "davtest";
+    icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/davtest.svg";
     type = "Application";
     categories = [ "X-web-vulnerability-scanners" ];
   };
@@ -1105,7 +1105,7 @@
     name = "reaver";
     genericName = "";
     exec = "sh -c \"reaver -h;\\${SHELL:-zsh}\"";
-    icon = "reaver";
+    icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/reaver.svg";
     type = "Application";
     categories = [ "X-wireless-attacks" ];
   };
@@ -1129,7 +1129,7 @@
     name = "pdfid";
     genericName = "";
     exec = "sh -c \"pdfid -h;\\${SHELL:-zsh}\"";
-    icon = "pdfid";
+    icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/pdfid.svg";
     type = "Application";
     categories = [ "X-pdf-forensics-tools" ];
   };
@@ -1137,7 +1137,7 @@
     name = "wafw00f";
     genericName = "";
     exec = "sh -c \"wafw00f -h;\\${SHELL:-zsh}\"";
-    icon = "wafw00f";
+    icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/wafw00f.svg";
     type = "Application";
     categories = [ "X-ids-ips-identification" ];
   };
@@ -1145,7 +1145,7 @@
     name = "crunch";
     genericName = "";
     exec = "sh -c \"crunch;\\${SHELL:-zsh}\"";
-    icon = "crunch";
+    icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/crunch.svg";
     type = "Application";
     categories = [ "X-password-attacks" ];
   };
@@ -1153,7 +1153,7 @@
     name = "proxychains4";
     genericName = "";
     exec = "sh -c \"proxychains4;\\${SHELL:-zsh}\"";
-    icon = "proxychains";
+    icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/proxychains.svg";
     type = "Application";
     categories = [ "X-tunneling" ];
   };
@@ -1169,7 +1169,7 @@
     name = "ffuf";
     genericName = "";
     exec = "sh -c \"ffuf -h;\\${SHELL:-zsh}\"";
-    icon = "ffuf";
+    icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/ffuf.svg";
     type = "Application";
     categories = [ "X-web-crawlers" ];
   };
@@ -1177,7 +1177,7 @@
     name = "joomscan";
     genericName = "";
     exec = "sh -c \"joomscan;\\${SHELL:-zsh}\"";
-    icon = "/usr/share/icons/MagicArch/MagicArch_Logo_32px.png";
+    icon = "${config.home.homeDirectory}/.red-flake/artwork/logos/RedFlake_Logo_32x32px.png";
     type = "Application";
     categories = [ "X-cms-identification" ];
   };
