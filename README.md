@@ -3,9 +3,11 @@
 
 # red-flake-nix
 
-![Red-Flake Logo](https://raw.githubusercontent.com/Red-Flake/artwork/main/logos/RedFlake_Logo_256x256px.png)
+<p align="center">
+<img src="https://raw.githubusercontent.com/Red-Flake/artwork/main/logos/RedFlake_Logo_256x256px.png">
 
 Red-Flake Nix flake
+</p>
 
 <br>
 
