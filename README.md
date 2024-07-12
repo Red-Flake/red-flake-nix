@@ -5,7 +5,6 @@
    <img src="https://raw.githubusercontent.com/Red-Flake/artwork/main/logos/RedFlake_Logo_256x256px.png" width="160"/> 
    <br>
    Red-Flake Nix Flake
-   <br>
 </h1>
 
 <br><br>
