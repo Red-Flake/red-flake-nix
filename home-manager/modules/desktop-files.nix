@@ -809,15 +809,15 @@
   xdg.desktopEntries.binwalk = {
     name = "binwalk";
     genericName = "";
-    exec = "sh -c \"binwalk -h;\\${SHELL:-zsh}\"";
+    exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"binwalk -h && zsh\"";
     icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/binwalk.svg";
     type = "Application";
     categories = [ "X-forensics" ];
   };
   xdg.desktopEntries.tcpdump = {
     name = "tcpdump";
-    genericName = "";
-    exec = "sh -c \"tcpdump -h;\\${SHELL:-zsh}\"";
+    genericName = "Network Traffic Analyzer";
+    exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"tcpdump -h && zsh\"";
     icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/tcpdump.svg";
     type = "Application";
     categories = [ "X-sniffing-spoofing" ];
@@ -825,7 +825,7 @@
   xdg.desktopEntries.bpython = {
     name = "bpython";
     genericName = "";
-    exec = "sh -c \"bpython;\\${SHELL:-zsh}\"";
+    exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"bpython\"";
     icon = "bpython";
     type = "Application";
     categories = [ "X-Development" ];
@@ -833,7 +833,7 @@
   xdg.desktopEntries.sqlmap = {
     name = "sqlmap";
     genericName = "";
-    exec = "sh -c \"sqlmap --wizard;\\${SHELL:-zsh}\"";
+    exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"sqlmap --wizard && zsh\"";
     icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/sqlmap.svg";
     type = "Application";
     categories = [ "X-database-assessment" ];
@@ -841,7 +841,7 @@
   xdg.desktopEntries.macchanger = {
     name = "macchanger";
     genericName = "";
-    exec = "sh -c \"macchanger -h;\\${SHELL:-zsh}\"";
+    exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"macchanger --help && zsh\"";
     icon = "macchanger";
     type = "Application";
     categories = [ "X-sniffing-spoofing" ];
@@ -849,7 +849,7 @@
   xdg.desktopEntries.aircrack-ng = {
     name = "aircrack-ng";
     genericName = "";
-    exec = "sh -c \"aircrack-ng --help;\\${SHELL:-zsh}\"";
+    exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"aircrack-ng --help && zsh\"";
     icon = "aircrack-ng";
     type = "Application";
     categories = [ "X-wireless-attacks" ];
@@ -857,7 +857,7 @@
   xdg.desktopEntries.beef_start = {
     name = "beef start";
     genericName = "";
-    exec = "sh -c \"sudo beef;\\${SHELL:-zsh}\"";
+    exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"sudo beef\"";
     icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/beef-xss.svg";
     type = "Application";
     categories = [ "X-beef-service" ];
@@ -865,7 +865,7 @@
   xdg.desktopEntries.ollydbg = {
     name = "ollydbg";
     genericName = "";
-    exec = "sh -c \"ollydbg;\\${SHELL:-zsh}\"";
+    exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"ollydbg --help && zsh\"";
     icon = "ollydbg";
     type = "Application";
     categories = [ "X-reverse_engineering" ];
@@ -873,7 +873,7 @@
   xdg.desktopEntries.cewl = {
     name = "cewl";
     genericName = "";
-    exec = "sh -c \"cewl --help;\\${SHELL:-zsh}\"";
+    exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"cewl --help && zsh\"";
     icon = "cewl";
     type = "Application";
     categories = [ "X-password-attacks" ];
@@ -881,7 +881,7 @@
   xdg.desktopEntries.pdf-parser = {
     name = "pdf-parser";
     genericName = "";
-    exec = "sh -c \"pdf-parser -h;\\${SHELL:-zsh}\"";
+    exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"pdf-parser --help && zsh\"";
     icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/pdf-parser.svg";
     type = "Application";
     categories = [ "X-pdf-forensics-tools"  ];
@@ -889,7 +889,7 @@
   xdg.desktopEntries.hash-identifier = {
     name = "hash-identifier";
     genericName = "";
-    exec = "hash-identifier";
+    exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"hash-identifier && zsh\"";
     icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/hash-identifier.svg";
     type = "Application";
     categories = [ "X-offline-attacks" ];
@@ -897,23 +897,23 @@
   xdg.desktopEntries.commix = {
     name = "commix";
     genericName = "";
-    exec = "sh -c \"commix --wizard;\\${SHELL:-zsh}\"";
+    exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"commix --help && zsh\"";
     icon = "commix";
     type = "Application";
     categories = [ "X-webapp-analysis"  ];
   };
-  xdg.desktopEntries.crackmapexec = {
-    name = "crackmapexec";
+  xdg.desktopEntries.netexec = {
+    name = "netexec";
     genericName = "";
-    exec = "sh -c \"crackmapexec -h;\\${SHELL:-zsh}\"";
-    icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/crackmapexec.svg";
+    exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"netexec --help && zsh\"";
+    icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/netexec.svg";
     type = "Application";
     categories = [ "X-exploitation-tools" ];
   };
   xdg.desktopEntries.john = {
     name = "john";
     genericName = "";
-    exec = "sh -c \"john;\\${SHELL:-zsh}\"";
+    exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"john --help && zsh\"";
     icon = "john";
     type = "Application";
     categories = [ "X-password-attacks" ];
@@ -921,7 +921,7 @@
   xdg.desktopEntries.ncrack = {
     name = "ncrack";
     genericName = "";
-    exec = "sh -c \"ncrack -h;\\${SHELL:-zsh}\"";
+    exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"ncrack --help && zsh\"";
     icon = "ncrack";
     type = "Application";
     categories = [ "X-password-attacks" ];
@@ -929,7 +929,7 @@
   xdg.desktopEntries.bettercap = {
     name = "bettercap";
     genericName = "";
-    exec = "sh -c \"sudo bettercap;\\${SHELL:-zsh}\"";
+    exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"bettercap --help && zsh\"";
     icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/bettercap.svg";
     type = "Application";
     categories = [ "X-sniffing-spoofing" ];
@@ -937,7 +937,7 @@
   xdg.desktopEntries.veil = {
     name = "veil";
     genericName = "";
-    exec = "veil -h";
+    exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"veil -h && zsh\"";
     icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/veil.svg";
     type = "Application";
     categories = [ "X-maintaining-access" ];
@@ -945,7 +945,7 @@
   xdg.desktopEntries.onesixtyone = {
     name = "onesixtyone";
     genericName = "";
-    exec = "sh -c \"onesixtyone;\\${SHELL:-zsh}\"";
+    exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"onesixtyone && zsh\"";
     icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/onesixtyone.svg";
     type = "Application";
     categories = [ "X-snmp-analysis" ];
@@ -953,7 +953,7 @@
   xdg.desktopEntries.foremost = {
     name = "foremost";
     genericName = "";
-    exec = "sh -c \"foremost -h;\\${SHELL:-zsh}\"";
+    exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"foremost -h && zsh\"";
     icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/foremost.svg";
     type = "Application";
     categories = [ "X-forensics" ];
@@ -961,7 +961,7 @@
   xdg.desktopEntries.impacket = {
     name = "impacket";
     genericName = "";
-    exec = "sh -c \"(cd /usr/bin/ && ls --color=auto impacket-*);\\${SHELL:-zsh}\"";
+    exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"ls --color=auto ${pkgs.python312Packages.impacket}/bin/ && zsh\"";
     icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/impacket.svg";
     type = "Application";
     categories = [ "X-maintaining-access" ];
@@ -969,15 +969,15 @@
   xdg.desktopEntries.powershell = {
     name = "PowerShell";
     genericName = "";
-    exec = "pwsh";
+    exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"pwsh\"";
     icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/pwsh.svg";
     type = "Application";
-    categories = [ "X-Utility"  ];
+    categories = [ "X-Utility" ];
   };
   xdg.desktopEntries.hydra = {
     name = "hydra";
     genericName = "";
-    exec = "sh -c \"hydra | grep --color=auto '^\|Supported services:'; hydra-wizard;\\${SHELL:-zsh}\"";
+    exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"hydra | grep --color=auto '^\|Supported services:'; hydra-wizard.sh && zsh\"";
     icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/hydra.svg";
     type = "Application";
     categories = [ "X-password-attacks" ];
@@ -985,7 +985,7 @@
   xdg.desktopEntries.radare2 = {
     name = "radare2";
     genericName = "";
-    exec = "sh -c \"radare2 -h;\\${SHELL:-zsh}\"";
+    exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"radare2 -h && zsh\"";
     icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/radare2.svg";
     type = "Application";
     categories = [ "X-reverse_engineering" ];
@@ -993,7 +993,7 @@
   xdg.desktopEntries.apktool = {
     name = "apktool";
     genericName = "";
-    exec = "sh -c \"apktool;\\${SHELL:-zsh}\"";
+    exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"apktool && zsh\"";
     icon = "apktool";
     type = "Application";
     categories = [ "X-android-attacks" ];
@@ -1001,7 +1001,7 @@
   xdg.desktopEntries.wifite = {
     name = "wifite";
     genericName = "";
-    exec = "sh -c \"wifite --help;\\${SHELL:-zsh}\"";
+    exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"wifite --help && zsh\"";
     icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/wifite.svg";
     type = "Application";
     categories = [ "X-wireless-attacks" ];
@@ -1009,7 +1009,7 @@
   xdg.desktopEntries.vim = {
     name = "Vim";
     genericName = "Text Editor";
-    exec = "vim %F";
+    exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"vim %F && zsh\"";
     icon = "gvim";
     type = "Application";
     categories = [ "X-TextEditor" ];
@@ -1017,7 +1017,7 @@
   xdg.desktopEntries.whatweb = {
     name = "whatweb";
     genericName = "";
-    exec = "sh -c \"whatweb -h;\\${SHELL:-zsh}\"";
+    exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"whatweb -h && zsh\"";
     icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/whatweb.svg";
     type = "Application";
     categories = [ "X-web-vulnerability-scanners" ];
@@ -1033,7 +1033,7 @@
   xdg.desktopEntries.patator = {
     name = "patator";
     genericName = "";
-    exec = "sh -c \"patator -h;\\${SHELL:-zsh}\"";
+    exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"patator -h && zsh\"";
     icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/patator.svg";
     type = "Application";
     categories = [ "X-online-attacks" ];
@@ -1041,7 +1041,7 @@
   xdg.desktopEntries.btopPlusPlus = {
     name = "btop++";
     genericName = "System Monitor";
-    exec = "btop";
+    exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"btop && zsh\"";
     icon = "btop";
     type = "Application";
     categories = [ "X-System" ];
@@ -1049,7 +1049,7 @@
   xdg.desktopEntries.wpscan = {
     name = "wpscan";
     genericName = "";
-    exec = "sh -c \"wpscan --help;\\${SHELL:-zsh}\"";
+    exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"wpscan --help && zsh\"";
     icon = "wpscan";
     type = "Application";
     categories = [ "X-web-vulnerability-scanners" ];
@@ -1057,7 +1057,7 @@
   xdg.desktopEntries.social_engineering_toolkit = {
     name = "social engineering toolkit (root)";
     genericName = "";
-    exec = "sudo setoolkit";
+    exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"sudo setoolkit && zsh\"";
     icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/set.svg";
     type = "Application";
     categories = [ "X-social-engineering-tools" ];
@@ -1065,7 +1065,7 @@
   xdg.desktopEntries.smbmap = {
     name = "smbmap";
     genericName = "";
-    exec = "sh -c \"smbmap -h;\\${SHELL:-zsh}\"";
+    exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"smbmap -h && zsh\"";
     icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/smbmap.svg";
     type = "Application";
     categories = [ "X-smb-analysis" ];
@@ -1073,7 +1073,7 @@
   xdg.desktopEntries.hashcat = {
     name = "hashcat";
     genericName = "";
-    exec = "sh -c \"hashcat --help;\\${SHELL:-zsh}\"";
+    exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"hashcat --help && zsh\"";
     icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/hashcat.svg";
     type = "Application";
     categories = [ "X-password-attacks" ];
@@ -1081,7 +1081,7 @@
   xdg.desktopEntries.httrack = {
     name = "httrack";
     genericName = "";
-    exec = "sh -c \"httrack -h;\\${SHELL:-zsh}\"";
+    exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"httrack -h && zsh\"";
     icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/httrack.svg";
     type = "Application";
     categories = [ "X-webapp-analysis" ];
@@ -1089,7 +1089,7 @@
   xdg.desktopEntries.evil-winrm = {
     name = "evil-winrm";
     genericName = "";
-    exec = "sh -c \"evil-winrm -h;\\${SHELL:-zsh}\"";
+    exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"evil-winrm -h && zsh\"";
     icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/evil-winrm.svg";
     type = "Application";
     categories = [ "X-maintaining-access" ];
@@ -1097,7 +1097,7 @@
   xdg.desktopEntries.davtest = {
     name = "davtest";
     genericName = "";
-    exec = "sh -c \"davtest;\\${SHELL:-zsh}\"";
+    exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"davtest && zsh\"";
     icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/davtest.svg";
     type = "Application";
     categories = [ "X-web-vulnerability-scanners" ];
@@ -1105,7 +1105,7 @@
   xdg.desktopEntries.reaver = {
     name = "reaver";
     genericName = "";
-    exec = "sh -c \"reaver -h;\\${SHELL:-zsh}\"";
+    exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"reaver -h && zsh\"";
     icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/reaver.svg";
     type = "Application";
     categories = [ "X-wireless-attacks" ];
@@ -1113,7 +1113,7 @@
   xdg.desktopEntries.backdoor-factory = {
     name = "backdoor-factory";
     genericName = "";
-    exec = "sh -c \"backdoor-factory -h;\\${SHELL:-zsh}\"";
+    exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"backdoor-factory -h && zsh\"";
     icon = "backdoor-factory";
     type = "Application";
     categories = [ "X-maintaining-access" ];
@@ -1121,7 +1121,7 @@
   xdg.desktopEntries.metasploit_framework_1 = {
     name = "metasploit framework";
     genericName = "";
-    exec = "sh -c \"sudo msfdb init && msfconsole;\\${SHELL:-zsh}\"";
+    exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"sudo msfdb init && msfconsole && zsh\"";
     icon = "metasploit-framework";
     type = "Application";
     categories = [ "X-exploitation-tools" ];
@@ -1129,7 +1129,7 @@
   xdg.desktopEntries.pdfid = {
     name = "pdfid";
     genericName = "";
-    exec = "sh -c \"pdfid -h;\\${SHELL:-zsh}\"";
+    exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"pdfid -h && zsh\"";
     icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/pdfid.svg";
     type = "Application";
     categories = [ "X-pdf-forensics-tools" ];
@@ -1137,7 +1137,7 @@
   xdg.desktopEntries.wafw00f = {
     name = "wafw00f";
     genericName = "";
-    exec = "sh -c \"wafw00f -h;\\${SHELL:-zsh}\"";
+    exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"wafw00f -h && zsh\"";
     icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/wafw00f.svg";
     type = "Application";
     categories = [ "X-ids-ips-identification" ];
@@ -1145,7 +1145,7 @@
   xdg.desktopEntries.crunch = {
     name = "crunch";
     genericName = "";
-    exec = "sh -c \"crunch;\\${SHELL:-zsh}\"";
+    exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"crunch && zsh\"";
     icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/crunch.svg";
     type = "Application";
     categories = [ "X-password-attacks" ];
@@ -1153,7 +1153,7 @@
   xdg.desktopEntries.proxychains4 = {
     name = "proxychains4";
     genericName = "";
-    exec = "sh -c \"proxychains4;\\${SHELL:-zsh}\"";
+    exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"proxychains4 && zsh\"";
     icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/proxychains.svg";
     type = "Application";
     categories = [ "X-tunneling" ];
@@ -1161,7 +1161,7 @@
   xdg.desktopEntries.nmap = {
     name = "nmap";
     genericName = "";
-    exec = "sh -c \"nmap;\\${SHELL:-zsh}\"";
+    exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"nmap && zsh\"";
     icon = "nmap";
     type = "Application";
     categories = [ "X-info-gathering" ];
@@ -1169,7 +1169,7 @@
   xdg.desktopEntries.ffuf = {
     name = "ffuf";
     genericName = "";
-    exec = "sh -c \"ffuf -h;\\${SHELL:-zsh}\"";
+    exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"ffuf -h && zsh\"";
     icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/ffuf.svg";
     type = "Application";
     categories = [ "X-web-crawlers" ];
@@ -1177,7 +1177,7 @@
   xdg.desktopEntries.joomscan = {
     name = "joomscan";
     genericName = "";
-    exec = "sh -c \"joomscan;\\${SHELL:-zsh}\"";
+    exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"joomscan && zsh\"";
     icon = "${config.home.homeDirectory}/.red-flake/artwork/logos/RedFlake_Logo_32x32px.png";
     type = "Application";
     categories = [ "X-cms-identification" ];
@@ -1185,7 +1185,7 @@
   xdg.desktopEntries.nikto = {
     name = "nikto";
     genericName = "";
-    exec = "sh -c \"nikto -h;\\${SHELL:-zsh}\"";
+    exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"nikto -h && zsh\"";
     icon = "nikto";
     type = "Application";
     categories = [ "X-web-vulnerability-scanners" ];
@@ -1193,7 +1193,7 @@
   xdg.desktopEntries.responder = {
     name = "responder";
     genericName = "";
-    exec = "sh -c \"responder -h;\\${SHELL:-zsh}\"";
+    exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"responder -h && zsh\"";
     icon = "responder";
     type = "Application";
     categories = [ "X-sniffing-spoofing" ];
@@ -1201,15 +1201,10 @@
   xdg.desktopEntries.htop = {
     name = "Htop";
     genericName = "Process Viewer";
-    exec = "htop";
+    exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"htop && zsh\"";
     icon = "htop";
     type = "Application";
     categories = [ "X-System" ];
   };
 
-
-
-
-  
-  
 }
