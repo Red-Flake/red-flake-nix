@@ -100,6 +100,7 @@ in
                     davtest = "davtest.pl";
                     patator = "patator.py";
                     pdf-parser = "pdf-parser.py";
+                    ysoserial = "java -jar /usr/share/tools/Deserialization/ysoserial-all.jar";
 
                     # shell aliases
                     python3-shell = "nix-shell -p python312 python312Packages.pip python312Packages.pipx";
