@@ -1,3 +1,5 @@
+[![NixOS Unstable](https://img.shields.io/badge/NixOS-unstable-informational?style=flat-square&logo=NixOS&logoColor=white)](https://nixos.org)
+
 # red-flake-nix
 Red-Flake Nix flake
 
