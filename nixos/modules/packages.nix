@@ -195,7 +195,7 @@
     glxinfo
     vulkan-tools
     wayland-utils
-    python312Packages.patator
+    python311Packages.patator
     jdk
     sqlcmd
     sqsh
