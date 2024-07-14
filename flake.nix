@@ -4,11 +4,13 @@
   nixConfig.extra-substituters = [
     "https://cache.garnix.io"
     "https://nyx.chaotic.cx"
+    "https://nix-community.cachix.org/"
   ];
   nixConfig.extra-trusted-public-keys = [
     "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
     "chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
     "nyx.chaotic.cx-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
+    "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
   ];
 
   inputs = {
