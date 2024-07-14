@@ -6,6 +6,7 @@
 &ensp;
 [![KDE Plasma 6](https://img.shields.io/badge/KDE_Plasma-6-blue?style=flat-square)](#)
 
+<br><br>
 
 <h1 align="center">
    <img src="https://raw.githubusercontent.com/Red-Flake/artwork/main/logos/RedFlake_Logo_256x256px.png" width="160"/> 
@@ -13,7 +14,7 @@
    Red-Flake Nix Flake
 </h1>
 
-<br><br>
+<br><br><br>
 
 ## Install (as root)
 
