@@ -16,6 +16,8 @@
 
 <br><br><br>
 
+# Installation
+
 ## Install (as root)
 
 ### Clone the Repo
@@ -75,11 +77,14 @@ nixos-rebuild --install-bootloader switch --flake '/root/red-flake-nix#redflake'
 
 ![](assets/screenshots/kde_start_menu.png)
 
+<br>
 
 # Contributing
 
 Community contributions are always welcome through GitHub Issues and
 Pull Requests.
+
+<br>
 
 # License
 
