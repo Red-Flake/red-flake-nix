@@ -18,6 +18,8 @@
 
 # Installation
 
+<br>
+
 ## Install (as root)
 
 ### Clone the Repo
@@ -60,6 +62,8 @@ nixos-rebuild --install-bootloader switch --flake '/root/red-flake-nix#redflake'
 <br><br>
 
 # Showcase
+
+<br>
 
 ## fastfetch
 
