@@ -1,7 +1,7 @@
 [![NixOS Unstable](https://img.shields.io/badge/NixOS-unstable-informational?style=flat-square&logo=NixOS&logoColor=white)](https://nixos.org)
-[![Nix](https://img.shields.io/badge/Nix-5277C3?logo=nixos&logoColor=fff)](#)
-[![Home-Manager Master](https://img.shields.io/badge/home_manager-master-blue)](#)
-[![KDE Plasma 6](https://img.shields.io/badge/KDE_Plasma-6-blue)](#)
+[![Nix](https://img.shields.io/badge/Nix-5277C3?logo=nixos&style=flat-square&logoColor=fff)](#)
+[![Home-Manager Master](https://img.shields.io/badge/home_manager-master-blue?style=flat-square)](#)
+[![KDE Plasma 6](https://img.shields.io/badge/KDE_Plasma-6-blue?style=flat-square)](#)
 
 
 <h1 align="center">
