@@ -21,6 +21,7 @@
     ./modules/flatpak.nix
     ./modules/virtualisation.nix
     ./modules/desktop-files.nix
+    ./modules/xdg.nix
   ];
 
   # disable warning about mismatched version between Home Manager and Nixpkgs
@@ -44,20 +45,6 @@
     # This should be default soon
     MOZ_ENABLE_WAYLAND = 1;
   };
-
-  xdg.mimeApps = {
-    enable = true;
-  
-    # set default browser to firefox
-    defaultApplications = {
-      "text/html" = "firefox.desktop";
-      "x-scheme-handler/http" = "firefox.desktop";
-      "x-scheme-handler/https" = "firefox.desktop";
-      "x-scheme-handler/about" = "firefox.desktop";
-      "x-scheme-handler/unknown" = "firefox.desktop";
-    };
-  };
-
 
   xsession.enable = true;
 

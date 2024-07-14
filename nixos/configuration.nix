@@ -39,6 +39,9 @@
     # Desktop settings
     ./modules/desktop.nix
 
+    # Security settings
+    ./modules/security.nix
+
     # Virtualization settings
     ./modules/virtualisation.nix
 
