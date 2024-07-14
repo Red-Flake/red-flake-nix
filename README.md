@@ -47,3 +47,23 @@ Finally, install the flake:
 ```bash
 nixos-rebuild --install-bootloader switch --flake '/root/red-flake-nix#redflake'
 ```
+
+<br>
+
+## Showcase
+
+### fastfetch
+
+![](assets/screenshots/fastfetch.png)
+
+### KDE about this system
+
+![](assets/screenshots/kde_about_this_system.png)
+
+### KDE desktop
+
+![](assets/screenshots/kde_desktop_tidy.png)
+
+### KDE start menu
+
+![](assets/screenshots/kde_start_menu.png)
