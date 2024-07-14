@@ -9,6 +9,7 @@ let
       cp $src/Red-Flake-Wallpaper_1920x1080.png $out
     '';
   };
+  browser = "firefox.desktop";
 in
 {
   # X11 / Wayland settings
@@ -48,6 +49,27 @@ in
     plasma6.enable = true;
   };
 
+  # Add ~/.config/kdedefaults to XDG_CONFIG_DIRS for shells, since Plasma sets that.
+  # FIXME: maybe we should append to XDG_CONFIG_DIRS in /etc/set-environment instead?
+  environment.sessionVariables.XDG_CONFIG_DIRS = ["$HOME/.config/kdedefaults"];
+
+  # Needed for things that depend on other store.kde.org packages to install correctly,
+  # notably Plasma look-and-feel packages (a.k.a. Global Themes)
+  #
+  # FIXME: this is annoyingly impure and should really be fixed at source level somehow,
+  # but kpackage is a library so we can't just wrap the one thing invoking it and be done.
+  # This also means things won't work for people not on Plasma, but at least this way it
+  # works for SOME people.
+  environment.sessionVariables.KPACKAGE_DEP_RESOLVERS_PATH = "${pkgs.kdePackages.frameworkintegration.out}/libexec/kf6/kpackagehandlers";
+
+  # Enable GTK applications to load SVG icons
+  programs.gdk-pixbuf.modulePackages = [pkgs.librsvg];
+
+  # Enable helpful DBus services.
+  services.accounts-daemon.enable = true;
+  # when changing an account picture the accounts-daemon reads a temporary file containing the image which systemsettings5 may place under /tmp
+  systemd.services.accounts-daemon.serviceConfig.PrivateTmp = false;
+
   # Sound settings
   # Disable actkbd so KDE can handle media keys
   sound.mediaKeys.enable = false;
@@ -55,27 +77,21 @@ in
   # enable dconf
   # Fix GTK themes not applied in Wayland
   programs.dconf.enable = true;
-  
-  # enable xdg desktop portal
-  xdg.portal = {
-   enable = true;
-   extraPortals = with pkgs; [
-     kdePackages.xdg-desktop-portal-kde
-     xdg-desktop-portal-gtk
-   ];
-  };
-
-  # set default browser
-  xdg.mime.defaultApplications = {
-    "text/html" = "firefox.desktop";
-    "x-scheme-handler/http" = "firefox.desktop";
-    "x-scheme-handler/https" = "firefox.desktop";
-    "x-scheme-handler/about" = "firefox.desktop";
-    "x-scheme-handler/unknown" = "firefox.desktop";
-  };
 
   # enable XDG Desktop Menu specification
   xdg.menus.enable = true;
+
+  # enable XDG autostart
+  xdg.autostart.enable = true;
+
+  # enable XDG icons
+  xdg.icons.enable = true;
+
+  # enable XDG sounds
+  xdg.sounds.enable = true;
+
+  # enable XDG terminal exec
+  xdg.terminal-exec.enable = true;
 
   # set /etc/xdg/menus/applications-merged
   environment.etc."xdg/menus/applications-merged/redflake-applications.menu".source = ./xdg/redflake-applications.menu;
