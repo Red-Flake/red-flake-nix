@@ -59,32 +59,32 @@ nixos-rebuild --install-bootloader switch --flake '/root/red-flake-nix#redflake'
 
 <br><br>
 
-## Showcase
+# Showcase
 
-### fastfetch
+## fastfetch
 
 ![](assets/screenshots/fastfetch.png)
 
-### KDE about this system
+## KDE about this system
 
 ![](assets/screenshots/kde_about_this_system.png)
 
-### KDE desktop
+## KDE desktop
 
 ![](assets/screenshots/kde_desktop_tidy.png)
 
-### KDE start menu
+## KDE start menu
 
 ![](assets/screenshots/kde_start_menu.png)
 
-<br>
+<br><br>
 
 # Contributing
 
 Community contributions are always welcome through GitHub Issues and
 Pull Requests.
 
-<br>
+<br><br>
 
 # License
 
