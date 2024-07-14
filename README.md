@@ -74,3 +74,13 @@ nixos-rebuild --install-bootloader switch --flake '/root/red-flake-nix#redflake'
 ### KDE start menu
 
 ![](assets/screenshots/kde_start_menu.png)
+
+
+# Contributing
+
+Community contributions are always welcome through GitHub Issues and
+Pull Requests.
+
+# License
+
+Red-Flake is licensed under the [GPL License](LICENSE).
