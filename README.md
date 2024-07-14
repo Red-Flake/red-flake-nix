@@ -55,7 +55,7 @@ Finally, install the flake:
 nixos-rebuild --install-bootloader switch --flake '/root/red-flake-nix#redflake'
 ```
 
-<br>
+<br><br>
 
 ## Showcase
 
