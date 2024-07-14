@@ -77,6 +77,8 @@ nixos-rebuild --install-bootloader switch --flake '/root/red-flake-nix#redflake'
 
 ![](assets/screenshots/kde_desktop_tidy.png)
 
+<br>
+
 ## KDE start menu
 
 ![](assets/screenshots/kde_start_menu.png)
