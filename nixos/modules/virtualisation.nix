@@ -3,6 +3,7 @@
 {
     # enable Docker support
     virtualisation.docker.enable = true;
+    virtualisation.docker.extraOptions = "--iptables=false --ip6tables=false";
 
     # enable LXC support
     virtualisation.lxd.enable = true;
