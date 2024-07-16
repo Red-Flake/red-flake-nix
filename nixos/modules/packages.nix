@@ -47,6 +47,9 @@
     sqlitebrowser
     cewl
     crunch
+
+    # FIX for evil-winrm: https://github.com/NixOS/nixpkgs/issues/255276#issuecomment-2208251089
+    # Pull request that fixes this issue: https://github.com/NixOS/nixpkgs/pull/324530
     (let
       openssl_conf = pkgs.writeText "openssl.conf" ''
         openssl_conf = openssl_init
@@ -74,6 +77,7 @@
             --prefix OPENSSL_CONF : ${openssl_conf.outPath}
         '';
     }))
+
     hashid
     hash-identifier
     hashcat
@@ -98,6 +102,7 @@
     bettercap
     macchanger
 
+    # FIX for responder: https://github.com/NixOS/nixpkgs/issues/255281#issuecomment-2229259710
     (pkgs.responder.overrideAttrs (oldAttrs: rec {
       buildInputs = oldAttrs.buildInputs or [] ++ [ pkgs.openssl pkgs.coreutils ];
 
