@@ -16,6 +16,9 @@
   networking.networkmanager.wifi.backend = "iwd";
   networking.networkmanager.wifi.powersave = false;
   networking.hostName = "redflake";
+
+  networking.firewall.enable = false; # This one is necessary to expose ports to the netwok. Usefull for smbserver, responder, http.server, ...
+  networking.nftables.enable = false; # This one is necessary to expose ports to the netwok. Usefull for smbserver, responder, http.server, ...
   
   ## To use, put this in your configuration, switch to it, and restart NM:
   ## $ sudo systemctl restart NetworkManager.service
