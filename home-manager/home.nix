@@ -13,6 +13,7 @@
     ./modules/fastfetch.nix
     ./modules/bloodhound.nix
     ./modules/plasma-manager.nix
+    ./modules/power.nix
     ./modules/konsole.nix
     ./modules/dolphin.nix
     ./modules/firefox.nix
