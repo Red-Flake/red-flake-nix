@@ -7,6 +7,7 @@
     git
     nix-index
     home-manager
+    kdePackages.powerdevil
     file
     gparted
     tree
