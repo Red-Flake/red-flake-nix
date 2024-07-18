@@ -85,6 +85,9 @@
       # impacket overlay
       (import ./overlays/impacket-overlay)
 
+      # responder overlay
+      (import ./overlays/responder-overlay)
+
       # Or define it inline, for example:
       # (final: prev: {
       #   hi = final.hello.overrideAttrs (oldAttrs: {
