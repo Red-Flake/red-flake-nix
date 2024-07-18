@@ -115,7 +115,7 @@ in
                     go-shell = "nix-shell -p go";
 
                     ## impacket
-                    impacket = "ls --color=auto ${pkgs.python312Packages.impacket}/bin/";
+                    impacket = "ls --color=auto ${pkgs.python312Packages.impacket-patched}/bin/";
 
                     impacket-addcomputer = "addcomputer.py";
                     impacket-atexec = "atexec.py";
