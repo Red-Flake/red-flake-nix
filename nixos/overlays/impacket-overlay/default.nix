@@ -1,9 +1,7 @@
 # impacket-overlay.nix
 final: prev:
-# Within the overlay we use a recursive set, though I think we can use `final` as well.
 {
   python312 = prev.python312.override {
-    # Careful, we're using a different final and prev here!
     packageOverrides = pyfinal: pyprev: {
       impacket-patched = pyprev.impacket.overrideAttrs (oldAttrs: rec {
         dacleditSrc = prev.fetchurl {
@@ -16,6 +14,24 @@ final: prev:
           sha256 = "sha256-XAZUOjLi85e9iBYy9/pAkEd8Ks0xbQB7jU33YcHfsjY="; # Replace with the correct SHA-256 hash
         };
 
+        # Add OpenSSL configuration
+        openssl_conf = prev.writeText "openssl.conf" ''
+          openssl_conf = openssl_init
+
+          [openssl_init]
+          providers = provider_sect
+
+          [provider_sect]
+          default = default_sect
+          legacy = legacy_sect
+
+          [default_sect]
+          activate = 1
+
+          [legacy_sect]
+          activate = 1
+        '';
+
         postInstall =
           (oldAttrs.postInstall or "")
           + ''
@@ -23,6 +39,13 @@ final: prev:
             chmod +x $out/bin/dacledit.py
             cp ${msadaGuidsSrc} $out/lib/python3.12/site-packages/impacket/msada_guids.py
           '';
+
+        # Modify postFixup to include OpenSSL configuration
+        postFixup = ''
+          ${oldAttrs.postFixup or ""}
+          wrapProgram $out/bin/mssqlclient.py \
+            --prefix OPENSSL_CONF : ${openssl_conf}
+        '';
       });
     };
   };
