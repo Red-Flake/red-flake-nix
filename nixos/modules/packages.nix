@@ -242,7 +242,7 @@
     wineWowPackages.waylandFull
     bottles
     helvum
-    python312Packages.impacket
+    python312Packages.impacket-patched
     mission-center
     wpscan
     joomscan

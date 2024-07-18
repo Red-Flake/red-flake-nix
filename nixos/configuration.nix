@@ -82,6 +82,9 @@
       chaotic.overlays.default
       nur.overlay
 
+      # impacket overlay
+      (import ./overlays/impacket-overlay)
+
       # Or define it inline, for example:
       # (final: prev: {
       #   hi = final.hello.overrideAttrs (oldAttrs: {
