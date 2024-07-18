@@ -88,6 +88,9 @@
       # responder overlay
       (import ./overlays/responder-overlay)
 
+      # evil-winrm overlay
+      (import ./overlays/evil-winrm-overlay)
+
       # Or define it inline, for example:
       # (final: prev: {
       #   hi = final.hello.overrideAttrs (oldAttrs: {

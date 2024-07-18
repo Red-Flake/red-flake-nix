@@ -48,37 +48,7 @@
     sqlitebrowser
     cewl
     crunch
-
-    # FIX for evil-winrm: https://github.com/NixOS/nixpkgs/issues/255276#issuecomment-2208251089
-    # Pull request that fixes this issue: https://github.com/NixOS/nixpkgs/pull/324530
-    (let
-      openssl_conf = pkgs.writeText "openssl.conf" ''
-        openssl_conf = openssl_init
-
-        [openssl_init]
-        providers = provider_sect
-
-        [provider_sect]
-        default = default_sect
-        legacy = legacy_sect
-
-        [default_sect]
-        activate = 1
-
-        [legacy_sect]
-        activate = 1
-      '';
-    in
-    pkgs.evil-winrm.overrideAttrs (o: {
-      nativeBuildInputs = o.nativeBuildInputs ++ [ pkgs.makeWrapper ];
-      postFixup =
-        (o.postFixup or "")
-        + ''
-          wrapProgram $out/bin/evil-winrm \
-            --prefix OPENSSL_CONF : ${openssl_conf.outPath}
-        '';
-    }))
-
+    evil-winrm-patched
     hashid
     hash-identifier
     hashcat
