@@ -19,8 +19,9 @@ final: prev:
         postInstall =
           (oldAttrs.postInstall or "")
           + ''
-            cp ${dacleditSrc} $out/bin/
-            cp ${msadaGuidsSrc} $out/lib/python3.12/site-packages/impacket/
+            cp ${dacleditSrc} $out/bin/dacledit.py
+            chmod +x $out/bin/dacledit.py
+            cp ${msadaGuidsSrc} $out/lib/python3.12/site-packages/impacket/msada_guids.py
           '';
       });
     };

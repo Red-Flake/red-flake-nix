@@ -94,7 +94,7 @@
 
       # temporary FIX for https://github.com/NixOS/nixpkgs/issues/325657  /  https://github.com/NixOS/nixpkgs/pull/325676
       (_: prev: {
-        python312 = prev.python312.override { packageOverrides = _: pysuper: { nose = pysuper.pynose; }; };
+        #python312 = prev.python312.override { packageOverrides = _: pysuper: { nose = pysuper.pynose; }; };
         pwndbg = prev.python311Packages.pwndbg;
         pwntools = prev.python311Packages.pwntools;
         ropper = prev.python311Packages.ropper;
