@@ -69,10 +69,6 @@ in
   services.accounts-daemon.enable = true;
   # when changing an account picture the accounts-daemon reads a temporary file containing the image which systemsettings5 may place under /tmp
   systemd.services.accounts-daemon.serviceConfig.PrivateTmp = false;
-
-  # Sound settings
-  # Disable actkbd so KDE can handle media keys
-  sound.mediaKeys.enable = false;
   
   # enable dconf
   # Fix GTK themes not applied in Wayland
