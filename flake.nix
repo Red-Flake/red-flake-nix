@@ -65,6 +65,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # https://github.com/thiagokokada/nix-alien
+    nix-alien.url = "github:thiagokokada/nix-alien";
+
     # Red-Flake artwork
     artwork = {
       url = "github:Red-Flake/artwork";
@@ -85,7 +88,7 @@
     
   };
 
-  outputs = { self, nixpkgs, chaotic, flake-parts, pre-commit-hooks, home-manager, plasma-manager, artwork, webshells, tools, nixos-boot, darkmatter-grub-theme, ... } @ inputs: let
+  outputs = { self, nixpkgs, chaotic, flake-parts, pre-commit-hooks, home-manager, plasma-manager, artwork, webshells, tools, nixos-boot, darkmatter-grub-theme, nix-alien, ... } @ inputs: let
     system = "x86_64-linux";
     username = "pascal";
     homeDirectory = "/home/pascal";

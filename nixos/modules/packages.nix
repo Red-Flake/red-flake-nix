@@ -1,4 +1,4 @@
-{ config, lib, pkgs, modulesPath, ... }:
+{ inputs, config, lib, pkgs, modulesPath, ... }:
 
 {
   # List packages installed in system profile. To search, run:
@@ -7,6 +7,7 @@
     git
     nix-index
     home-manager
+    inputs.nix-alien.packages.${system}.nix-alien
     kdePackages.powerdevil
     file
     gparted
