@@ -1,7 +1,7 @@
 # responder-overlay.nix
 final: prev:
 {
-  # FIX for responder: https://github.com/NixOS/nixpkgs/issues/255281#issuecomment-2229259710
+  # FIX for responder: https://github.com/NixOS/nixpkgs/issues/255281#issuecomment-2244250577
   responder-patched = prev.responder.overrideAttrs (oldAttrs: rec {
     buildInputs = oldAttrs.buildInputs or [] ++ [ prev.openssl prev.coreutils ];
 
