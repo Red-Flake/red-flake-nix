@@ -29,22 +29,6 @@
 
   # force creation of .gtkrc-2.0 otherwise home-manager will fail
   home.file.${config.gtk.gtk2.configLocation}.force = true;
-  #home.file.${config.gtk.gtk3.configLocation}.force = true;
-  #home.file.${config.gtk.gtk4.configLocation}.force = true;
-
-  # Enabling this seems to break the KDE settings app ...
-  #qt = {
-  #  enable = true;
-  #  platformTheme.name = "kde";
-  #  style.name = "Breeze-Dark";
-  #};
-
-  # Generic fix for gtk cursor size
-  # https://www.reddit.com/r/NixOS/comments/18qpj78/comment/kf0oyjw/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
-  #home.file.".local/share/icons/default/index.theme".text = ''
-  #  [Icon Theme]
-  #  Inherits=breeze_cursors
-  #'';
 
   # Fix GTK themes not applied in Wayland
   dconf = {
@@ -68,12 +52,6 @@
     package = pkgs.bibata-cursors;
     size = 24;
   };
-  #home.pointerCursor = {
-  #  gtk.enable = true;
-  #  package = pkgs.kdePackages.breeze;
-  #  name = "breeze_cursors";
-  #  size = 26;
-  #};
 
   # Color scheme Gradient Dark
   # https://store.kde.org/p/2078411
