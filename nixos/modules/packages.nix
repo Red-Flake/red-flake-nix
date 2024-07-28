@@ -175,5 +175,7 @@
     jdk
     sqlcmd
     sqsh
+    python312Packages.aiosmtpd
+    ssh-mitm
   ];
 }
