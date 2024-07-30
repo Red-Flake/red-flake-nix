@@ -906,7 +906,7 @@
     name = "netexec";
     genericName = "";
     exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"netexec --help && zsh\"";
-    icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/netexec.svg";
+    icon = "${config.home.homeDirectory}/.local/share/icons/red-flake/netexec.png";
     type = "Application";
     categories = [ "X-exploitation-tools" ];
   };
