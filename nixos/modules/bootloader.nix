@@ -24,8 +24,8 @@
     "audit=0"
     "net.ifnames=0"
     "biosdevname=0"
+    "SYSTEMD_CGROUP_ENABLE_LEGACY_FORCE=1"
     "systemd.unified_cgroup_hierarchy=0"
-    "systemd_cgroup_enable_legacy_force=1"
   ];
 
   # Switch to CachyOS LTO optimized kernel
