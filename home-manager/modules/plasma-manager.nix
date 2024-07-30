@@ -162,6 +162,17 @@
     };
 
     #
+    # Powerdevil
+    #
+    powerdevil = {
+      autoSuspend = {
+        action = "nothing";
+        idleTimeout = null;
+      };
+      turnOffDisplay.idleTimeout = 900;
+    };
+
+    #
     # Some low-level settings:
     #
     configFile = {
