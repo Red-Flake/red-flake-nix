@@ -14,19 +14,18 @@
         # Adjust cache pressure
         # The value controls the tendency of the kernel to reclaim the memory which is used for caching of directory and inode objects (VFS cache). 
         # Lowering it from the default value of 100 makes the kernel less inclined to reclaim VFS cache (do not set it to 0, this may produce out-of-memory conditions)
-        "vm.vfs_cache_pressure" = 50;
+        "vm.vfs_cache_pressure" = 30;
 
         # Contains, as a bytes of total available memory that contains free pages and reclaimable
         # pages, the number of pages at which a process which is generating disk writes will itself start
         # writing out dirty data.
-        "vm.dirty_bytes" = 268435456;
+        "vm.dirty_bytes" = 1073741824;
 
         # Optimize storage related settings
         # Contains, as a bytes of total available memory that contains free pages and reclaimable
         # pages, the number of pages at which the background kernel flusher threads will start writing out
         # dirty data.
         "vm.dirty_background_ratio" = 5;
-        "vm.dirty_ratio" = 10;
 
         # The kernel flusher threads will periodically wake up and write old data out to disk.  This
         # tunable expresses the interval between those wakeups, in 100'ths of a second (Default is 500).
@@ -42,10 +41,10 @@
         "net.ipv4.ip_unprivileged_port_start" = 0;
 
         # Increase max_user_watches
-        "fs.inotify.max_user_watches" = 524288;
+        "fs.inotify.max_user_watches" = 1048576;
 
         # Set size of file handles and inode cache
-        "fs.file-max" = 2097152;
+        "fs.file-max" = 4194304;
 
         # Increase writeback interval  for xfs
         "fs.xfs.xfssyncd_centisecs" = 10000;
@@ -81,22 +80,22 @@
         "kernel.sysrq" = 1;
 
         # allows a large number of processes and threads to be managed
-        "kernel.pid_max" = 131072;
+        "kernel.pid_max" = 262144;
 
         # Help prevent packet loss during high traffic periods.
-        "net.core.netdev_max_backlog" = 30000;
+        "net.core.netdev_max_backlog" = 65536;
 
         # Default socket receive buffer size, improve network performance & applications that use sockets. Adjusted for 8GB RAM.
-        "net.core.rmem_default" = 262144;
+        "net.core.rmem_default" = 1048576;  # 1 MB
 
         # Maximum socket receive buffer size, determine the amount of data that can be buffered in memory for network operations. Adjusted for 8GB RAM.
-        "net.core.rmem_max" = 33554432;
+        "net.core.rmem_max" = 67108864;     # 64 MB
 
         # Default socket send buffer size, improve network performance & applications that use sockets. Adjusted for 8GB RAM.
-        "net.core.wmem_default" = 262144;
+        "net.core.wmem_default" = 1048576;  # 1 MB
 
         # Maximum socket send buffer size, determine the amount of data that can be buffered in memory for network operations. Adjusted for 8GB RAM.
-        "net.core.wmem_max" = 33554432;
+        "net.core.wmem_max" = 67108864;     # 64 MB
 
         # Reduce the chances of fragmentation. Adjusted for SSD.
         "net.ipv4.ipfrag_high_threshold" = 5242880;
