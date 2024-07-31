@@ -40,7 +40,7 @@
 
     # https://github.com/pjones/plasma-manager
     plasma-manager = {
-      url = "github:pjones/plasma-manager/132d4c7cb72c970f1bef012ad14e18f7bbc49f9a";
+      url = "github:pjones/plasma-manager";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
