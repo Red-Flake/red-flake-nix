@@ -29,7 +29,7 @@
 
         # The kernel flusher threads will periodically wake up and write old data out to disk.  This
         # tunable expresses the interval between those wakeups, in 100'ths of a second (Default is 500).
-        "vm.dirty_writeback_centisecs" = 1500;
+        "vm.dirty_writeback_centisecs" = 1000;
 
         # page-cluster controls the number of pages up to which consecutive pages are read in from swap in a single attempt. 
         # This is the swap counterpart to page cache readahead. The mentioned consecutivity is not in terms of virtual/physical addresses, 
