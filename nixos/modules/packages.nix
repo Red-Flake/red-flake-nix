@@ -177,5 +177,6 @@
     sqsh
     python312Packages.aiosmtpd
     ssh-mitm
+    frida-tools
   ];
 }
