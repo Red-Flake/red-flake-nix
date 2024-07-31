@@ -33,6 +33,7 @@
     zsh
     openvpn
     firefox-bin
+    ungoogled-chromium
     bloodhound
     bloodhound-py
     ffuf
