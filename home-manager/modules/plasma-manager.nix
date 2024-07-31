@@ -171,6 +171,10 @@
           idleTimeout = null;
         };
         turnOffDisplay.idleTimeout = 900;
+        dimDisplay = {
+          enable = true;
+          idleTimeOut = 600;
+        };
       };
 
       AC = {
@@ -179,6 +183,10 @@
           idleTimeout = null;
         };
         turnOffDisplay.idleTimeout = 900;
+        dimDisplay = {
+          enable = true;
+          idleTimeOut = 600;
+        };
       };
     };
 
