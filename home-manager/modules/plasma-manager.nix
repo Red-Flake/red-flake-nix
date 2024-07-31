@@ -165,11 +165,21 @@
     # Powerdevil
     #
     powerdevil = {
-      autoSuspend = {
-        action = "nothing";
-        idleTimeout = null;
+      battery = {
+        autoSuspend = {
+          action = "nothing";
+          idleTimeout = null;
+        };
+        turnOffDisplay.idleTimeout = 900;
       };
-      turnOffDisplay.idleTimeout = 900;
+
+      AC = {
+        autoSuspend = {
+          action = "nothing";
+          idleTimeout = null;
+        };
+        turnOffDisplay.idleTimeout = 900;
+      };
     };
 
     #
