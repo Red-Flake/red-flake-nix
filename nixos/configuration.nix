@@ -22,7 +22,7 @@
     ./modules/networking.nix
 
     # System packages
-    ./modules/packages.nix
+    ./modules/packages
 
     # Sysctl settings
     ./modules/sysctl.nix
@@ -79,7 +79,11 @@
     overlays = with inputs; [
       # If you want to use overlays exported from other flakes:
       # neovim-nightly-overlay.overlays.default
+
+      # Chaotic Nyx overlay
       chaotic.overlays.default
+
+      # NUR overlay
       nur.overlay
 
       # impacket overlay
