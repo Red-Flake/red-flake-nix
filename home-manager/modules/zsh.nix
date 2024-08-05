@@ -180,7 +180,7 @@ in
                     fedora-box = "distrobox create -n fedora -i fedora:latest --additional-packages 'git nano neofetch' --init && distrobox enter fedora";
 
                     ## john
-                    1password2john = "1password2john.py";
+                    "1password2john" = "1password2john.py";
                     adxcsouf2john = "adxcsouf2john.py";
                     aem2john = "aem2john.py";
                     aix2john = "aix2john.py";
@@ -273,8 +273,7 @@ in
                     truecrypt2john = "truecrypt2john.py";
                     vmx2john = "vmx2john.py";
                     zed2john = "zed2john.py";
-                    7z2john = "7z2john.pl";
-                    aix2john = "aix2john.pl";
+                    "7z2john" = "7z2john.pl";
                     atmail2john = "atmail2john.pl";
                     cisco2john = "cisco2john.pl";
                     fuzz_option = "fuzz_option.pl";
@@ -285,9 +284,7 @@ in
                     lion2john_alt = "lion2john-alt.pl";
                     lion2john = "lion2john.pl";
                     netntlm = "netntlm.pl";
-                    pdf2john = "pdf2john.pl";
                     potcheck = "potcheck.pl";
-                    radius2john = "radius2john.pl";
                     rexgen2rules = "rexgen2rules.pl";
                     rulestack = "rulestack.pl";
                     sap2john = "sap2john.pl";
