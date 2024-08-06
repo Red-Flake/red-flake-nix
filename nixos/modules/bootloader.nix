@@ -6,6 +6,7 @@
     "quiet"
     "splash"
     "nohibernate"
+    "elevator=none"
     "i915.enable_fbc=1"
     "i915.fastboot=1"
     "fsck.mode=skip"
