@@ -1,9 +1,10 @@
 {
   device,
   user,
-}:
-{...}:
-{
+}: {
+
+  rg.resetRootFsPoolName = "zroot";
+
   disko.devices = {
     disk.main = {
       type = "disk";
@@ -20,7 +21,7 @@
               mountpoint = "/boot";
             };
           };
-          zfs = {
+          zrootpool = {
             size = "100%";
             content = {
               type = "zfs";
@@ -30,10 +31,11 @@
         };
       };
     };
-    zpool = {
-      zroot = {
+    zpool.zroot = {
         type = "zpool";
-        mountpoint = "/";
+        options = {
+          ashift = "12";
+        };
         # Create a snapshot of the root filesystem as soon as it's created.
         postCreateHook = "zfs snapshot zroot@blank";
         rootFsOptions = {
@@ -45,44 +47,77 @@
           compression = "zstd";
           # Don't allow the pool itself to be mounted
           canmount = "off";
+          atime = "off";
+          dnodesize = "auto";
+          normalization = "formD";
+          mountpoint = "none";
         };
         datasets = {
-          "local/nix" = {
-            type = "zfs_fs";
-            mountpoint = "/nix";
-            options = {
-              # Disable atime updates to reduce IO.
-              atime = "off";
-              # NixOS requires mountpoint=legacy for all datasets
-              mountpoint = "legacy";
+          datasets = {
+            "local" = {
+              type = "zfs_fs";
+              options = {
+                sync = "disabled";
+              };
             };
-          };
-          "system/var" = {
-            type = "zfs_fs";
-            mountpoint = "/var";
-            options = {
-              # NixOS requires mountpoint=legacy for all datasets
-              mountpoint = "legacy";
+            "local/root" = {
+              type = "zfs_fs";
+              mountpoint = "/";
+              postCreateHook = "zfs snapshot zroot/local/root@blank";
+              # options = {
+              #   sync = "disabled";
+              # };
             };
-          };
-          "system/root" = {
-            type = "zfs_fs";
-            mountpoint = "/";
-            options = {
-              # NixOS requires mountpoint=legacy for all datasets
-              mountpoint = "legacy";
+            "local/user" = {
+              type = "zfs_fs";
+              mountpoint = "/home/${user}";
+              postCreateHook = "zfs snapshot zroot/local/user@blank";
+              # options = {
+              #   sync = "disabled";
+              # };
             };
-          };
-          user = {
-            type = "zfs_fs";
-            mountpoint = "/home/${user}";
-            options = {
-              # NixOS requires mountpoint=legacy for all datasets
-              mountpoint = "legacy";
+            "local/docker" = {
+              type = "zfs_fs";
+              mountpoint = "/var/lib/docker";
+              # options = {
+              #   sync = "disabled";
+              # };
+            };
+            "local/cache" = {
+              type = "zfs_fs";
+              mountpoint = "/var/cache";
+              # options = {
+              #   sync = "disabled";
+              # };
+            };
+            "local/nix" = {
+              type = "zfs_fs";
+              mountpoint = "/nix";
+              # options = {
+              #   sync = "disabled";
+              # };
+
+            };
+            "local/reserved" = {
+              type = "zfs_fs";
+              options = {
+                mountpoint = "none";
+                refreservation = "2G";
+              };
+            };
+            "local/state" = {
+              type = "zfs_fs";
+              mountpoint = "/state";
+            };
+            "safe/persist" = {
+              type = "zfs_fs";
+              mountpoint = "/pst";
             };
           };
         };
       };
-    };
   };
+  
+  fileSystems."/pst".neededForBoot = true;
+  fileSystems."/state".neededForBoot = true;
 }
