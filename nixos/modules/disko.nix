@@ -1,80 +1,66 @@
-{ config, lib, pkgs, modulesPath, ... }:
-
-{
-  disko.devices = {
-    
-    disk = {
-      main = {
-        # When using disko-install, we will overwrite this value from the commandline
-        device = "/dev/disk/by-id/some-disk-id";
-        type = "disk";
-        content = {
-          type = "gpt";
-          partitions = {
-            MBR = {
-              type = "EF02"; # for grub MBR
-              size = "1M";
-            };
-            efi = {
-              type = "EF00";
-              size = "1024M";
-              name = "efi";
-              content = {
-                type = "filesystem";
-                format = "vfat";
-                mountpoint = "/boot";
+{ lib, config, ... }: { 
+  options = {
+    disko.rootDisk = lib.mkOption {
+      type = lib.types.str;
+      default = "sda";
+      description = "The device to use for the disk";
+    };
+  };
+  config = {
+    disko.devices = {
+      disk = {
+        config.disko.rootDisk = {
+          device = "/dev/"+config.disko.rootDisk;
+          type = "disk";
+          content = {
+            type = "gpt";
+            partitions = {
+              ESP = {
+                type = "EF00";
+                size = "1G";
+                content = {
+                  type = "filesystem";
+                  format = "vfat";
+                  mountpoint = "/boot";
+                };
               };
-            };
-            crypt = {
-              size = "100%";
-              content = {
-                type = "luks";
-                name = "crypt";
-                extraOpenArgs = [ "--allow-discards" ];
-                #passwordFile = "/tmp/secret.key";
+              zfs = {
+                size = "100%";
                 content = {
                   type = "zfs";
-                  pool = "zfspool";
+                  pool = "zroot";
                 };
               };
             };
           };
         };
       };
-    };
-
-    zpool = {
-      zfspool = {
-        type = "zpool";
-        rootFsOptions = {
-          canmount = "off";
-        };
-        datasets = {
-          root = {
-            type = "zfs_fs";
-            mountpoint = "/";
-            options.mountpoint = "legacy";
-            postCreateHook = "zfs snapshot zfspool/root@blank";
+      zpool = {
+        zroot = {
+          type = "zpool";
+          rootFsOptions = {
+            compression = "lz4";
+            xattr = "sa";
+            atime = "off";
+            acltype = "posixacl";
+            "com.sun:auto-snapshot" = "false";
           };
-          nix = {
-            type = "zfs_fs";
-            mountpoint = "/nix";
-            options.mountpoint = "legacy";
-          };
-          persist = {
-            type = "zfs_fs";
-            options.mountpoint = "legacy";
-            mountpoint = "/persist";
-          };
-          home = {
-            type = "zfs_fs";
-            options.mountpoint = "legacy";
-            mountpoint = "/home";
-            postCreateHook = "zfs snapshot zfspool/home@blank";
+          options.ashift = "12";
+          datasets = {
+            "docker".type = "zfs_fs";
+            "root".type = "zfs_fs";
+            "root/nixos" = {
+              type = "zfs_fs";
+              mountpoint = "/";
+              options."com.sun:auto-snapshot" = "true";
+            };
+            "root/tmp" = {
+              type = "zfs_fs";
+              mountpoint = "/tmp";
+            };
           };
         };
       };
     };
-
   };
 }
