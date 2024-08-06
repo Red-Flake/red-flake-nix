@@ -3,10 +3,6 @@
 {
   # Import other NixOS modules here
   imports = [
-    # Installer-generated hardware configuration
-    # TODO: DELETE this once disko is setup properly
-    ./hardware-configuration.nix
-
     # Disko configuration
     ./modules/disko.nix
 
