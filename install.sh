@@ -57,7 +57,7 @@ if [ "$ANSWER" = "install" ]; then
         --flake "${FLAKE}" \
         --write-efi-boot-entries \
         --disk main "${DEV}" \
-        --argstr rootDisk "${DEV_NAME}"
+        --option rootDisk "${DEV_NAME}"
 else
     echo "cancelled."
     exit
