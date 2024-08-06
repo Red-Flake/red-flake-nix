@@ -2,13 +2,11 @@
 
 # Function to display available drives and prompt for the user to select one
 choose_drive() {
-    # Capture the output of lsblk into a variable
-    local lsblk_output
-    lsblk_output=$(lsblk -d -o NAME,SIZE,TYPE | grep disk)
-    
     # Display the captured output
     printf "Available drives:\n"
-    printf "%s\n" "$lsblk_output"
+    
+    lsblk -d -o NAME,SIZE,TYPE | grep disk | tee -a "$(tty)"
+    
     printf "\n"
     
     # Prompt the user to select a drive
