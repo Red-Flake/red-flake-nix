@@ -43,6 +43,8 @@ read -p "Will now install Red-Flake to ${DEV}. Ok? Type 'install': " ANSWER
 
 
 if [ "$ANSWER" = "install" ]; then
+    echo "Creating new GPT partition table..."
+    sudo sgdisk -o ${DEV}
     echo "Installing Red-Flake on ${DEV}..."
     # Run the nix command with the chosen drive
     sudo nix \
