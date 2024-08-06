@@ -120,6 +120,8 @@
 
   # Schedulers from https://wiki.archlinux.org/title/improving_performance
   services.udev.extraRules = ''
+    # Needed for ZFS. Otherwise the system can freeze
+    ACTION=="add|change", KERNEL=="sd[a-z]*[0-9]*|mmcblk[0-9]*p[0-9]*|nvme[0-9]*n[0-9]*p[0-9]*", ENV{ID_FS_TYPE}=="zfs_member", ATTR{../queue/scheduler}="none"
     # HDD
     ACTION=="add|change", KERNEL=="sd[a-z]*", ATTR{queue/rotational}=="1", ATTR{queue/scheduler}="bfq"
     # SSD

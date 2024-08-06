@@ -35,24 +35,24 @@ DEV=${DEVICES[$(($DEVICE+1))]}
 
 # Check if the device exists
 if [ ! -b "$DEV" ]; then
-    echo "Error: Device $DEV does not exist."
+    echo "Error: Device /dev/$DEV does not exist."
     exit 1
 fi
 
-read -p "Will now install Red-Flake to ${DEV}. Ok? Type 'install': " ANSWER
-
+read -p "Will now install Red-Flake to /dev/${DEV}. Ok? Type 'install': " ANSWER
 
 if [ "$ANSWER" = "install" ]; then
     echo "Creating new GPT partition table..."
-    sudo sgdisk -o ${DEV}
-    echo "Installing Red-Flake on ${DEV}..."
+    sudo sgdisk -o /dev/${DEV}
+    echo "Installing Red-Flake on /dev/${DEV}..."
     # Run the nix command with the chosen drive
     sudo nix \
         --extra-experimental-features 'flakes nix-command' \
         run github:nix-community/disko#disko-install -- \
         --flake "${FLAKE}" \
         --write-efi-boot-entries \
-        --disk main "${DEV}"
+        --disk main "${DEV}" \
+        --argstr rootDisk "${DEV}"
 else
     echo "cancelled."
     exit
