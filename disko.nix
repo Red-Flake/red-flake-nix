@@ -9,8 +9,9 @@
   config = {
     disko.devices = {
       disk = {
-        ${config.disko.rootDisk} = {
+        main = {
           type = "disk";
+          # When using disko-install, we will overwrite this value from the commandline
           device = "/dev/${config.disko.rootDisk}";
           content = {
             type = "gpt";

@@ -106,6 +106,7 @@
 
         modules = [
           disko.nixosModules.disko
+          ./disko.nix
           chaotic.nixosModules.default
           nixos-boot.nixosModules.default
           darkmatter-grub-theme.nixosModule
