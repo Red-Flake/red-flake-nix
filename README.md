@@ -24,17 +24,8 @@
 2. Install Red Flake:
 
 ```bash
-FLAKE="github:Red-Flake/red-flake-nix#redflake"
-DISK_DEVICE=/dev/sda
-sudo nix \
-    --extra-experimental-features 'flakes nix-command' \
-    run github:nix-community/disko#disko-install -- \
-    --flake "$FLAKE" \
-    --write-efi-boot-entries \
-    --disk main "$DISK_DEVICE"
+curl -s -O https://raw.githubusercontent.com/Red-Flake/red-flake-nix/main/install.sh && bash install.sh
 ```
-
-=> replace `/dev/sda` with your target root disk
 
 <br><br>
 
