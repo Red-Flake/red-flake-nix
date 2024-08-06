@@ -1,38 +1,61 @@
-#!/bin/bash
-
-# Function to display available drives and prompt for the user to select one
-choose_drive() {
-    # Display the captured output
-    printf "Available drives:\n"
-    echo "--------------------------------------------------------------------------------"
-    echo "Your attached storage devices will now be listed."
-    read -p "Press 'q' to exit the list. Press enter to continue." NULL
-
-    sudo fdisk -l | less
-    
-    printf "\n"
-    
-    # Prompt the user to select a drive
-    read -p "Enter the device name (e.g., sda) to install to: " drive
-    echo "/dev/$drive"
-}
+#!/bin/sh
+#
+# For installing NixOS having booted from the minimal USB image.
+#
+# To run:
+#
+#     bash -c "$(curl https://raw.githubusercontent.com/Red-Flake/red-flake-nix/main/install.sh)"
+#
 
 # Set the flake
 FLAKE="github:Red-Flake/red-flake-nix#redflake"
 
 # Prompt the user to choose a drive
-DISK_DEVICE=$(choose_drive)
+echo "--------------------------------------------------------------------------------"
+echo "Your attached storage devices will now be listed."
+read -p "Press 'q' to exit the list. Press enter to continue." NULL
 
-# Check if the drive exists
-if [ ! -b "$DISK_DEVICE" ]; then
-    echo "Error: Device $DISK_DEVICE does not exist."
+sudo fdisk -l | less
+
+echo "--------------------------------------------------------------------------------"
+echo "Detected the following devices:"
+echo
+
+i=0
+for device in $(sudo fdisk -l | grep "^Disk /dev" | awk "{print \$2}" | sed "s/://"); do
+    echo "[$i] $device"
+    i=$((i+1))
+    DEVICES[$i]=$device
+done
+
+echo
+read -p "Which device do you wish to install on? " DEVICE
+
+DEV=${DEVICES[$(($DEVICE+1))]}
+
+# Check if the device exists
+if [ ! -b "$DEV" ]; then
+    echo "Error: Device $DEV does not exist."
     exit 1
 fi
 
-# Run the nix command with the chosen drive
-sudo nix \
-    --extra-experimental-features 'flakes nix-command' \
-    run github:nix-community/disko#disko-install -- \
-    --flake "$FLAKE" \
-    --write-efi-boot-entries \
-    --disk main "$DISK_DEVICE"
+read -p "Will now install Red-Flake to ${DEV}. Ok? Type 'install': " ANSWER
+
+
+if [ "$ANSWER" = "install" ]; then
+    echo "Installing Red-Flake on ${DEV}..."
+    # Run the nix command with the chosen drive
+    sudo nix \
+        --extra-experimental-features 'flakes nix-command' \
+        run github:nix-community/disko#disko-install -- \
+        --flake "${FLAKE}" \
+        --write-efi-boot-entries \
+        --disk main "${DEV}"
+else
+    echo "cancelled."
+    exit
+fi
+
+read -p "The installation was finished!\nRemove installation media and press enter to reboot." NULL
+
+reboot
