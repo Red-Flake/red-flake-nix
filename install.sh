@@ -32,20 +32,24 @@ done
 echo
 read -p "Which device do you wish to install on? " DEVICE
 
-DEV="${DEVICES[$(($DEVICE+1))]}"
+# Get the full device path
+DEV="/dev/${DEVICES[$(($DEVICE+1))]}"
+
+# Extract just the device name (e.g., sda)
+DEV_NAME=$(basename $DEV)
 
 # Check if the device exists
-if [ ! -b "/dev/$DEV" ]; then
-    echo "Error: Device /dev/$DEV does not exist."
+if [ ! -b "$DEV" ]; then
+    echo "Error: Device $DEV does not exist."
     exit 1
 fi
 
-read -p "Will now install Red-Flake to /dev/${DEV}. Ok? Type 'install': " ANSWER
+read -p "Will now install Red-Flake to ${DEV}. Ok? Type 'install': " ANSWER
 
 if [ "$ANSWER" = "install" ]; then
     echo "Creating new GPT partition table..."
-    sudo sgdisk -o /dev/${DEV}
-    echo "Installing Red-Flake on /dev/${DEV}..."
+    sudo sgdisk -o ${DEV}
+    echo "Installing Red-Flake on ${DEV}..."
     # Run the nix command with the chosen drive
     sudo nix \
         --extra-experimental-features 'flakes nix-command' \
@@ -53,7 +57,7 @@ if [ "$ANSWER" = "install" ]; then
         --flake "${FLAKE}" \
         --write-efi-boot-entries \
         --disk main "${DEV}" \
-        --argstr rootDisk "${DEV}"
+        --argstr rootDisk "${DEV_NAME}"
 else
     echo "cancelled."
     exit
