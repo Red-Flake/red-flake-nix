@@ -20,7 +20,7 @@
 
 <br>
 
-Install Red Flake:
+Install Red Flake:<br>
 => replace `/dev/sda` with your target root disk
 ```bash
 FLAKE="github:Red-Flake/red-flake-nix#redflake"
