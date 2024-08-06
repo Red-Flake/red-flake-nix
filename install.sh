@@ -2,11 +2,18 @@
 
 # Function to display available drives and prompt for the user to select one
 choose_drive() {
+    # Capture the output of lsblk into a variable
+    local lsblk_output
+    lsblk_output=$(lsblk -d -o NAME,SIZE,TYPE | grep disk)
+    
+    # Display the captured output
     printf "Available drives:\n"
-    lsblk -d -o NAME,SIZE,TYPE | grep disk
+    printf "%s\n" "$lsblk_output"
     printf "\n"
+    
+    # Prompt the user to select a drive
     read -p "Enter the device name (e.g., sda) to install to: " drive
-    printf "/dev/%s\n" "$drive"
+    echo "/dev/$drive"
 }
 
 # Set the flake
