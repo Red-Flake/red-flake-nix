@@ -109,7 +109,7 @@
           chaotic.nixosModules.default
           nixos-boot.nixosModules.default
           darkmatter-grub-theme.nixosModule
-          #./disko.nix
+          ./disko.nix
           ./nixos/configuration.nix
           {
             imports = [ inputs.home-manager.nixosModules.home-manager ];
