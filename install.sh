@@ -61,6 +61,7 @@ if [ "$ANSWER" = "install" ]; then
     sudo nixos-install \
         --root /mnt \
         --flake 'github:Red-Flake/red-flake-nix#redflake' \
+        --option experimental-features "nix-command flakes" \
         --option eval-cache false \
         --option accept-flake-config true
 
