@@ -9,7 +9,7 @@
   config = {
     disko.devices = {
       disk = {
-        mydisk = {
+        ${config.disko.rootDisk} = {
           type = "disk";
           device = "/dev/${config.disko.rootDisk}";
           content = {
