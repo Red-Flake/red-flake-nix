@@ -33,31 +33,41 @@
   boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
 
   # Set kernel modules
-  boot.initrd.availableKernelModules = [ 
-    "zfs"
-    "xhci_pci"
-    "thunderbolt"
-    "nvme"
-    "usb_storage"
-    "usbhid"
-    "sd_mod"
-    "ahci"
-  ];
+  boot.initrd = {
+    availableKernelModules = [ 
+      "zfs"
+      "xhci_pci"
+      "thunderbolt"
+      "nvme"
+      "usb_storage"
+      "usbhid"
+      "sd_mod"
+      "ahci"
+    ];
+
+    # Set initramfs kernel modules
+    # Enable AMD video driver + Intel video driver via early KMS
+    kernelModules = [
+      "amdgpu"
+      "i915"
+    ];
+
+    # Enable ZFS filesystem support
+    supportedFilesystems = [ "zfs" ];
+  };
+
   
-  # Set initramfs kernel modules
-  # Enable AMD video driver + Intel video driver via early KMS
-  boot.initrd.kernelModules = [
-    "amdgpu"
-    "i915"
-  ];
 
   # Set extra kernel module options
   boot.extraModprobeConfig = "options kvm_intel nested=1";
 
   # Enable ZFS filesystem support
-  boot.initrd.supportedFilesystems = [ "zfs" ];
+  boot.zfs = {
+    kernelPackages = pkgs.linuxPackages_latest;
+    devNodes = "/dev/";
+  };
+  
   boot.supportedFilesystems = [ "zfs" ];
-  boot.zfs.devNodes = "/dev/";
 
   # Clear /tmp on boot & use tmpfs
   boot.tmp = {
