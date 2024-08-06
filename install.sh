@@ -52,24 +52,16 @@ if [ "$ANSWER" = "install" ]; then
     echo "Installing Red-Flake on ${DEV}..."
     
     # Run disko
-    sudo nix run \
-        --extra-experimental-features "nix-command flakes" \
-        'github:nix-community/disko' -- \
-        --flake 'github:Red-Flake/red-flake-nix#redflake' \
-        --disk main ${DEV}
+    sudo nix \
+        --experimental-features "nix-command flakes" \
+        run github:nix-community/disko -- \
+        --mode disko ./disko.nix
 
     # Run nixos-install
     sudo nixos-install \
         --root /mnt \
         --flake 'github:Red-Flake/red-flake-nix#redflake' \
         --option eval-cache false
-
-    #sudo nix \
-    #    --experimental-features "nix-command flakes" \
-    #    run 'github:nix-community/disko#disko-install' -- \
-    #    --write-efi-boot-entries \
-    #    --flake github:Red-Flake/red-flake-nix#redflake \
-    #    --disk main "${DEV}"
 
 else
     echo "cancelled."
