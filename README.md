@@ -40,6 +40,8 @@ sudo nix \
 
 # Rebuilding
 
+<br>
+
 Rebuild the already installed system from the flake
 
 ```bash
