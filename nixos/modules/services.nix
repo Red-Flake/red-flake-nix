@@ -2,12 +2,19 @@
 
 {
   # ZFS services
-  ## Enable Autoscrub
-  services.zfs.autoScrub.enable = true;
-  ## Enable automated snapshots
-  services.zfs.autoSnapshot.enable = true;
-  ## Enable TRIM
-  services.zfs.trim.enable = true;
+  services.zfs = {
+    ## Enable Autoscrub
+    autoScrub = {
+      enable = true;
+      pools = [ "zfspool" ];
+    };
+
+    ## Enable automated snapshots
+    autoSnapshot.enable = true;
+
+    ## Enable TRIM
+    trim.enable = true;
+  };
 
   # Disable power-profiles-daemon (interferes with cpufreq)
   services.power-profiles-daemon.enable = false;

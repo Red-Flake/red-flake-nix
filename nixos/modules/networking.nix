@@ -16,6 +16,11 @@
   };
   networking.networkmanager.wifi.backend = "iwd";
   networking.networkmanager.wifi.powersave = false;
+
+  # Set random hostId (needed for ZFS)
+  networking.hostId = builtins.substring 0 8 (builtins.hashString "md5" config.networking.hostName);
+  
+  # Set hostname
   networking.hostName = "redflake";
 
   networking.firewall.enable = false; # This one is necessary to expose ports to the netwok. Usefull for smbserver, responder, http.server, ...
