@@ -45,7 +45,7 @@ sudo nix \
 Rebuild the already installed system from the flake
 
 ```bash
-nixos-rebuild switch --install-bootloader --flake 'github:Red-Flake/red-flake-nix#redflake' --option eval-cache false
+sudo nixos-rebuild switch --install-bootloader --flake 'github:Red-Flake/red-flake-nix#redflake' --option eval-cache false
 ```
 
 <br><br>
