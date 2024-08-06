@@ -4,7 +4,11 @@
   # Import other NixOS modules here
   imports = [
     # Installer-generated hardware configuration
+    # TODO: DELETE this once disko is setup properly
     ./hardware-configuration.nix
+
+    # Disko configuration
+    ./modules/disko.nix
 
     # Additional hardware configuration
     ./modules/hardware.nix
@@ -75,6 +79,10 @@
   ];
 
   nixpkgs = {
+
+    # Set host platform
+    hostPlatform = lib.mkDefault "x86_64-linux";
+
     # You can add overlays here
     overlays = with inputs; [
       # If you want to use overlays exported from other flakes:
