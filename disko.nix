@@ -1,117 +1,148 @@
-# USAGE in your configuration.nix.
-# Update devices to match your hardware.
-# {
-#  imports = [ ./disko-config.nix ];
-#  disko.devices.disk.main.device = "/dev/sda";
-# }
-
 {
   disko.devices = {
     disk = {
-      main.device = "/dev/vda";
-      vda = {
+      main = {
         type = "disk";
-        device = "/dev/vda";
+        device = "to-be-filled-during-installation";
         content = {
           type = "gpt";
           partitions = {
-            ESP = {
-              start = "1MiB";
-              end = "1024MiB";
+            efi = {
+              size = "1G";
               type = "EF00";
               content = {
                 type = "filesystem";
                 format = "vfat";
-                mountpoint = "/boot";
-                mountOptions = [ "defaults" ];
+                mountpoint = "/boot/esp";
               };
             };
-            zfs = {
-              size = "100%";
+            bpool = {
+              size = "4G";
               content = {
                 type = "zfs";
-                pool = "zroot";
+                pool = "bpool";
               };
+            };
+            rpool = {
+              end = "-1M";
+              content = {
+                type = "zfs";
+                pool = "rpool";
+              };
+            };
+            bios = {
+              size = "100%";
+              type = "EF02";
             };
           };
         };
       };
     };
     zpool = {
-      zroot = {
+      bpool = {
         type = "zpool";
-        rootFsOptions = {
-          # https://wiki.archlinux.org/title/Install_Arch_Linux_on_ZFS
-          acltype = "posixacl";
-          atime = "off";
-          compression = "zstd";
-          mountpoint = "none";
-          xattr = "sa";
+        options = {
+          ashift = "12";
+          autotrim = "on";
+          compatibility = "grub2";
         };
-        options.ashift = "12";
-
+        rootFsOptions = {
+          acltype = "posixacl";
+          canmount = "off";
+          compression = "lz4";
+          devices = "off";
+          normalization = "formD";
+          relatime = "on";
+          xattr = "sa";
+          "com.sun:auto-snapshot" = "false";
+        };
+        mountpoint = "/boot";
         datasets = {
-          "local" = {
+          nixos = {
             type = "zfs_fs";
             options.mountpoint = "none";
           };
-          "local/home" = {
+          "nixos/root" = {
             type = "zfs_fs";
             options.mountpoint = "legacy";
-            mountpoint = "/home";
-            # Used by services.zfs.autoSnapshot options.
-            options."com.sun:auto-snapshot" = "true";
+            mountpoint = "/boot";
           };
-          "local/nix" = {
+        };
+      };
+
+      rpool = {
+        type = "zpool";
+        options = {
+          ashift = "12";
+          autotrim = "on";
+        };
+        rootFsOptions = {
+          acltype = "posixacl";
+          canmount = "off";
+          compression = "zstd";
+          dnodesize = "auto";
+          normalization = "formD";
+          relatime = "on";
+          xattr = "sa";
+          "com.sun:auto-snapshot" = "false";
+        };
+        mountpoint = "/";
+
+        datasets = {
+          nixos = {
             type = "zfs_fs";
-            options.mountpoint = "legacy";
-            mountpoint = "/nix";
-            options."com.sun:auto-snapshot" = "false";
+            options.mountpoint = "none";
           };
-          "local/persist" = {
+          "nixos/var" = {
             type = "zfs_fs";
-            mountpoint = "/persist";
-            options."com.sun:auto-snapshot" = "false";
+            options.mountpoint = "none";
           };
-          "local/root" = {
+          "nixos/empty" = {
             type = "zfs_fs";
             options.mountpoint = "legacy";
             mountpoint = "/";
-            options."com.sun:auto-snapshot" = "false";
-            postCreateHook = "zfs snapshot zroot/local/root@blank";
+            postCreateHook = "zfs snapshot rpool/nixos/empty@start";
+          };
+          "nixos/home" = {
+            type = "zfs_fs";
+            options.mountpoint = "legacy";
+            mountpoint = "/home";
+          };
+          "nixos/var/log" = {
+            type = "zfs_fs";
+            options.mountpoint = "legacy";
+            mountpoint = "/var/log";
+          };
+          "nixos/var/lib" = {
+            type = "zfs_fs";
+            options.mountpoint = "none";
+          };
+          "nixos/config" = {
+            type = "zfs_fs";
+            options.mountpoint = "legacy";
+            mountpoint = "/etc/nixos";
+          };
+          "nixos/persist" = {
+            type = "zfs_fs";
+            options.mountpoint = "legacy";
+            mountpoint = "/persist";
+          };
+          "nixos/nix" = {
+            type = "zfs_fs";
+            options.mountpoint = "legacy";
+            mountpoint = "/nix";
+          };
+          docker = {
+            type = "zfs_volume";
+            size = "50G";
+            content = {
+              type = "filesystem";
+              format = "ext4";
+              mountpoint = "/var/lib/containers";
+            };
           };
         };
       };
     };
   };
-  
-  fileSystems = {
-    "/" = {
-      device = "zroot/local/root";
-      fsType = "zfs";
-      neededForBoot = true;
-    };
-    "/boot" = {
-      device = "/dev/disk/by-partlabel/ESP"; # Use by-partlabel for consistency
-      fsType = "vfat";
-      neededForBoot = true;
-    };
-    "/persist" = {
-      device = "zroot/local/persist";
-      fsType = "zfs";
-      neededForBoot = true;
-    };
-    "/home" = {
-      device = "zroot/local/home";
-      fsType = "zfs";
-      neededForBoot = false;
-    };
-    "/nix" = {
-      device = "zroot/local/nix";
-      fsType = "zfs";
-      neededForBoot = false;
-    };
-  };
-
-  # Other configuration options...
 }
