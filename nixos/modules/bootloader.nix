@@ -84,6 +84,7 @@
     grub = {
       enable = true;
 
+      zfsSupport = true;
       efiSupport = true;
       device = "nodev";
       useOSProber = true;
