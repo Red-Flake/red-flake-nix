@@ -20,7 +20,8 @@
 
 <br>
 
-Install Red Flake:<br>
+1. Bootup any NixOS live CD
+2. Install Red Flake:
 => replace `/dev/sda` with your target root disk
 ```bash
 FLAKE="github:Red-Flake/red-flake-nix#redflake"
