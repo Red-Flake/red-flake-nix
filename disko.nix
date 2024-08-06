@@ -83,6 +83,33 @@
     };
   };
   
-  fileSystems."/pst".neededForBoot = true;
-  fileSystems."/state".neededForBoot = true;
+  fileSystems = {
+    "/" = {
+      device = "zroot/local/root";
+      fsType = "zfs";
+      neededForBoot = true;
+    };
+    "/boot" = {
+      device = "/dev/disk/by-partlabel/ESP"; # Use by-partlabel for consistency
+      fsType = "vfat";
+      neededForBoot = true;
+    };
+    "/persist" = {
+      device = "zroot/local/persist";
+      fsType = "zfs";
+      neededForBoot = true;
+    };
+    "/home" = {
+      device = "zroot/local/home";
+      fsType = "zfs";
+      neededForBoot = false;
+    };
+    "/nix" = {
+      device = "zroot/local/nix";
+      fsType = "zfs";
+      neededForBoot = false;
+    };
+  };
+
+  # Other configuration options...
 }
