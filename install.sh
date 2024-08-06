@@ -50,13 +50,25 @@ if [ "$ANSWER" = "install" ]; then
     echo "Creating new GPT partition table..."
     sudo sgdisk -o ${DEV}
     echo "Installing Red-Flake on ${DEV}..."
-    # Run the nix command with the chosen drive
+    
+    # Run disko
     sudo nix \
         --experimental-features "nix-command flakes" \
-        run 'github:nix-community/disko#disko-install' -- \
-        --write-efi-boot-entries \
-        --flake github:Red-Flake/red-flake-nix#redflake \
-        --disk main "${DEV}"
+        run github:nix-community/disko -- \
+        --mode disko ./disko/disko.nix
+
+    # Run nixos-install
+    sudo nixos-install \
+        --root  \
+        --flake 'github:Red-Flake/red-flake-nix#redflake' \
+        --option eval-cache false
+
+    #sudo nix \
+    #    --experimental-features "nix-command flakes" \
+    #    run 'github:nix-community/disko#disko-install' -- \
+    #    --write-efi-boot-entries \
+    #    --flake github:Red-Flake/red-flake-nix#redflake \
+    #    --disk main "${DEV}"
 
 else
     echo "cancelled."
