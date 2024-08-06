@@ -3,7 +3,9 @@
 # Function to display available drives and prompt for the user to select one
 choose_drive() {
     echo "Available drives:"
-    stdbuf -oL lsblk -d -o NAME,SIZE,TYPE | grep disk
+    lsblk -d -o NAME,SIZE,TYPE | grep disk | while IFS= read -r line; do
+        echo "$line"
+    done
     echo
     read -p "Enter the device name (e.g., sda) to install to: " drive
     echo "/dev/$drive"
