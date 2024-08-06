@@ -23,8 +23,6 @@
 1. Bootup any NixOS live CD
 2. Install Red Flake:
 
-<br>
-
 ```bash
 FLAKE="github:Red-Flake/red-flake-nix#redflake"
 DISK_DEVICE=/dev/sda
