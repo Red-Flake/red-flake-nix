@@ -57,7 +57,8 @@ if [ "$ANSWER" = "install" ]; then
         --write-efi-boot-entries \
         --disk main "${DEV}" \
         --option rootDisk "${DEV_NAME}" \
-        --mode disko ./nixos/modules/disko.nix
+        --mode disko \
+        --flake github:Red-Flake/red-flake-nix
 else
     echo "cancelled."
     exit
