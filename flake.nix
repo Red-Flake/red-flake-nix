@@ -94,7 +94,7 @@
     
   };
 
-  outputs = { self, nixpkgs, disko,chaotic, flake-parts, pre-commit-hooks, home-manager, plasma-manager, artwork, webshells, tools, nixos-boot, darkmatter-grub-theme, nix-alien, ... } @ inputs: let
+  outputs = { self, nixpkgs, disko, chaotic, flake-parts, pre-commit-hooks, home-manager, plasma-manager, artwork, webshells, tools, nixos-boot, darkmatter-grub-theme, nix-alien, ... } @ inputs: let
     system = "x86_64-linux";
     username = "pascal";
     homeDirectory = "/home/pascal";
@@ -109,6 +109,7 @@
           chaotic.nixosModules.default
           nixos-boot.nixosModules.default
           darkmatter-grub-theme.nixosModule
+          ./disko.nix
           ./nixos/configuration.nix
           {
             imports = [ inputs.home-manager.nixosModules.home-manager ];
