@@ -4,8 +4,11 @@
 choose_drive() {
     # Display the captured output
     printf "Available drives:\n"
-    
-    lsblk -d -o NAME,SIZE,TYPE | grep disk | tee -a "$(tty)"
+    echo "--------------------------------------------------------------------------------"
+    echo "Your attached storage devices will now be listed."
+    read -p "Press 'q' to exit the list. Press enter to continue." NULL
+
+    sudo fdisk -l | less
     
     printf "\n"
     
