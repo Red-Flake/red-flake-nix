@@ -9,16 +9,15 @@
   config = {
     disko.devices = {
       disk = {
-        # Use the provided rootDisk option
-        disk = {
-          device = "/dev/${config.disko.rootDisk}";
+        mydisk = {
           type = "disk";
+          device = "/dev/${config.disko.rootDisk}";
           content = {
             type = "gpt";
             partitions = {
               ESP = {
+                size = "512M";  # Adjusted size to fit typical EFI needs
                 type = "EF00";
-                size = "1G";
                 content = {
                   type = "filesystem";
                   format = "vfat";
@@ -26,7 +25,7 @@
                 };
               };
               zfs = {
-                size = "100%";
+                size = "100%";  # Allocate remaining space to ZFS
                 content = {
                   type = "zfs";
                   pool = "zroot";
