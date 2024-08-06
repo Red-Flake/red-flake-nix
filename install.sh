@@ -52,10 +52,11 @@ if [ "$ANSWER" = "install" ]; then
     echo "Installing Red-Flake on ${DEV}..."
     
     # Run disko
-    sudo nix \
-        --experimental-features "nix-command flakes" \
-        run github:nix-community/disko -- \
-        --mode disko ./disko/disko.nix
+    sudo nix run \
+        --extra-experimental-features "nix-command flakes" \
+        'github:nix-community/disko' -- \
+        --flake 'github:Red-Flake/red-flake-nix#redflake' \
+        --disk main ${DEV}
 
     # Run nixos-install
     sudo nixos-install \
