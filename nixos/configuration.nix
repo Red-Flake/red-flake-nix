@@ -3,9 +3,6 @@
 {
   # Import other NixOS modules here
   imports = [
-    # Disko configuration
-    ../disko/disko.nix
-
     # Additional hardware configuration
     ./modules/hardware.nix
 
