@@ -35,7 +35,7 @@ read -p "Which device do you wish to install on? " DEVICE
 DEV="${DEVICES[$(($DEVICE+1))]}"
 
 # Check if the device exists
-if [ ! -b "$DEV" ]; then
+if [ ! -b "/dev/$DEV" ]; then
     echo "Error: Device /dev/$DEV does not exist."
     exit 1
 fi
