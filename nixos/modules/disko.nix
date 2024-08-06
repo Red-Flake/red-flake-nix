@@ -9,8 +9,9 @@
   config = {
     disko.devices = {
       disk = {
-        config.disko.rootDisk = {
-          device = "/dev/"+config.disko.rootDisk;
+        # Use the provided rootDisk option
+        disk = {
+          device = "/dev/${config.disko.rootDisk}";
           type = "disk";
           content = {
             type = "gpt";
