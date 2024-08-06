@@ -2,12 +2,11 @@
 
 # Function to display available drives and prompt for the user to select one
 choose_drive() {
-    echo "Available drives:"
-    # Use `script` to capture and display terminal output
-    script -q -c "lsblk -d -o NAME,SIZE,TYPE | grep disk" /dev/null
-    echo
+    printf "Available drives:\n"
+    lsblk -d -o NAME,SIZE,TYPE | grep disk
+    printf "\n"
     read -p "Enter the device name (e.g., sda) to install to: " drive
-    echo "/dev/$drive"
+    printf "/dev/%s\n" "$drive"
 }
 
 # Set the flake
