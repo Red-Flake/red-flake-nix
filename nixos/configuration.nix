@@ -3,11 +3,11 @@
 {
   # Import other NixOS modules here
   imports = [
-    # Additional hardware configuration
-    ./modules/hardware.nix
-
     # Disko configuration
     ../disko/disko.nix
+
+    # Additional hardware configuration
+    ./modules/hardware.nix
 
     # Bootloader configuration
     ./modules/bootloader.nix
@@ -73,6 +73,9 @@
     ./modules/tweaks.nix
 
   ];
+
+  # set disko main device
+  disko.devices.disk.main.device = "/dev/sda";
 
   nixpkgs = {
 
