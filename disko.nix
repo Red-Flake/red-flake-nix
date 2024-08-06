@@ -6,12 +6,11 @@
 # }
 
 {
-  rg.resetRootFsPoolName = "zroot";
-
   disko.devices = {
     disk = {
-      main = {
+      vda = {
         type = "disk";
+        device = "/dev/vda";
         content = {
           type = "gpt";
           partitions = {
@@ -55,12 +54,14 @@
           };
           "local/home" = {
             type = "zfs_fs";
+            options.mountpoint = "legacy";
             mountpoint = "/home";
             # Used by services.zfs.autoSnapshot options.
             options."com.sun:auto-snapshot" = "true";
           };
           "local/nix" = {
             type = "zfs_fs";
+            options.mountpoint = "legacy";
             mountpoint = "/nix";
             options."com.sun:auto-snapshot" = "false";
           };
@@ -71,6 +72,7 @@
           };
           "local/root" = {
             type = "zfs_fs";
+            options.mountpoint = "legacy";
             mountpoint = "/";
             options."com.sun:auto-snapshot" = "false";
             postCreateHook = "zfs snapshot zroot/local/root@blank";
