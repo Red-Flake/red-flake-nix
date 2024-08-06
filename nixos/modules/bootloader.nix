@@ -63,7 +63,7 @@
 
   # Enable ZFS filesystem support
   boot.zfs = {
-    kernelPackages = pkgs.linuxPackages_latest;
+    package = pkgs.zfs_unstable;
     devNodes = "/dev/";
   };
   
