@@ -61,7 +61,8 @@ if [ "$ANSWER" = "install" ]; then
     sudo nixos-install \
         --root /mnt \
         --flake 'github:Red-Flake/red-flake-nix#redflake' \
-        --option eval-cache false
+        --option eval-cache false \
+        --option accept-flake-config true
 
 else
     echo "cancelled."
