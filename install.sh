@@ -59,7 +59,7 @@ if [ "$ANSWER" = "install" ]; then
 
     # Run nixos-install
     sudo nixos-install \
-        --root  \
+        --root /mnt \
         --flake 'github:Red-Flake/red-flake-nix#redflake' \
         --option eval-cache false
 
@@ -77,4 +77,4 @@ fi
 
 read -p "The installation was finished!\nRemove installation media and press enter to reboot." NULL
 
-reboot
+sudo reboot
