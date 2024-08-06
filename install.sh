@@ -23,15 +23,16 @@ echo
 
 i=0
 for device in $(sudo fdisk -l | grep "^Disk /dev" | awk "{print \$2}" | sed "s/://"); do
-    echo "[$i] $device"
+    device_name=$(basename $device)  # Extract the device name without the /dev/ prefix
+    echo "[$i] $device_name"
     i=$((i+1))
-    DEVICES[$i]=$device
+    DEVICES[$i]=$device_name
 done
 
 echo
 read -p "Which device do you wish to install on? " DEVICE
 
-DEV=${DEVICES[$(($DEVICE+1))]}
+DEV="${DEVICES[$(($DEVICE+1))]}"
 
 # Check if the device exists
 if [ ! -b "$DEV" ]; then
