@@ -71,9 +71,6 @@
 
   ];
 
-  # set disko main device
-  disko.devices.disk.main.device = "/dev/sda";
-
   nixpkgs = {
 
     # Set host platform
