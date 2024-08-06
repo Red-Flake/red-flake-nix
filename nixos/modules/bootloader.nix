@@ -5,6 +5,7 @@
   boot.kernelParams = [
     "quiet"
     "splash"
+    "nohibernate"
     "i915.enable_fbc=1"
     "i915.fastboot=1"
     "fsck.mode=skip"
@@ -28,12 +29,20 @@
     "systemd.unified_cgroup_hierarchy=0"
   ];
 
-  # Switch to CachyOS LTO optimized kernel
-  #boot.kernelPackages = pkgs.linuxPackages_cachyos-lto;
-  boot.kernelPackages = pkgs.linuxKernel.packages.linux_xanmod_latest.zfs;
+  # Switch to Xanmod kernel
+  boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
 
   # Set kernel modules
-  boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "usbhid" "sd_mod" "ahci" ];
+  boot.initrd.availableKernelModules = [ 
+    "zfs"
+    "xhci_pci"
+    "thunderbolt"
+    "nvme"
+    "usb_storage"
+    "usbhid"
+    "sd_mod"
+    "ahci"
+  ];
   
   # Set initramfs kernel modules
   # Enable AMD video driver + Intel video driver via early KMS
@@ -44,6 +53,11 @@
 
   # Set extra kernel module options
   boot.extraModprobeConfig = "options kvm_intel nested=1";
+
+  # Enable ZFS filesystem support
+  boot.initrd.supportedFilesystems = [ "zfs" ];
+  boot.supportedFilesystems = [ "zfs" ];
+  boot.zfs.devNodes = "/dev/";
 
   # Clear /tmp on boot & use tmpfs
   boot.tmp = {
@@ -83,6 +97,8 @@
     # Enable Grub Bootloader
     grub = {
       enable = true;
+
+      copyKernels = true;
 
       zfsSupport = true;
       efiSupport = true;
