@@ -56,7 +56,7 @@ if [ "$ANSWER" = "install" ]; then
         run 'github:nix-community/disko#disko-install' -- \
         --write-efi-boot-entries \
         --flake github:Red-Flake/red-flake-nix#redflake \
-        --disk "${DEV_NAME}" "${DEV}"
+        --disk main "${DEV}"
 
 else
     echo "cancelled."
