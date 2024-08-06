@@ -25,7 +25,6 @@
 
 <br>
 
-=> replace `/dev/sda` with your target root disk
 ```bash
 FLAKE="github:Red-Flake/red-flake-nix#redflake"
 DISK_DEVICE=/dev/sda
@@ -36,6 +35,8 @@ sudo nix \
     --write-efi-boot-entries \
     --disk main "$DISK_DEVICE"
 ```
+
+=> replace `/dev/sda` with your target root disk
 
 <br><br>
 
