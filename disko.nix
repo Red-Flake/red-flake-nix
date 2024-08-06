@@ -3,7 +3,7 @@
     disk = {
       main = {
         type = "disk";
-        device = "to-be-filled-during-installation";
+        device = "/dev/vda";
         content = {
           type = "gpt";
           partitions = {
