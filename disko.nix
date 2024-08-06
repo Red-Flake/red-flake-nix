@@ -16,12 +16,14 @@
           type = "gpt";
           partitions = {
             ESP = {
-              size = "1G";
+              start = "1MiB";
+              end = "1024MiB";
               type = "EF00";
               content = {
                 type = "filesystem";
                 format = "vfat";
                 mountpoint = "/boot";
+                mountOptions = [ "defaults" ];
               };
             };
             zfs = {
