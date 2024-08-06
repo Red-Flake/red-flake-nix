@@ -68,6 +68,12 @@
     # https://github.com/thiagokokada/nix-alien
     nix-alien.url = "github:thiagokokada/nix-alien";
 
+    # https://github.com/nix-community/disko
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Red-Flake artwork
     artwork = {
       url = "github:Red-Flake/artwork";
@@ -88,7 +94,7 @@
     
   };
 
-  outputs = { self, nixpkgs, chaotic, flake-parts, pre-commit-hooks, home-manager, plasma-manager, artwork, webshells, tools, nixos-boot, darkmatter-grub-theme, nix-alien, ... } @ inputs: let
+  outputs = { self, disko, nixpkgs, chaotic, flake-parts, pre-commit-hooks, home-manager, plasma-manager, artwork, webshells, tools, nixos-boot, darkmatter-grub-theme, nix-alien, ... } @ inputs: let
     system = "x86_64-linux";
     username = "pascal";
     homeDirectory = "/home/pascal";
@@ -99,6 +105,7 @@
         specialArgs = { inherit inputs; };
 
         modules = [
+          disko.nixosModules.disko
           chaotic.nixosModules.default
           nixos-boot.nixosModules.default
           darkmatter-grub-theme.nixosModule
