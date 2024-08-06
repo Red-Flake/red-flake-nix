@@ -52,12 +52,12 @@ if [ "$ANSWER" = "install" ]; then
     echo "Installing Red-Flake on ${DEV}..."
     # Run the nix command with the chosen drive
     sudo nix \
-        --extra-experimental-features 'flakes nix-command' \
-        run github:nix-community/disko#disko-install -- \
-        --flake "${FLAKE}" \
+        --experimental-features "nix-command flakes" \
+        run github:nix-community/disko -- \
         --write-efi-boot-entries \
         --disk main "${DEV}" \
-        --option rootDisk "${DEV_NAME}"
+        --option rootDisk "${DEV_NAME}" \
+        --mode disko ./nixos/modules/disko.nix
 else
     echo "cancelled."
     exit
