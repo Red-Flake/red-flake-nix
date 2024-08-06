@@ -24,7 +24,7 @@
 2. Install Red Flake:
 
 ```bash
-curl -s -O https://raw.githubusercontent.com/Red-Flake/red-flake-nix/main/install.sh && bash install.sh
+curl -s -O https://raw.githubusercontent.com/Red-Flake/red-flake-nix/main/install.sh && chmod +x install.sh && ./install.sh
 ```
 
 <br><br>
