@@ -20,43 +20,17 @@
 
 <br>
 
-## Install (as root)
-
-### Clone the Repo
-
-First, clone the repo into `/root`:
-
+Install Red Flake:
+=> replace `/dev/sda` with your target root disk
 ```bash
-nix-shell -p git
-git clone https://github.com/Red-Flake/red-flake-nix /root/red-flake-nix
-cd /root/red-flake-nix
-```
-
-<br>
-
-### Hardware Configuration
-
-Generate your system's `hardware-configuration.nix`:
-
-```bash
-nixos-generate-config --show-hardware-config > /root/red-flake-nix/nixos/hardware-configuration.nix
-```
-
-Track the generated file with Git:
-
-```bash
-git add --intent-to-add /root/red-flake-nix/nixos/hardware-configuration.nix
-git update-index --assume-unchanged /root/red-flake-nix/nixos/hardware-configuration.nix
-```
-
-<br>
-
-### Installation
-
-Finally, install the flake:
-
-```bash
-nixos-rebuild --install-bootloader switch --flake '/root/red-flake-nix#redflake'
+FLAKE="github:Red-Flake/red-flake-nix#redflake"
+DISK_DEVICE=/dev/sda
+sudo nix \
+    --extra-experimental-features 'flakes nix-command' \
+    run github:nix-community/disko#disko-install -- \
+    --flake "$FLAKE" \
+    --write-efi-boot-entries \
+    --disk main "$DISK_DEVICE"
 ```
 
 <br><br>
