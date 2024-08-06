@@ -106,10 +106,6 @@
 
         modules = [
           disko.nixosModules.disko
-          (import ./disko/disko.nix {
-            device = "/dev/sda";
-            user = "pascal";
-          })
           chaotic.nixosModules.default
           nixos-boot.nixosModules.default
           darkmatter-grub-theme.nixosModule
