@@ -1,121 +1,83 @@
-{
-  device,
-  user,
-}: {
+# USAGE in your configuration.nix.
+# Update devices to match your hardware.
+# {
+#  imports = [ ./disko-config.nix ];
+#  disko.devices.disk.main.device = "/dev/sda";
+# }
 
+{
   rg.resetRootFsPoolName = "zroot";
 
   disko.devices = {
-    disk.main = {
-      type = "disk";
-      device = device;
-      content = {
-        type = "gpt";
-        partitions = {
-          ESP = {
-            size = "1G";
-            type = "EF00";
-            content = {
-              type = "filesystem";
-              format = "vfat";
-              mountpoint = "/boot";
+    disk = {
+      main = {
+        type = "disk";
+        content = {
+          type = "gpt";
+          partitions = {
+            ESP = {
+              size = "1G";
+              type = "EF00";
+              content = {
+                type = "filesystem";
+                format = "vfat";
+                mountpoint = "/boot";
+              };
             };
-          };
-          zrootpool = {
-            size = "100%";
-            content = {
-              type = "zfs";
-              pool = "zroot";
+            zfs = {
+              size = "100%";
+              content = {
+                type = "zfs";
+                pool = "zroot";
+              };
             };
           };
         };
       };
     };
-    zpool.zroot = {
+    zpool = {
+      zroot = {
         type = "zpool";
-        options = {
-          ashift = "12";
-        };
-        # Create a snapshot of the root filesystem as soon as it's created.
-        postCreateHook = "zfs snapshot zroot@blank";
         rootFsOptions = {
-          # Enable additional access control features as they're intended to be used
-          # in ZFS.
+          # https://wiki.archlinux.org/title/Install_Arch_Linux_on_ZFS
           acltype = "posixacl";
-          xattr = "sa";
-          # Enable compression by default.
-          compression = "zstd";
-          # Don't allow the pool itself to be mounted
-          canmount = "off";
           atime = "off";
-          dnodesize = "auto";
-          normalization = "formD";
+          compression = "zstd";
           mountpoint = "none";
+          xattr = "sa";
         };
-        datasets = {
-          datasets = {
-            "local" = {
-              type = "zfs_fs";
-              options = {
-                sync = "disabled";
-              };
-            };
-            "local/root" = {
-              type = "zfs_fs";
-              mountpoint = "/";
-              postCreateHook = "zfs snapshot zroot/local/root@blank";
-              # options = {
-              #   sync = "disabled";
-              # };
-            };
-            "local/user" = {
-              type = "zfs_fs";
-              mountpoint = "/home/${user}";
-              postCreateHook = "zfs snapshot zroot/local/user@blank";
-              # options = {
-              #   sync = "disabled";
-              # };
-            };
-            "local/docker" = {
-              type = "zfs_fs";
-              mountpoint = "/var/lib/docker";
-              # options = {
-              #   sync = "disabled";
-              # };
-            };
-            "local/cache" = {
-              type = "zfs_fs";
-              mountpoint = "/var/cache";
-              # options = {
-              #   sync = "disabled";
-              # };
-            };
-            "local/nix" = {
-              type = "zfs_fs";
-              mountpoint = "/nix";
-              # options = {
-              #   sync = "disabled";
-              # };
+        options.ashift = "12";
 
-            };
-            "local/reserved" = {
-              type = "zfs_fs";
-              options = {
-                mountpoint = "none";
-                refreservation = "2G";
-              };
-            };
-            "local/state" = {
-              type = "zfs_fs";
-              mountpoint = "/state";
-            };
-            "safe/persist" = {
-              type = "zfs_fs";
-              mountpoint = "/pst";
-            };
+        datasets = {
+          "local" = {
+            type = "zfs_fs";
+            options.mountpoint = "none";
+          };
+          "local/home" = {
+            type = "zfs_fs";
+            mountpoint = "/home";
+            # Used by services.zfs.autoSnapshot options.
+            options."com.sun:auto-snapshot" = "true";
+          };
+          "local/nix" = {
+            type = "zfs_fs";
+            mountpoint = "/nix";
+            options."com.sun:auto-snapshot" = "false";
+          };
+          "local/persist" = {
+            type = "zfs_fs";
+            mountpoint = "/persist";
+            options."com.sun:auto-snapshot" = "false";
+          };
+          "local/root" = {
+            type = "zfs_fs";
+            mountpoint = "/";
+            options."com.sun:auto-snapshot" = "false";
+            postCreateHook = "zfs snapshot zroot/local/root@blank";
           };
         };
       };
+    };
   };
   
   fileSystems."/pst".neededForBoot = true;
