@@ -10,6 +10,8 @@
 set -eou pipefail
 
 LOGFILE="/tmp/nixos_install.log"
+FLAKE="github:Red-Flake/red-flake-nix"
+GIT_REV="main"
 
 function log() {
     local level="$1"
@@ -265,7 +267,7 @@ done
 
 log "INFO" "Installing Red-Flake on ${DISK}..."
 if ! nix-shell -p git nixFlakes --command \
-    "sudo nixos-install --no-root-password --flake \"${FLAKE}\""; then
+    "sudo nixos-install --no-root-password --flake \"${FLAKE}/${GIT_REV:-main}#$host\""; then
     log "ERROR" "NixOS installation failed."
     exit 1
 fi
