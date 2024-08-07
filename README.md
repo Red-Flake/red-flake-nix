@@ -21,10 +21,10 @@
 <br>
 
 1. Bootup any NixOS live CD
-2. Install Red Flake:
+2. Install Red Flake (run as root, do not use sudo):
 
 ```bash
-curl -s -L https://raw.githubusercontent.com/Red-Flake/red-flake-nix/main/install.sh -o /var/tmp/install.sh && sudo bash /var/tmp/install.sh
+bash <(curl -L https://raw.githubusercontent.com/Red-Flake/red-flake-nix/main/install.sh)
 ```
 
 <br><br>
