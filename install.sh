@@ -9,7 +9,7 @@
 # o pipefail: Ensure Bash pipelines return a non-zero status if any command fails.
 set -eou pipefail
 
-LOGFILE="/tmp/nixos_install.log"
+LOGFILE="/var/tmp/nixos_install.log"
 FLAKE="github:Red-Flake/red-flake-nix"
 GIT_REV="main"
 
