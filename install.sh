@@ -107,56 +107,29 @@ else
 fi
 
 log "INFO" "Erasing disk..."
-if ! sudo blkdiscard -f "$DISK"; then
-    log "ERROR" "Failed to erase disk $DISK."
-    exit 1
-fi
+sudo blkdiscard -f "$DISK"
 
 log "INFO" "Creating new GPT partitions table..."
-if ! sudo sgdisk -o "$DISK"; then
-    log "ERROR" "Failed to create GPT partitions table on $DISK."
-    exit 1
-fi
+sudo sgdisk -o "$DISK"
 
 log "INFO" "Creating partitions..."
-if ! sudo sgdisk -n3:1M:+1G -t3:EF00 "$DISK"; then
-    log "ERROR" "Failed to create boot partition on $DISK."
-    exit 1
-fi
+sudo sgdisk -n3:1M:+1G -t3:EF00 "$DISK"
 
-if ! sudo sgdisk -n2:0:+16G -t2:8200 "$DISK"; then
-    log "ERROR" "Failed to create swap partition on $DISK."
-    exit 1
-fi
+sudo sgdisk -n2:0:+16G -t2:8200 "$DISK"
 
-if ! sudo sgdisk -n1:0:0 -t1:BF01 "$DISK"; then
-    log "ERROR" "Failed to create ZFS partition on $DISK."
-    exit 1
-fi
+sudo sgdisk -n1:0:0 -t1:BF01 "$DISK"
 
 log "INFO" "Notifying kernel of partition changes..."
-if ! sudo sgdisk -p "$DISK" > /dev/null; then
-    log "ERROR" "Failed to notify kernel of partition changes on $DISK."
-    exit 1
-fi
+sudo sgdisk -p "$DISK" > /dev/null
 sleep 5
 
 log "INFO" "Creating Swap"
-if ! sudo mkswap "$SWAPDISK" --label "SWAP"; then
-    log "ERROR" "Failed to create swap on $SWAPDISK."
-    exit 1
-fi
+sudo mkswap "$SWAPDISK" --label "SWAP"
 
-if ! sudo swapon "$SWAPDISK"; then
-    log "ERROR" "Failed to enable swap on $SWAPDISK."
-    exit 1
-fi
+sudo swapon "$SWAPDISK"
 
 log "INFO" "Creating Boot Disk"
-if ! sudo mkfs.fat -F 32 "$BOOTDISK" -n NIXBOOT; then
-    log "ERROR" "Failed to create boot filesystem on $BOOTDISK."
-    exit 1
-fi
+sudo mkfs.fat -F 32 "$BOOTDISK" -n NIXBOOT
 
 use_encryption=$(yesno "Use encryption? (Encryption must also be enabled within host config.)")
 if [[ $use_encryption == "y" ]]; then
@@ -166,7 +139,7 @@ else
 fi
 
 log "INFO" "Creating base zpool"
-if ! sudo zpool create -f \
+sudo zpool create -f \
     -o ashift=12 \
     -o autotrim=on \
     -O compression=zstd \
@@ -179,83 +152,43 @@ if ! sudo zpool create -f \
     zroot "$ZFSDISK"; then
     log "ERROR" "Failed to create zpool on $ZFSDISK."
     exit 1
-fi
 
 log "INFO" "Creating /"
-if ! sudo zfs create -o mountpoint=legacy zroot/root; then
-    log "ERROR" "Failed to create ZFS dataset for root."
-    exit 1
-fi
+sudo zfs create -o mountpoint=legacy zroot/root
 
-if ! sudo zfs snapshot zroot/root@blank; then
-    log "ERROR" "Failed to create snapshot for root."
-    exit 1
-fi
+sudo zfs snapshot zroot/root@blank
 
-if ! sudo mount -t zfs zroot/root /mnt; then
-    log "ERROR" "Failed to mount root filesystem."
-    exit 1
-fi
+sudo mount -t zfs zroot/root /mnt
 
 log "INFO" "Mounting /boot (efi)"
-if ! sudo mount --mkdir "$BOOTDISK" /mnt/boot; then
-    log "ERROR" "Failed to mount boot partition."
-    exit 1
-fi
+sudo mount --mkdir "$BOOTDISK" /mnt/boot
 
 log "INFO" "Creating /nix"
-if ! sudo zfs create -o mountpoint=legacy zroot/nix; then
-    log "ERROR" "Failed to create ZFS dataset for nix."
-    exit 1
-fi
+sudo zfs create -o mountpoint=legacy zroot/nix
 
-if ! sudo mount --mkdir -t zfs zroot/nix /mnt/nix; then
-    log "ERROR" "Failed to mount nix filesystem."
-    exit 1
-fi
+sudo mount --mkdir -t zfs zroot/nix /mnt/nix
 
 log "INFO" "Creating /tmp"
-if ! sudo zfs create -o mountpoint=legacy zroot/tmp; then
-    log "ERROR" "Failed to create ZFS dataset for tmp."
-    exit 1
-fi
+sudo zfs create -o mountpoint=legacy zroot/tmp
 
-if ! sudo mount --mkdir -t zfs zroot/tmp /mnt/tmp; then
-    log "ERROR" "Failed to mount tmp filesystem."
-    exit 1
-fi
+sudo mount --mkdir -t zfs zroot/tmp /mnt/tmp
 
 log "INFO" "Creating /cache"
-if ! sudo zfs create -o mountpoint=legacy zroot/cache; then
-    log "ERROR" "Failed to create ZFS dataset for cache."
-    exit 1
-fi
+sudo zfs create -o mountpoint=legacy zroot/cache
 
-if ! sudo mount --mkdir -t zfs zroot/cache /mnt/cache; then
-    log "ERROR" "Failed to mount cache filesystem."
-    exit 1
-fi
+sudo mount --mkdir -t zfs zroot/cache /mnt/cache
 
 restore_snapshot=$(yesno "Do you want to restore from a persist snapshot?")
 if [[ $restore_snapshot == "y" ]]; then
     read -p "Enter full path to snapshot: " snapshot_file_path
     log "INFO" "Creating /persist"
-    if ! sudo zfs receive -o mountpoint=legacy zroot/persist < "$snapshot_file_path"; then
-        log "ERROR" "Failed to restore snapshot from $snapshot_file_path."
-        exit 1
-    fi
+    sudo zfs receive -o mountpoint=legacy zroot/persist < "$snapshot_file_path"
 else
     log "INFO" "Creating /persist"
-    if ! sudo zfs create -o mountpoint=legacy zroot/persist; then
-        log "ERROR" "Failed to create ZFS dataset for persist."
-        exit 1
-    fi
+    sudo zfs create -o mountpoint=legacy zroot/persist
 fi
 
-if ! sudo mount --mkdir -t zfs zroot/persist /mnt/persist; then
-    log "ERROR" "Failed to mount persist filesystem."
-    exit 1
-fi
+sudo mount --mkdir -t zfs zroot/persist /mnt/persist
 
 while true; do
     read -rp "Which host to install? (redflake) " host
@@ -266,11 +199,8 @@ while true; do
 done
 
 log "INFO" "Installing Red-Flake on ${DISK}..."
-if ! nix-shell -p git nixFlakes --command \
-    "sudo nixos-install --no-root-password --flake \"${FLAKE}/${GIT_REV:-main}#$host\""; then
-    log "ERROR" "NixOS installation failed."
-    exit 1
-fi
+nix-shell -p git nixFlakes --command \
+    "sudo nixos-install --no-root-password --flake \"${FLAKE}/${GIT_REV:-main}#$host\""
 
 log "INFO" "Installation finished. It is now safe to reboot."
 
