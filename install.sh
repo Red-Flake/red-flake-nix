@@ -115,6 +115,8 @@ else
     fi
 fi
 
+sgdisk -p "$DISK" > /dev/null
+
 log "INFO" "Erasing disk ${DISK} ..."
 blkdiscard -f "$DISK"
 
@@ -123,6 +125,8 @@ sgdisk --zap-all "$DISK"
 
 log "INFO" "Creating new GPT partition table on disk ${DISK} ..."
 sgdisk -o "$DISK"
+
+sgdisk -p "$DISK" > /dev/null
 
 log "INFO" "Creating partitions on disk ${DISK} ..."
 sgdisk -n3:1M:+1G -t3:EF00 "$DISK"
