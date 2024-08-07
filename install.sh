@@ -10,15 +10,11 @@
 set -eou pipefail
 
 # make sure this script is run as root (sudo does not work)
-if [ "$(id -u)" -eq 0 ]
-then
-    if [ -n "$SUDO_USER" ]
-    then
-        printf "This script has to run as root (not sudo)\n" >&2
-        exit 1
-    fi
-else
+if [ "$(id -u)" -ne 0 ]; then
     printf "This script has to run as root (do not use sudo)\n" >&2
+    exit 1
+elif [ -n "${SUDO_USER:-}" ]; then
+    printf "This script has to run as root (not sudo)\n" >&2
     exit 1
 fi
 
