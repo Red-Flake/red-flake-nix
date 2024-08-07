@@ -152,7 +152,7 @@ zpool create -f \
     -O normalization=formD \
     -O mountpoint=none \
     "${encryption_options[@]}" \
-    zroot "$ZFSDISK"; then
+    zroot "$ZFSDISK"
 
 log "INFO" "Creating /"
 zfs create -o mountpoint=legacy zroot/root
