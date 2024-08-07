@@ -106,13 +106,13 @@ else
     fi
 fi
 
-log "INFO" "Erasing disk..."
+log "INFO" "Erasing disk ${DISK} ..."
 sudo blkdiscard -f "$DISK"
 
-log "INFO" "Creating new GPT partitions table..."
+log "INFO" "Creating new GPT partitions table on disk ${DISK} ..."
 sudo sgdisk -o "$DISK"
 
-log "INFO" "Creating partitions..."
+log "INFO" "Creating partitions on disk ${DISK} ..."
 sudo sgdisk -n3:1M:+1G -t3:EF00 "$DISK"
 
 sudo sgdisk -n2:0:+16G -t2:8200 "$DISK"
@@ -138,7 +138,7 @@ else
     encryption_options=()
 fi
 
-log "INFO" "Creating base zpool"
+log "INFO" "Creating base zpool on disk ${ZFSDISK} ..."
 sudo zpool create -f \
     -o ashift=12 \
     -o autotrim=on \
