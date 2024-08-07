@@ -76,26 +76,6 @@
         "type": "gitlab"
       }
     },
-    "disko": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1722821805,
-        "narHash": "sha256-FGrUPUD+LMDwJsYyNSxNIzFMldtCm8wXiQuyL2PHSrM=",
-        "owner": "nix-community",
-        "repo": "disko",
-        "rev": "0257e44f4ad472b54f19a6dd1615aee7fa48ed49",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "disko",
-        "type": "github"
-      }
-    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -498,7 +478,6 @@
         "artwork": "artwork",
         "chaotic": "chaotic",
         "darkmatter-grub-theme": "darkmatter-grub-theme",
-        "disko": "disko",
         "flake-parts": "flake-parts",
         "home-manager": "home-manager_2",
         "nix-alien": "nix-alien",
