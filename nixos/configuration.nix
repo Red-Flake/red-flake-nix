@@ -6,6 +6,9 @@
     # Additional hardware configuration
     ./modules/hardware.nix
 
+    # Filesystems configuration
+    ./modules/filesystems.nix
+
     # Bootloader configuration
     ./modules/bootloader.nix
 
