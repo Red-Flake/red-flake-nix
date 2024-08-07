@@ -109,7 +109,10 @@ fi
 log "INFO" "Erasing disk ${DISK} ..."
 sudo blkdiscard -f "$DISK"
 
-log "INFO" "Creating new GPT partitions table on disk ${DISK} ..."
+log "INFO" "Clear partition table on disk ${DISK} ..."
+sudo sgdisk --zap-all "$DISK"
+
+log "INFO" "Creating new GPT partition table on disk ${DISK} ..."
 sudo sgdisk -o "$DISK"
 
 log "INFO" "Creating partitions on disk ${DISK} ..."
