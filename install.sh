@@ -9,6 +9,19 @@
 # o pipefail: Ensure Bash pipelines return a non-zero status if any command fails.
 set -eou pipefail
 
+# make sure this script is run as root (sudo does not work)
+if [ "$(id -u)" -eq 0 ]
+then
+    if [ -n "$SUDO_USER" ]
+    then
+        printf "This script has to run as root (not sudo)\n" >&2
+        exit 1
+    fi
+else
+    printf "This script has to run as root (do not use sudo)\n" >&2
+    exit 1
+fi
+
 LOGFILE="/var/tmp/nixos_install.log"
 FLAKE="github:Red-Flake/red-flake-nix"
 GIT_REV="main"
