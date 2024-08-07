@@ -51,15 +51,9 @@ The following ZFS datasets will be created:
     - zroot/persist/cache (mounted at /persist/cache)"
 
 # Check for required commands
-for cmd in blkdiscard sgdisk zpool zfs mkfs.fat mkswap swapon; do
+for cmd in sudo blkdiscard sgdisk zpool zfs mkfs.fat mkswap swapon; do
     check_command "$cmd"
 done
-
-# Check if running as root
-if [[ $EUID -ne 0 ]]; then
-    log "ERROR" "This script must be run as root. Please re-run with sudo or as root."
-    exit 1
-fi
 
 # Network connectivity check
 if ! ping -c 1 github.com &> /dev/null; then
