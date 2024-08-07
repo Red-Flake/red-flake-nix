@@ -63,7 +63,15 @@ fi
 
 # Check if in a VM
 if [[ -b "/dev/vda" ]]; then
+    log "INFO" "VM was detected!"
+
     DISK="/dev/vda"
+
+    do_format=$(yesno "Will now install Red-Flake to ${DISK}. This irreversibly formats the entire disk. Are you sure?")
+    if [[ $do_format == "n" ]]; then
+        exit
+    fi
+
     BOOTDISK="${DISK}3"
     SWAPDISK="${DISK}2"
     ZFSDISK="${DISK}1"
