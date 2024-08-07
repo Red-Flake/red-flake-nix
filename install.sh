@@ -53,7 +53,7 @@ The following ZFS datasets will be created:
     - zroot/persist/cache (mounted at /persist/cache)"
 
 # Check for required commands
-for cmd in sudo blkdiscard sgdisk zpool zfs mkfs.fat mkswap swapon; do
+for cmd in blkdiscard sgdisk zpool zfs mkfs.fat mkswap swapon; do
     check_command "$cmd"
 done
 
@@ -107,32 +107,32 @@ else
 fi
 
 log "INFO" "Erasing disk ${DISK} ..."
-sudo blkdiscard -f "$DISK"
+blkdiscard -f "$DISK"
 
 log "INFO" "Clear partition table on disk ${DISK} ..."
-sudo sgdisk --zap-all "$DISK"
+sgdisk --zap-all "$DISK"
 
 log "INFO" "Creating new GPT partition table on disk ${DISK} ..."
-sudo sgdisk -o "$DISK"
+sgdisk -o "$DISK"
 
 log "INFO" "Creating partitions on disk ${DISK} ..."
-sudo sgdisk -n3:1M:+1G -t3:EF00 "$DISK"
+sgdisk -n3:1M:+1G -t3:EF00 "$DISK"
 
-sudo sgdisk -n2:0:+16G -t2:8200 "$DISK"
+sgdisk -n2:0:+16G -t2:8200 "$DISK"
 
-sudo sgdisk -n1:0:0 -t1:BF01 "$DISK"
+sgdisk -n1:0:0 -t1:BF01 "$DISK"
 
 log "INFO" "Notifying kernel of partition changes..."
-sudo sgdisk -p "$DISK" > /dev/null
+sgdisk -p "$DISK" > /dev/null
 sleep 5
 
 log "INFO" "Creating Swap"
-sudo mkswap "$SWAPDISK" --label "SWAP"
+mkswap "$SWAPDISK" --label "SWAP"
 
-sudo swapon "$SWAPDISK"
+swapon "$SWAPDISK"
 
 log "INFO" "Creating Boot Disk"
-sudo mkfs.fat -F 32 "$BOOTDISK" -n NIXBOOT
+mkfs.fat -F 32 "$BOOTDISK" -n NIXBOOT
 
 use_encryption=$(yesno "Use encryption? (Encryption must also be enabled within host config.)")
 if [[ $use_encryption == "y" ]]; then
@@ -142,7 +142,7 @@ else
 fi
 
 log "INFO" "Creating base zpool on disk ${ZFSDISK} ..."
-sudo zpool create -f \
+zpool create -f \
     -o ashift=12 \
     -o autotrim=on \
     -O compression=zstd \
@@ -157,41 +157,41 @@ sudo zpool create -f \
     exit 1
 
 log "INFO" "Creating /"
-sudo zfs create -o mountpoint=legacy zroot/root
+zfs create -o mountpoint=legacy zroot/root
 
-sudo zfs snapshot zroot/root@blank
+zfs snapshot zroot/root@blank
 
-sudo mount -t zfs zroot/root /mnt
+mount -t zfs zroot/root /mnt
 
 log "INFO" "Mounting /boot (efi)"
-sudo mount --mkdir "$BOOTDISK" /mnt/boot
+mount --mkdir "$BOOTDISK" /mnt/boot
 
 log "INFO" "Creating /nix"
-sudo zfs create -o mountpoint=legacy zroot/nix
+zfs create -o mountpoint=legacy zroot/nix
 
-sudo mount --mkdir -t zfs zroot/nix /mnt/nix
+mount --mkdir -t zfs zroot/nix /mnt/nix
 
 log "INFO" "Creating /tmp"
-sudo zfs create -o mountpoint=legacy zroot/tmp
+zfs create -o mountpoint=legacy zroot/tmp
 
-sudo mount --mkdir -t zfs zroot/tmp /mnt/tmp
+mount --mkdir -t zfs zroot/tmp /mnt/tmp
 
 log "INFO" "Creating /cache"
-sudo zfs create -o mountpoint=legacy zroot/cache
+zfs create -o mountpoint=legacy zroot/cache
 
-sudo mount --mkdir -t zfs zroot/cache /mnt/cache
+mount --mkdir -t zfs zroot/cache /mnt/cache
 
 restore_snapshot=$(yesno "Do you want to restore from a persist snapshot?")
 if [[ $restore_snapshot == "y" ]]; then
     read -p "Enter full path to snapshot: " snapshot_file_path
     log "INFO" "Creating /persist"
-    sudo zfs receive -o mountpoint=legacy zroot/persist < "$snapshot_file_path"
+    zfs receive -o mountpoint=legacy zroot/persist < "$snapshot_file_path"
 else
     log "INFO" "Creating /persist"
-    sudo zfs create -o mountpoint=legacy zroot/persist
+    zfs create -o mountpoint=legacy zroot/persist
 fi
 
-sudo mount --mkdir -t zfs zroot/persist /mnt/persist
+mount --mkdir -t zfs zroot/persist /mnt/persist
 
 while true; do
     read -rp "Which host to install? (redflake) " host
@@ -203,11 +203,11 @@ done
 
 log "INFO" "Installing Red-Flake on ${DISK}..."
 nix-shell -p git nixFlakes --command \
-    "sudo nixos-install --no-root-password --flake \"${FLAKE}/${GIT_REV:-main}#$host\""
+    "nixos-install --no-root-password --flake \"${FLAKE}/${GIT_REV:-main}#$host\""
 
 log "INFO" "Installation finished. It is now safe to reboot."
 
 do_reboot=$(yesno "Do you want to reboot now?")
 if [[ $do_reboot == "y" ]]; then
-    sudo reboot
+    reboot
 fi
