@@ -38,7 +38,7 @@
 
   swapDevices = [
     {
-      device = "LABEL=SWAP";
+      device = "/dev/disk/by-label/SWAP";
     }
   ];
 }
