@@ -18,7 +18,7 @@ elif [ -n "${SUDO_USER:-}" ]; then
     exit 1
 fi
 
-LOGFILE="/var/tmp/nixos_install.log"
+LOGFILE="/mnt/nixos_install.log"
 FLAKE="github:Red-Flake/red-flake-nix"
 GIT_REV="main"
 
