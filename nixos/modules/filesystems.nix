@@ -1,5 +1,6 @@
-{ config, lib, pkgs, modulesPath, ... }: {
+{ config, lib, pkgs, ... }:
 
+{
   fileSystems."/" = {
     device = "zroot/root";
     fsType = "zfs";
@@ -7,7 +8,7 @@
   };
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-label/NIXBOOT";
+    device = "LABEL=NIXBOOT";
     fsType = "vfat";
   };
 
@@ -37,8 +38,7 @@
 
   swapDevices = [
     {
-      device = "/dev/disk/by-label/SWAP";
+      device = "LABEL=SWAP";
     }
   ];
-
 }
