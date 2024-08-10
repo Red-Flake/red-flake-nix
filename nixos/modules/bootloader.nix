@@ -1,5 +1,15 @@
-{ config, lib, pkgs, modulesPath, ... }:
-
+{ 
+  config,
+  lib,
+  pkgs,
+  modulesPath,
+  ... 
+}:
+let
+  cfg = config.custom.zfs;
+  isVm = lib.elem "virtio_blk" config.boot.initrd.availableKernelModules;
+in
+# NOTE: zfs datasets are created via install.sh
 {
   # Set kernel parameters
   boot.kernelParams = [
@@ -64,8 +74,14 @@
 
   # Enable ZFS filesystem support
   boot.zfs = {
+  # use by-id for intel mobo when not in a vm
+    devNodes =
+      if !isVm && config.hardware.cpu.intel.updateMicrocode then
+        "/dev/disk/by-id"
+      else
+        "/dev/disk/by-partuuid";
     package = pkgs.zfs_unstable;
-    devNodes = "/dev/";
+    requestEncryptionCredentials = cfg.encryption;
   };
   
   boot.supportedFilesystems = [ "zfs" ];
