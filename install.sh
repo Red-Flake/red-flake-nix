@@ -201,14 +201,14 @@ fi
 mount --mkdir -t zfs zroot/persist /mnt/persist
 
 while true; do
-    read -rp "Which host to install? (redflake) " host
+    read -rp "Which host to install? (vm / t580) " host
     case $host in
-        redflake ) break;;
-        * ) log "INFO" "Invalid host. Please select a valid host.";;
+        vm|t580 ) break;;
+        * ) echo "Invalid host. Please select a valid host.";;
     esac
 done
 
-log "INFO" "Installing Red-Flake on ${DISK}..."
+log "INFO" "Installing Red-Flake with profile ${host} on ${DISK}..."
 nix-shell -p git nixFlakes --command \
     "nixos-install --no-root-password --flake \"${FLAKE}/${GIT_REV:-main}#$host\""
 

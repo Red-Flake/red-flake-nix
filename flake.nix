@@ -88,45 +88,44 @@
     
   };
 
-  outputs = { self, nixpkgs, chaotic, flake-parts, pre-commit-hooks, home-manager, plasma-manager, artwork, webshells, tools, nixos-boot, darkmatter-grub-theme, ... } @ inputs: let
+  outputs = { 
+    self, 
+    nixpkgs, 
+    chaotic, 
+    flake-parts, 
+    pre-commit-hooks, 
+    home-manager, 
+    plasma-manager, 
+    artwork, 
+    webshells, 
+    tools, 
+    nixos-boot, 
+    darkmatter-grub-theme,
+    ...
+  } @ inputs: let
+    inherit (self) outputs;
     system = "x86_64-linux";
-    username = "pascal";
-    homeDirectory = "/home/pascal";
   in {
     nixosConfigurations = {
-      redflake = nixpkgs.lib.nixosSystem {
-        inherit system;
-        specialArgs = { inherit inputs; };
 
+      vm = nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          inherit inputs outputs;
+        };
         modules = [
-          chaotic.nixosModules.default
-          nixos-boot.nixosModules.default
-          darkmatter-grub-theme.nixosModule
-          ./nixos/configuration.nix
-          {
-            imports = [ inputs.home-manager.nixosModules.home-manager ];
-
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-
-            home-manager.users = {
-              pascal = {
-                home.username = "pascal";
-                home.homeDirectory = "/home/pascal";
-                home.stateVersion = "23.05";
-                imports = [
-                  inputs.plasma-manager.homeManagerModules.plasma-manager
-                  ./home-manager/home.nix 
-                ];
-              };
-            };
-
-            home-manager.extraSpecialArgs = { inherit inputs username homeDirectory; };
-          }
-
+          ./nixos/hosts/vm
         ];
-
       };
+
+      t580 = nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          inherit inputs outputs;
+        };
+        modules = [
+          ./nixos/hosts/t580
+        ];
+      };
+
     };
   };
 }

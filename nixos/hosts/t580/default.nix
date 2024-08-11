@@ -1,76 +1,77 @@
+# NixOS hosts config for my Thinkpad T580
 { config, lib, pkgs, inputs, ... }:
 
 {
   # Import other NixOS modules here
   imports = [
     # Additional hardware configuration
-    ./modules/hardware.nix
+    ../../modules/hardware.nix
 
     # Filesystems configuration
-    ./modules/filesystems.nix
+    ../../modules/filesystems.nix
 
     # Bootloader configuration
-    ./modules/bootloader.nix
+    ../../modules/bootloader.nix
 
     # Timezone configuration
-    ./modules/timezone.nix
+    ../../modules/timezone.nix
 
     # GPU configuration
-    ./modules/gpu.nix
+    ../../modules/gpu.nix
 
     # Networking configuration
-    ./modules/networking.nix
+    ../../modules/networking.nix
 
     # System packages
-    ./modules/packages
+    ../../modules/packages
 
     # Sysctl settings
-    ./modules/sysctl.nix
+    ../../modules/sysctl.nix
 
     # User settings
-    ./modules/users.nix
+    ../../modules/users.nix
 
     # Shell settings
-    ./modules/setup-shell.nix
+    ../../modules/setup-shell.nix
 
     # Services settings
-    ./modules/services.nix
+    ../../modules/services.nix
 
     # Desktop settings
-    ./modules/desktop.nix
+    ../../modules/desktop.nix
 
     # Security settings
-    ./modules/security.nix
+    ../../modules/security.nix
 
     # Virtualization settings
-    ./modules/virtualisation.nix
+    ../../modules/virtualisation.nix
 
     # Setup Burp Suite
-    ./modules/setup-burp.nix
+    ../../modules/setup-burp.nix
 
     # Setup Neo4j
-    ./modules/setup-neo4j.nix
+    ../../modules/setup-neo4j.nix
 
     # Setup Wireshark
-    ./modules/wireshark.nix
+    ../../modules/wireshark.nix
 
     # performance optimizations
-    ./modules/performance.nix
+    ../../modules/performance.nix
 
     # theming
-    ./modules/theming.nix
+    ../../modules/theming.nix
 
     # symlinks for wordlists
-    ./modules/wordlists.nix
+    ../../modules/wordlists.nix
 
     # symlinks for webshells
-    ./modules/webshells.nix
+    ../../modules/webshells.nix
 
     # symlinks for tools
-    ./modules/tools.nix
+    ../../modules/tools.nix
 
     # apply various system tweaks which are required for red-flake to work
-    ./modules/tweaks.nix
+    ../../modules/tweaks.nix
 
   ];
 
@@ -197,6 +198,12 @@
     registry = lib.mapAttrs (_: flake: {inherit flake;}) flakeInputs;
     nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
   };
+
+  # Set hostname
+  networking.hostName = "redflake-t580";
+
+  # Set fixed hostId (needed for ZFS)
+  networking.hostId = "af84f01e";
 
   # Do not modify this value
   system.stateVersion = "23.05";
