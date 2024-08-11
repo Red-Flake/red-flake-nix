@@ -5,6 +5,7 @@
   lib,
   config,
   pkgs,
+  user,
   ... 
 }: {
   # import other home-manager modules
