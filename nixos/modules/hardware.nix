@@ -1,17 +1,32 @@
-{ config, lib, pkgs, modulesPath, ... }:
+{ 
+  config,
+  lib,
+  pkgs,
+  modulesPath,
+  ... 
+}: {
 
-{
-  # addtional Hardware related config
-  hardware = {
+  options.custom = {
 
-    # Whether to enable firmware with a license allowing redistribution.
-    enableRedistributableFirmware = true;
+    hardware = {
+      enableRedistributableFirmware = lib.mkEnableOption "Enable redistributable firmware";
+      cpu = {
+        amd = {
+          updateMicrocode = lib.mkEnableOption "Enable CPU microcode updates for AMD CPUs";
+        };
+        intel = {
+          updateMicrocode = lib.mkEnableOption "Enable CPU microcode updates for Intel CPUs";
+        };
+      };
+    };
 
-    # Enable CPU microcode updates for AMD CPUs
-    cpu.amd.updateMicrocode = true;
-
-    # Enable CPU microcode updates for Intel CPUs
-    cpu.intel.updateMicrocode = true;
+    # ZFS settings
+    zfs = {
+      encryption = lib.mkEnableOption "zfs encryption" // {
+        default = true;
+      };
+    };
+    
   };
   
 }
