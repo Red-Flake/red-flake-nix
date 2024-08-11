@@ -51,8 +51,8 @@
   systemd.services.systemd-udev-settle.enable = false;
 
   # https://github.com/NixOS/nixpkgs/issues/257505
-  custom.shell.packages.remount-persist = ''
-    sudo mount -t zfs zroot/persist -o remount
-  '';
+  #custom.shell.packages.remount-persist = ''
+  #  sudo mount -t zfs zroot/persist -o remount
+  #'';
 
 }
