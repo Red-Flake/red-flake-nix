@@ -11,7 +11,6 @@
       "/" = {
         device = "zroot/root";
         fsType = "zfs";
-        options = [ "zfsutil" ];
         neededForBoot = true;
       };
 
@@ -23,28 +22,25 @@
       "/nix" = {
         device = "zroot/nix";
         fsType = "zfs";
-        options = [ "zfsutil" ];
       };
 
       "/tmp" = {
         device = "zroot/tmp";
         fsType = "zfs";
-        options = [ "zfsutil" ];
-      };
-
-      "/persist/cache" = {
-        device = "zroot/cache";
-        fsType = "zfs";
-        options = [ "zfsutil" ];
-        neededForBoot = true;
       };
 
       "/persist" = {
         device = "zroot/persist";
         fsType = "zfs";
-        options = [ "zfsutil" ];
         neededForBoot = true;
       };
+
+      "/persist/cache" = {
+        device = "zroot/cache";
+        fsType = "zfs";
+        neededForBoot = true;
+      };
+
   };    
 
   # https://github.com/openzfs/zfs/issues/10891
