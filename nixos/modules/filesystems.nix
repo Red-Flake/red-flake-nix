@@ -29,7 +29,7 @@ in
       };
 
       "/home" = {
-        device = "zroot/root/home";
+        device = "zroot/home";
         fsType = "zfs";
       };
 
