@@ -26,7 +26,6 @@ in
       "/boot" = {
         device = "/dev/disk/by-label/NIXBOOT";
         fsType = "vfat";
-        neededForBoot = true;
       };
 
       "/home" = {
