@@ -11,92 +11,127 @@ let
 in
 # NOTE: zfs datasets are created via install.sh
 {
-  # Set kernel parameters
-  boot.kernelParams = [
-    "quiet"
-    "splash"
-    "nohibernate"
-    "elevator=none"
-    "i915.enable_fbc=1"
-    "i915.fastboot=1"
-    "fsck.mode=skip"
-    "loglevel=0"
-    "rd.systemd.show_status=false"
-    "nowatchdog"
-    "kernel.nmi_watchdog=0"
-    "nomce"
-    "mitigations=off"
-    "libahci.ignore_sss=1"
-    "modprobe.blacklist=iTCO_wdt"
-    "modprobe.blacklist=sp5100_tco"
-    "processor.ignore_ppc=1"
-    "sysrq_always_enabled=1"
-    "split_lock_detect=off"
-    "consoleblank=0"
-    "audit=0"
-    "net.ifnames=0"
-    "biosdevname=0"
-    "SYSTEMD_CGROUP_ENABLE_LEGACY_FORCE=1"
-    "systemd.unified_cgroup_hierarchy=0"
-  ];
+  boot = {
 
-  # Switch to Xanmod kernel
-  boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
+      # Set kernel parameters
+      kernelParams = [
+        "quiet"
+        "splash"
+        "nohibernate"
+        "elevator=none"
+        "i915.enable_fbc=1"
+        "i915.fastboot=1"
+        "fsck.mode=skip"
+        "loglevel=0"
+        "rd.systemd.show_status=false"
+        "nowatchdog"
+        "kernel.nmi_watchdog=0"
+        "nomce"
+        "mitigations=off"
+        "libahci.ignore_sss=1"
+        "modprobe.blacklist=iTCO_wdt"
+        "modprobe.blacklist=sp5100_tco"
+        "processor.ignore_ppc=1"
+        "sysrq_always_enabled=1"
+        "split_lock_detect=off"
+        "consoleblank=0"
+        "audit=0"
+        "net.ifnames=0"
+        "biosdevname=0"
+        "SYSTEMD_CGROUP_ENABLE_LEGACY_FORCE=1"
+        "systemd.unified_cgroup_hierarchy=0"
+      ];
 
-  # Set kernel modules
-  boot.initrd = {
-    availableKernelModules = [ 
-      "zfs"
-      "xhci_pci"
-      "thunderbolt"
-      "nvme"
-      "usb_storage"
-      "usbhid"
-      "sd_mod"
-      "ahci"
-    ];
+      # Switch to Xanmod kernel
+      kernelPackages = pkgs.linuxPackages_xanmod_latest;
 
-    # Set initramfs kernel modules
-    # Enable AMD video driver + Intel video driver via early KMS
-    kernelModules = [
-      "amdgpu"
-      "i915"
-    ];
+      # Set kernel modules
+      initrd = {
+          availableKernelModules = [ 
+              "zfs"
+              "xhci_pci"
+              "thunderbolt"
+              "nvme"
+              "usb_storage"
+              "usbhid"
+              "sd_mod"
+              "ahci"
+          ];
 
-    # Enable ZFS filesystem support
-    supportedFilesystems.zfs = true;
+          # Set initramfs kernel modules
+          # Enable AMD video driver + Intel video driver via early KMS
+          kernelModules = [
+              "amdgpu"
+              "i915"
+          ];
+
+      };
+
+      # Set extra kernel module options
+      extraModprobeConfig = "options kvm_intel nested=1";
+
+      # Enable ZFS filesystem support
+      supportedFilesystems = [ "zfs" ];
+
+      # ZFS settings
+      zfs = {
+          devNodes =
+              if isVm then
+                  "/dev/disk/by-partuuid"
+              # use by-id for intel mobo when not in a vm
+              else if config.hardware.cpu.intel.updateMicrocode then
+                  "/dev/disk/by-id"
+              else
+                "/dev/disk/by-partuuid";
+
+          package = pkgs.zfs_unstable;
+          requestEncryptionCredentials = cfg.encryption;
+      };
+
+      # Clear /tmp on boot & use tmpfs
+      tmp = {
+        cleanOnBoot = true;
+        useTmpfs = true;
+      };
+
+      # Enable Plymouth
+      plymouth.enable = true;
+
+      # Bootloader settings
+      loader = {
+          systemd-boot.enable = false;
+
+          timeout = 3;
+
+          # EFI settings
+          efi = {
+              canTouchEfiVariables = true;
+              efiSysMountPoint = "/boot";
+          };
+
+          # Enable Grub Bootloader
+          grub = {
+              enable = true;
+
+              copyKernels = true;
+
+              zfsSupport = true;
+              efiSupport = true;
+              device = "nodev";
+              useOSProber = true;
+              fontSize = 24;
+
+              # Use Dark Matter GRUB Theme
+              darkmatter-theme = {
+                enable = true;
+                style = "nixos";
+                icon = "color";
+                resolution = "1080p";
+              };
+          };
+      };
+      
   };
-
-  
-
-  # Set extra kernel module options
-  boot.extraModprobeConfig = "options kvm_intel nested=1";
-
-  # Enable ZFS filesystem support
-  boot.supportedFilesystems.zfs = true;
-
-  # ZFS settings
-  boot.zfs = {
-      devNodes =
-        if isVm then
-          "/dev/disk/by-partuuid"
-        # use by-id for intel mobo when not in a vm
-        else if config.hardware.cpu.intel.updateMicrocode then
-          "/dev/disk/by-id"
-        else
-          "/dev/disk/by-partuuid";
-    package = pkgs.zfs_unstable;
-    requestEncryptionCredentials = cfg.encryption;
-  };
-
-  # Clear /tmp on boot & use tmpfs
-  boot.tmp = {
-    cleanOnBoot = true;
-    useTmpfs = true;
-  };
-
-  # Enable Plymouth
-  boot.plymouth.enable = true;
   
   # Enable nixos-boot
   # https://github.com/Melkor333/nixos-boot
@@ -110,42 +145,6 @@ in
 
     # If you want to make sure the theme is seen when your computer starts too fast
     # duration = 3; # in seconds
-  };
-
-  # Bootloader settings
-  boot.loader = {
-    systemd-boot.enable = false;
-
-    timeout = 3;
-
-    # EFI settings
-    efi = {
-      canTouchEfiVariables = true;
-      efiSysMountPoint = "/boot";
-    };
-
-    # Enable Grub Bootloader
-    grub = {
-      enable = true;
-
-      copyKernels = true;
-
-      zfsSupport = true;
-      efiSupport = true;
-      device = "nodev";
-      useOSProber = true;
-      fontSize = 24;
-
-      # Use Dark Matter GRUB Theme
-      darkmatter-theme = {
-        enable = true;
-        style = "nixos";
-        icon = "color";
-        resolution = "1080p";
-      };
-
-    };
-
   };
 
   # fix bug that bootloader entry name cannot be set via boot.loader.grub.configurationName
