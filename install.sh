@@ -212,6 +212,9 @@ log "INFO" "Installing Red-Flake with profile ${host} on ${DISK}..."
 nix-shell -p git nixFlakes --command \
     "nixos-install --no-root-password --flake \"${FLAKE}/${GIT_REV:-main}#$host\""
 
+log "INFO" "Exporting ZFS pool zroot"
+zpool export -f zroot
+
 log "INFO" "Installation finished. It is now safe to reboot."
 
 do_reboot=$(yesno "Do you want to reboot now?")
