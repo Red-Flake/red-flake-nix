@@ -150,7 +150,7 @@ mkswap "$SWAPDISK" --label "SWAP"
 swapon "$SWAPDISK"
 
 log "INFO" "Creating Boot Disk"
-mkfs.fat -F 32 "$BOOTDISK" -n NIXBOOT
+mkfs.vfat "$BOOTDISK" -n NIXBOOT
 
 use_encryption=$(yesno "Use encryption? (Encryption must also be enabled within host config.)")
 if [[ $use_encryption == "y" ]]; then
@@ -169,10 +169,12 @@ zpool create -f \
     -O xattr=sa \
     -O normalization=formD \
     -O mountpoint=none \
+    -R /mnt \
     "${encryption_options[@]}" \
     zroot "$ZFSDISK"
 
 log "INFO" "Creating /"
+zfs create -o mountpoint=none zroot/root
 zfs create -o mountpoint=legacy zroot/root/nixos
 zfs snapshot zroot/root/nixos@blank
 mount -t zfs zroot/root/nixos /mnt
@@ -191,6 +193,10 @@ mount --mkdir -t zfs zroot/root/tmp /mnt/tmp
 log "INFO" "Creating /cache"
 zfs create -o mountpoint=legacy zroot/root/cache
 mount --mkdir -t zfs zroot/root/cache /mnt/cache
+
+log "INFO" "Creating /home"
+zfs create -o mountpoint=legacy zroot/home
+mount --mkdir -t zfs zroot/home /mnt/home
 
 restore_snapshot=$(yesno "Do you want to restore from a persist snapshot?")
 if [[ $restore_snapshot == "y" ]]; then
