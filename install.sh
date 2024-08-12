@@ -106,9 +106,9 @@ else
         exit 1
     fi
 
-    BOOTDISK="${DISK}-p3"
-    SWAPDISK="${DISK}-p2"
-    ZFSDISK="${DISK}-p1"
+    BOOTDISK="${DISK}p3"
+    SWAPDISK="${DISK}p2"
+    ZFSDISK="${DISK}p1"
 
     log "INFO" "Boot Partition: $BOOTDISK"
     log "INFO" "SWAP Partition: $SWAPDISK"
