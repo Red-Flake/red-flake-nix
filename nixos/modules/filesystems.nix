@@ -18,7 +18,7 @@ in
 
   fileSystems = {
       "/" = {
-        device = "zroot/root";
+        device = "zroot/root/nixos";
         fsType = "zfs";
         neededForBoot = true;
       };
@@ -29,13 +29,18 @@ in
         neededForBoot = true;
       };
 
+      "/home" = {
+        device = "zroot/root/home";
+        fsType = "zfs";
+      };
+
       "/nix" = {
-        device = "zroot/nix";
+        device = "zroot/root/nix";
         fsType = "zfs";
       };
 
       "/tmp" = {
-        device = "zroot/tmp";
+        device = "zroot/root/tmp";
         fsType = "zfs";
       };
 
@@ -46,7 +51,7 @@ in
       };
 
       "/persist/cache" = {
-        device = "zroot/cache";
+        device = "zroot/root/cache";
         fsType = "zfs";
         neededForBoot = true;
       };

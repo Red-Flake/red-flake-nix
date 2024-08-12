@@ -173,24 +173,24 @@ zpool create -f \
     zroot "$ZFSDISK"
 
 log "INFO" "Creating /"
-zfs create -o mountpoint=legacy zroot/root
-zfs snapshot zroot/root@blank
-mount -t zfs zroot/root /mnt
+zfs create -o mountpoint=legacy zroot/root/nixos
+zfs snapshot zroot/root/nixos@blank
+mount -t zfs zroot/root/nixos /mnt
 
 log "INFO" "Mounting /boot (efi)"
 mount --mkdir "$BOOTDISK" /mnt/boot
 
 log "INFO" "Creating /nix"
-zfs create -o mountpoint=legacy zroot/nix
-mount --mkdir -t zfs zroot/nix /mnt/nix
+zfs create -o mountpoint=legacy zroot/root/nix
+mount --mkdir -t zfs zroot/root/nix /mnt/nix
 
 log "INFO" "Creating /tmp"
-zfs create -o mountpoint=legacy zroot/tmp
-mount --mkdir -t zfs zroot/tmp /mnt/tmp
+zfs create -o mountpoint=legacy zroot/root/tmp
+mount --mkdir -t zfs zroot/root/tmp /mnt/tmp
 
 log "INFO" "Creating /cache"
-zfs create -o mountpoint=legacy zroot/cache
-mount --mkdir -t zfs zroot/cache /mnt/cache
+zfs create -o mountpoint=legacy zroot/root/cache
+mount --mkdir -t zfs zroot/root/cache /mnt/cache
 
 restore_snapshot=$(yesno "Do you want to restore from a persist snapshot?")
 if [[ $restore_snapshot == "y" ]]; then
