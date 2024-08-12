@@ -212,6 +212,9 @@ log "INFO" "Installing Red-Flake with profile ${host} on ${DISK}..."
 nix-shell -p git nixFlakes --command \
     "nixos-install --no-root-password --flake \"${FLAKE}/${GIT_REV:-main}#$host\""
 
+log "INFO" "Unmounting /mnt"
+umount -R /mnt
+
 log "INFO" "Exporting ZFS pool zroot"
 zpool export -f zroot
 
