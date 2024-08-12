@@ -78,12 +78,12 @@ in
   # ZFS settings
   boot.zfs = {
   # use by-id for intel mobo when not in a vm
-    #devNodes =
-    #  if !isVm && config.hardware.cpu.intel.updateMicrocode then
-    #    "/dev/disk/by-id"
-    #  else
-    #    "/dev/disk/by-partuuid";
-    devNodes = "/dev/";
+  devNodes =
+    if !isVm then
+      "/dev/disk/by-partlabel"
+    else
+      "/dev/disk/by-label";
+    #devNodes = "/dev/";
     package = pkgs.zfs_unstable;
     requestEncryptionCredentials = cfg.encryption;
   };
