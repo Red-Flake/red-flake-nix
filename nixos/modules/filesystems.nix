@@ -33,6 +33,7 @@ in
           else
             "/dev/disk/by-label/NIXBOOT";
         fsType = "vfat";
+        neededForBoot = true;
       };
 
       "/nix" = {
