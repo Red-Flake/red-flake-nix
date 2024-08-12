@@ -9,13 +9,10 @@ let
   isVm = lib.elem "virtio_blk" config.boot.initrd.availableKernelModules;
 in
 {
+  
   swapDevices = [
     {
-      device =
-        if !isVm then
-          "/dev/disk/by-partlabel/SWAP"
-        else
-          "/dev/disk/by-label/SWAP";
+      device = "/dev/disk/by-label/SWAP";
     }
   ];
 
@@ -27,11 +24,7 @@ in
       };
 
       "/boot" = {
-        device =
-          if !isVm then
-            "/dev/disk/by-partlabel/NIXBOOT"
-          else
-            "/dev/disk/by-label/NIXBOOT";
+        device = "/dev/disk/by-label/NIXBOOT";
         fsType = "vfat";
         neededForBoot = true;
       };
