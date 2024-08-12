@@ -1,9 +1,21 @@
-{ config, lib, pkgs, ... }:
-
+{ 
+  config,
+  lib,
+  pkgs,
+  ... 
+}:
+let
+  cfg = config.custom.zfs;
+  isVm = lib.elem "virtio_blk" config.boot.initrd.availableKernelModules;
+in
 {
   swapDevices = [
     {
-      device = "/dev/disk/by-label/SWAP";
+      device =
+        if !isVm then
+          "/dev/disk/by-partlabel/SWAP"
+        else
+          "/dev/disk/by-label/SWAP";
     }
   ];
 
@@ -15,7 +27,11 @@
       };
 
       "/boot" = {
-        device = "/dev/disk/by-label/NIXBOOT";
+        device =
+          if !isVm then
+            "/dev/disk/by-partlabel/NIXBOOT"
+          else
+            "/dev/disk/by-label/NIXBOOT";
         fsType = "vfat";
       };
 
