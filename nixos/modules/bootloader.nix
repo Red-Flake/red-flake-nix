@@ -64,7 +64,7 @@ in
     ];
 
     # Enable ZFS filesystem support
-    supportedFilesystems = [ "zfs" ];
+    supportedFilesystems.zfs = true;
   };
 
   
@@ -73,17 +73,18 @@ in
   boot.extraModprobeConfig = "options kvm_intel nested=1";
 
   # Enable ZFS filesystem support
-  boot.supportedFilesystems = [ "zfs" ];
+  supportedFilesystems.zfs = true;
 
   # ZFS settings
   boot.zfs = {
-  # use by-id for intel mobo when not in a vm
-    #devNodes =
-    #  if !isVm then
-    #    "/dev/disk/by-partlabel"
-    #  else
-    #    "/dev/disk/by-label";
-    devNodes = "/dev/disk/by-label";
+      devNodes =
+        if isVm then
+          "/dev/disk/by-partuuid"
+        # use by-id for intel mobo when not in a vm
+        else if config.hardware.cpu.intel.updateMicrocode then
+          "/dev/disk/by-id"
+        else
+          "/dev/disk/by-partuuid";
     package = pkgs.zfs_unstable;
     requestEncryptionCredentials = cfg.encryption;
   };
