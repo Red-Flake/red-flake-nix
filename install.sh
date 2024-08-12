@@ -91,20 +91,24 @@ else
     log "INFO" "Your attached storage devices will now be listed."
     read -p "Press enter to continue." NULL
 
+    printf "\n"
+
     log "INFO" "Detected the following devices:"
-    ls -al /dev/disk/by-id
+    lsblk
+
+    printf "\n"
 
     read -p "Which device do you wish to install on? " DISKINPUT
-    DISK="/dev/disk/by-id/${DISKINPUT}"
+    DISK="/dev/${DISKINPUT}"
 
     if [ ! -b "$DISK" ]; then
         log "ERROR" "Device $DISK does not exist."
         exit 1
     fi
 
-    BOOTDISK="${DISK}-part3"
-    SWAPDISK="${DISK}-part2"
-    ZFSDISK="${DISK}-part1"
+    BOOTDISK="${DISK}-p3"
+    SWAPDISK="${DISK}-p2"
+    ZFSDISK="${DISK}-p1"
 
     log "INFO" "Boot Partition: $BOOTDISK"
     log "INFO" "SWAP Partition: $SWAPDISK"
