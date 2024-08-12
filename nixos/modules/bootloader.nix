@@ -73,7 +73,7 @@ in
   boot.extraModprobeConfig = "options kvm_intel nested=1";
 
   # Enable ZFS filesystem support
-  supportedFilesystems.zfs = true;
+  boot.supportedFilesystems.zfs = true;
 
   # ZFS settings
   boot.zfs = {
