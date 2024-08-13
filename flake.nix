@@ -105,27 +105,26 @@
   } @ inputs: let
     inherit (self) outputs;
     system = "x86_64-linux";
-    helpers = import ./lib/helpers.nix { inherit inputs system; };
   in {
     nixosConfigurations = {
 
-         vm = helpers.mkHost {
-            host = "vm";
-            user = "pascal";
-            
-            homeModules = [
-              ./home-manager/default.nix
-            ];
-         };
+      vm = nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          inherit inputs outputs;
+        };
+        modules = [
+          ./nixos/hosts/vm
+        ];
+      };
 
-         t580 = helpers.mkHost {
-            host = "t580";
-            user = "pascal";
-            
-            homeModules = [
-              ./home-manager/default.nix
-            ];
-         };
+      t580 = nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          inherit inputs outputs;
+        };
+        modules = [
+          ./nixos/hosts/t580
+        ];
+      };
 
     };
   };
