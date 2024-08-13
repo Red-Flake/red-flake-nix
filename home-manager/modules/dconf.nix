@@ -2,9 +2,7 @@
 {
     # dconf user settings
     # Fix GTK themes not applied in Wayland
-    dconf = {
-      enable = true;
-      settings = {
+    dconf.settings = {
         
         "org/gnome/desktop/interface" = {
           gtk-theme = lib.mkForce "Breeze-Dark";
@@ -15,9 +13,9 @@
         };
 
         "org/virt-manager/virt-manager/connections" = {
-            autoconnect = ["qemu:///system"];
-            uris = ["qemu:///system"];
-          };
+          autoconnect = ["qemu:///system"];
+          uris = ["qemu:///system"];
+        };
 
       };
     };
