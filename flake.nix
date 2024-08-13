@@ -110,7 +110,6 @@
 
          vm = helpers.mkHost {
             host = "vm";
-            system = "x86_64-linux";
             user = "pascal";
             
             homeModules = [
@@ -120,7 +119,6 @@
 
          t580 = helpers.mkHost {
             host = "t580";
-            system = "x86_64-linux";
             user = "pascal";
             
             homeModules = [
