@@ -9,7 +9,7 @@ in {
     , user
     , system ? "x86_64-linux"
     , homeModules ? [ ]
-    , nixpkgs ? inputs.unstable
+    , nixpkgs ? inputs.nixpkgs
     }:
     let 
       pkgs = lib.nix.mkNixpkgs {
