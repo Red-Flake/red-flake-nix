@@ -1,17 +1,23 @@
 {
   description = "Red-Flake";
 
-  nixConfig.extra-substituters = [
-    "https://cache.garnix.io"
-    "https://nyx.chaotic.cx"
-    "https://nix-community.cachix.org/"
-  ];
-  nixConfig.extra-trusted-public-keys = [
-    "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
-    "chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
-    "nyx.chaotic.cx-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
-    "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-  ];
+  nixConfig = {
+      experimental-features = [
+        "flakes"
+        "nix-command"
+      ];
+      extra-substituters = [
+        "https://cache.garnix.io"
+        "https://nyx.chaotic.cx"
+        "https://nix-community.cachix.org/"
+      ];
+      extra-trusted-public-keys = [
+        "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
+        "chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
+        "nyx.chaotic.cx-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      ];
+  };
 
   inputs = {
     # Nixpkgs-Unstable
@@ -89,48 +95,92 @@
   };
 
   outputs = { 
-    self, 
-    nixpkgs, 
-    chaotic, 
-    flake-parts, 
-    pre-commit-hooks, 
-    home-manager, 
-    plasma-manager, 
-    artwork, 
-    webshells, 
-    tools, 
-    nixos-boot, 
-    darkmatter-grub-theme,
-    ...
+      self, 
+      nixpkgs, 
+      chaotic, 
+      flake-parts, 
+      pre-commit-hooks, 
+      home-manager, 
+      plasma-manager, 
+      artwork, 
+      webshells, 
+      tools, 
+      nixos-boot, 
+      darkmatter-grub-theme,
+      ...
   } @ inputs: let
-    inherit (self) outputs;
-    system = "x86_64-linux";
+      inherit (self) outputs;
+      system = "x86_64-linux";
   in {
-    nixosConfigurations = {
+      nixosConfigurations = {
 
-      vm = nixpkgs.lib.nixosSystem {
-        specialArgs = {
-          inherit inputs outputs;
-        };
-        modules = [
-          chaotic.nixosModules.default
-          nixos-boot.nixosModules.default
-          darkmatter-grub-theme.nixosModule
-          ./nixos/hosts/vm
-        ];
-      };
+          # Virtual Machine host configuration
+          vm = nixpkgs.lib.nixosSystem {
+            inherit system;
+            specialArgs = {
+              inherit inputs outputs;
+            };
+            modules = [
+              chaotic.nixosModules.default
+              nixos-boot.nixosModules.default
+              darkmatter-grub-theme.nixosModule
 
-      t580 = nixpkgs.lib.nixosSystem {
-        specialArgs = {
-          inherit inputs outputs;
-        };
-        modules = [
-          chaotic.nixosModules.default
-          nixos-boot.nixosModules.default
-          darkmatter-grub-theme.nixosModule
-          ./nixos/hosts/t580
-        ];
-      };
+              ./nixos/hosts/vm
+              {
+                imports = [ inputs.home-manager.nixosModules.home-manager ];
+
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+
+                home-manager.extraSpecialArgs = { inherit inputs username homeDirectory; };
+
+                home-manager.users = {
+                  pascal = {
+                    home.username = "pascal";
+                    home.homeDirectory = "/home/pascal";
+                    home.stateVersion = "23.05";
+                    imports = [
+                      ./home-manager/pascal.nix 
+                    ];
+                  };
+                };
+              }
+            ];
+          };
+            
+          # ThnkPad T580 host configuration  
+          t580 = nixpkgs.lib.nixosSystem {
+            inherit system;
+            specialArgs = {
+              inherit inputs outputs;
+            };
+            modules = [
+              chaotic.nixosModules.default
+              nixos-boot.nixosModules.default
+              darkmatter-grub-theme.nixosModule
+
+              ./nixos/hosts/t580
+              {
+                imports = [ inputs.home-manager.nixosModules.home-manager ];
+
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+
+                home-manager.extraSpecialArgs = { inherit inputs username homeDirectory; };
+
+                home-manager.users = {
+                  pascal = {
+                    home.username = "pascal";
+                    home.homeDirectory = "/home/pascal";
+                    home.stateVersion = "23.05";
+                    imports = [
+                      ./home-manager/pascal.nix 
+                    ];
+                  };
+                };
+              }
+            ];
+          };
 
     };
   };
