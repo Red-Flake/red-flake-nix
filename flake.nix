@@ -113,6 +113,9 @@
           inherit inputs outputs;
         };
         modules = [
+          chaotic.nixosModules.default
+          nixos-boot.nixosModules.default
+          darkmatter-grub-theme.nixosModule
           ./nixos/hosts/vm
         ];
       };
@@ -122,6 +125,9 @@
           inherit inputs outputs;
         };
         modules = [
+          chaotic.nixosModules.default
+          nixos-boot.nixosModules.default
+          darkmatter-grub-theme.nixosModule
           ./nixos/hosts/t580
         ];
       };
