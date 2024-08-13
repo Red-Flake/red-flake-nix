@@ -8,7 +8,7 @@
       # TODO: You can set an initial password for your user.
       # If you do, you can skip setting a root password by passing '--no-root-passwd' to nixos-install.
       # Be sure to change it (using passwd) after rebooting!
-      initialPassword = "correcthorsebatterystaple";
+      #initialPassword = "correcthorsebatterystaple";
       isNormalUser = true;
       # set shell for user
       shell = pkgs.zsh;
