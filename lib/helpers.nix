@@ -12,7 +12,10 @@ in {
     , nixpkgs ? inputs.unstable
     }:
     let 
-      pkgs = mkNixpkgs { inherit nixpkgs system; };
+      pkgs = lib.nix.mkNixpkgs {
+        inherit system;
+        inherit (inputs) nixpkgs;
+      };
       homeDirectory = "/home/${user}";
     in
     nixpkgs.lib.nixosSystem {
