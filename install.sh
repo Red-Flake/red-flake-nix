@@ -49,13 +49,6 @@ function yesno() {
     done
 }
 
-function createUser() {
-    log "INFO" "Creating user account"
-    read -p "enter your username: " USERNAME
-    read -p "enter your password: " USERPASSWORD
-    log "INFO" "Set password for user $USERNAME"
-}
-
 log "INFO" "Welcome to the Red Flake installer!"
 log "INFO" "The installer will log the installation process to $LOGFILE."
 
@@ -225,15 +218,21 @@ while true; do
     esac
 done
 
-# create user account
-createUser
-
 log "INFO" "Installing Red-Flake with profile ${host} on ${DISK}..."
 nix-shell -p git nixFlakes --command \
     "nixos-install --flake \"${FLAKE}/${GIT_REV:-main}#$host\""
 
+# set root password
+#nixos-enter --root /mnt -c "echo \"${USERNAME}:${USERPASSWORD}\" | chpasswd"
+mkpasswd -m sha-512 --stdin | tee -a /mnt/etc/shadow/root
+
 # set user password
-nixos-enter --root /mnt -c "echo \"${USERNAME}:${USERPASSWORD}\" | chpasswd"
+case $host in
+    vm ) USER="pascal";;
+    t580 ) USER="pascal";;
+esac
+echo Enter password for user $USER
+mkpasswd -m sha-512 --stdin | tee -a /mnt/etc/shadow/$USER
 
 log "INFO" "Unmounting /mnt"
 umount -R /mnt

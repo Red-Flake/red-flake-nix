@@ -2,14 +2,12 @@ inputs:
 
 let
   lib = inputs.nixpkgs.lib;
-in
-rec {
+in {
 
   mkHost =
     { host
     , user
     , system ? "x86_64-linux"
-    , nixosModules ? [ ]
     , homeModules ? [ ]
     , nixpkgs ? inputs.unstable
     }:
