@@ -35,7 +35,7 @@
   home = {
 
       # set username
-      username = user;
+      username = ${user};
 
       # set home directory
       homeDirectory = "/home/${user}";
