@@ -222,6 +222,13 @@ log "INFO" "Installing Red-Flake with profile ${host} on ${DISK}..."
 nix-shell -p git nixFlakes --command \
     "nixos-install --no-root-password --flake \"${FLAKE}/${GIT_REV:-main}#$host\""
 
+log "INFO" "Set password for user root"
+nixos-enter --root /mnt -c 'passwd root'
+
+# TODO: make user account dynamic
+log "INFO" "Set password for user pascal"
+nixos-enter --root /mnt -c 'passwd pascal'
+
 log "INFO" "Unmounting /mnt"
 umount -R /mnt
 
