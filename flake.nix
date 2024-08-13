@@ -132,7 +132,7 @@
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
 
-                home-manager.extraSpecialArgs = { inherit inputs username homeDirectory; };
+                home-manager.extraSpecialArgs = { inherit inputs; };
 
                 home-manager.users = {
                   pascal = {
@@ -166,7 +166,7 @@
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
 
-                home-manager.extraSpecialArgs = { inherit inputs username homeDirectory; };
+                home-manager.extraSpecialArgs = { inherit inputs; };
 
                 home-manager.users = {
                   pascal = {
