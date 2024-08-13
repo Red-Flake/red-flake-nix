@@ -7,10 +7,10 @@
   '';
 
   # set default hypervisor to QEMU/KVM
-  dconf.settings = {
-    "org/virt-manager/virt-manager/connections" = {
-      autoconnect = ["qemu:///system"];
-      uris = ["qemu:///system"];
-    };
-  };
+  #dconf.settings = {
+  #  "org/virt-manager/virt-manager/connections" = {
+  #    autoconnect = ["qemu:///system"];
+  #    uris = ["qemu:///system"];
+  #  };
+  #};
 }
