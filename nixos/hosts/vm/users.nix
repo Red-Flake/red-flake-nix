@@ -13,13 +13,13 @@
     # https://reddit.com/r/NixOS/comments/o1er2p/tmpfs_as_root_but_without_hardcoding_your/h22f1b9/
     # create a password with for root and $user with:
     # mkpasswd -m sha-512 'PASSWORD' | sudo tee -a /persist/etc/shadow/root
-    users.${user} = {
+    users.pascal = {
       # You can set an initial password for your user.
       # If you do, you can skip setting a root password by passing '--no-root-passwd' to nixos-install.
       # Be sure to change it (using passwd) after rebooting!
       #initialPassword = "correcthorsebatterystaple";
       # set password file
-      passwordFile = "/etc/shadow/${user}";
+      passwordFile = "/etc/shadow/pascal";
       # set normal user
       isNormalUser = true;
       # set shell for user

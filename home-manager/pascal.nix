@@ -37,7 +37,7 @@
       username = "pascal";
 
       # set home directory
-      homeDirectory = "/home/${username}";
+      homeDirectory = "/home/pascal";
 
       # do not change this value!
       stateVersion = "23.05";
