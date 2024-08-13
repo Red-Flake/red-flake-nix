@@ -11,10 +11,12 @@ in {
     , homeModules ? [ ]
     , nixpkgs ? inputs.unstable
     }:
-    let pkgs = mkNixpkgs { inherit nixpkgs system; };
+    let 
+      pkgs = mkNixpkgs { inherit nixpkgs system; };
+      homeDirectory = "/home/${user}";
     in
     nixpkgs.lib.nixosSystem {
-      inherit system;
+      inherit system user homeDirectory pkgs;
 
       specialArgs = {
         inherit pkgs inputs system nixpkgs;
@@ -35,33 +37,11 @@ in {
                 imports = homeModules;
               };
               extraSpecialArgs = {
-                inherit inputs pkgs nixpkgs user;
+                inherit inputs pkgs nixpkgs system user homeDirectory;
               };
             };
           }
         ];
-    };
-
-
-  mkHome =
-    { user
-    , system
-    , homeModules ? [ ]
-    , nixpkgs ? inputs.unstable
-    }:
-    let
-      pkgs = mkNixpkgs { inherit system; };
-      homeDirectory = "/home/${user}";
-    in
-    inputs.homeManager.lib.homeManagerConfiguration {
-      inherit system user homeDirectory pkgs;
-      configuration = {
-        imports = homeModules;
-      };
-
-      extraSpecialArgs = {
-        inherit inputs nixpkgs system user homeDirectory;
-      };
     };
 
 }
