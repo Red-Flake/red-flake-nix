@@ -104,6 +104,7 @@
     ...
   } @ inputs: let
     inherit (self) outputs;
+    system = "x86_64-linux";
     helpers = import ./lib/helpers.nix { inherit inputs system; };
   in {
     nixosConfigurations = {
