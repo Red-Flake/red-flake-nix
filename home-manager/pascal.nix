@@ -11,7 +11,7 @@
   imports = [
     inputs.nur.hmModules.nur
     inputs.plasma-manager.homeManagerModules.plasma-manager
-    #./modules/dconf.nix
+    ./modules/dconf.nix
     ./modules/artwork.nix
     ./modules/theme.nix
     ./modules/zsh.nix

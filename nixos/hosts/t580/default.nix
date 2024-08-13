@@ -79,9 +79,6 @@
     # apply various system tweaks which are required for red-flake to work
     ../../modules/tweaks.nix
 
-    # host specific configuration
-    ../../../home-manager/pascal.nix
-    inputs.home-manager.nixosModules.home-manager
   ];
 
   # Set hostname
