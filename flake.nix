@@ -104,61 +104,29 @@
     ...
   } @ inputs: let
     inherit (self) outputs;
-    user = "pascal";
-    system = "x86_64-linux";
+    helpers = import ./lib/helpers.nix inputs;
   in {
     nixosConfigurations = {
 
+        vm = helpers.mkHost {
+            host = "vm";
+            system = "x86_64-linux";
+            username = "pascal";
 
-      vm = nixpkgs.lib.nixosSystem {
-        inherit system;
+            homeModules = [
+              ./home-manager/default.nix
+            ];
+          };
 
-        specialArgs = {
-          inherit inputs outputs user;
-        };
+         t580 = helpers.mkHost {
+            host = "t580";
+            system = "x86_64-linux";
+            username = "pascal";
 
-        modules = [
-          chaotic.nixosModules.default
-          nixos-boot.nixosModules.default
-          darkmatter-grub-theme.nixosModule
-          ./nixos/hosts/vm
-
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = { inherit inputs user; };
-            home-manager.users.${user} = import ./home-manager;
-          }
-
-        ];
-      };
-
-
-      t580 = nixpkgs.lib.nixosSystem {
-        inherit system;
-
-        specialArgs = {
-          inherit inputs outputs user;
-        };
-
-        modules = [
-          chaotic.nixosModules.default
-          nixos-boot.nixosModules.default
-          darkmatter-grub-theme.nixosModule
-          ./nixos/hosts/t580
-
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = { inherit inputs user; };
-            home-manager.users.${user} = import ./home-manager;
-          }
-
-        ];
-      };
-      
+            homeModules = [
+              ./home-manager/default.nix
+            ];
+          };
 
     };
   };

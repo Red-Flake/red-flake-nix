@@ -49,17 +49,11 @@ function yesno() {
     done
 }
 
-function setRootPassword() {
-    log "INFO" "Set password for user root"
-    nixos-enter --root /mnt -c 'passwd root'
-}
-
 function createUser() {
     log "INFO" "Creating user account"
     read -p "enter your username: " USERNAME
     read -p "enter your password: " USERPASSWORD
     log "INFO" "Set password for user $USERNAME"
-    nixos-enter --root /mnt -c "echo \"${USERNAME}:${USERPASSWORD}\" | chpasswd"
 }
 
 log "INFO" "Welcome to the Red Flake installer!"
@@ -231,19 +225,15 @@ while true; do
     esac
 done
 
-log "INFO" "Installing Red-Flake with profile ${host} on ${DISK}..."
-nix-shell -p git nixFlakes --command \
-    "nixos-install --no-root-password --flake \"${FLAKE}/${GIT_REV:-main}#$host\""
-
-# set the root password
-setRootPassword
-
 # create user account
 createUser
 
-# TODO: make user account dynamic
-log "INFO" "Set password for user pascal"
-nixos-enter --root /mnt -c 'passwd pascal'
+log "INFO" "Installing Red-Flake with profile ${host} on ${DISK}..."
+nix-shell -p git nixFlakes --command \
+    "nixos-install --flake \"${FLAKE}/${GIT_REV:-main}#$host\""
+
+# set user password
+nixos-enter --root /mnt -c "echo \"${USERNAME}:${USERPASSWORD}\" | chpasswd"
 
 log "INFO" "Unmounting /mnt"
 umount -R /mnt
