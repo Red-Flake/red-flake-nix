@@ -27,11 +27,10 @@
     };
   };
 
-  # force creation of .gtkrc- files otherwise home-manager will fail
+  # force creation of .config/gtk-2.0/gtkrc otherwise home-manager will fail
   home.file.${config.gtk.gtk2.configLocation}.force = true;
-  home.file.${config.gtk.gtk3.configLocation}.force = true;
-  home.file.${config.gtk.gtk4.configLocation}.force = true;
 
+  # dconf settings broken atm
   # Fix GTK themes not applied in Wayland
   #dconf = {
   #  enable = true;
