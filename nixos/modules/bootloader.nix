@@ -58,13 +58,6 @@ in
               "ahci"
           ];
 
-          # Set initramfs kernel modules
-          # Enable AMD video driver + Intel video driver via early KMS
-          kernelModules = [
-              "amdgpu"
-              "i915"
-          ];
-
       };
 
       # Set extra kernel module options

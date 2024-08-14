@@ -10,7 +10,10 @@
     # Nixpkgs configuration
     ../../modules/nixpkgs.nix
 
-    # Additional hardware configuration
+    # Additional hardware configuration for Thinkpad T580
+    ./hardware.nix
+
+    # Additional general hardware configuration
     ../../modules/hardware.nix
 
     # Filesystems configuration
@@ -22,8 +25,8 @@
     # Timezone configuration
     ../../modules/timezone.nix
 
-    # GPU configuration
-    ../../modules/gpu.nix
+    # GPU configuration for Thinkpad T580
+    ./gpu.nix
 
     # Networking configuration
     ../../modules/networking.nix
