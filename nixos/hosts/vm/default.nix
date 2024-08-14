@@ -35,7 +35,7 @@
     ../../modules/sysctl.nix
 
     # User settings
-    ./users.nix
+    ../../modules/users.nix
 
     # Shell settings
     ../../modules/setup-shell.nix
