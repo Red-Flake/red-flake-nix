@@ -210,9 +210,8 @@ fi
 
 mount --mkdir -t zfs zroot/persist /mnt/persist
 
+mkdir -p /mnt/persist/etc/shadow
 
-# set username
-read -rp "Enter your username: " USER
 
 # setup users with persistent passwords
 # https://reddit.com/r/NixOS/comments/o1er2p/tmpfs_as_root_but_without_hardcoding_your/h22f1b9/
@@ -220,7 +219,10 @@ read -rp "Enter your username: " USER
 # mkpasswd -m sha-512 'PASSWORD' | sudo tee -a /persist/etc/shadow/root
 # set root password
 echo Enter password for user root
-mkpasswd -m sha-512 --stdin | tee -a /mnt/persist/etc/shadow/root
+mkpasswd -m sha-512 --stdin | tee -a /mnt/persist/etc/shadow/root > /dev/null
+
+# set username
+read -rp "Enter your desired username: " USER
 
 # setup users with persistent passwords
 # https://reddit.com/r/NixOS/comments/o1er2p/tmpfs_as_root_but_without_hardcoding_your/h22f1b9/
@@ -228,7 +230,7 @@ mkpasswd -m sha-512 --stdin | tee -a /mnt/persist/etc/shadow/root
 # mkpasswd -m sha-512 'PASSWORD' | sudo tee -a /persist/etc/shadow/root
 # set user password
 echo Enter password for user $USER
-mkpasswd -m sha-512 --stdin | tee -a /mnt/persist/etc/shadow/$USER
+mkpasswd -m sha-512 --stdin | tee -a /mnt/persist/etc/shadow/$USER > /dev/null
 
 
 while true; do
