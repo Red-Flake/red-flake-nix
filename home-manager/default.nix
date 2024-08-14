@@ -5,6 +5,7 @@
   lib,
   config,
   pkgs,
+  user,
   ... 
 }: {
   # import other home-manager modules
@@ -35,10 +36,10 @@
   home = {
 
       # set username
-      username = "pascal";
+      username = "${user}";
 
       # set home directory
-      homeDirectory = "/home/pascal";
+      homeDirectory = "/home/${user}";
 
       # do not change this value!
       stateVersion = "23.05";

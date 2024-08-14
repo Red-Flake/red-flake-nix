@@ -119,6 +119,7 @@
             inherit system;
             specialArgs = {
               inherit inputs outputs;
+              user = "pascal";
             };
             modules = [
               chaotic.nixosModules.default
@@ -132,7 +133,10 @@
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
 
-                home-manager.extraSpecialArgs = { inherit inputs; };
+                home-manager.extraSpecialArgs = { 
+                  inherit inputs;
+                  user = "pascal";
+                };
 
                 home-manager.users = {
                   pascal = {
@@ -140,10 +144,11 @@
                     home.homeDirectory = "/home/pascal";
                     home.stateVersion = "23.05";
                     imports = [
-                      ./home-manager/pascal.nix 
+                      ./home-manager
                     ];
                   };
                 };
+
               }
             ];
           };
@@ -153,6 +158,7 @@
             inherit system;
             specialArgs = {
               inherit inputs outputs;
+              user = "pascal";
             };
             modules = [
               chaotic.nixosModules.default
@@ -166,7 +172,10 @@
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
 
-                home-manager.extraSpecialArgs = { inherit inputs; };
+                home-manager.extraSpecialArgs = { 
+                  inherit inputs;
+                  user = "pascal";
+                };
 
                 home-manager.users = {
                   pascal = {
@@ -174,7 +183,7 @@
                     home.homeDirectory = "/home/pascal";
                     home.stateVersion = "23.05";
                     imports = [
-                      ./home-manager/pascal.nix 
+                      ./home-manager
                     ];
                   };
                 };
