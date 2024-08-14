@@ -21,11 +21,9 @@
     };
     gtk3 = {
       extraConfig.gtk-application-prefer-dark-theme = true;
-      configLocation = "${config.xdg.configHome}/gtk-3.0/gtkrc";
     };
     gtk4 = {
       extraConfig.gtk-application-prefer-dark-theme = true;
-      configLocation = "${config.xdg.configHome}/gtk-4.0/gtkrc";
     };
   };
 
