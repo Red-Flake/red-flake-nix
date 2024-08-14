@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 {
-    home.file.".config/psd/psd.conf".text = ''
+    home.file.".config/psd/psd.conf".text = lib.mkForce ''
         #
         # $XDG_CONFIG_HOME/psd/psd.conf
         #
