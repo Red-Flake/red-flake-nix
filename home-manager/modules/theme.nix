@@ -1,7 +1,7 @@
 { config, lib, pkgs, inputs, ... }:
 {
 
-  gtk = {
+  gtk = lib.mkForce {
     enable = true;
     theme = {
       name = "Breeze-Dark";
@@ -21,14 +21,18 @@
     };
     gtk3 = {
       extraConfig.gtk-application-prefer-dark-theme = true;
+      configLocation = "${config.xdg.configHome}/gtk-3.0/gtkrc";
     };
     gtk4 = {
       extraConfig.gtk-application-prefer-dark-theme = true;
+      configLocation = "${config.xdg.configHome}/gtk-4.0/gtkrc";
     };
   };
 
-  # force creation of .gtkrc-2.0 otherwise home-manager will fail
+  # force creation of .gtkrc- files otherwise home-manager will fail
   home.file.${config.gtk.gtk2.configLocation}.force = true;
+  home.file.${config.gtk.gtk3.configLocation}.force = true;
+  home.file.${config.gtk.gtk4.configLocation}.force = true;
 
   # Fix GTK themes not applied in Wayland
   #dconf = {

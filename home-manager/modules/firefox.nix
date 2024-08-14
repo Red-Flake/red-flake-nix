@@ -5,7 +5,7 @@
   pkgs,
   ...
 }: {
-  programs.firefox = {
+  programs.firefox = lib.mkForce {
     enable = true;
     package = pkgs.firefox-bin;
 
