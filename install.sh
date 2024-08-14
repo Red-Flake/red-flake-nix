@@ -210,29 +210,38 @@ fi
 
 mount --mkdir -t zfs zroot/persist /mnt/persist
 
+
+# set username
+read -rp "Enter your username: " USER
+
+# setup users with persistent passwords
+# https://reddit.com/r/NixOS/comments/o1er2p/tmpfs_as_root_but_without_hardcoding_your/h22f1b9/
+# create a password with for root and $user with:
+# mkpasswd -m sha-512 'PASSWORD' | sudo tee -a /persist/etc/shadow/root
+# set root password
+echo Enter password for user root
+mkpasswd -m sha-512 --stdin | tee -a /mnt/persist/etc/shadow/root
+
+# setup users with persistent passwords
+# https://reddit.com/r/NixOS/comments/o1er2p/tmpfs_as_root_but_without_hardcoding_your/h22f1b9/
+# create a password with for root and $user with:
+# mkpasswd -m sha-512 'PASSWORD' | sudo tee -a /persist/etc/shadow/root
+# set user password
+echo Enter password for user $USER
+mkpasswd -m sha-512 --stdin | tee -a /mnt/persist/etc/shadow/$USER
+
+
 while true; do
-    read -rp "Which host to install? (vm / t580) " host
-    case $host in
+    read -rp "Which host to install? (vm / t580) " HOST
+    case $HOST in
         vm|t580 ) break;;
         * ) echo "Invalid host. Please select a valid host.";;
     esac
 done
 
-log "INFO" "Installing Red-Flake with profile ${host} on ${DISK}..."
+log "INFO" "Installing Red-Flake with profile ${HOST} on ${DISK}..."
 nix-shell -p git nixFlakes --command \
-    "nixos-install --flake \"${FLAKE}/${GIT_REV:-main}#$host\""
-
-# set root password
-#nixos-enter --root /mnt -c "echo \"${USERNAME}:${USERPASSWORD}\" | chpasswd"
-mkpasswd -m sha-512 --stdin | tee -a /mnt/etc/shadow/root
-
-# set user password
-case $host in
-    vm ) USER="pascal";;
-    t580 ) USER="pascal";;
-esac
-echo Enter password for user $USER
-mkpasswd -m sha-512 --stdin | tee -a /mnt/etc/shadow/$USER
+    "nixos-install --flake \"${FLAKE}/${GIT_REV:-main}#$HOST\""
 
 log "INFO" "Unmounting /mnt"
 umount -R /mnt
