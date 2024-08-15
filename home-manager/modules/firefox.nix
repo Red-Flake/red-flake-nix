@@ -6,8 +6,13 @@
   ...
 }: {
 
-  # force creation of ~/.mozilla/firefox/profiles.ini otherwise home-manager will fail
-  home.file.".mozilla/firefox/profiles.in".force = true;
+  # make sure any conflicting files are removed before home-manager activation
+  home.activation.preActivation = ''
+    # Ensure ~/.mozilla/firefox/profiles.ini config file is removed before activation
+    if [ -f "${config.home.homeDirectory}/.mozilla/firefox/profiles.ini" ]; then
+      rm -f "${config.home.homeDirectory}/.mozilla/firefox/profiles.ini"
+    fi
+  '';
 
   programs.firefox = {
     enable = true;
