@@ -83,7 +83,7 @@ function yesno() {
 log "INFO" "Welcome to the Red Flake installer!"
 log "INFO" "The installer will log the installation process to $LOGFILE."
 
-log "INFO" "This script will format the *entire* disk with a 1GB boot partition
+log "WARN" "This script will format the *entire* disk with a 1GB boot partition
 (labelled NIXBOOT), 16GB of swap, then allocating the rest to ZFS.
 
 The following ZFS datasets will be created:
