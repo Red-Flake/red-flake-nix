@@ -1,34 +1,6 @@
 { config, lib, pkgs, inputs, ... }:
 {
 
-  # make sure any conflicting files are removed before home-manager activation
-  home.activation.preActivation = ''
-    # Ensure ~/.config/gtk-4.0/settings.ini config file is removed before activation
-    if [ -f "${config.xdg.configHome}/gtk-4.0/settings.ini" ]; then
-      rm -f "${config.xdg.configHome}/gtk-4.0/settings.ini"
-    fi
-    
-    # Ensure ~/.config/gtk-4.0/gtk.css config file is removed before activation
-    if [ -f "${config.xdg.configHome}/gtk-4.0/gtk.css" ]; then
-      rm -f "${config.xdg.configHome}/gtk-4.0/gtk.css"
-    fi
-
-    # Ensure ~/.config/gtk-3.0/settings.ini config file is removed before activation
-    if [ -f "${config.xdg.configHome}/gtk-3.0/settings.ini" ]; then
-      rm -f "${config.xdg.configHome}/gtk-3.0/settings.ini"
-    fi
-
-    # Ensure ~/.config/gtkrc-2.0 config file is removed before activation
-    if [ -f "${config.xdg.configHome}/gtkrc-2.0" ]; then
-      rm -f "${config.xdg.configHome}/gtkrc-2.0"
-    fi
-
-    # Ensure ~/.config/gtk-2.0/gtkrc config file is removed before activation
-    if [ -f "${config.xdg.configHome}/gtk-2.0/gtkrc" ]; then
-      rm -f "${config.xdg.configHome}/gtk-2.0/gtkrc"
-    fi
-  '';
-
   gtk = {
     enable = true;
     theme = {
@@ -55,8 +27,17 @@
     };
   };
 
-  # force creation of .config/gtk-2.0/gtkrc otherwise home-manager will fail
+  # force creation of ~/.config/gtk-2.0/gtkrc otherwise home-manager will fail
   home.file.${config.gtk.gtk2.configLocation}.force = true;
+
+  # force creation of ~/.config/gtk-3.0/settings.ini otherwise home-manager will fail
+  xdg.configFile."gtk-3.0/settings.ini".force = true;
+
+  # force creation of ~/.config/gtk-4.0/gtk.css otherwise home-manager will fail
+  xdg.configFile."gtk-4.0/gtk.css".force = true;
+
+  # force creation of ~/.config/gtk-4.0/settings.ini otherwise home-manager will fail
+  xdg.configFile."gtk-4.0/settings.ini".force = true;
 
   # dconf settings broken atm
   # Fix GTK themes not applied in Wayland

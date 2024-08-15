@@ -1,14 +1,7 @@
 { config, lib, pkgs, ... }:
 {
-    # make sure any conflicting files are removed before home-manager activation
-    home.activation.preActivation = ''
-      # Ensure ~/.config/psd/psd.conf config file is removed before activation
-      if [ -f "${config.xdg.configHome}/psd/psd.conf" ]; then
-        rm -f "${config.xdg.configHome}/psd/psd.conf"
-      fi
-    '';
 
-    home.file.".config/psd/psd.conf".text = ''
+    xdg.configFile."psd/psd.conf".text = ''
         #
         # $XDG_CONFIG_HOME/psd/psd.conf
         #
@@ -82,4 +75,7 @@
         # The default is to save the most recent 5 crash recovery snapshots.
         #BACKUP_LIMIT=5
     '';
+
+    # force creation of ~/.config/psd/psd.conf otherwise home-manager will fail
+    xdg.configFile."psd/psd.conf".force = true;
 }
