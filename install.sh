@@ -18,15 +18,46 @@ elif [ -n "${SUDO_USER:-}" ]; then
     exit 1
 fi
 
+# define variables
 LOGFILE="/mnt/nixos_install.log"
 FLAKE="github:Red-Flake/red-flake-nix"
 GIT_REV="main"
 
+# define colors
+RED="\e[31m"
+GREEN="\e[32m"
+YELLOW="\e[33m"
+BLUE="\e[34m"
+MAGENTA="\e[35m"
+CYAN="\e[36m"
+WHITE="\e[37m"
+ENDCOLOR="\e[0m"
+
+function colorprint() {
+    local color="$1"
+    local text="$2"
+    local endcolor="\e[0m"
+    echo -e "${color}${text}${endcolor}"
+}
+
 function log() {
     local level="$1"
     local message="$2"
-    #echo "[$level] $message" | tee -a "$LOGFILE"
-    echo "[$level] $message"
+
+    case "$level" in
+        "ERROR")
+            colorprint "$RED" "[$level] $message"
+            ;;
+        "INFO")
+            colorprint "$BLUE" "[$level] $message"
+            ;;
+        "WARN")
+            colorprint "$YELLOW" "[$level] $message"
+            ;;
+        *)
+            echo "[$level] $message"
+            ;;
+    esac
 }
 
 function check_command() {
