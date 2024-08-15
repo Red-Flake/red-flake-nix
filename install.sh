@@ -218,8 +218,11 @@ mkdir -p /mnt/persist/etc/shadow
 # create a password with for root and $user with:
 # mkpasswd -m sha-512 'PASSWORD' | sudo tee -a /persist/etc/shadow/root
 # set root password
-echo Enter password for user root
-mkpasswd -m sha-512 --stdin | tee -a /mnt/persist/etc/shadow/root > /dev/null
+read -s -p "Enter password for user root: " password
+echo "$password" | mkpasswd -m sha-512 --stdin | tee -a /mnt/persist/etc/shadow/root > /dev/null
+unset password
+printf "\n"
+
 
 # set username
 read -rp "Enter your desired username: " USER
@@ -229,8 +232,10 @@ read -rp "Enter your desired username: " USER
 # create a password with for root and $user with:
 # mkpasswd -m sha-512 'PASSWORD' | sudo tee -a /persist/etc/shadow/root
 # set user password
-echo Enter password for user $USER
-mkpasswd -m sha-512 --stdin | tee -a /mnt/persist/etc/shadow/$USER > /dev/null
+read -s -p "Enter password for user $USER: " password
+echo "$password" | mkpasswd -m sha-512 --stdin | tee -a /mnt/persist/etc/shadow/$USER > /dev/null
+unset password
+printf "\n"
 
 
 while true; do
