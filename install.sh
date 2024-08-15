@@ -218,10 +218,31 @@ mkdir -p /mnt/persist/etc/shadow
 # create a password with for root and $user with:
 # mkpasswd -m sha-512 'PASSWORD' | sudo tee -a /persist/etc/shadow/root
 # set root password
-read -s -p "Enter password for user root: " password
-echo "$password" | mkpasswd -m sha-512 --stdin | tee -a /mnt/persist/etc/shadow/root > /dev/null
-unset password
-printf "\n"
+while true; do
+    # Prompt for the password
+    echo -n "Enter password for user root: "
+    stty -echo        # Disable echoing
+    read root_password
+    stty echo         # Re-enable echoing
+    echo              # Move to a new line
+
+    # Prompt for the password confirmation
+    echo -n "Confirm password: "
+    stty -echo
+    read root_password_confirm
+    stty echo
+    echo              # Move to a new line
+
+    # Check if passwords match
+    if [ "$root_password" = "$root_password_confirm" ]; then
+        echo "$root_password" | mkpasswd -m sha-512 --stdin | tee -a /mnt/persist/etc/shadow/root > /dev/null
+        unset root_password root_password_confirm
+        echo "Password set successfully."
+        break
+    else
+        echo "Passwords do not match. Please try again."
+    fi
+done
 
 
 # set username
@@ -232,10 +253,31 @@ read -rp "Enter your desired username: " USER
 # create a password with for root and $user with:
 # mkpasswd -m sha-512 'PASSWORD' | sudo tee -a /persist/etc/shadow/root
 # set user password
-read -s -p "Enter password for user $USER: " password
-echo "$password" | mkpasswd -m sha-512 --stdin | tee -a /mnt/persist/etc/shadow/$USER > /dev/null
-unset password
-printf "\n"
+while true; do
+    # Prompt for the password
+    echo -n "Enter password for user $USER: "
+    stty -echo        # Disable echoing
+    read user_password
+    stty echo         # Re-enable echoing
+    echo              # Move to a new line
+
+    # Prompt for the password confirmation
+    echo -n "Confirm password: "
+    stty -echo
+    read user_password_confirm
+    stty echo
+    echo              # Move to a new line
+
+    # Check if passwords match
+    if [ "$user_password" = "$user_password_confirm" ]; then
+        echo "$user_password" | mkpasswd -m sha-512 --stdin | tee -a /mnt/persist/etc/shadow/$USER > /dev/null
+        unset user_password user_password_confirm
+        echo "Password set successfully."
+        break
+    else
+        echo "Passwords do not match. Please try again."
+    fi
+done
 
 
 while true; do
