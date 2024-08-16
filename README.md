@@ -36,7 +36,7 @@ bash <(curl -L https://raw.githubusercontent.com/Red-Flake/red-flake-nix/main/in
 Rebuild the already installed system from the flake
 
 ```bash
-sudo nixos-rebuild switch --install-bootloader --flake 'github:Red-Flake/red-flake-nix#redflake' --option eval-cache false
+bash <(curl -L https://raw.githubusercontent.com/Red-Flake/red-flake-nix/main/rebuild.sh)
 ```
 
 <br><br>
