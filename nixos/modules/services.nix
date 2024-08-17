@@ -6,7 +6,7 @@
     ## Enable Autoscrub
     autoScrub = {
       enable = true;
-      pools = [ "zfspool" ];
+      pools = [ "zroot" ];
     };
 
     ## Enable automated snapshots
