@@ -323,6 +323,12 @@ log "INFO" "Installing Red-Flake with profile ${HOST} on ${DISK}..."
 nix-shell -p git nixFlakes --command \
     "nixos-install --flake \"${FLAKE}/${GIT_REV:-main}#$HOST\""
 
+log "INFO" "Syncing disk writes..."
+sync
+
+log "INFO" "Taking initial ZFS snapshot of freshly installed system"
+zfs snapshot -r zroot@install
+
 log "INFO" "Unmouting /mnt/boot"
 umount -f /mnt/boot
 
