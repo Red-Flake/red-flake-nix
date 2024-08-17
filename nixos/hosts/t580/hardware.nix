@@ -1,6 +1,16 @@
-{ config, lib, pkgs, inputs, ... }:
+{ 
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ... 
+}: {
 
-{
+  custom = {
+    # enable ZFS encryption
+    zfs.encryption = true;
+  };
+
   hardware = {
       # enable firmware with a license allowing redistribution
       enableRedistributableFirmware = true;
