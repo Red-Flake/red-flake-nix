@@ -90,6 +90,8 @@
   # DBus settings
   # Enable DBus
   services.dbus.enable = true;
+  # use dbus broker as the default implementation
+  services.dbus.implementation = "broker";
 
   # Fix Intel CPU throttling
   services.throttled.enable = true;

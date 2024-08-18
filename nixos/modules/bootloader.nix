@@ -45,8 +45,13 @@ in
       # Switch to Xanmod kernel
       kernelPackages = pkgs.linuxPackages_xanmod_latest;
 
-      # Set kernel modules
+      # Initramfs settings
       initrd = {
+
+          # enable stage-1 bootloader
+          systemd.enable = true;
+
+          # Set kernel modules
           availableKernelModules = [ 
               "zfs"
               "xhci_pci"
@@ -110,7 +115,7 @@ in
 
               zfsSupport = true;
               efiSupport = true;
-              device = "nodev";
+              devices = [ "nodev" ];
               useOSProber = true;
               fontSize = 24;
 
