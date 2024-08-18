@@ -63,6 +63,9 @@ in
               "ahci"
           ];
 
+          # Enable ZFS filesystem support
+          supportedFilesystems = [ "zfs" ];
+
       };
 
       # Set extra kernel module options
@@ -113,7 +116,6 @@ in
 
               copyKernels = true;
 
-              zfsSupport = true;
               efiSupport = true;
               devices = [ "nodev" ];
               useOSProber = true;
@@ -134,7 +136,7 @@ in
   # Enable nixos-boot
   # https://github.com/Melkor333/nixos-boot
   nixos-boot = {
-    enable  = true;
+    enable  = false;
 
     # Different colors
     bgColor.red   = 0; # 0 - 255
