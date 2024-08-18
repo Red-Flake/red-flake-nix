@@ -8,6 +8,13 @@
 let
   cfg = config.custom.zfs;
   isVm = lib.elem "virtio_blk" config.boot.initrd.availableKernelModules;
+  redflake-plymouth-src = pkgs.fetchFromGitHub {
+      owner = "Red-Flake";
+      repo = "redflake-plymouth";
+      rev = "main";
+      sha256 = "";
+  };
+  redflake-plymouth = pkgs.callPackage redflake-plymouth-src {};
 in
 # NOTE: zfs datasets are created via install.sh
 {
@@ -91,12 +98,16 @@ in
 
       # Clear /tmp on boot & use tmpfs
       tmp = {
-        cleanOnBoot = true;
-        useTmpfs = true;
+          cleanOnBoot = true;
+          useTmpfs = true;
       };
 
       # Enable Plymouth
-      plymouth.enable = true;
+      plymouth = {
+          enable = true;
+          themePackages = [ redflake-plymouth ];
+          theme = "redflake-plymouth";
+      };
 
       # Bootloader settings
       loader = {
@@ -132,20 +143,7 @@ in
       };
       
   };
-  
-  # Enable nixos-boot
-  # https://github.com/Melkor333/nixos-boot
-  nixos-boot = {
-    enable  = false;
 
-    # Different colors
-    bgColor.red   = 0; # 0 - 255
-    bgColor.green = 0; # 0 - 255
-    bgColor.blue  = 0; # 0 - 255
-
-    # If you want to make sure the theme is seen when your computer starts too fast
-    # duration = 3; # in seconds
-  };
 
   # fix bug that bootloader entry name cannot be set via boot.loader.grub.configurationName
   # see: https://github.com/NixOS/nixpkgs/issues/15416
