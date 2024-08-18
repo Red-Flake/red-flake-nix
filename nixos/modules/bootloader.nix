@@ -12,7 +12,7 @@ let
       owner = "Red-Flake";
       repo = "redflake-plymouth";
       rev = "master";
-      sha256 = "2lrdGR1WfS24lCwV6p15Eag9JZtbwmm6nhzlZ5b2esc=";
+      sha256 = "";
   };
   redflake-plymouth = pkgs.callPackage redflake-plymouth-src {};
 in
