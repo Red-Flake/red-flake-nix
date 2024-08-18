@@ -62,9 +62,6 @@
 
     nur.url = "github:nix-community/NUR";
 
-    # https://github.com/Melkor333/nixos-boot
-    nixos-boot.url = "github:Melkor333/nixos-boot";
-
     # https://gitlab.com/VandalByte/darkmatter-grub-theme
     darkmatter-grub-theme = {
       url = gitlab:VandalByte/darkmatter-grub-theme;
@@ -105,7 +102,6 @@
       artwork, 
       webshells, 
       tools, 
-      nixos-boot, 
       darkmatter-grub-theme,
       ...
   } @ inputs: let
@@ -123,7 +119,6 @@
             };
             modules = [
               chaotic.nixosModules.default
-              nixos-boot.nixosModules.default
               darkmatter-grub-theme.nixosModule
 
               ./nixos/hosts/vm
@@ -162,7 +157,6 @@
             };
             modules = [
               chaotic.nixosModules.default
-              nixos-boot.nixosModules.default
               darkmatter-grub-theme.nixosModule
 
               ./nixos/hosts/t580
