@@ -11,7 +11,7 @@ let
   redflake-plymouth-src = pkgs.fetchFromGitHub {
       owner = "Red-Flake";
       repo = "redflake-plymouth";
-      rev = "main";
+      rev = "master";
       sha256 = "";
   };
   redflake-plymouth = pkgs.callPackage redflake-plymouth-src {};
