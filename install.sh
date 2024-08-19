@@ -241,8 +241,8 @@ fi
 
 mount --mkdir -t zfs zroot/persist /mnt/persist
 
-mkdir -p /mnt/persist/etc/shadow
-
+# create /tmp/shadow.d to temporarily store hashed passwords in the live cd
+mkdir -p /tmp/shadow.d
 
 # setup users with persistent passwords
 # https://reddit.com/r/NixOS/comments/o1er2p/tmpfs_as_root_but_without_hardcoding_your/h22f1b9/
@@ -266,7 +266,7 @@ while true; do
 
     # Check if passwords match
     if [ "$root_password" = "$root_password_confirm" ]; then
-        echo "$root_password" | mkpasswd -m sha-512 --stdin | tee -a /mnt/persist/etc/shadow/root > /dev/null
+        echo "$root_password" | mkpasswd -m sha-512 --stdin | tee -a /tmp/shadow.d/root > /dev/null
         unset root_password root_password_confirm
         echo "Password set successfully."
         break
@@ -301,7 +301,7 @@ while true; do
 
     # Check if passwords match
     if [ "$user_password" = "$user_password_confirm" ]; then
-        echo "$user_password" | mkpasswd -m sha-512 --stdin | tee -a /mnt/persist/etc/shadow/$USER > /dev/null
+        echo "$user_password" | mkpasswd -m sha-512 --stdin | tee -a /tmp/shadow.d/$USER > /dev/null
         unset user_password user_password_confirm
         echo "Password set successfully."
         break
@@ -325,6 +325,15 @@ nix-shell -p git nixFlakes --command \
 
 log "INFO" "Syncing disk writes..."
 sync
+
+log "INFO" "Copying over hashed passwords..."
+mkdir -p /mnt/etc/shadow.d
+cp /tmp/shadow.d/root /mnt/etc/shadow.d/
+cp /tmp/shadow.d/$USER /mnt/etc/shadow.d/
+
+log "INFO" "Setting permissions for /etc/shadow.d"
+chown root:shadow /mnt/etc/shadow.d/
+chmod 640 /mnt/etc/shadow.d/
 
 log "INFO" "Taking initial ZFS snapshot of freshly installed system"
 zfs snapshot -r zroot@install
