@@ -26,12 +26,12 @@
         users = {
           root = {
             initialPassword = "password";
-            hashedPasswordFile = "/persist/etc/shadow/root";
+            hashedPasswordFile = "/etc/shadow.d/root";
           };
           ${user} = {
             isNormalUser = true;
             initialPassword = "password";
-            hashedPasswordFile = "/persist/etc/shadow/${user}";
+            hashedPasswordFile = "/etc/shadow.d/${user}";
             extraGroups = [
               "wheel"
               "sudo"
