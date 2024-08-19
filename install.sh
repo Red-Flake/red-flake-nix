@@ -332,8 +332,8 @@ cp /tmp/shadow.d/root /mnt/etc/shadow.d/
 cp /tmp/shadow.d/$USER /mnt/etc/shadow.d/
 
 log "INFO" "Setting permissions for /etc/shadow.d"
-chown root:shadow /mnt/etc/shadow.d/
-chmod 640 /mnt/etc/shadow.d/
+chown -R root:shadow /mnt/etc/shadow.d/
+chmod -R 640 /mnt/etc/shadow.d/
 
 log "INFO" "Taking initial ZFS snapshot of freshly installed system"
 zfs snapshot -r zroot@install
