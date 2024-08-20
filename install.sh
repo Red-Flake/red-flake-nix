@@ -241,6 +241,18 @@ fi
 
 mount --mkdir -t zfs zroot/persist /mnt/persist
 
+
+while true; do
+    read -rp "Which host to install? (vm / t580) " HOST
+    case $HOST in
+        vm|t580 ) break;;
+        * ) echo "Invalid host. Please select a valid host.";;
+    esac
+done
+
+
+## user setup logic based on host
+
 # create /tmp/shadow.d to temporarily store hashed passwords in the live cd
 mkdir -p /tmp/shadow.d
 
@@ -276,8 +288,16 @@ while true; do
 done
 
 
-# set username
-read -rp "Enter your desired username: " USER
+# set username based on chosen host
+case $HOST in
+    vm ) USER="redflake"
+    t580 ) USER="pascal"
+    break;;
+    * ) echo "Invalid host. Please select a valid host.";;
+esac
+
+log "INFO" "You chose to install host $HOST. Automatically setting user to $USER."
+
 
 # setup users with persistent passwords
 # https://reddit.com/r/NixOS/comments/o1er2p/tmpfs_as_root_but_without_hardcoding_your/h22f1b9/
@@ -311,15 +331,7 @@ while true; do
 done
 
 
-while true; do
-    read -rp "Which host to install? (vm / t580) " HOST
-    case $HOST in
-        vm|t580 ) break;;
-        * ) echo "Invalid host. Please select a valid host.";;
-    esac
-done
-
-log "INFO" "Installing Red-Flake with profile ${HOST} on ${DISK}..."
+log "INFO" "Installing Red-Flake with host profile ${HOST} for user ${USER} on disk ${DISK}..."
 nix-shell -p git nixFlakes --command \
     "nixos-install --flake \"${FLAKE}/${GIT_REV:-main}#$HOST\""
 

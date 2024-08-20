@@ -115,7 +115,7 @@
             inherit system;
             specialArgs = {
               inherit inputs outputs;
-              user = "pascal";
+              user = "redflake";
             };
             modules = [
               chaotic.nixosModules.default
@@ -130,13 +130,13 @@
 
                 home-manager.extraSpecialArgs = { 
                   inherit inputs;
-                  user = "pascal";
+                  user = "redflake";
                 };
 
                 home-manager.users = {
-                  pascal = {
-                    home.username = "pascal";
-                    home.homeDirectory = "/home/pascal";
+                  redflake = {
+                    home.username = "redflake";
+                    home.homeDirectory = "/home/redflake";
                     home.stateVersion = "23.05";
                     imports = [
                       ./home-manager
