@@ -342,7 +342,7 @@ chmod -R 640 /etc/shadow.d/
 
 log "INFO" "Installing Red-Flake with host profile ${HOST} for user ${USER} on disk ${DISK}..."
 nix-shell -p git nixFlakes --command \
-    "nixos-install --flake \"${FLAKE}/${GIT_REV:-main}#$HOST\""
+    "nixos-install --no-root-password --flake \"${FLAKE}/${GIT_REV:-main}#$HOST\""
 
 log "INFO" "Syncing disk writes..."
 sync
