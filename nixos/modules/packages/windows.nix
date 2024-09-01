@@ -13,5 +13,6 @@
     netexec
     powershell
     python312Packages.bloodyad
+    krb5
   ];
 }
