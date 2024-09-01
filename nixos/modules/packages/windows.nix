@@ -12,5 +12,6 @@
     certipy
     netexec
     powershell
+    python312Packages.bloodyad
   ];
 }
