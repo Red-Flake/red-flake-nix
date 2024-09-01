@@ -337,6 +337,8 @@ done
 mkdir -p /etc/shadow.d
 cp /tmp/shadow.d/root /etc/shadow.d/
 cp /tmp/shadow.d/$USER /etc/shadow.d/
+chown -R root:shadow /etc/shadow.d/
+chmod -R 640 /etc/shadow.d/
 
 log "INFO" "Installing Red-Flake with host profile ${HOST} for user ${USER} on disk ${DISK}..."
 nix-shell -p git nixFlakes --command \
