@@ -287,13 +287,17 @@ while true; do
     fi
 done
 
-
-# set username based on chosen host
+# Set username based on chosen host
 case $HOST in
-    vm ) USER="redflake"
-    t580 ) USER="pascal"
-    break;;
-    * ) echo "Invalid host. Please select a valid host.";;
+    vm )
+        USER="redflake"
+        ;;
+    t580 )
+        USER="pascal"
+        ;;
+    * )
+        echo "Invalid host. Please select a valid host."
+        ;;
 esac
 
 log "INFO" "You chose to install host $HOST. Automatically setting user to $USER."
