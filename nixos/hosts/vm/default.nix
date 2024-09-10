@@ -22,9 +22,6 @@
     # Bootloader configuration
     ../../modules/bootloader.nix
 
-    # Timezone configuration
-    ../../modules/timezone.nix
-
     # GPU configuration
     ../../modules/gpu.nix
 
@@ -89,6 +86,26 @@
 
   # Set random hostId (needed for ZFS)
   networking.hostId = builtins.substring 0 8 (builtins.hashString "md5" config.networking.hostName);
+
+  # Set timezone
+  time.timeZone = "Europe/Berlin";
+
+  # Set locale
+  i18n.defaultLocale = "en_US.UTF-8";
+
+  # Set extra locale settings
+  i18n.extraLocaleSettings = {
+    LC_ADDRESS = "de_DE.UTF-8";
+    LC_IDENTIFICATION = "de_DE.UTF-8";
+    LC_MEASUREMENT = "de_DE.UTF-8";
+    LC_MONETARY = "de_DE.UTF-8";
+    LC_NAME = "de_DE.UTF-8";
+    LC_NUMERIC = "de_DE.UTF-8";
+    LC_PAPER = "de_DE.UTF-8";
+    LC_TELEPHONE = "de_DE.UTF-8";
+    # week starts on a Monday
+    LC_TIME = "en_GB.UTF-8";
+  };
 
   # Do not modify this value
   system.stateVersion = "23.05";
