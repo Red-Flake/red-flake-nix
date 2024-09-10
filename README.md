@@ -63,6 +63,16 @@ bash <(curl -L https://raw.githubusercontent.com/Red-Flake/red-flake-nix/main/re
 - customized zsh shell with oh-my-zsh
 - support for Docker, LXC, KVM & VirtualBox
 - postgres & neo4j databases for metasploit & bloodhound
+- provide automatic provisioning for
+   - Zsh
+   - KDE Plasma
+   - metasploit framework
+   - postgresql
+   - BloodHound
+   - Neo4j
+   - Burp Suite
+   - Firefox
+   - ... and more
 
 <br><br>
 
