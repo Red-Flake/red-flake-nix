@@ -41,6 +41,31 @@ bash <(curl -L https://raw.githubusercontent.com/Red-Flake/red-flake-nix/main/re
 
 <br><br>
 
+# Features
+
+<br>
+
+- custom NixOS flake using NixOS unstable
+- NixOS home-manager
+- encrypted root on ZFS
+- Impermanence (non-persistent root on tmpfs)
+- GRUB bootloader with EFI support & theme
+- performance tweaks
+- custom Red-Flake themes
+- custom Red-Flake boot logo
+- custom Red-Flake wallpaper
+- customized KDE desktop
+- customized KDE start menu
+- pre-configured, ready-to-use tools for penetration testing, red teaming & CTFs
+- additional standalone tools in /usr/share/tools
+- various wordlists in /usr/share/wordlists
+- various webshells in /usr/share/webshells
+- customized zsh shell with oh-my-zsh
+- support for Docker, LXC, KVM & VirtualBox
+- postgres & neo4j databases for metasploit & bloodhound
+
+<br><br>
+
 # Showcase
 
 <br>
