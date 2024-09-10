@@ -17,10 +17,15 @@ in
   ];
 
   fileSystems = {
-      "/" = {
-        device = "zroot/root/nixos";
-        fsType = "zfs";
+      "/" = lib.mkForce {
+        device = "tmpfs";
+        fsType = "tmpfs";
         neededForBoot = true;
+        options = [
+          "defaults"
+          "size=1G"
+          "mode=755"
+        ];
       };
 
       "/boot" = {
