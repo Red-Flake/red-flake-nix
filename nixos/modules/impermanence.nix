@@ -72,16 +72,17 @@ in
                "/var/lib/NetworkManager" # persist network manager data
                "/var/lib/neo4j" # persist neo4j data
                "/var/lib/postgres" # persist postgres data
-               "/var/lib/docker" # persist docker data
                "/var/lib/flatpak" # persist flatpak data
-                "/var/lib/libvirt" # persist libvirt data
-                "/var/lib/containers/storage" # persist container storage
              ];
          };
 
          "/persist/cache" = {
              hideMounts = true;
-             inherit (cfg.root.cache) directories files;
+             directories = [
+               "/var/lib/docker" # persist docker data
+               "/var/lib/containers/storage" # persist container storage
+               "/var/lib/libvirt" # persist libvirt data
+             ] 
          };
       };
     
