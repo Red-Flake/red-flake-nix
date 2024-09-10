@@ -85,7 +85,7 @@ in
       };
 
       # setup persistent NetworkManager connections
-      etc."NetworkManager/system-connections" = {
+      environment.etc."NetworkManager/system-connections" = {
         source = "/persist/etc/NetworkManager/system-connections/";
       };
     
