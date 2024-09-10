@@ -74,6 +74,8 @@ in
                "/var/lib/postgres" # persist postgres data
                "/var/lib/docker" # persist docker data
                "/var/lib/flatpak" # persist flatpak data
+                "/var/lib/libvirt" # persist libvirt data
+                "/var/lib/containers/storage" # persist container storage
              ];
          };
 
