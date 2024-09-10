@@ -83,6 +83,11 @@ in
              ];
          };
       };
+
+      # setup persistent NetworkManager connections
+      etc."NetworkManager/system-connections" = {
+        source = "/persist/etc/NetworkManager/system-connections/";
+      };
     
     };
 }
