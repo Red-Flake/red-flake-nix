@@ -1,6 +1,10 @@
-{ config, lib, pkgs, modulesPath, ... }:
-
-{
+{ 
+  config,
+  lib,
+  pkgs,
+  modulesPath,
+  ...
+}: {
     # enable Docker support
     virtualisation.docker.enable = true;
     virtualisation.docker.extraOptions = "--iptables=false --ip6tables=false";
@@ -34,5 +38,14 @@
 
     # enable VirtualBox ExtensionPack
     #virtualisation.virtualbox.host.enableExtensionPack = true;
+
+    # store VMs on zroot/cache
+    custom.persist = {
+      root = {
+        cache.directories = [ 
+          "/var/lib/libvirt" 
+        ];
+      };
+    };
 
 }
