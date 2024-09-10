@@ -57,9 +57,9 @@ bash <(curl -L https://raw.githubusercontent.com/Red-Flake/red-flake-nix/main/re
 - customized KDE desktop
 - customized KDE start menu
 - pre-configured, ready-to-use tools for penetration testing, red teaming & CTFs
-- additional standalone tools in /usr/share/tools
-- various wordlists in /usr/share/wordlists
-- various webshells in /usr/share/webshells
+- additional standalone tools in `/usr/share/tools`
+- various wordlists in `/usr/share/wordlists`
+- various webshells in `/usr/share/webshells`
 - customized zsh shell with oh-my-zsh
 - support for Docker, LXC, KVM & VirtualBox
 - postgres & neo4j databases for metasploit & bloodhound
