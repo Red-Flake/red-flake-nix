@@ -253,13 +253,13 @@ done
 
 ## user setup logic based on host
 
-# create /tmp/shadow.d to temporarily store hashed passwords in the live cd
-mkdir -p /tmp/shadow.d
+# create /persist/etc/shadow.d
+mkdir -p /mnt/persist/etc/shadow.d
 
 # setup users with persistent passwords
 # https://reddit.com/r/NixOS/comments/o1er2p/tmpfs_as_root_but_without_hardcoding_your/h22f1b9/
 # create a password with for root and $user with:
-# mkpasswd -m sha-512 'PASSWORD' | sudo tee -a /persist/etc/shadow/root
+# mkpasswd -m sha-512 'PASSWORD' | sudo tee -a /persist/etc/shadow.d/root
 # set root password
 while true; do
     # Prompt for the password
@@ -278,7 +278,7 @@ while true; do
 
     # Check if passwords match
     if [ "$root_password" = "$root_password_confirm" ]; then
-        echo "$root_password" | mkpasswd -m sha-512 --stdin | tee -a /tmp/shadow.d/root > /dev/null
+        echo "$root_password" | mkpasswd -m sha-512 --stdin | tee -a /mnt/persist/etc/shadow.d/root > /dev/null
         unset root_password root_password_confirm
         echo "Password set successfully."
         break
@@ -306,7 +306,7 @@ log "INFO" "You chose to install host $HOST. Automatically setting user to $USER
 # setup users with persistent passwords
 # https://reddit.com/r/NixOS/comments/o1er2p/tmpfs_as_root_but_without_hardcoding_your/h22f1b9/
 # create a password with for root and $user with:
-# mkpasswd -m sha-512 'PASSWORD' | sudo tee -a /persist/etc/shadow/root
+# mkpasswd -m sha-512 'PASSWORD' | sudo tee -a /persist/etc/shadow.d/root
 # set user password
 while true; do
     # Prompt for the password
@@ -325,7 +325,7 @@ while true; do
 
     # Check if passwords match
     if [ "$user_password" = "$user_password_confirm" ]; then
-        echo "$user_password" | mkpasswd -m sha-512 --stdin | tee -a /tmp/shadow.d/$USER > /dev/null
+        echo "$user_password" | mkpasswd -m sha-512 --stdin | tee -a /mnt/persist/etc/shadow.d/$USER > /dev/null
         unset user_password user_password_confirm
         echo "Password set successfully."
         break
@@ -334,11 +334,9 @@ while true; do
     fi
 done
 
-mkdir -p /etc/shadow.d
-cp /tmp/shadow.d/root /etc/shadow.d/
-cp /tmp/shadow.d/$USER /etc/shadow.d/
-chown -R root:shadow /etc/shadow.d/
-chmod -R 640 /etc/shadow.d/
+# Set correct permissions for /persist/etc/shadow.d
+chown -R root:shadow /mnt/persist/etc/shadow.d/
+chmod -R 640 /mnt/persist/etc/shadow.d/
 
 log "INFO" "Installing Red-Flake with host profile ${HOST} for user ${USER} on disk ${DISK}..."
 nix-shell -p git nixFlakes --command \
@@ -346,15 +344,6 @@ nix-shell -p git nixFlakes --command \
 
 log "INFO" "Syncing disk writes..."
 sync
-
-log "INFO" "Copying over hashed passwords..."
-mkdir -p /mnt/etc/shadow.d
-cp /tmp/shadow.d/root /mnt/etc/shadow.d/
-cp /tmp/shadow.d/$USER /mnt/etc/shadow.d/
-
-log "INFO" "Setting permissions for /etc/shadow.d"
-chown -R root:shadow /mnt/etc/shadow.d/
-chmod -R 640 /mnt/etc/shadow.d/
 
 log "INFO" "Taking initial ZFS snapshot of freshly installed system"
 zfs snapshot -r zroot@install
