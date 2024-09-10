@@ -18,7 +18,7 @@
             "/var/lib/nixos" # for persisting user uids and gids
           ] ++ [
             # YOUR DIRECTORIES
-          ]
+          ];
       };
 
       "/persist/cache" = {
