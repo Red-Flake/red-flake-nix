@@ -250,6 +250,9 @@ while true; do
     esac
 done
 
+# create /persist/etc/NetworkManager/system-connections
+mkdir -p /mnt/persist/etc/NetworkManager/system-connections
+
 
 ## user setup logic based on host
 
