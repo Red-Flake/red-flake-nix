@@ -60,8 +60,6 @@ in
                "/etc/machine-id" # for persistent machine-id
              ] ++ [
                # YOUR FILES
-               "/etc/hostname" # for persistent hostname
-               "/etc/hosts" # for persistent hosts
              ];
              directories = [
                "/var/log" # systemd journal is stored in /var/log/journal
