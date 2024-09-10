@@ -22,16 +22,16 @@
         # setup users with persistent passwords
         # https://reddit.com/r/NixOS/comments/o1er2p/tmpfs_as_root_but_without_hardcoding_your/h22f1b9/
         # create a password with for root and $user with:
-        # mkpasswd -m sha-512 'PASSWORD' | sudo tee -a /persist/etc/shadow/root
+        # mkpasswd -m sha-512 'PASSWORD' | sudo tee -a /persist/etc/shadow.d/root
         users = {
           root = {
             initialPassword = "password";
-            hashedPasswordFile = "/etc/shadow.d/root";
+            hashedPasswordFile = "/persist/etc/shadow.d/root";
           };
           ${user} = {
             isNormalUser = true;
             initialPassword = "password";
-            hashedPasswordFile = "/etc/shadow.d/${user}";
+            hashedPasswordFile = "/persist/etc/shadow.d/${user}";
             extraGroups = [
               "wheel"
               "sudo"
