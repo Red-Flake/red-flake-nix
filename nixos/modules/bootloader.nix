@@ -96,11 +96,8 @@ in
           requestEncryptionCredentials = cfg.encryption;
       };
 
-      # Clear /tmp on boot & use tmpfs
-      tmp = {
-          cleanOnBoot = true;
-          useTmpfs = true;
-      };
+      # Clear /tmp on boot, since it's a zfs dataset
+      tmp.cleanOnBoot = true;
 
       # Enable Plymouth
       plymouth = {

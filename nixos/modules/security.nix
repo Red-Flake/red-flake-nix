@@ -16,4 +16,10 @@
     kde-fingerprint = lib.mkIf config.services.fprintd.enable { fprintAuth = true; };
     kde-smartcard = lib.mkIf config.security.pam.p11.enable { p11Auth = true; };
   };
+
+  # sudo settings
+  security.sudo = {
+    extraConfig = "Defaults lecture=never";
+  };
+  
 }

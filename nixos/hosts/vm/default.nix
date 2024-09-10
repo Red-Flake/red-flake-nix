@@ -16,6 +16,9 @@
     # Filesystems configuration
     ../../modules/filesystems.nix
 
+    # Impermanence configuration
+    ../../modules/impermanence.nix
+
     # Bootloader configuration
     ../../modules/bootloader.nix
 

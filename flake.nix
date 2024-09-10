@@ -120,6 +120,7 @@
             modules = [
               chaotic.nixosModules.default
               darkmatter-grub-theme.nixosModule
+              inputs.impermanence.nixosModules.impermanence
 
               ./nixos/hosts/vm
               {
@@ -158,6 +159,7 @@
             modules = [
               chaotic.nixosModules.default
               darkmatter-grub-theme.nixosModule
+              inputs.impermanence.nixosModules.impermanence
 
               ./nixos/hosts/t580
               {
