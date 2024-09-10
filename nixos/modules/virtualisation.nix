@@ -39,6 +39,14 @@
     # enable VirtualBox ExtensionPack
     #virtualisation.virtualbox.host.enableExtensionPack = true;
 
+    virtualisation.containers.storage.settings = lib.mkIf (config.fileSystems."/".fsType == "zfs") {
+      storage = {
+        driver = "zfs";
+        graphroot = "/var/lib/containers/storage";
+        runroot = "/run/containers/storage";
+      };
+    };
+
     # store VMs on zroot/cache
     custom.persist = {
       root = {
