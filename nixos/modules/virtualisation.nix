@@ -47,13 +47,4 @@
       };
     };
 
-    # store VMs on zroot/cache
-    custom.persist = {
-      root = {
-        cache.directories = [ 
-          "/var/lib/libvirt" 
-        ];
-      };
-    };
-
 }

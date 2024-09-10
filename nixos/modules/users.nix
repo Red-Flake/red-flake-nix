@@ -50,6 +50,7 @@
               "network"
               "audio"
               "storage"
+              "libvirtd"
             ];
           };
         };
