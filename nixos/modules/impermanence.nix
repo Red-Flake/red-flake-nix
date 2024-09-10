@@ -82,7 +82,7 @@ in
                "/var/lib/docker" # persist docker data
                "/var/lib/containers/storage" # persist container storage
                "/var/lib/libvirt" # persist libvirt data
-             ] 
+             ];
          };
       };
     
