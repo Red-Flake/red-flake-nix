@@ -52,7 +52,11 @@
   # Neo4j settings
   services.neo4j = {
     enable = true;
-    directories.home = "/var/lib/neo4j";
+    directories.home = lib.mkForce "/var/lib/neo4j";
+    directories.imports = lib.mkForce "/var/lib/neo4j/import";
+    directories.data = lib.mkForce "/var/lib/neo4j/data";
+    directories.plugins = lib.mkForce "/var/lib/neo4j/plugins";
+    directories.certificates = lib.mkForce "/var/lib/neo4j/certificates";
     https.sslPolicy = "legacy";
     http.listenAddress = ":7474";
     https.listenAddress = ":7473";
