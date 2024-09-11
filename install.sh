@@ -190,7 +190,7 @@ else
     encryption_options=()
 fi
 
-log "INFO" "Creating base zpool on disk ${ZFSDISK} ..."
+log "INFO" "Creating base ZFS pool zroot on disk ${ZFSDISK} ..."
 zpool create -f \
     -o ashift=12 \
     -o autotrim=on \
@@ -208,6 +208,10 @@ log "INFO" "Creating /"
 zfs create -o mountpoint=none zroot/root
 zfs create -o mountpoint=legacy zroot/root/nixos
 zfs snapshot zroot/root/nixos@blank
+
+log "INFO" "Enabling automatic snapshots for ZFS pool zroot"
+zfs set com.sun:auto-snapshot=true zroot
+
 mount -t zfs zroot/root/nixos /mnt
 
 log "INFO" "Mounting /boot (efi)"
