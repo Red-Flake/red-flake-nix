@@ -254,24 +254,6 @@ while true; do
     esac
 done
 
-mkdir -p /mnt/persist/var/lib/
-
-# setup NetworkManager persistence
-mkdir -p /mnt/persist/etc/NetworkManager
-cp -r /etc/NetworkManager/system-connections /mnt/persist/etc/NetworkManager/
-mkdir -p /mnt/persist/var/lib/NetworkManager
-cp /var/lib/NetworkManager/{secret_key,seen-bssids,timestamps} /mnt/persist/var/lib/NetworkManager/
-
-# setup Docker persistence
-if [ -d /mnt/var/lib/docker ]; then
-    cp -r /mnt/var/lib/docker /mnt/persist/var/lib/docker
-fi
-
-# setup LXC / LXD persistence
-if [ -d /mnt/var/lib/lxd ]; then
-    cp -r /mnt/var/lib/lxd /mnt/persist/var/lib/lxd
-fi
-
 
 ## user setup logic based on host
 
@@ -366,6 +348,39 @@ nix-shell -p git nixFlakes --command \
 
 log "INFO" "Syncing disk writes..."
 sync
+
+log "INFO" "Setting up persistence..."
+
+mkdir -p /mnt/persist/var/lib/
+
+# setup NetworkManager persistence
+mkdir -p /mnt/persist/etc/NetworkManager
+if [ -d /etc/NetworkManager/system-connections ]; then
+    cp -r /etc/NetworkManager/system-connections /mnt/persist/etc/NetworkManager/
+fi
+
+mkdir -p /mnt/persist/var/lib/NetworkManager
+if [ -d /var/lib/NetworkManager ]; then
+    cp /var/lib/NetworkManager/{secret_key,seen-bssids,timestamps} /mnt/persist/var/lib/NetworkManager/
+fi
+
+
+# setup Docker persistence
+if [ -d /mnt/var/lib/docker ]; then
+    cp -r /mnt/var/lib/docker /mnt/persist/var/lib/docker
+fi
+
+# setup LXC / LXD persistence
+if [ -d /mnt/var/lib/lxd ]; then
+    cp -r /mnt/var/lib/lxd /mnt/persist/var/lib/lxd
+fi
+
+# setup ssl certs persistence
+mkdir -p /mnt/persist/etc/ssl/
+if [ -d /mnt/etc/ssl/certs ]; then
+    cp -r /mnt/etc/ssl/certs/ /mnt/persist/etc/ssl/
+fi
+
 
 log "INFO" "Taking initial ZFS snapshot of freshly installed system"
 zfs snapshot -r zroot@install

@@ -28,6 +28,7 @@
            "/var/lib/neo4j" # persist neo4j data
            "/var/lib/postgres" # persist postgres data
            "/var/lib/flatpak" # persist flatpak data
+           "/etc/ssl/certs/" # persist ssl certs
          ];
      };
 
