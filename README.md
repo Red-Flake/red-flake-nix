@@ -48,7 +48,7 @@ bash <(curl -L https://raw.githubusercontent.com/Red-Flake/red-flake-nix/main/re
 - custom NixOS flake using NixOS unstable
 - NixOS home-manager
 - encrypted root on ZFS
-- Impermanence (non-persistent root on tmpfs) with persistence on /persist
+- Impermanence (non-persistent root on tmpfs) with persistence on `/persist`
 - GRUB bootloader with EFI support & theme
 - performance tweaks
 - custom Red-Flake themes
