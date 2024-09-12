@@ -254,8 +254,23 @@ while true; do
     esac
 done
 
-# create /persist/etc/NetworkManager/system-connections
-mkdir -p /mnt/persist/etc/NetworkManager/system-connections
+mkdir -p /mnt/persist/var/lib/
+
+# setup NetworkManager persistence
+mkdir -p /mnt/persist/etc/NetworkManager
+cp -r /etc/NetworkManager/system-connections /mnt/persist/etc/NetworkManager/system-connections
+mkdir -p /mnt/persist/var/lib/NetworkManager
+cp /var/lib/NetworkManager/{secret_key,seen-bssids,timestamps} /mnt/persist/var/lib/NetworkManager/
+
+# setup Docker persistence
+if [ -d /mnt/var/lib/docker ]; then
+    cp -r /mnt/var/lib/docker /mnt/persist/var/lib/docker
+fi
+
+# setup LXC / LXD persistence
+if [ -d /mnt/var/lib/lxd ]; then
+    cp -r /mnt/var/lib/lxd /mnt/persist/var/lib/lxd
+fi
 
 
 ## user setup logic based on host

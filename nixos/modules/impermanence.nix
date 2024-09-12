@@ -66,8 +66,6 @@ in
                "/var/lib/nixos" # for persisting user uids and gids
              ] ++ [
                # YOUR DIRECTORIES
-               "/etc/NetworkManager/system-connections" # persist network manager configuration
-               "/var/lib/NetworkManager" # persist network manager data
                "/var/lib/neo4j" # persist neo4j data
                "/var/lib/postgres" # persist postgres data
                "/var/lib/flatpak" # persist flatpak data
@@ -80,9 +78,21 @@ in
                "/var/lib/docker" # persist docker data
                "/var/lib/containers/storage" # persist container storage
                "/var/lib/libvirt" # persist libvirt data
+               "/var/lib/lxd" # persist LXC data
              ];
          };
       };
     
     };
+
+    # setup persistence for NetworkManager, Docker, LXC
+    environment.etc."NetworkManager/system-connections".source = "/persist/etc/NetworkManager/system-connections";
+    systemd.tmpfiles.rules = [
+      "L /var/lib/NetworkManager/secret_key - - - - /persist/var/lib/NetworkManager/secret_key"
+      "L /var/lib/NetworkManager/seen-bssids - - - - /persist/var/lib/NetworkManager/seen-bssids"
+      "L /var/lib/NetworkManager/timestamps - - - - /persist/var/lib/NetworkManager/timestamps"
+      "L /var/lib/lxd - - - - /persist/var/lib/lxd"
+      "L /var/lib/docker - - - - /persist/var/lib/docker"
+    ];
+
 }
