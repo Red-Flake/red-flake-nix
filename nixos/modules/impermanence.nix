@@ -21,6 +21,7 @@
          ] ++ [
            # YOUR DIRECTORIES
            "/etc/NetworkManager/system-connections"
+           "/var/lib/NetworkManager"
            "/var/lib/systemd/coredump"
            "/var/lib/bluetooth"
            "/var/lib/upower"
