@@ -66,7 +66,7 @@ in
                "/var/lib/nixos" # for persisting user uids and gids
              ] ++ [
                # YOUR DIRECTORIES
-               "/etc/NetworkManager" # persist network manager configuration
+               "/etc/NetworkManager/system-connections" # persist network manager configuration
                "/var/lib/NetworkManager" # persist network manager data
                "/var/lib/neo4j" # persist neo4j data
                "/var/lib/postgres" # persist postgres data
@@ -82,11 +82,6 @@ in
                "/var/lib/libvirt" # persist libvirt data
              ];
          };
-      };
-
-      # setup persistent NetworkManager connections
-      environment.etc."NetworkManager/system-connections" = {
-        source = "/persist/etc/NetworkManager/system-connections/";
       };
     
     };
