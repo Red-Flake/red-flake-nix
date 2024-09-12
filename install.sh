@@ -258,7 +258,7 @@ mkdir -p /mnt/persist/var/lib/
 
 # setup NetworkManager persistence
 mkdir -p /mnt/persist/etc/NetworkManager
-cp -r /etc/NetworkManager/system-connections /mnt/persist/etc/NetworkManager/system-connections
+cp -r /etc/NetworkManager/system-connections /mnt/persist/etc/NetworkManager/
 mkdir -p /mnt/persist/var/lib/NetworkManager
 cp /var/lib/NetworkManager/{secret_key,seen-bssids,timestamps} /mnt/persist/var/lib/NetworkManager/
 
