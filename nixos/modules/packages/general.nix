@@ -50,5 +50,6 @@
     glxinfo
     vulkan-tools
     wayland-utils
+    acpi
   ];
 }
