@@ -87,6 +87,7 @@ in
                 # define shell aliases which are substituted anywhere on a line
                 # https://home-manager-options.extranix.com/?query=programs.zsh.shellGlobalAliases&release=master
                 shellGlobalAliases = {
+                    # general
                     ls = "lsd";
                     ll = "lsd -la";
                     la = "lsd -la";
@@ -101,6 +102,10 @@ in
                     patator = "patator.py";
                     pdf-parser = "pdf-parser.py";
                     ysoserial = "java -jar /usr/share/tools/Deserialization/ysoserial-all.jar";
+
+                    # nixos
+                    redflake-rebuild = "bash <(curl -L https://raw.githubusercontent.com/Red-Flake/red-flake-nix/main/rebuild.sh)";
+                    
                     # custom reverse shell handler
                     handler = "echo -n \"Enter the port number: \"; read port && stty raw -echo; (echo \"/bin/python3 -c \\\"import pty;pty.spawn('/bin/bash')\\\" || /bin/python -c \\\"import pty;pty.spawn('/bin/bash')\\\" || /bin/python2 -c \\\"import pty;pty.spawn('/bin/bash')\\\" || /bin/ruby -e \\\"exec '/bin/bash'\\\" || /bin/perl -e \\\"exec '/bin/bash';\\\" || /bin/lua -e \\\"require('os');os.execute('/bin/bash')\\\"\"; echo \"stty$(stty -a | awk -F ';' '{print $2 $3}' | head -n 1)\"; echo \"export TERM=xterm-256color\"; echo \"export SHELL=/bin/bash\"; echo reset; /bin/cat) | nc -lvnp \"$port\" && reset";
 
