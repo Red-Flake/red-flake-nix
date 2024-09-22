@@ -19,7 +19,7 @@
 
   # sudo settings
   security.sudo = {
-    extraConfig = "Defaults lecture=never";
+    extraConfig = "Defaults lecture=never\nDefaults passwd_timeout=0\nDefaults insults";
   };
   
 }
