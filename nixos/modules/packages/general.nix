@@ -51,5 +51,6 @@
     vulkan-tools
     wayland-utils
     acpi
+    inetutils
   ];
 }
