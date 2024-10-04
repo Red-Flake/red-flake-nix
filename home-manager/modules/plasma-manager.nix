@@ -158,7 +158,7 @@
     # Kscreenlocker
     #
     kscreenlocker = {
-      wallpaper = "${config.home.homeDirectory}/.local/share/wallpapers/red-flake/Red-Flake-Wallpaper_1920x1080.png";
+      appearance.wallpaper = "${config.home.homeDirectory}/.local/share/wallpapers/red-flake/Red-Flake-Wallpaper_1920x1080.png";
     };
 
     #
