@@ -173,7 +173,7 @@
         turnOffDisplay.idleTimeout = 900;
         dimDisplay = {
           enable = true;
-          idleTimeOut = 600;
+          idleTimeout = 600;
         };
       };
 
@@ -185,7 +185,7 @@
         turnOffDisplay.idleTimeout = 900;
         dimDisplay = {
           enable = true;
-          idleTimeOut = 600;
+          idleTimeout = 600;
         };
       };
     };
