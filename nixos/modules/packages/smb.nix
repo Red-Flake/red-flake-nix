@@ -7,5 +7,6 @@
     samba
     smbmap
     enum4linux-ng
+    smbclient-ng
   ];
 }
