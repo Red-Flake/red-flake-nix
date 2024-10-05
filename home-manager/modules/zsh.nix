@@ -102,6 +102,9 @@ in
                     patator = "patator.py";
                     pdf-parser = "pdf-parser.py";
                     ysoserial = "java -jar /usr/share/tools/Deserialization/ysoserial-all.jar";
+                    code = "codium";
+                    vscode = "codium";
+                    vscodium = "codium";
 
                     # nixos
                     redflake-rebuild = "bash <(curl -L https://raw.githubusercontent.com/Red-Flake/red-flake-nix/main/rebuild.sh)";
