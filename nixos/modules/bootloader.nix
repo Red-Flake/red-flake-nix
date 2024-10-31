@@ -50,7 +50,7 @@ in
       ];
 
       # Switch to Xanmod kernel
-      kernelPackages = pkgs.linuxPackages_xanmod_latest;
+      kernelPackages = pkgs.linuxPackages;
 
       # Initramfs settings
       initrd = {
