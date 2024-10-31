@@ -11,7 +11,7 @@
      "/persist" = {
          hideMounts = true;
          files = [ 
-           "/etc/machine-id" # for persistent machine-id
+
          ] ++ [
            # YOUR FILES
          ];
