@@ -45,8 +45,6 @@ in
         "audit=0"
         "net.ifnames=0"
         "biosdevname=0"
-        "SYSTEMD_CGROUP_ENABLE_LEGACY_FORCE=1"
-        "systemd.unified_cgroup_hierarchy=0"
       ];
 
       # Switch to Xanmod kernel
