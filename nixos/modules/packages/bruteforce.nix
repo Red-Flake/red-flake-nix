@@ -6,6 +6,7 @@
   environment.systemPackages = with pkgs; [
     ffuf
     feroxbuster
+    gobuster
     kerbrute
     hashcat
     john
