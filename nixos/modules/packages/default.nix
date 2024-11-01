@@ -117,5 +117,8 @@
 
     # Exploitation tools
     ./exploitation.nix
+
+    # Vulnerability scanning tools
+    ./vulnerability-scanners.nix
   ];
 }
