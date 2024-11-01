@@ -14,6 +14,7 @@
 
          ] ++ [
            # YOUR FILES
+           #"/etc/hosts"
          ];
          directories = [
            "/var/log" # systemd journal is stored in /var/log/journal
