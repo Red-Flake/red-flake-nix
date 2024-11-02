@@ -45,6 +45,8 @@ final: prev:
           ${oldAttrs.postFixup or ""}
           wrapProgram $out/bin/mssqlclient.py \
             --prefix OPENSSL_CONF : ${openssl_conf}
+          wrapProgram $out/bin/owneredit.py \
+            --prefix OPENSSL_CONF : ${openssl_conf}
         '';
       });
     };
