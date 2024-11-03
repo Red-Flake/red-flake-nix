@@ -6,7 +6,6 @@
   environment.systemPackages = with pkgs; [
     kdePackages.powerdevil
     krita
-    # krdc broken: Unknown error
     kdePackages.krdc
   ];
 }

@@ -7,6 +7,7 @@
     evil-winrm-patched
     openssh
     freerdp3
+    rdesktop
     remmina
   ];
 }
