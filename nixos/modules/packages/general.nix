@@ -30,7 +30,7 @@
     imagemagick
     strace
     # clamav broken at the moment
-    #clamav
+    clamav
     # xsser broken at the moment due to python nose
     #xsser
     lsd
