@@ -7,6 +7,6 @@
     kdePackages.powerdevil
     krita
     # krdc broken: Unknown error
-    #kdePackages.krdc
+    kdePackages.krdc
   ];
 }

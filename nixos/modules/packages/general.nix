@@ -29,7 +29,6 @@
     redis
     imagemagick
     strace
-    # clamav broken at the moment
     clamav
     # xsser broken at the moment due to python nose
     #xsser
