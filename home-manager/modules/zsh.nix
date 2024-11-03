@@ -113,7 +113,7 @@ in
                     handler = "echo -n \"Enter the port number: \"; read port && stty raw -echo; (echo \"/bin/python3 -c \\\"import pty;pty.spawn('/bin/bash')\\\" || /bin/python -c \\\"import pty;pty.spawn('/bin/bash')\\\" || /bin/python2 -c \\\"import pty;pty.spawn('/bin/bash')\\\" || /bin/ruby -e \\\"exec '/bin/bash'\\\" || /bin/perl -e \\\"exec '/bin/bash';\\\" || /bin/lua -e \\\"require('os');os.execute('/bin/bash')\\\"\"; echo \"stty$(stty -a | awk -F ';' '{print $2 $3}' | head -n 1)\"; echo \"export TERM=xterm-256color\"; echo \"export SHELL=/bin/bash\"; echo reset; /run/current-system/sw/bin/bat) | nc -lvnp \"$port\" && reset";
 
                     # shell aliases
-                    python3-shell = "nix-shell -p python312 python312Packages.pip python312Packages.pipx python312Packages.requests python312Packages.pycryptodome python312Packages.pycrypto";
+                    python3-shell = "nix-shell -p python312 python312Packages.pip python312Packages.pipx python312Packages.requests python312Packages.pycryptodome python312Packages.pycrypto python312Packages.ldap3 python312Packages.pyasn1 python312Packages.impacket python312Packages.rich python312Packages.pycryptodome";
                     python-shell = "python3-shell";
                     python2-shell = "NIXPKGS_ALLOW_INSECURE=1 nix-shell -p python2";
                     ruby-shell = "nix-shell -p ruby bundler";
