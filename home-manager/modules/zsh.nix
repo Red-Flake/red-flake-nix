@@ -105,6 +105,7 @@ in
                     code = "codium";
                     vscode = "codium";
                     vscodium = "codium";
+                    smbclient-ng ="smbclientng";
 
                     # nixos
                     redflake-rebuild = "bash <(curl -L https://raw.githubusercontent.com/Red-Flake/red-flake-nix/main/rebuild.sh)";
