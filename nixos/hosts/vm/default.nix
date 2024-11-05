@@ -43,8 +43,8 @@
     # Services settings
     ../../modules/services.nix
 
-    # Desktop settings
-    ../../modules/desktop.nix
+    # KDE settings
+    ../../modules/kde.nix
 
     # Security settings
     ../../modules/security.nix

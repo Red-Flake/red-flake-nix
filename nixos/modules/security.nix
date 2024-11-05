@@ -5,18 +5,6 @@
   # Enable TPM2 Module
   security.tpm2.enable = true;
 
-  # PAM Settings
-  security.pam.services = {
-    login.kwallet = {
-      enable = true;
-    };
-    kde.kwallet = {
-      enable = true;
-    };
-    kde-fingerprint = lib.mkIf config.services.fprintd.enable { fprintAuth = true; };
-    kde-smartcard = lib.mkIf config.security.pam.p11.enable { p11Auth = true; };
-  };
-
   # sudo settings
   security.sudo = {
     extraConfig = "Defaults lecture=never\nDefaults passwd_timeout=0\nDefaults insults";

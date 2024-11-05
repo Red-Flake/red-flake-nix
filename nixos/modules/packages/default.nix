@@ -13,9 +13,6 @@
     # Version Control Systems
     ./vcs.nix
 
-    # KDE related programs
-    ./kde.nix
-
     # Code editors
     ./editors.nix
 

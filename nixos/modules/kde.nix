@@ -12,6 +12,22 @@ let
   browser = "firefox.desktop";
 in
 {
+  # KDE related packages
+  environment.systemPackages = with pkgs; [
+    # additional KDE packages to be installed
+    kdePackages.powerdevil
+    krita
+    kdePackages.krdc
+
+    # Install custom sddm theme.conf.user
+    (
+      writeTextDir "share/sddm/themes/breeze/theme.conf.user" ''
+        [General]
+        background = ${background-package}
+      ''
+    )
+  ];
+
   # X11 / Wayland settings
   services.xserver = {
      enable = true;
@@ -32,16 +48,6 @@ in
     # Set SDDM theme to breeze
     sddm.theme = "breeze";
   };
-
-  # Install custom sddm theme.conf.user
-  environment.systemPackages = [
-    (
-      pkgs.writeTextDir "share/sddm/themes/breeze/theme.conf.user" ''
-        [General]
-        background = ${background-package}
-      ''
-    )
-  ];
 
   # Desktop-Manager settings
   services.desktopManager = {
@@ -114,6 +120,18 @@ in
 
     # Set default browser to firefox
     DEFAULT_BROWSER = "${pkgs.firefox-bin}/bin/firefox";
+  };
+
+  # KDE PAM Settings
+  security.pam.services = {
+    login.kwallet = {
+      enable = true;
+    };
+    kde.kwallet = {
+      enable = true;
+    };
+    kde-fingerprint = lib.mkIf config.services.fprintd.enable { fprintAuth = true; };
+    kde-smartcard = lib.mkIf config.security.pam.p11.enable { p11Auth = true; };
   };
   
 }
