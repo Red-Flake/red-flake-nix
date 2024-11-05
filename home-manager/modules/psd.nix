@@ -1,6 +1,5 @@
 { config, lib, pkgs, ... }:
 {
-
     xdg.configFile."psd/psd.conf".text = ''
         #
         # $XDG_CONFIG_HOME/psd/psd.conf

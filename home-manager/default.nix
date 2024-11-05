@@ -31,6 +31,7 @@
     ./modules/virtualisation.nix
     ./modules/desktop-files.nix
     ./modules/xdg.nix
+    ./modules/ssh-agent.nix
   ];
 
 
