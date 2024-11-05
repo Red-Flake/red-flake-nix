@@ -171,6 +171,35 @@
               url = "https://github.com/Red-Flake";
             }
             {
+              name = "Wikis";
+              bookmarks = [
+                {
+                  name = "HackTricks";
+                  tags = [ "hacktricks" ];
+                  keyword = "hacktricks";
+                  url = "https://book.hacktricks.xyz/";
+                }
+                {
+                  name = "Payloads All The Things";
+                  tags = [ "payloadsallthethings" ];
+                  keyword = "payloadsallthethings";
+                  url = "https://swisskyrepo.github.io/PayloadsAllTheThings/";
+                }
+                {
+                  name = "Internal All The Things";
+                  tags = [ "internalallthethings" ];
+                  keyword = "internalallthethings";
+                  url = "https://swisskyrepo.github.io/InternalAllTheThings/";
+                }
+                {
+                  name = "Hardware All The Things";
+                  tags = [ "hardwareallthethings" ];
+                  keyword = "hardwareallthethings";
+                  url = "https://swisskyrepo.github.io/HardwareAllTheThings/";
+                }
+              ];
+            }
+            {
               name = "Platforms";
               bookmarks = [
                 {
@@ -366,12 +395,6 @@
               tags = [ "cyberchef" ];
               keyword = "cyberchef";
               url = "https://gchq.github.io/CyberChef/";
-            }
-            {
-              name = "HackTricks";
-              tags = [ "hacktricks" ];
-              keyword = "hacktricks";
-              url = "https://book.hacktricks.xyz/";
             }
             {
               name = "Synk Code Checker";
