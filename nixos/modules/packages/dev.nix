@@ -10,5 +10,6 @@
     dotnet-runtime_8
     dotnet-aspnetcore_8
     jdk
+    maven
   ];
 }
