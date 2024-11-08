@@ -117,5 +117,8 @@
 
     # Vulnerability scanning tools
     ./vulnerability-scanners.nix
+
+    # Credential related tools
+    ./creds.nix
   ];
 }
