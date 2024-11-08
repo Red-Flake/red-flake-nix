@@ -6,5 +6,6 @@
   environment.systemPackages = with pkgs; [
     proxychains-ng
     ngrok
+    sshuttle
   ];
 }
