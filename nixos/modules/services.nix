@@ -88,9 +88,6 @@
   # use dbus broker as the default implementation
   services.dbus.implementation = "broker";
 
-  # Fix Intel CPU throttling
-  services.throttled.enable = true;
-
   # Enable timesyncd
   services.timesyncd.enable = true;
 
