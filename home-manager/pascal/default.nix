@@ -33,6 +33,7 @@
     ./modules/desktop-files.nix
     ./modules/xdg.nix
     ./modules/ssh-agent.nix
+    ./modules/ssh-config.nix
   ];
 
 
