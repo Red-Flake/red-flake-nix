@@ -12,6 +12,7 @@
   imports = [
     inputs.nur.hmModules.nur
     inputs.plasma-manager.homeManagerModules.plasma-manager
+    ./modules/git.nix
     ./modules/dconf.nix
     ./modules/artwork.nix
     ./modules/theme.nix
@@ -79,8 +80,5 @@
   # this is required for NixOS home-manager to work!
   # let NixOS manage home-manager
   programs.home-manager.enable = false;
-
-  # enable git integration
-  programs.git.enable = true;
 
 }

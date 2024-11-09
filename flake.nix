@@ -183,7 +183,7 @@
                     home.homeDirectory = "/home/pascal";
                     home.stateVersion = "23.05";
                     imports = [
-                      ./home-manager
+                      ./home-manager/pascal
                     ];
                   };
                 };
