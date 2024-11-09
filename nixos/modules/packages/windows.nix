@@ -15,5 +15,6 @@
     python312Packages.bloodyad
     krb5
     samba4Full
+    autobloody
   ];
 }
