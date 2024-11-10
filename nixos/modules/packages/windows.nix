@@ -16,5 +16,6 @@
     krb5
     samba4Full
     autobloody
+    python312Packages.lsassy
   ];
 }
