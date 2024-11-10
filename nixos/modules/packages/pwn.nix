@@ -7,5 +7,6 @@
     edb
     pwndbg
     gef
+    gdb
   ];
 }
