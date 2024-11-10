@@ -30,6 +30,7 @@
       libvdpau-va-gl
       intel-compute-runtime
       ocl-icd
+      vpl-gpu-rt
     ];
     extraPackages32 = with pkgs.pkgsi686Linux; [ intel-vaapi-driver ];
   };
