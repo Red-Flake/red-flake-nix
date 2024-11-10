@@ -27,12 +27,6 @@ in
       ''
     )
   ];
-
-  # X11 / Wayland settings
-  services.xserver = {
-     enable = true;
-     videoDrivers = [ "intel amdgpu nvidia" ];
-  };
    
   # Display-Manager settings
   services.displayManager = {

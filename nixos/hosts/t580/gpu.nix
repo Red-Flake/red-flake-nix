@@ -9,6 +9,12 @@
       "i915"
   ];
 
+  # X11 / Wayland settings
+  services.xserver = {
+     enable = true;
+     videoDrivers = [ "intel" ];
+  };
+
   # Load libva driver for accelerated video
   nixpkgs.config.packageOverrides = pkgs: {
     intel-vaapi-driver = pkgs.intel-vaapi-driver.override { enableHybridCodec = true; };
@@ -22,6 +28,8 @@
       intel-media-driver # LIBVA_DRIVER_NAME=iHD
       intel-vaapi-driver # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
       libvdpau-va-gl
+      intel-compute-runtime
+      ocl-icd
     ];
     extraPackages32 = with pkgs.pkgsi686Linux; [ intel-vaapi-driver ];
   };
