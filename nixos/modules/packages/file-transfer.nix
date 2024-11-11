@@ -6,6 +6,5 @@
   environment.systemPackages = with pkgs; [
     filezilla
     nfs-utils
-    python312Packages.pyftpdlib
   ];
 }
