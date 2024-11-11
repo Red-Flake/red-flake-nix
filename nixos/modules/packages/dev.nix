@@ -12,5 +12,6 @@
     dotnet-aspnetcore_8
     jdk
     maven
+    python312Full
   ];
 }
