@@ -106,6 +106,7 @@ in
                     vscode = "codium";
                     vscodium = "codium";
                     smbclient-ng ="smbclientng";
+                    pyftpdlib = "pipx runpip pyftpdlib install -q pyftpdlib && ~/.local/share/pipx/venvs/pyftpdlib/bin/python -m pyftpdlib";
 
                     # nixos
                     redflake-rebuild = "bash <(curl -L https://raw.githubusercontent.com/Red-Flake/red-flake-nix/main/rebuild.sh)";
