@@ -15,5 +15,6 @@
     python312Full
     python312Packages.pip
     python312Packages.pipx
+    python27Full
   ];
 }
