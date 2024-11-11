@@ -107,6 +107,7 @@ in
                     vscodium = "codium";
                     smbclient-ng ="smbclientng";
                     pyftpdlib = "pipx runpip pyftpdlib install -q pyftpdlib --exists-action i && ~/.local/share/pipx/venvs/pyftpdlib/bin/python -m pyftpdlib";
+                    uploadserver = "pipx run uploadserver";
 
                     # nixos
                     redflake-rebuild = "bash <(curl -L https://raw.githubusercontent.com/Red-Flake/red-flake-nix/main/rebuild.sh)";
