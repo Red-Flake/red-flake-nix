@@ -171,6 +171,83 @@
               url = "https://github.com/Red-Flake";
             }
             {
+              name = "NixOS";
+              bookmarks = [
+                {
+                  name = "Package Search";
+                  tags = [ "nixos" ];
+                  keyword = "nixos";
+                  url = "https://search.nixos.org/packages?channel=unstable";
+                }
+                {
+                  name = "Option Search";
+                  tags = [ "nixos" ];
+                  keyword = "nixos";
+                  url = "https://search.nixos.org/options?channel=unstable";
+                }
+                {
+                  name = "Nix package versions";
+                  tags = [ "nixos" ];
+                  keyword = "nixos";
+                  url = "https://lazamar.co.uk/nix-versions/";
+                }
+                {
+                  name = "Chaotic's Nyx";
+                  tags = [ "nixos" ];
+                  keyword = "nixos";
+                  url = "https://www.nyx.chaotic.cx/";
+                }
+                {
+                  name = "NUR";
+                  tags = [ "nixos" ];
+                  keyword = "nixos";
+                  url = "https://nur.nix-community.org/";
+                }
+                {
+                  name = "Noogle";
+                  tags = [ "nixos" ];
+                  keyword = "nixos";
+                  url = "https://noogle.dev/";
+                }
+                {
+                  name = "Home Manager Options";
+                  tags = [ "homemanager" ];
+                  keyword = "homemanager";
+                  url = "https://home-manager-options.extranix.com/";
+                }
+                {
+                  name = "NixOS & Flakes Book";
+                  tags = [ "nixos" ];
+                  keyword = "nixos";
+                  url = "https://nixos-and-flakes.thiscute.world/introduction/";
+                }
+                {
+                  name = "Nix Pills";
+                  tags = [ "nix" ];
+                  keyword = "nix";
+                  url = "https://nixos.org/guides/nix-pills/";
+                }
+                {
+                  name = "Zero to Nix";
+                  tags = [ "nix" ];
+                  keyword = "nix";
+                  url = "https://zero-to-nix.com/";
+                }
+                {
+                  name = "nix.dev";
+                  tags = [ "nix" ];
+                  keyword = "nix";
+                  url = "https://nix.dev/";
+                }
+                {
+                  name = "Wombat's Book of Nix";
+                  tags = [ "nix" ];
+                  keyword = "nix";
+                  url = "https://mhwombat.codeberg.page/nix-book/";
+                }
+              ];
+            }
+            {
               name = "Wikis";
               bookmarks = [
                 {
