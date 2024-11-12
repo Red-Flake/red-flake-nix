@@ -23,6 +23,9 @@
        # evil-winrm overlay
        (import ../overlays/evil-winrm-overlay)
 
+       # bloodhound-quickwin overlay
+       (import ../overlays/bloodhound-quickwin-overlay)
+       
      ];
      # Configure your nixpkgs instance
      config = {

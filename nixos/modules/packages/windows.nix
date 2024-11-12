@@ -6,6 +6,7 @@
   environment.systemPackages = with pkgs; [
     bloodhound
     bloodhound-py
+    bloodhound-quickwin
     python312Packages.impacket-patched
     openldap
     ldapdomaindump
