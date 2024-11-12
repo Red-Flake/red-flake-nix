@@ -36,7 +36,7 @@ bash <(curl -L https://raw.githubusercontent.com/Red-Flake/red-flake-nix/main/in
 Rebuild the already installed system from the flake
 
 ```bash
-bash <(curl -L https://raw.githubusercontent.com/Red-Flake/red-flake-nix/main/rebuild.sh)
+redflake-rebuild
 ```
 
 <br><br>
