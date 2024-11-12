@@ -17,5 +17,6 @@
     samba4Full
     autobloody
     python312Packages.lsassy
+    ldeep
   ];
 }
