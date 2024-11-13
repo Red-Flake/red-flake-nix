@@ -74,6 +74,9 @@
     # https://github.com/nix-community/impermanence
     impermanence.url = "github:nix-community/impermanence";
 
+    # https://github.com/jchv/nix-binary-ninja
+    nix-binary-ninja.url = "github:jchv/nix-binary-ninja";
+
     # Red-Flake artwork
     artwork = {
       url = "github:Red-Flake/artwork";
@@ -103,6 +106,7 @@
       pre-commit-hooks, 
       home-manager, 
       plasma-manager, 
+      nix-binary-ninja,
       artwork, 
       webshells, 
       tools, 

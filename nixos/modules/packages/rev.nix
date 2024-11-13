@@ -11,5 +11,6 @@
     jadx
     radare2
     avalonia-ilspy
+    inputs.nix-binary-ninja.packages.${system}.binary-ninja-free-wayland
   ];
 }
