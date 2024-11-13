@@ -21,7 +21,7 @@
   systemd.services.systemd-udev-settle.enable = false;
   # snapshot dirs sometimes not accessible
   # https://github.com/NixOS/nixpkgs/issues/257505#issuecomment-2348313665
-  systemd.services. zfs-mount = {
+  systemd.services.zfs-mount = {
     serviceConfig = {
       ExecStart = [ "${lib.getExe' pkgs.util-linux "mount"} -t zfs zroot/persist -o remount" ];
     };
