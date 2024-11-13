@@ -52,6 +52,7 @@
     bolt.listenAddress = ":7687";
     bolt.enable = true;
     https.enable = false;
+    extraServerConfig = "dbms.security.procedures.unrestricted=gds.*\ndbms.security.procedures.allowlist=gds.*\n";
   };
 
   # Fwupd settings
