@@ -21,6 +21,7 @@
            "/var/lib/nixos" # for persisting user uids and gids
          ] ++ [
            # YOUR DIRECTORIES
+           "/root"
            "/etc/NetworkManager/system-connections"
            "/var/lib/NetworkManager"
            "/var/lib/systemd/coredump"
