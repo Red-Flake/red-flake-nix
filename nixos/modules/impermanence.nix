@@ -25,6 +25,7 @@
            "/var/lib/NetworkManager"
            "/var/lib/systemd/coredump"
            "/var/lib/bluetooth"
+           "/var/lib/fwupd"
            "/var/lib/upower"
            "/var/lib/neo4j" # persist neo4j data
            "/var/lib/postgresql" # persist postgres data
