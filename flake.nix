@@ -69,7 +69,7 @@
     };
 
     # https://github.com/thiagokokada/nix-alien
-    #nix-alien.url = "github:thiagokokada/nix-alien";
+    nix-alien.url = "github:thiagokokada/nix-alien";
 
     # https://github.com/nix-community/impermanence
     impermanence.url = "github:nix-community/impermanence";
