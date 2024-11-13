@@ -91,7 +91,7 @@ The following ZFS datasets will be created:
     - zroot/nix (mounted at /nix)
     - zroot/tmp (mounted at /tmp)
     - zroot/persist (mounted at /persist)
-    - zroot/persist/cache (mounted at /persist/cache)"
+    - zroot/cache (mounted at /cache)"
 
 # Check for required commands
 for cmd in blkdiscard sgdisk zpool zfs mkfs.fat mkswap swapon; do
@@ -218,16 +218,16 @@ log "INFO" "Mounting /boot (efi)"
 mount --mkdir "$BOOTDISK" /mnt/boot
 
 log "INFO" "Creating /nix"
-zfs create -o mountpoint=legacy zroot/root/nix
-mount --mkdir -t zfs zroot/root/nix /mnt/nix
+zfs create -o mountpoint=legacy zroot/nix
+mount --mkdir -t zfs zroot/nix /mnt/nix
 
 log "INFO" "Creating /tmp"
-zfs create -o mountpoint=legacy zroot/root/tmp
-mount --mkdir -t zfs zroot/root/tmp /mnt/tmp
+zfs create -o mountpoint=legacy zroot/tmp
+mount --mkdir -t zfs zroot/tmp /mnt/tmp
 
 log "INFO" "Creating /cache"
-zfs create -o mountpoint=legacy zroot/root/cache
-mount --mkdir -t zfs zroot/root/cache /mnt/cache
+zfs create -o mountpoint=legacy zroot/cache
+mount --mkdir -t zfs zroot/cache /mnt/cache
 
 log "INFO" "Creating /home"
 zfs create -o mountpoint=legacy zroot/home

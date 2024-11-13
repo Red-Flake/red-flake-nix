@@ -43,12 +43,16 @@ in
       };
 
       "/nix" = {
-        device = "zroot/root/nix";
+        device = "zroot/nix";
         fsType = "zfs";
       };
 
+      # by default, /tmp is not a tmpfs on nixos as some build artifacts can be stored there
+      # when using / as a small tmpfs for impermanence, /tmp can then easily run out of space,
+      # so create a dataset for /tmp to prevent this
+      # /tmp is cleared on boot via `boot.tmp.cleanOnBoot = true;`
       "/tmp" = {
-        device = "zroot/root/tmp";
+        device = "zroot/tmp";
         fsType = "zfs";
       };
 
@@ -58,8 +62,8 @@ in
         neededForBoot = true;
       };
 
-      "/persist/cache" = {
-        device = "zroot/root/cache";
+      "/cache" = {
+        device = "zroot/cache";
         fsType = "zfs";
         neededForBoot = true;
       };

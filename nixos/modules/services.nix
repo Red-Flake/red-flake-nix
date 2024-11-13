@@ -16,6 +16,17 @@
     trim.enable = true;
   };
 
+
+  # https://github.com/openzfs/zfs/issues/10891
+  systemd.services.systemd-udev-settle.enable = false;
+  # snapshot dirs sometimes not accessible
+  # https://github.com/NixOS/nixpkgs/issues/257505#issuecomment-2348313665
+  systemd.services. zfs-mount = {
+    serviceConfig = {
+      ExecStart = [ "${lib.getExe' pkgs.util-linux "mount"} -t zfs zroot/persist -o remount" ];
+    };
+  };
+
   # Disable power-profiles-daemon (interferes with cpufreq)
   services.power-profiles-daemon.enable = false;
 
@@ -107,7 +118,6 @@
 
    # Make nixos boot slightly faster by turning these off during boot
   systemd.services.NetworkManager-wait-online.enable = false;
-  systemd.services.systemd-udev-settle.enable = false;
 
   # Schedulers from https://wiki.archlinux.org/title/improving_performance
   services.udev.extraRules = ''
