@@ -4,8 +4,12 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    proxychains-ng
+    #proxychains-ng
     ngrok
     sshuttle
   ];
+
+  # enable proxychains
+  # TODO: @Shanzem fix: issue with rebuilding and re-creating config; similar to setup-hosts.nix;
+  #programs.proxychains.enable = true;
 }
