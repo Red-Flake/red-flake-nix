@@ -28,6 +28,9 @@
     # Networking configuration
     ../../modules/networking.nix
 
+    # Hosts configuration
+    ../../modules/setup-hosts.nix
+
     # System packages
     ../../modules/packages
 
