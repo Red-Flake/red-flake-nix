@@ -2,7 +2,10 @@
 
 {
   # make /etc/hosts writable on demand
-  environment.etc.hosts.mode = "0644";
+  #environment.etc.hosts.mode = "0644";
+
+  # Disable NixOS management of `/etc/hosts`.
+  environment.etc."hosts".enable = false;
 
   # make /etc/hostname writable on demand
   environment.etc.hostname.mode = "0644";
