@@ -9,6 +9,7 @@
     gparted
     tree
     wget
+    zip
     unzip
     unrar
     htop
