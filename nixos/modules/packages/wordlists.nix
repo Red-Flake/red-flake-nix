@@ -8,5 +8,6 @@
     crunch
     wordlists
     rockyou
+    username-anarchy
   ];
 }
