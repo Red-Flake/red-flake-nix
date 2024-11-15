@@ -12,6 +12,7 @@
     zip
     unzip
     unrar
+    p7zip
     htop
     btop
     fastfetch
