@@ -1,8 +1,6 @@
 # linWinPwn-overlay.nix
 self: super:
 
-
-
 let
   lib = super.lib;
   mkPoetryApplication = super.poetry2nix.mkPoetryApplication;

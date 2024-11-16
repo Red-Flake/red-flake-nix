@@ -78,7 +78,10 @@
     nix-binary-ninja.url = "github:jchv/nix-binary-ninja";
 
     # https://github.com/nix-community/poetry2nix
-    poetry2nix.url = "github:nix-community/poetry2nix";
+    poetry2nix = {
+      url = "github:nix-community/poetry2nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Red-Flake artwork
     artwork = {
@@ -123,7 +126,7 @@
       nixosConfigurations = {
 
           # Virtual Machine host configuration
-          vm = nixpkgs.lib.nixosSystem {
+          /* vm = nixpkgs.lib.nixosSystem {
             inherit system;
             specialArgs = {
               inherit inputs outputs;
@@ -159,7 +162,7 @@
 
               }
             ];
-          };
+          }; */
             
           # ThnkPad T580 host configuration  
           t580 = nixpkgs.lib.nixosSystem {
