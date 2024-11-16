@@ -25,6 +25,9 @@
 
        # bloodhound-quickwin overlay
        (import ../overlays/bloodhound-quickwin-overlay)
+
+       # linWinPwn overlay
+       (import ../overlays/linWinPwn-overlay)
        
      ];
      # Configure your nixpkgs instance

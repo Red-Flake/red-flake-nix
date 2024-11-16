@@ -19,5 +19,6 @@
     autobloody
     python312Packages.lsassy
     ldeep
+    linWinPwn
   ];
 }
