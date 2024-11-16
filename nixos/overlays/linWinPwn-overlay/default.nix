@@ -1,26 +1,11 @@
 # linWinPwn-overlay.nix
 self: super:
 
+
+
 let
   lib = super.lib;
-
-  # Define custom Python dependencies
-  certipy = super.python3Packages.buildPythonPackage rec {
-    pname = "certipy-ad";
-    version = "4.8.2";
-    src = super.fetchPypi {
-      inherit pname version;
-      sha256 = "sha256-A6p+iY7/KUbDJJT4LC8Vavu8lm/RV+WZeAqxnWOOr1A=";
-    };
-    propagatedBuildInputs = with super.python3Packages; [
-      pycryptodome requests
-    ];
-    meta = with lib; {
-      description = "Active Directory Certificate Services enumeration and abuse";
-      homepage = "https://github.com/ly4k/Certipy";
-      license = lib.licenses.gpl3Plus;
-    };
-  };
+  mkPoetryApplication = super.poetry2nix.mkPoetryApplication;
 
   # Fetch tools using URLs
   tools = [
@@ -47,32 +32,106 @@ let
     sha256 = tool.sha256;
   }) tools;
 
-  # Define Python packages installed via pipx
-  pipxTools = [
-    "git+https://github.com/dirkjanm/ldapdomaindump.git"
-    "git+https://github.com/Pennyw0rth/NetExec.git"
-    "git+https://github.com/fortra/impacket.git"
-    "git+https://github.com/dirkjanm/adidnsdump.git"
-    "git+https://github.com/zer1t0/certi.git"
-    "git+https://github.com/ly4k/Certipy.git"
-    "git+https://github.com/dirkjanm/Bloodhound.py.git"
-    "git+https://github.com/franc-pentest/ldeep.git"
-    "git+https://github.com/garrettfoster13/pre2k.git"
-    "git+https://github.com/zblurx/certsync.git"
-    "hekatomb"
-    "git+https://github.com/blacklanternsecurity/MANSPIDER.git"
-    "git+https://github.com/p0dalirius/Coercer.git"
-    "git+https://github.com/CravateRouge/bloodyAD.git"
-    "git+https://github.com/login-securite/DonPAPI.git"
-    "git+https://github.com/p0dalirius/RDWAtool.git"
-    "git+https://github.com/almandin/krbjack.git"
-    "git+https://github.com/CompassSecurity/mssqlrelay.git"
-    "git+https://github.com/CobblePot59/ADcheck.git"
-    "git+https://github.com/ajm4n/adPEAS.git"
-    "git+https://github.com/oppsec/breads.git"
-    "git+https://github.com/p0dalirius/smbclient-ng.git"
-    "git+https://github.com/ScorpionesLabs/MSSqlPwner.git"
-  ];
+  # Define Python packages
+  manspider = super.python3Packages.buildPythonPackage rec {
+    pname = "manspider";
+    version = "latest";
+    src = super.fetchFromGitHub {
+      owner = "blacklanternsecurity";
+      repo = "MANSPIDER";
+      rev = "master";
+      sha256 = ""; # Fetch and replace with actual hash
+    };
+    propagatedBuildInputs = with super.python3Packages; [ requests colorama ];
+    meta = {
+      description = "Spidering utility to find sensitive information in a file tree.";
+      homepage = "https://github.com/blacklanternsecurity/MANSPIDER";
+      license = lib.licenses.gpl3Plus;
+    };
+  };
+
+  mssqlrelay = super.python3Packages.buildPythonPackage rec {
+    pname = "mssqlrelay";
+    version = "latest";
+    src = super.fetchFromGitHub {
+      owner = "CompassSecurity";
+      repo = "mssqlrelay";
+      rev = "main";
+      sha256 = ""; # Fetch and replace with actual hash
+    };
+    propagatedBuildInputs = with super.python3Packages; [ requests impacket ];
+    meta = {
+      description = "MS SQL relay utility for pentesting.";
+      homepage = "https://github.com/CompassSecurity/mssqlrelay";
+      license = lib.licenses.gpl2;
+    };
+  };
+
+  adcheck = super.python3Packages.buildPythonPackage rec {
+    pname = "adcheck";
+    version = "latest";
+
+    src = super.fetchFromGitHub {
+      owner = "CobblePot59";
+      repo = "ADcheck";
+      rev = "main";
+      sha256 = "sha256-Qn7goamHlcr1cTsEsp8TNCialO1DFD4js2jmYgBBhdg="; # Replace with the correct hash
+    };
+
+    # Use 'other' for non-setuptools-based projects
+    format = "other";
+
+    propagatedBuildInputs = with super.python3Packages; [ requests ldap3 ];
+
+    # Custom install phase to handle the structure
+    installPhase = ''
+      mkdir -p $out/bin
+      cp -r . $out/bin/
+      ln -s $out/bin/run_adcheck.py $out/bin/adcheck
+      chmod +x $out/bin/run_adcheck.py
+    '';
+
+    meta = with lib; {
+      description = "Active Directory checker tool.";
+      homepage = "https://github.com/CobblePot59/ADcheck";
+      license = lib.licenses.mit;
+    };
+  };
+
+  adpeas = super.python3Packages.buildPythonPackage rec {
+    pname = "adPEAS";
+    version = "latest";
+    src = super.fetchFromGitHub {
+      owner = "ajm4n";
+      repo = "adPEAS";
+      rev = "main";
+      sha256 = "sha256-ONowqHCkT4JRQtj2nwb+VRLXcTBviRaw3dIMEqwTDcw="; # Fetch and replace with actual hash
+    };
+    propagatedBuildInputs = with super.python3Packages; [ ldap3 pandas ];
+    meta = {
+      description = "Active Directory post-exploitation enumeration tool.";
+      homepage = "https://github.com/ajm4n/adPEAS";
+      license = lib.licenses.asl20;
+    };
+  };
+
+  mssqlpwner = mkPoetryApplication {
+    pname = "mssqlpwner";
+    version = "latest";
+
+    src = super.fetchFromGitHub {
+      owner = "ScorpionesLabs";
+      repo = "MSSqlPwner";
+      rev = "main";
+      sha256 = "sha256-pMOsoGycs81htwcFN8JfbMMoSIMts4nyek62njpjTug"; # Replace with the correct hash
+    };
+
+    meta = {
+      description = "MS SQL exploitation and enumeration tool.";
+      homepage = "https://github.com/ScorpionesLabs/MSSqlPwner";
+      license = lib.licenses.gpl3Plus;
+    };
+  };
 
 in
 {
@@ -98,7 +157,6 @@ in
 
     buildInputs = [
       (super.python3.withPackages (ps: with ps; [
-        certipy
         ldapdomaindump
         pycryptodome
         impacket
@@ -107,6 +165,8 @@ in
         xlsxwriter
         colorama
         typer
+        bloodhound-py
+        bloodyad
       ]))
       super.nmap
       super.smbmap
@@ -115,7 +175,26 @@ in
       super.openssl
       super.curl
       super.jq
+      super.netexec
+      super.adidnsdump
+      super.certipy
+      super.ldeep
+      super.pre2k
+      super.certsync
+      super.coercer
+      super.donpapi
+      super.rdwatool
+      super.krbjack
+      super.breads-ad
+      super.smbclient-ng
+      super.hekatomb
+      manspider
+      mssqlrelay
+      adcheck
+      adpeas
+      mssqlpwner
     ];
+
 
     installPhase = ''
       mkdir -p $out/bin $out/opt/linWinPwn/scripts
@@ -126,12 +205,6 @@ in
 
       # Copy tools
       ${lib.concatStringsSep "\n" (map (tool: "cp ${tool} $out/opt/linWinPwn/scripts/") fetchTools)}
-
-      # Install Python tools
-      python3 -m venv $out/opt/linWinPwn/.venv
-      source $out/opt/linWinPwn/.venv/bin/activate
-      ${lib.concatStringsSep "\n" (map (tool: "pip install ${tool}") pipxTools)}
-      deactivate
 
       chmod +x $out/opt/linWinPwn/scripts/*
     '';

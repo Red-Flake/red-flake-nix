@@ -77,6 +77,9 @@
     # https://github.com/jchv/nix-binary-ninja
     nix-binary-ninja.url = "github:jchv/nix-binary-ninja";
 
+    # https://github.com/nix-community/poetry2nix
+    poetry2nix.url = "github:nix-community/poetry2nix";
+
     # Red-Flake artwork
     artwork = {
       url = "github:Red-Flake/artwork";
@@ -111,6 +114,7 @@
       webshells, 
       tools, 
       darkmatter-grub-theme,
+      poetry2nix,
       ...
   } @ inputs: let
       inherit (self) outputs;
