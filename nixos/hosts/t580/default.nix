@@ -1,7 +1,12 @@
 # NixOS hosts config for my Thinkpad T580
-{ config, lib, pkgs, inputs, ... }:
-
-{
+{ 
+  config,
+  lib,
+  pkgs,
+  inputs,
+  poetry2nix,
+  ...
+}: {
   # Import other NixOS modules here
   imports = [
     # Nix configuration

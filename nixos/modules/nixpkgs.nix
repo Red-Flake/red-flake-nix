@@ -1,6 +1,11 @@
-{ config, lib, pkgs, modulesPath, inputs, ... }:
-
-{
+{ 
+  config,
+  lib,
+  pkgs,
+  modulesPath,
+  inputs,
+  ...
+}: {
   nixpkgs = {
 
      # Set host platform
@@ -13,6 +18,8 @@
 
        # NUR overlay
        nur.overlay
+
+       poetry2nix.overlays.default
 
        # impacket overlay
        (import ../overlays/impacket-overlay)

@@ -3,7 +3,7 @@ self: super:
 
 let
   # Include poetry2nix
-  poetry2nix = super.poetry2nix;
+  #poetry2nix = import "${inputs.poetry2nix.outPath}";
 
   # Fetch tools using URLs
   tools = [
@@ -31,48 +31,12 @@ let
   }) tools;
 
   # Define Python packages
-  manspider = super.stdenv.mkDerivation rec {
-    pname = "manspider";
-    version = "latest";
-
-    src = super.fetchFromGitHub {
+  manspider = super.poetry2nix.mkPoetryApplication {
+    projectDir = super.fetchFromGitHub {
       owner = "blacklanternsecurity";
       repo = "MANSPIDER";
       rev = "master";
-      sha256 = "sha256-iUANLzLrdHfGWKsCOQ5DJhvvItqXTJd8akzaPqrWuMM"; # Replace with correct hash
-    };
-
-    nativeBuildInputs = with super; [
-      python3
-      python3Packages.pip
-      python3Packages.virtualenv
-      tesseract
-      antiword
-    ];
-
-    propagatedBuildInputs = with super.python3Packages; [
-      requests
-      colorama
-    ];
-
-    installPhase = ''
-      mkdir -p $out/bin
-
-      # Create a virtual environment
-      python3 -m venv $out/venv
-      source $out/venv/bin/activate
-
-      # Install MANSPIDER from source
-      pip install --no-cache-dir ${src}
-
-      # Add an entry point for the tool
-      ln -s $out/venv/bin/manspider $out/bin/manspider
-    '';
-
-    meta = {
-      description = "Spidering utility to find sensitive information in a file tree.";
-      homepage = "https://github.com/blacklanternsecurity/MANSPIDER";
-      license = super.lib.licenses.gpl3Plus;
+      sha256 = "sha256-iUANLzLrdHfGWKsCOQ5DJhvvItqXTJd8akzaPqrWuMM";
     };
   };
 
@@ -141,36 +105,14 @@ let
     };
   };
 
-  # Define mssqlpwner with poetry2nix
-  mssqlpwner = poetry2nix.mkPoetryApplication {
-    pname = "mssqlpwner";
-    version = "latest";
-
-    # Source for MSSqlPwner
-    src = super.fetchFromGitHub {
+  mssqlpwner = super.poetry2nix.mkPoetryApplication {
+    projectDir = super.fetchFromGitHub {
       owner = "ScorpionesLabs";
       repo = "MSSqlPwner";
       rev = "main";
-      sha256 = "sha256-pMOsoGycs81htwcFN8JfbMMoSIMts4nyek62njpjTug"; # Replace with the correct hash
-    };
-
-    # Python dependencies handled automatically via poetry2nix
-    buildInputs = [
-      super.python3Packages.pycryptodome
-      super.python3Packages.impacket
-      super.python3Packages.termcolor
-      super.python3Packages.prompt_toolkit
-      super.python3Packages.requests
-      super.python3Packages.colorama
-    ];
-
-    meta = {
-      description = "Seamlessly interact and pwn MSSQL servers";
-      homepage = "https://github.com/ScorpionesLabs/MSSqlPwner";
-      license = super.lib.licenses.mit;
+      hash = "sha256-pMOsoGycs81htwcFN8JfbMMoSIMts4nyek62njpjTug";
     };
   };
-
 
 in
 {
@@ -196,6 +138,9 @@ in
 
     buildInputs = [
       (super.python3.withPackages (ps: with ps; [
+        mssqlrelay
+        adcheck
+        adpeas
         ldapdomaindump
         pycryptodome
         impacket
@@ -207,6 +152,8 @@ in
         bloodhound-py
         bloodyad
       ]))
+      #manspider  # this build input causes an infinite recursion ...
+      mssqlpwner
       super.nmap
       super.smbmap
       super.john
@@ -227,11 +174,6 @@ in
       super.breads-ad
       super.smbclient-ng
       super.hekatomb
-      manspider
-      mssqlrelay
-      adcheck
-      adpeas
-      mssqlpwner
     ];
 
 
