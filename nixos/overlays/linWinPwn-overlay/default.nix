@@ -68,18 +68,20 @@ let
       sha256 = "sha256-Qn7goamHlcr1cTsEsp8TNCialO1DFD4js2jmYgBBhdg="; # Replace with the correct hash
     };
 
-    # Use 'other' for non-setuptools-based projects
     format = "other";
 
     propagatedBuildInputs = with super.python3Packages; [ requests ldap3 ];
 
-    # Custom install phase to handle the structure
     installPhase = ''
       mkdir -p $out/bin
-      cp -r . $out/bin/
-      ln -s $out/bin/run_adcheck.py $out/bin/adcheck
-      chmod +x $out/bin/run_adcheck.py
-      chmod +x $out/bin/adcheck
+      cp run_adcheck.py $out/bin/
+  
+      # Add shebang line to make the script executable
+      sed -i '1s;^;#!/usr/bin/env python3\n;' $out/bin/run_adcheck.py
+  
+      # Create a symlink for `adcheck` pointing to `run_adcheck.py`
+      ln -sf $out/bin/run_adcheck.py $out/bin/adcheck
+      chmod +x $out/bin/run_adcheck.py $out/bin/adcheck
     '';
 
     meta = {
@@ -88,6 +90,7 @@ let
       license = super.lib.licenses.mit;
     };
   };
+
 
   adpeas = super.python3Packages.buildPythonPackage rec {
     pname = "adPEAS";
@@ -140,8 +143,6 @@ in
     buildInputs = [
       (super.python3.withPackages (ps: with ps; [
         mssqlrelay
-        adcheck
-        adpeas
         ldapdomaindump
         pycryptodome
         impacket
@@ -153,6 +154,8 @@ in
         bloodhound-py
         bloodyad
       ]))
+      adpeas
+      adcheck
       mssqlpwner
       super.nmap
       super.smbmap
@@ -174,6 +177,7 @@ in
       super.breads-ad
       super.smbclient-ng
       super.hekatomb
+      super.enum4linux-ng
     ];
 
     installPhase = ''
@@ -205,7 +209,6 @@ in
           adpeas
           mssqlpwner
           # manspider: manspider broken ???
-          adcheck
           super.ldapdomaindump
           super.python3Packages.pycryptodome
           super.python3Packages.impacket
@@ -233,7 +236,12 @@ in
           super.breads-ad
           super.smbclient-ng
           super.hekatomb
-        ] ++ fetchTools)}"
+          super.enum4linux-ng
+          super.certi
+        ] ++ fetchTools)}:$out/bin"
+
+      # Ensure all binaries in $out/bin are executable
+      chmod +x $out/bin/*
     '';
 
     meta = {
