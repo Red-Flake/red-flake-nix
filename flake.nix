@@ -78,10 +78,7 @@
     nix-binary-ninja.url = "github:jchv/nix-binary-ninja";
 
     # https://github.com/nix-community/poetry2nix
-    poetry2nix = {
-      url = "github:nix-community/poetry2nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    poetry2nix.url = "github:nix-community/poetry2nix";
 
     # Red-Flake artwork
     artwork = {

@@ -2,8 +2,8 @@
 self: super:
 
 let
-  lib = super.lib;
-  mkPoetryApplication = super.poetry2nix.mkPoetryApplication;
+  # Include poetry2nix
+  poetry2nix = super.poetry2nix;
 
   # Fetch tools using URLs
   tools = [
@@ -31,20 +31,48 @@ let
   }) tools;
 
   # Define Python packages
-  manspider = super.python3Packages.buildPythonPackage rec {
+  manspider = super.stdenv.mkDerivation rec {
     pname = "manspider";
     version = "latest";
+
     src = super.fetchFromGitHub {
       owner = "blacklanternsecurity";
       repo = "MANSPIDER";
       rev = "master";
-      sha256 = ""; # Fetch and replace with actual hash
+      sha256 = "sha256-iUANLzLrdHfGWKsCOQ5DJhvvItqXTJd8akzaPqrWuMM"; # Replace with correct hash
     };
-    propagatedBuildInputs = with super.python3Packages; [ requests colorama ];
+
+    nativeBuildInputs = with super; [
+      python3
+      python3Packages.pip
+      python3Packages.virtualenv
+      tesseract
+      antiword
+    ];
+
+    propagatedBuildInputs = with super.python3Packages; [
+      requests
+      colorama
+    ];
+
+    installPhase = ''
+      mkdir -p $out/bin
+
+      # Create a virtual environment
+      python3 -m venv $out/venv
+      source $out/venv/bin/activate
+
+      # Install MANSPIDER from source
+      pip install --no-cache-dir ${src}
+
+      # Add an entry point for the tool
+      ln -s $out/venv/bin/manspider $out/bin/manspider
+    '';
+
     meta = {
       description = "Spidering utility to find sensitive information in a file tree.";
       homepage = "https://github.com/blacklanternsecurity/MANSPIDER";
-      license = lib.licenses.gpl3Plus;
+      license = super.lib.licenses.gpl3Plus;
     };
   };
 
@@ -55,13 +83,13 @@ let
       owner = "CompassSecurity";
       repo = "mssqlrelay";
       rev = "main";
-      sha256 = ""; # Fetch and replace with actual hash
+      sha256 = "sha256-4DtMgu3Gq6J+btbSf68/FddBtp8Gen13F21ugKyNZ7A="; # Fetch and replace with actual hash
     };
     propagatedBuildInputs = with super.python3Packages; [ requests impacket ];
     meta = {
       description = "MS SQL relay utility for pentesting.";
       homepage = "https://github.com/CompassSecurity/mssqlrelay";
-      license = lib.licenses.gpl2;
+      license = super.lib.licenses.gpl2;
     };
   };
 
@@ -89,10 +117,10 @@ let
       chmod +x $out/bin/run_adcheck.py
     '';
 
-    meta = with lib; {
+    meta = {
       description = "Active Directory checker tool.";
       homepage = "https://github.com/CobblePot59/ADcheck";
-      license = lib.licenses.mit;
+      license = super.lib.licenses.mit;
     };
   };
 
@@ -109,14 +137,16 @@ let
     meta = {
       description = "Active Directory post-exploitation enumeration tool.";
       homepage = "https://github.com/ajm4n/adPEAS";
-      license = lib.licenses.asl20;
+      license = super.lib.licenses.asl20;
     };
   };
 
-  mssqlpwner = mkPoetryApplication {
+  # Define mssqlpwner with poetry2nix
+  mssqlpwner = poetry2nix.mkPoetryApplication {
     pname = "mssqlpwner";
     version = "latest";
 
+    # Source for MSSqlPwner
     src = super.fetchFromGitHub {
       owner = "ScorpionesLabs";
       repo = "MSSqlPwner";
@@ -124,12 +154,23 @@ let
       sha256 = "sha256-pMOsoGycs81htwcFN8JfbMMoSIMts4nyek62njpjTug"; # Replace with the correct hash
     };
 
+    # Python dependencies handled automatically via poetry2nix
+    buildInputs = [
+      super.python3Packages.pycryptodome
+      super.python3Packages.impacket
+      super.python3Packages.termcolor
+      super.python3Packages.prompt_toolkit
+      super.python3Packages.requests
+      super.python3Packages.colorama
+    ];
+
     meta = {
-      description = "MS SQL exploitation and enumeration tool.";
+      description = "Seamlessly interact and pwn MSSQL servers";
       homepage = "https://github.com/ScorpionesLabs/MSSqlPwner";
-      license = lib.licenses.gpl3Plus;
+      license = super.lib.licenses.mit;
     };
   };
+
 
 in
 {
@@ -202,15 +243,15 @@ in
       chmod +x $out/bin/linWinPwn
 
       # Copy tools
-      ${lib.concatStringsSep "\n" (map (tool: "cp ${tool} $out/opt/linWinPwn/scripts/") fetchTools)}
+      ${super.lib.concatStringsSep "\n" (map (tool: "cp ${tool} $out/opt/linWinPwn/scripts/") fetchTools)}
 
       chmod +x $out/opt/linWinPwn/scripts/*
     '';
 
-    meta = with lib; {
+    meta = {
       description = "Swiss-Army knife for Active Directory Pentesting using Linux";
       homepage = "https://github.com/lefayjey/linWinPwn";
-      license = lib.licenses.gpl3Plus;
+      license = super.lib.licenses.gpl3Plus;
     };
   };
 }

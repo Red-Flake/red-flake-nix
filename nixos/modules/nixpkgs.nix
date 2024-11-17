@@ -14,9 +14,6 @@
        # NUR overlay
        nur.overlay
 
-       # poetry2nix overlay
-       poetry2nix.overlays.default
-
        # impacket overlay
        (import ../overlays/impacket-overlay)
 
