@@ -79,6 +79,7 @@ let
       cp -r . $out/bin/
       ln -s $out/bin/run_adcheck.py $out/bin/adcheck
       chmod +x $out/bin/run_adcheck.py
+      chmod +x $out/bin/adcheck
     '';
 
     meta = {
@@ -184,19 +185,27 @@ in
 
       # Copy tools to the scripts directory
       ${super.lib.concatStringsSep "\n" (map (tool: ''
-        cp ${tool} $out/opt/linWinPwn/scripts/${tool.name}
-        chmod +x $out/opt/linWinPwn/scripts/${tool.name}
+        cp ${tool} $out/bin/${tool.name}
+        chmod +x $out/bin/${tool.name}
       '') fetchTools)}
+
+      runHook postInstall
     '';
 
     postInstall = ''
       # Wrap the main linWinPwn script
       wrapProgram $out/bin/linWinPwn \
         --set PATH "${super.lib.makeBinPath ([
+          super.which
+          super.iproute2
+          super.gnused
+          super.python3
           mssqlrelay
           adcheck
           adpeas
           mssqlpwner
+          # manspider: manspider broken ???
+          adcheck
           super.ldapdomaindump
           super.python3Packages.pycryptodome
           super.python3Packages.impacket
@@ -225,12 +234,7 @@ in
           super.smbclient-ng
           super.hekatomb
         ] ++ fetchTools)}"
-
-      # Ensure all binaries in $out/bin are executable
-      chmod +x $out/bin/*
     '';
-
-
 
     meta = {
       description = "Swiss-Army knife for Active Directory Pentesting using Linux";
