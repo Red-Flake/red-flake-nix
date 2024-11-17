@@ -152,7 +152,6 @@ in
         bloodhound-py
         bloodyad
       ]))
-      #manspider  # this build input causes an infinite recursion ...
       mssqlpwner
       super.nmap
       super.smbmap
@@ -176,19 +175,62 @@ in
       super.hekatomb
     ];
 
-
     installPhase = ''
       mkdir -p $out/bin $out/opt/linWinPwn/scripts
 
-      # Copy main script
+      # Copy main linWinPwn script to $out/bin
       cp linWinPwn.sh $out/bin/linWinPwn
       chmod +x $out/bin/linWinPwn
 
-      # Copy tools
-      ${super.lib.concatStringsSep "\n" (map (tool: "cp ${tool} $out/opt/linWinPwn/scripts/") fetchTools)}
-
-      chmod +x $out/opt/linWinPwn/scripts/*
+      # Copy tools to the scripts directory
+      ${super.lib.concatStringsSep "\n" (map (tool: ''
+        cp ${tool} $out/opt/linWinPwn/scripts/${tool.name}
+        chmod +x $out/opt/linWinPwn/scripts/${tool.name}
+      '') fetchTools)}
     '';
+
+    postInstall = ''
+      # Wrap the main linWinPwn script
+      wrapProgram $out/bin/linWinPwn \
+        --set PATH "${super.lib.makeBinPath ([
+          mssqlrelay
+          adcheck
+          adpeas
+          mssqlpwner
+          super.ldapdomaindump
+          super.python3Packages.pycryptodome
+          super.python3Packages.impacket
+          super.python3Packages.pandas
+          super.python3Packages.requests
+          super.bloodhound-py
+          super.python3Packages.bloodyad
+          super.nmap
+          super.smbmap
+          super.john
+          super.swig
+          super.openssl
+          super.curl
+          super.jq
+          super.netexec
+          super.adidnsdump
+          super.certipy
+          super.ldeep
+          super.pre2k
+          super.certsync
+          super.coercer
+          super.donpapi
+          super.rdwatool
+          super.krbjack
+          super.breads-ad
+          super.smbclient-ng
+          super.hekatomb
+        ] ++ fetchTools)}"
+
+      # Ensure all binaries in $out/bin are executable
+      chmod +x $out/bin/*
+    '';
+
+
 
     meta = {
       description = "Swiss-Army knife for Active Directory Pentesting using Linux";
