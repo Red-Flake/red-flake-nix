@@ -34,6 +34,9 @@
     # System packages
     ../../modules/packages
 
+    # FHS tweaks
+    ../../modules/fhs.nix
+
     # Sysctl settings
     ../../modules/sysctl.nix
 
