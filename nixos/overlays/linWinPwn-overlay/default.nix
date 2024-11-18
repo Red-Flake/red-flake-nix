@@ -118,6 +118,38 @@ let
     };
   };
 
+  bloodhound-python_ce = super.python3Packages.buildPythonPackage rec {
+    pname = "bloodhound-python_ce";
+    version = "latest";
+
+    src = super.fetchFromGitHub {
+      owner = "dirkjanm";
+      repo = "BloodHound.py";
+      rev = "bloodhound-ce";
+      sha256 = "sha256-wfwkqFl/gG75iwRgiEu+mjyKX9Q5qvbPjuOS6uP7Urk="; # Use nix-prefetch to get the hash
+    };
+
+    propagatedBuildInputs = with super.python3Packages; [
+      ldap3
+      neo4j
+      requests
+      pycryptodome
+    ];
+
+    # Adjust binary name after installation
+    # Adjust binary name in postInstall
+    postInstall = ''
+      mv $out/bin/bloodhound-python $out/bin/bloodhound-python_ce
+      chmod +x $out/bin/bloodhound-python_ce
+    '';
+
+    meta = {
+      description = "BloodHound Python for Active Directory enumeration and analysis (Community Edition)";
+      homepage = "https://github.com/dirkjanm/BloodHound.py/tree/bloodhound-ce";
+      license = super.lib.licenses.mit;
+    };
+  };
+
 in
 {
   linWinPwn = super.stdenv.mkDerivation rec {
@@ -157,6 +189,7 @@ in
       adpeas
       adcheck
       mssqlpwner
+      bloodhound-python_ce
       super.nmap
       super.smbmap
       super.john
@@ -209,6 +242,7 @@ in
           adcheck
           adpeas
           mssqlpwner
+          bloodhound-python_ce
           # manspider: manspider broken ???
           super.ldapdomaindump
           super.python3Packages.pycryptodome
