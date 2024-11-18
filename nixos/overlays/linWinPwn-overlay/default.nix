@@ -75,10 +75,10 @@ let
     installPhase = ''
       mkdir -p $out/bin
       cp run_adcheck.py $out/bin/
-  
+
       # Add shebang line to make the script executable
       sed -i '1s;^;#!/usr/bin/env python3\n;' $out/bin/run_adcheck.py
-  
+
       # Create a symlink for `adcheck` pointing to `run_adcheck.py`
       ln -sf $out/bin/run_adcheck.py $out/bin/adcheck
       chmod +x $out/bin/run_adcheck.py $out/bin/adcheck
@@ -200,6 +200,7 @@ in
       # Wrap the main linWinPwn script
       wrapProgram $out/bin/linWinPwn \
         --set PATH "${super.lib.makeBinPath ([
+          super.coreutils
           super.which
           super.iproute2
           super.gnused
