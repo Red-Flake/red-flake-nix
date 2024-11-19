@@ -493,6 +493,7 @@
 
     policies = {
       
+      ## to find the correct GUID of an extension go to https://addons.mozilla.org/, open any extension page, view the page source code and search for "guid", then use this value for the extension name.
       ExtensionSettings = {
         "addon@darkreader.org" = {
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/darkreader/latest.xpi";
