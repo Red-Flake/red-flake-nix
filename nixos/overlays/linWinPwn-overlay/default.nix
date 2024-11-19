@@ -31,12 +31,91 @@ let
   }) tools;
 
   # Define Python packages
-  manspider = super.poetry2nix.mkPoetryApplication {
-    projectDir = super.fetchFromGitHub {
+  # Define textract manually
+  textract = super.stdenv.mkDerivation rec {
+    pname = "textract";
+    version = "latest";
+
+    src = super.fetchFromGitHub {
+      owner = "tehabstract";
+      repo = "textract";
+      rev = "master";
+      sha256 = "sha256-QypO4ZjmmHQtHKHmVqd5vETifEDo5v6ELx42GeE1N5w="; # Replace with the correct hash
+    };
+
+    nativeBuildInputs = [
+      super.python3
+    ];
+
+    propagatedBuildInputs = with super.python312Packages; [
+      six
+      chardet
+      xlrd
+      lxml
+      python-magic
+    ];
+
+    installPhase = ''
+      mkdir -p $out/lib/python3.12/site-packages
+      cp -r ./* $out/lib/python3.12/site-packages/
+      chmod -R a+rX $out/lib/python3.12/site-packages
+    '';
+
+    meta = {
+      description = "Text extraction library for various file formats";
+      homepage = "https://github.com/tehabstract/textract";
+      license = super.lib.licenses.mit;
+    };
+  };
+
+  # Define manspider with textract as a built input
+  manspider = super.stdenv.mkDerivation rec {
+    pname = "manspider";
+    version = "1.0.4";
+
+    src = super.fetchFromGitHub {
       owner = "blacklanternsecurity";
       repo = "MANSPIDER";
       rev = "master";
-      sha256 = "sha256-iUANLzLrdHfGWKsCOQ5DJhvvItqXTJd8akzaPqrWuMM";
+      sha256 = "sha256-iUANLzLrdHfGWKsCOQ5DJhvvItqXTJd8akzaPqrWuMM"; # Replace with the correct hash
+    };
+
+    nativeBuildInputs = [
+      super.python3
+      super.python312Packages.six
+      super.python312Packages.chardet
+      super.python312Packages.xlrd
+      super.python312Packages.lxml
+      super.python312Packages.python-magic
+    ];
+
+    propagatedBuildInputs = with super.python312Packages; [
+      impacket
+      textract
+    ];
+
+    installPhase = ''
+      mkdir -p $out/lib/python3.12/site-packages $out/bin
+
+      # Copy the MANSPIDER code manually to the site-packages
+      cp -r man_spider $out/lib/python3.12/site-packages/
+      chmod -R a+rX $out/lib/python3.12/site-packages/man_spider
+
+      # Create a wrapper script for the `manspider` CLI
+      cat > $out/bin/manspider <<'EOF'
+      #!/usr/bin/env python3
+      import sys
+      from man_spider.manspider import main
+      sys.exit(main())
+      EOF
+
+      chmod +x $out/bin/manspider
+    '';
+
+    meta = {
+      description = "Full-featured SMB spider capable of searching file content";
+      homepage = "https://github.com/blacklanternsecurity/MANSPIDER";
+      license = super.lib.licenses.gpl3;
     };
   };
 
@@ -190,6 +269,7 @@ in
       adcheck
       mssqlpwner
       bloodhound-python_ce
+      manspider
       super.nmap
       super.smbmap
       super.john
@@ -244,7 +324,7 @@ in
           adpeas
           mssqlpwner
           bloodhound-python_ce
-          # manspider: manspider broken ???
+          manspider
           super.ldapdomaindump
           super.python3Packages.pycryptodome
           super.python3Packages.impacket
