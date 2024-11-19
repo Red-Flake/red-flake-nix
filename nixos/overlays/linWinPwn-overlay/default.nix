@@ -211,6 +211,7 @@ in
       super.smbclient-ng
       super.hekatomb
       super.enum4linux-ng
+      super.evil-winrm-patched
     ];
 
     installPhase = ''
@@ -273,6 +274,7 @@ in
           super.hekatomb
           super.enum4linux-ng
           super.certi
+          super.evil-winrm-patched
         ] ++ fetchTools)}:$out/bin"
 
       # Ensure all binaries in $out/bin are executable
