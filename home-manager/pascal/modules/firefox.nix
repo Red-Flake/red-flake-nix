@@ -534,6 +534,11 @@
           installation_mode = "force_installed";
           default_area = "navbar";
         };
+        "{f1423c11-a4e2-4709-a0f8-6d6a68c83d08}" = {
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/hacktools/latest.xpi";
+          installation_mode = "force_installed";
+          default_area = "navbar";
+        };
         "default-compact-dark-theme@glitchii.github.io" = {
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/default-compact-dark-theme/latest.xpi";
           installation_mode = "force_installed";
