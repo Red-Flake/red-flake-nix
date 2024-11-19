@@ -245,6 +245,12 @@
                   keyword = "nix";
                   url = "https://mhwombat.codeberg.page/nix-book/";
                 }
+                {
+                  name = "Plasma-Manager Options";
+                  tags = [ "nix" ];
+                  keyword = "nix";
+                  url = "https://nix-community.github.io/plasma-manager/options.xhtml";
+                }
               ];
             }
             {
