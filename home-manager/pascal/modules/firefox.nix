@@ -304,6 +304,18 @@
                   url = "https://ctf.hackthebox.com";
                 }
                 {
+                  name = "Vulnlab";
+                  tags = [ "vulnlab" ];
+                  keyword = "vulnlab";
+                  url = "https://www.vulnlab.com/";
+                }
+                {
+                  name = "PortSwigger Academy";
+                  tags = [ "portswigger" ];
+                  keyword = "portswigger";
+                  url = "https://portswigger.net/web-security";
+                }
+                {
                   name = "TryHackMe";
                   tags = [ "thm" ];
                   keyword = "thm";
@@ -314,12 +326,6 @@
                   tags = [ "overthewire" ];
                   keyword = "overthewire";
                   url = "https://overthewire.org/wargames/";
-                }
-                {
-                  name = "PortSwigger Academy";
-                  tags = [ "portswigger" ];
-                  keyword = "portswigger";
-                  url = "https://portswigger.net/web-security";
                 }
               ];
             }
