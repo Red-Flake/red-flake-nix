@@ -120,5 +120,8 @@
 
     # Credential related tools
     ./creds.nix
+
+    # Cloud related tools
+    ./cloud.nix
   ];
 }
