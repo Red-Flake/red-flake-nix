@@ -54,5 +54,6 @@
     wayland-utils
     acpi
     inetutils
+    libfaketime
   ];
 }
