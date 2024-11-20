@@ -12,16 +12,16 @@
   };
 
   hardware = {
-      # enable firmware with a license allowing redistribution
-      enableRedistributableFirmware = true;
+    # enable firmware with a license allowing redistribution
+    enableRedistributableFirmware = lib.mkForce true;
 
-      # enable all firmware regardless of license
-      enableAllFirmware = true;
-    };
+    # enable all firmware regardless of license
+    enableAllFirmware = lib.mkForce true;
+  };
 
-    services = {
-      # Workaround for Intel throttling issues in Linux.
-      throttled.enable = true;
-    };
+  services = {
+    # Workaround for Intel throttling issues in Linux.
+    throttled.enable = true;
+  };
 
 }
