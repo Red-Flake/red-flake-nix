@@ -51,6 +51,8 @@
               "audio"
               "storage"
               "libvirtd"
+              "video"
+              "render"
             ];
           };
         };
