@@ -14,7 +14,7 @@
 
          ] ++ [
            # YOUR FILES
-           #"/etc/hosts"
+           "/etc/responder/Responder.conf"
          ];
          directories = [
            "/var/log" # systemd journal is stored in /var/log/journal

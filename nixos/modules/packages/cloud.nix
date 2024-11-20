@@ -7,5 +7,6 @@
     azure-cli
     google-cloud-sdk
     awscli2
+    cloudlist
   ];
 }
