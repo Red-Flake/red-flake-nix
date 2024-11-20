@@ -80,6 +80,9 @@
     # https://github.com/nix-community/poetry2nix
     poetry2nix.url = "github:nix-community/poetry2nix";
 
+    # https://github.com/NixOS/nixos-hardware
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+
     # Red-Flake artwork
     artwork = {
       url = "github:Red-Flake/artwork";
@@ -115,6 +118,7 @@
       tools, 
       darkmatter-grub-theme,
       poetry2nix,
+      nixos-hardware,
       ...
   } @ inputs: let
       inherit (self) outputs;
@@ -170,6 +174,7 @@
             };
             modules = [
               chaotic.nixosModules.default
+              nixos-hardware.nixosModules.lenovo-thinkpad-t590
               darkmatter-grub-theme.nixosModule
               inputs.impermanence.nixosModules.impermanence
 

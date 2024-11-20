@@ -17,14 +17,6 @@
 
       # enable all firmware regardless of license
       enableAllFirmware = true;
-
-      cpu = {
-        intel = {
-          # update the CPU microcode for Intel processors
-          updateMicrocode = true;
-        };
-      };
-
     };
 
     services = {
