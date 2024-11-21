@@ -8,5 +8,6 @@
     google-cloud-sdk
     awscli2
     cloudlist
+    gcp-scanner
   ];
 }
