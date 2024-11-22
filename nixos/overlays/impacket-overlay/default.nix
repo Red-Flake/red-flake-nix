@@ -49,6 +49,8 @@ final: prev:
             --prefix OPENSSL_CONF : ${openssl_conf}
           wrapProgram $out/bin/dacledit.py \
           --prefix OPENSSL_CONF : ${openssl_conf}
+          wrapProgram $out/bin/rbcd.py \
+          --prefix OPENSSL_CONF : ${openssl_conf}
         '';
       });
     };
