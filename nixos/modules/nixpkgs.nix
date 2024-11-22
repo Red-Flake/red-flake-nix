@@ -35,6 +35,9 @@
 
        # linWinPwn overlay
        (import ../overlays/linWinPwn-overlay)
+
+       # ldapdomaindump overlay
+       (import ../overlays/ldapdomaindump-overlay)
        
      ];
      # Configure your nixpkgs instance
