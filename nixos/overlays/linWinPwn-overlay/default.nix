@@ -139,8 +139,8 @@ let
     src = super.fetchFromGitHub {
       owner = "CobblePot59";
       repo = "ADcheck";
-      rev = "main";
-      sha256 = "sha256-8fcb15e7cc5d5ade86fcf745eb204d13ca8ba8ef"; # Replace with the correct hash
+      rev = "8fcb15e7cc5d5ade86fcf745eb204d13ca8ba8ef";
+      sha256 = "sha256-lPNMzQLYLAsR3YvtGOnFnXiCBxbuZIkw0FmftAqE08c="; # Replace with the correct hash
     };
 
     format = "other";
