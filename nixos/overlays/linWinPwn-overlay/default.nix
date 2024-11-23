@@ -134,13 +134,13 @@ let
 
   adcheck = super.python3Packages.buildPythonPackage rec {
     pname = "adcheck";
-    version = "latest";
+    version = "1.5.0";
 
     src = super.fetchFromGitHub {
       owner = "CobblePot59";
       repo = "ADcheck";
       rev = "main";
-      sha256 = "sha256-Qn7goamHlcr1cTsEsp8TNCialO1DFD4js2jmYgBBhdg="; # Replace with the correct hash
+      sha256 = "sha256-8fcb15e7cc5d5ade86fcf745eb204d13ca8ba8ef"; # Replace with the correct hash
     };
 
     format = "other";
