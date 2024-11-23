@@ -44,7 +44,7 @@
     lshw-gui
     thunderbird-bin
     helvum
-    mission-center
+    #mission-center
     psmisc
     aha
     pciutils

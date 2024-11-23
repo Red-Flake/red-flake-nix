@@ -149,14 +149,14 @@ let
 
     installPhase = ''
       mkdir -p $out/bin
-      cp run_adcheck.py $out/bin/
+      cp adcheck/app.py $out/bin/
 
       # Add shebang line to make the script executable
-      sed -i '1s;^;#!/usr/bin/env python3\n;' $out/bin/run_adcheck.py
+      sed -i '1s;^;#!/usr/bin/env python3\n;' $out/bin/app.py
 
-      # Create a symlink for `adcheck` pointing to `run_adcheck.py`
-      ln -sf $out/bin/run_adcheck.py $out/bin/adcheck
-      chmod +x $out/bin/run_adcheck.py $out/bin/adcheck
+      # Create a symlink for `adcheck` pointing to `app.py`
+      ln -sf $out/bin/app.py $out/bin/adcheck
+      chmod +x $out/bin/adcheck
     '';
 
     meta = {

@@ -4,7 +4,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    libreoffice-qt6-fresh
+    #libreoffice-qt6-fresh   # compiles from source and takes ages to compile
     freeoffice
   ];
 }
