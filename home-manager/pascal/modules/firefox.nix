@@ -474,6 +474,23 @@
               ];
             }
             {
+              name = "Reporting";
+              bookmarks = [
+                {
+                  name = "Offsec Sysreptor";
+                  tags = [ "sysreptor" ];
+                  keyword = "sysreptor";
+                  url = "https://oscp.sysreptor.com/";
+                }
+                {
+                  name = "HTB Sysreptor ";
+                  tags = [ "sysreptor" ];
+                  keyword = "sysreptor";
+                  url = "https://htb.sysreptor.com/";
+                }
+              ];
+            }
+            {
               name = "Crackstation";
               tags = [ "crackstation" ];
               keyword = "crackstation";
