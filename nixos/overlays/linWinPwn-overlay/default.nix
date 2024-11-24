@@ -28,7 +28,7 @@ let
 
   # Define Python packages
   # Define textract manually
-  textract = super.stdenv.mkDerivation rec {
+  textract = self.stdenv.mkDerivation rec {
     pname = "textract";
     version = "latest";
 
@@ -36,14 +36,14 @@ let
       owner = "tehabstract";
       repo = "textract";
       rev = "master";
-      sha256 = "sha256-QypO4ZjmmHQtHKHmVqd5vETifEDo5v6ELx42GeE1N5w="; # Replace with the correct hash
+      sha256 = "sha256-QypO4ZjmmHQtHKHmVqd5vETifEDo5v6ELx42GeE1N5w=";
     };
 
     nativeBuildInputs = [
-      super.python3
+      python3
     ];
 
-    propagatedBuildInputs = with super.python312Packages; [
+    propagatedBuildInputs = with python3Packages; [
       six
       chardet
       xlrd
@@ -52,9 +52,9 @@ let
     ];
 
     installPhase = ''
-      mkdir -p $out/lib/python3.12/site-packages
-      cp -r ./* $out/lib/python3.12/site-packages/
-      chmod -R a+rX $out/lib/python3.12/site-packages
+      mkdir -p $out/lib/${python3.pythonVersion}/site-packages
+      cp -r ./* $out/lib/${python3.pythonVersion}/site-packages/
+      chmod -R a+rX $out/lib/${python3.pythonVersion}/site-packages
     '';
 
     meta = {
@@ -64,8 +64,9 @@ let
     };
   };
 
+
   # Define manspider with textract as a built input
-  manspider = super.stdenv.mkDerivation rec {
+  manspider = self.stdenv.mkDerivation rec {
     pname = "manspider";
     version = "1.0.4";
 
@@ -73,29 +74,29 @@ let
       owner = "blacklanternsecurity";
       repo = "MANSPIDER";
       rev = "master";
-      sha256 = "sha256-iUANLzLrdHfGWKsCOQ5DJhvvItqXTJd8akzaPqrWuMM"; # Replace with the correct hash
+      sha256 = "sha256-iUANLzLrdHfGWKsCOQ5DJhvvItqXTJd8akzaPqrWuMM";
     };
 
     nativeBuildInputs = [
-      super.python3
-      super.python312Packages.six
-      super.python312Packages.chardet
-      super.python312Packages.xlrd
-      super.python312Packages.lxml
-      super.python312Packages.python-magic
+      python3
+      python3Packages.six
+      python3Packages.chardet
+      python3Packages.xlrd
+      python3Packages.lxml
+      python3Packages.python-magic
     ];
 
-    propagatedBuildInputs = with super.python312Packages; [
+    propagatedBuildInputs = with python3Packages; [
       impacket
       textract
     ];
 
     installPhase = ''
-      mkdir -p $out/lib/python3.12/site-packages $out/bin
+      mkdir -p $out/lib/${python3.pythonVersion}/site-packages $out/bin
 
       # Copy the MANSPIDER code manually to the site-packages
-      cp -r man_spider $out/lib/python3.12/site-packages/
-      chmod -R a+rX $out/lib/python3.12/site-packages/man_spider
+      cp -r man_spider $out/lib/${python3.pythonVersion}/site-packages/
+      chmod -R a+rX $out/lib/${python3.pythonVersion}/site-packages/man_spider
 
       # Create a wrapper script for the `manspider` CLI
       cat > $out/bin/manspider <<'EOF'
@@ -115,16 +116,16 @@ let
     };
   };
 
-  mssqlrelay = super.python3Packages.buildPythonPackage rec {
+  mssqlrelay = python3Packages.buildPythonPackage rec {
     pname = "mssqlrelay";
     version = "latest";
     src = super.fetchFromGitHub {
       owner = "CompassSecurity";
       repo = "mssqlrelay";
       rev = "main";
-      sha256 = "sha256-4DtMgu3Gq6J+btbSf68/FddBtp8Gen13F21ugKyNZ7A="; # Fetch and replace with actual hash
+      sha256 = "sha256-4DtMgu3Gq6J+btbSf68/FddBtp8Gen13F21ugKyNZ7A=";
     };
-    propagatedBuildInputs = with super.python3Packages; [ requests impacket ];
+    propagatedBuildInputs = with python3Packages; [ requests impacket ];
     meta = {
       description = "MS SQL relay utility for pentesting.";
       homepage = "https://github.com/CompassSecurity/mssqlrelay";
@@ -132,7 +133,7 @@ let
     };
   };
 
-  adcheck = super.python3Packages.buildPythonPackage rec {
+  adcheck = python3Packages.buildPythonPackage rec {
     pname = "adcheck";
     version = "1.5.0";
 
@@ -140,12 +141,12 @@ let
       owner = "CobblePot59";
       repo = "ADcheck";
       rev = "8fcb15e7cc5d5ade86fcf745eb204d13ca8ba8ef";
-      sha256 = "sha256-lPNMzQLYLAsR3YvtGOnFnXiCBxbuZIkw0FmftAqE08c="; # Replace with the correct hash
+      sha256 = "sha256-lPNMzQLYLAsR3YvtGOnFnXiCBxbuZIkw0FmftAqE08c=";
     };
 
     format = "other";
 
-    propagatedBuildInputs = with super.python3Packages; [ requests ldap3 ];
+    propagatedBuildInputs = with python3Packages; [ requests ldap3 ];
 
     installPhase = ''
       mkdir -p $out/bin
@@ -166,17 +167,16 @@ let
     };
   };
 
-
-  adpeas = super.python3Packages.buildPythonPackage rec {
+  adpeas = python3Packages.buildPythonPackage rec {
     pname = "adPEAS";
     version = "latest";
     src = super.fetchFromGitHub {
       owner = "ajm4n";
       repo = "adPEAS";
       rev = "main";
-      sha256 = "sha256-ONowqHCkT4JRQtj2nwb+VRLXcTBviRaw3dIMEqwTDcw="; # Fetch and replace with actual hash
+      sha256 = "sha256-ONowqHCkT4JRQtj2nwb+VRLXcTBviRaw3dIMEqwTDcw=";
     };
-    propagatedBuildInputs = with super.python3Packages; [ ldap3 pandas ];
+    propagatedBuildInputs = with python3Packages; [ ldap3 pandas ];
     meta = {
       description = "Active Directory post-exploitation enumeration tool.";
       homepage = "https://github.com/ajm4n/adPEAS";
@@ -185,15 +185,16 @@ let
   };
 
   mssqlpwner = super.poetry2nix.mkPoetryApplication {
+    python = python3;
     projectDir = super.fetchFromGitHub {
       owner = "ScorpionesLabs";
       repo = "MSSqlPwner";
       rev = "main";
-      hash = "sha256-pMOsoGycs81htwcFN8JfbMMoSIMts4nyek62njpjTug";
+      sha256 = "sha256-pMOsoGycs81htwcFN8JfbMMoSIMts4nyek62njpjTug";
     };
   };
 
-  bloodhound-python_ce = super.python3Packages.buildPythonPackage rec {
+  bloodhound-python_ce = python3Packages.buildPythonPackage rec {
     pname = "bloodhound-python_ce";
     version = "latest";
 
@@ -201,18 +202,16 @@ let
       owner = "dirkjanm";
       repo = "BloodHound.py";
       rev = "bloodhound-ce";
-      sha256 = "sha256-wfwkqFl/gG75iwRgiEu+mjyKX9Q5qvbPjuOS6uP7Urk="; # Use nix-prefetch to get the hash
+      sha256 = "sha256-wfwkqFl/gG75iwRgiEu+mjyKX9Q5qvbPjuOS6uP7Urk=";
     };
 
-    propagatedBuildInputs = with super.python3Packages; [
+    propagatedBuildInputs = with python3Packages; [
       ldap3
       neo4j
       requests
       pycryptodome
     ];
 
-    # Adjust binary name after installation
-    # Adjust binary name in postInstall
     postInstall = ''
       mv $out/bin/bloodhound-python $out/bin/bloodhound-python_ce
       chmod +x $out/bin/bloodhound-python_ce
@@ -225,9 +224,28 @@ let
     };
   };
 
+  python3 = super.python312.override {
+    packageOverrides = python-self: python-super: {
+      ldap3 = python-super.ldap3.overrideAttrs (oldAttrs: rec {
+        propagatedBuildInputs = oldAttrs.propagatedBuildInputs ++ [ python-super.pycryptodome ];
+      });
+
+      # Optionally, override ldapdomaindump if needed
+      ldapdomaindump = python-super.ldapdomaindump.overrideAttrs (oldAttrs: rec {
+        propagatedBuildInputs = oldAttrs.propagatedBuildInputs ++ [ python-self.ldap3 ];
+      });
+    };
+  };
+
+  # Use `python3.pkgs` for Python packages
+  python3Packages = python3.pkgs;
+
 in
 {
-  linWinPwn = super.stdenv.mkDerivation rec {
+  # Use `python3` from `self` (overridden)
+  inherit python3;
+
+  linWinPwn = self.stdenv.mkDerivation rec {
     pname = "linWinPwn";
     version = "latest";
 
@@ -239,16 +257,16 @@ in
     };
 
     nativeBuildInputs = [
-      super.makeWrapper
-      super.unzip
-      super.python3Packages.pip
-      super.python3Packages.setuptools
-      super.python3Packages.virtualenv
-      super.git
+      self.makeWrapper
+      self.unzip
+      python3Packages.pip
+      python3Packages.setuptools
+      python3Packages.virtualenv
+      self.git
     ];
 
     buildInputs = [
-      (super.python3.withPackages (ps: with ps; [
+      (python3.withPackages (ps: with ps; [
         mssqlrelay
         ldapdomaindump
         pycryptodome
@@ -260,45 +278,52 @@ in
         typer
         bloodhound-py
         bloodyad
+        ps.ldap3
       ]))
       adpeas
       adcheck
       mssqlpwner
       bloodhound-python_ce
       manspider
-      super.nmap
-      super.smbmap
-      super.john
-      super.swig
-      super.openssl
-      super.curl
-      super.jq
-      super.netexec
-      super.adidnsdump
-      super.certipy
-      super.ldeep
-      super.pre2k
-      super.certsync
-      super.coercer
-      super.donpapi
-      super.rdwatool
-      super.krbjack
-      super.breads-ad
-      super.smbclient-ng
-      super.hekatomb
-      super.enum4linux-ng
-      super.evil-winrm-patched
+      self.nmap
+      self.smbmap
+      self.john
+      self.swig
+      self.openssl
+      self.curl
+      self.jq
+      self.netexec
+      self.adidnsdump
+      self.certipy
+      self.ldeep
+      self.pre2k
+      self.certsync
+      self.coercer
+      self.donpapi
+      self.rdwatool
+      self.krbjack
+      self.breads-ad
+      self.smbclient-ng
+      self.hekatomb
+      self.enum4linux-ng
+      self.evil-winrm-patched
+      self.util-linux
     ];
 
     installPhase = ''
-      mkdir -p $out/bin $out/opt/linWinPwn/scripts
+      mkdir -p $out/bin $out/usr/bin $out/opt/linWinPwn/scripts
+
+      # Perform substitutions on linWinPwn.sh
+      substituteInPlace linWinPwn.sh \
+          --replace-quiet "/bin/touch" "touch" \
+          --replace-quiet "/usr/bin/script" "script"
 
       # Copy main linWinPwn script to $out/bin
       cp linWinPwn.sh $out/bin/linWinPwn
       chmod +x $out/bin/linWinPwn
 
       # Copy tools to the scripts directory
-      ${super.lib.concatStringsSep "\n" (map (tool: ''
+      ${self.lib.concatStringsSep "\n" (map (tool: ''
         cp ${tool} $out/bin/${tool.name}
         chmod +x $out/bin/${tool.name}
       '') fetchTools)}
@@ -309,49 +334,54 @@ in
     postInstall = ''
       # Wrap the main linWinPwn script
       wrapProgram $out/bin/linWinPwn \
-        --set PATH "${super.lib.makeBinPath ([
-          super.coreutils
-          super.which
-          super.iproute2
-          super.gnused
-          super.python3
+        --set PATH "${self.lib.makeBinPath ([
+          self.coreutils
+          self.which
+          self.iproute2
+          self.gnused
+          python3
+          self.gnugrep
+          self.gawk
+          self.util-linux
+          self.sudo
+          self.findutils
           mssqlrelay
           adcheck
           adpeas
           mssqlpwner
           bloodhound-python_ce
           manspider
-          super.ldapdomaindump
-          super.python3Packages.pycryptodome
-          super.python3Packages.impacket
-          super.python3Packages.pandas
-          super.python3Packages.requests
-          super.bloodhound-py
-          super.python3Packages.bloodyad
-          super.nmap
-          super.smbmap
-          super.john
-          super.swig
-          super.openssl
-          super.curl
-          super.jq
-          super.netexec
-          super.adidnsdump
-          super.certipy
-          super.ldeep
-          super.pre2k
-          super.certsync
-          super.coercer
-          super.donpapi
-          super.rdwatool
-          super.krbjack
-          super.breads-ad
-          super.smbclient-ng
-          super.hekatomb
-          super.enum4linux-ng
-          super.certi
-          super.evil-winrm-patched
-        ] ++ fetchTools)}:$out/bin"
+          python3Packages.impacket
+          python3Packages.ldapdomaindump
+          python3Packages.pycryptodome
+          python3Packages.pandas
+          python3Packages.requests
+          python3Packages.bloodhound-py
+          python3Packages.bloodyad
+          self.nmap
+          self.smbmap
+          self.john
+          self.swig
+          self.openssl
+          self.curl
+          self.jq
+          self.netexec
+          self.adidnsdump
+          self.certipy
+          self.ldeep
+          self.pre2k
+          self.certsync
+          self.coercer
+          self.donpapi
+          self.rdwatool
+          self.krbjack
+          self.breads-ad
+          self.smbclient-ng
+          self.hekatomb
+          self.enum4linux-ng
+          self.certi
+          self.evil-winrm-patched
+        ] ++ fetchTools)}:$out/bin:$out/usr/bin"
 
       # Ensure all binaries in $out/bin are executable
       chmod +x $out/bin/*
@@ -363,4 +393,5 @@ in
       license = super.lib.licenses.gpl3Plus;
     };
   };
+
 }
