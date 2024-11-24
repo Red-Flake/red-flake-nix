@@ -10,5 +10,6 @@
     mariadb
     sqlcmd
     sqsh
+    mdbtools
   ];
 }
