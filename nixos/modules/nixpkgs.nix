@@ -44,6 +44,9 @@
 
        # pyGPOAbuse overlay
        (import ../overlays/pyGPOAbuse-overlay)
+
+       # spose overlay
+       (import ../overlays/spose-overlay)
      ];
      # Configure your nixpkgs instance
      config = {

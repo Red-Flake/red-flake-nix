@@ -7,6 +7,7 @@
     #proxychains-ng
     ngrok
     sshuttle
+    spose
   ];
 
   # enable proxychains
