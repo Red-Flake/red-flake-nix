@@ -8,5 +8,6 @@
     smbmap
     enum4linux-ng
     smbclient-ng
+    SMB_Killer
   ];
 }

@@ -38,7 +38,9 @@
 
        # ldapdomaindump overlay
        (import ../overlays/ldapdomaindump-overlay)
-       
+
+       # SMB_Killer overlay
+       (import ../overlays/SMB_Killer-overlay)
      ];
      # Configure your nixpkgs instance
      config = {
