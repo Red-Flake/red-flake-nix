@@ -88,6 +88,8 @@
     # SSH settings
     ../../modules/ssh.nix
 
+    # Proxy settings
+    ../../modules/proxies.nix
   ];
 
   # Set hostname
