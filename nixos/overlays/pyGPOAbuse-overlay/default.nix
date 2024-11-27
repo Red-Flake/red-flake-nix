@@ -11,8 +11,8 @@ in
     src = super.fetchFromGitHub {
       owner = "Red-Flake";
       repo = "pyGPOAbuse";
-      rev = "77c42dd6ef2bed509ff49359429c58aacfcf6f19"; # (commit hash)
-      sha256 = "0ar2njrikirblb8jnifdwf9dh14j7y24drp41cfcks2yj8nhdb53"; # (nix-prefetch-url --unpack https://github.com/Red-Flake/pyGPOAbuse/archive/77c42dd6ef2bed509ff49359429c58aacfcf6f19.tar.gz)
+      rev = "9dc995ea0c7f866ee1d7307f9005ad3216fbaf3f"; # (commit hash)
+      sha256 = "1kc5w6l4p3w9mqw66byssz8rgm6hnc1qag42hqsnq6lgyvkz3r7m"; # (nix-prefetch-url --unpack https://github.com/Red-Flake/pyGPOAbuse/archive/9dc995ea0c7f866ee1d7307f9005ad3216fbaf3f.tar.gz)
     };
 
     meta = with lib; {
