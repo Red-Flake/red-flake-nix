@@ -20,5 +20,6 @@
     python312Packages.lsassy
     ldeep
     linWinPwn
+    python312Packages.xlsxwriter
   ];
 }

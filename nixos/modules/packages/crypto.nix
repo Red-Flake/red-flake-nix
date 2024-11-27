@@ -6,5 +6,6 @@
   environment.systemPackages = with pkgs; [
     cryptsetup
     keepassxc
+    openssl_legacy
   ];
 }
