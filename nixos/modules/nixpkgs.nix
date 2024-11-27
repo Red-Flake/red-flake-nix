@@ -41,6 +41,9 @@
 
        # SMB_Killer overlay
        (import ../overlays/SMB_Killer-overlay)
+
+       # pyGPOAbuse overlay
+       (import ../overlays/pyGPOAbuse-overlay)
      ];
      # Configure your nixpkgs instance
      config = {

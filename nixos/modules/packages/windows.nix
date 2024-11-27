@@ -21,5 +21,6 @@
     ldeep
     linWinPwn
     python312Packages.xlsxwriter
+    pyGPOAbuse
   ];
 }
