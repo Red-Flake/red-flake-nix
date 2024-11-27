@@ -30,9 +30,6 @@
     # Bootloader configuration
     ../../modules/bootloader.nix
 
-    # GPU configuration for Thinkpad T580
-    #./gpu.nix
-
     # Networking configuration
     ../../modules/networking.nix
 
