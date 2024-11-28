@@ -252,8 +252,8 @@ in
     src = super.fetchFromGitHub {
       owner = "lefayjey";
       repo = "linWinPwn";
-      rev = "main";
-      sha256 = "sha256-1W9QlgmM91TqHNYXYPlvkfYDFBd2gGoZMYP8z6ASYnU=";
+      rev = "d6226338a77da7af802249aa1da89bb7e71a5492";
+      sha256 = "sha256-OrnHhCyvSkA1dBqTcY7Ib1MWsgR/6xHDOsKPbjjZYsI=";
     };
 
     nativeBuildInputs = [
