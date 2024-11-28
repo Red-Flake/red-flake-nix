@@ -105,7 +105,7 @@
 
   outputs = { 
       self, 
-      nixpkgs, 
+      nixpkgs,
       impermanence,
       chaotic, 
       flake-parts, 
