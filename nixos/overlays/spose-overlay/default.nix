@@ -11,8 +11,8 @@ in
     src = super.fetchFromGitHub {
       owner = "Red-Flake";
       repo = "spose";
-      rev = "90673eeb8ccd003cc629648c7bbcb2ef2486592d"; # (commit hash)
-      sha256 = "15gkq6cp59a3lbyfi7p78l1yhg64vkmxa9ybywhs4phipn8xwx5h"; # (nix-prefetch-url --unpack https://github.com/Red-Flake/spose/archive/90673eeb8ccd003cc629648c7bbcb2ef2486592d.tar.gz)
+      rev = "978d5f17d85a6eaf2b3647f197eea450751429ef"; # (commit hash)
+      sha256 = "0j88gn7mn7bzjka3zi1qspq1i0nl1l5pxwdi17ibxf0wz6k6xidg"; # (nix-prefetch-url --unpack https://github.com/Red-Flake/spose/archive/978d5f17d85a6eaf2b3647f197eea450751429ef.tar.gz)
     };
 
     meta = with lib; {
