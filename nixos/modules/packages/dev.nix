@@ -16,7 +16,9 @@
     python312Packages.pip
     python312Packages.pipx
     python27Full
-    pkgs.pkgsCross.mingwW64.buildPackages.gcc
-    pkgs.pkgsCross.mingwW64.buildPackages.binutils
+    pkgs.pkgsCross.mingwW64.buildPackages.gcc          # x86_64-w64-mingw32-gcc & g++
+    pkgs.pkgsCross.mingw32.buildPackages.gcc           # i686-w64-mingw32-gcc & g++
+    pkgs.pkgsCross.mingwW64.buildPackages.binutils     # Binutils for 64-bit
+    pkgs.pkgsCross.mingw32.buildPackages.binutils      # Binutils for 32-bit
   ];
 }
