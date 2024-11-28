@@ -16,5 +16,7 @@
     python312Packages.pip
     python312Packages.pipx
     python27Full
+    pkgs.pkgsCross.mingwW64.buildPackages.gcc
+    pkgs.pkgsCross.mingwW64.buildPackages.binutils
   ];
 }
