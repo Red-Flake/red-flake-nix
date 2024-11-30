@@ -15,6 +15,7 @@
     powershell
     python312Packages.bloodyad
     krb5
+    krb5.dev
     samba4Full
     autobloody
     python312Packages.lsassy
