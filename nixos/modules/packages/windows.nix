@@ -14,8 +14,8 @@
     netexec
     powershell
     python312Packages.bloodyad
-    krb5
-    krb5.dev
+    krb5Full
+    krb5Full.dev
     samba4Full
     autobloody
     python312Packages.lsassy
