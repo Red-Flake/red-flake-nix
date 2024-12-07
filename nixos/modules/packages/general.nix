@@ -55,5 +55,6 @@
     acpi
     inetutils
     libfaketime
+    wireguard-tools
   ];
 }
