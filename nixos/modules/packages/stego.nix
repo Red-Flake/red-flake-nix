@@ -6,5 +6,6 @@
   environment.systemPackages = with pkgs; [
     steghide
     stegseek
+    zsteg
   ];
 }
