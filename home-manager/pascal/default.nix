@@ -55,6 +55,7 @@
       packages = with pkgs; [
           papirus-icon-theme
           bibata-cursors
+          sweet-nova
           oh-my-zsh
           zsh-autosuggestions
           zsh-completions
