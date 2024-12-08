@@ -12,8 +12,8 @@
       package = pkgs.papirus-icon-theme;
     };
     cursorTheme = {
-      name = "Bibata-Modern-Classic";
-      package = pkgs.bibata-cursors;
+      name = "Sweet-cursors";
+      package = pkgs.sweet-nova;
       size = 24;
     };
     gtk2 = {
