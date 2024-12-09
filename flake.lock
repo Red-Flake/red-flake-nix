@@ -720,11 +720,11 @@
     "webshells": {
       "flake": false,
       "locked": {
-        "lastModified": 1720624690,
-        "narHash": "sha256-HFQnDjmYryxZ0/NE6JQxEsRuYz8oOnWkw76tCDcjY9U=",
+        "lastModified": 1733773181,
+        "narHash": "sha256-yTQMfJ9+eeWEWsqj6WssQy79uNM6NBC0cmM3kkiN2IM=",
         "owner": "Red-Flake",
         "repo": "webshells",
-        "rev": "fd3870f3ed06a05b974b49411d3a108ce2f6027e",
+        "rev": "515b3f172497b783bf7104fa2883a85b64113f1a",
         "type": "github"
       },
       "original": {
