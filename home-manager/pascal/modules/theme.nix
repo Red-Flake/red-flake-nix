@@ -56,10 +56,10 @@
 
   # Set X11 cursor theme
   home.pointerCursor = {
-    name = "Bibata-Modern-Classic";
+    name = "Sweet-cursors";
     gtk.enable = true;
     x11.enable = true;
-    package = pkgs.bibata-cursors;
+    package = pkgs.sweet-nova;
     size = 24;
   };
 
