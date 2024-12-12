@@ -56,5 +56,6 @@
     inetutils
     libfaketime
     wireguard-tools
+    wol
   ];
 }
