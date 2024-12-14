@@ -6,5 +6,6 @@
   environment.systemPackages = with pkgs; [
     #libreoffice-qt6-fresh   # compiles from source and takes ages to compile
     freeoffice
+    onlyoffice-desktopeditors
   ];
 }

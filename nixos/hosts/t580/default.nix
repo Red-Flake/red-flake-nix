@@ -96,6 +96,9 @@
     # Proxy settings
     ../../modules/proxies.nix
 
+    # AppImage settings
+    ../../modules/appimage.nix
+
   ];
 
   # Set hostname
