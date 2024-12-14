@@ -5,5 +5,6 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     python312Packages.aiosmtpd
+    swaks
   ];
 }
