@@ -9,5 +9,6 @@
     freerdp3
     rdesktop
     remmina
+    moonlight-qt
   ];
 }
