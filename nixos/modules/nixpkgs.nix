@@ -47,6 +47,9 @@
 
        # spose overlay
        (import ../overlays/spose-overlay)
+
+       # netexec overlay
+       (import ../overlays/netexec-overlay)
      ];
      # Configure your nixpkgs instance
      config = {
