@@ -123,5 +123,8 @@
 
     # Cloud related tools
     ./cloud.nix
+
+    # SNMP tools
+    ./snmp.nix
   ];
 }
