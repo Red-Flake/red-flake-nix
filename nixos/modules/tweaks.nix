@@ -12,4 +12,10 @@
 
   # enable nix-ld; needed for `nix-alien-ld`
   programs.nix-ld.enable = true;
+
+  # fix issue where dotnet does not find the installed runtime; see: https://nixos.wiki/wiki/DotNET
+  environment.sessionVariables = {
+    DOTNET_ROOT = "${pkgs.dotnet-sdk}";
+  };
+
 }
