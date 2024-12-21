@@ -122,8 +122,8 @@ let
     src = super.fetchFromGitHub {
       owner = "CompassSecurity";
       repo = "mssqlrelay";
-      rev = "main";
-      sha256 = "sha256-4DtMgu3Gq6J+btbSf68/FddBtp8Gen13F21ugKyNZ7A=";
+      rev = "bd764b9ba2be25374f26d277bebae54eb1be00b2";
+      sha256 = "sha256-nNLtaD/CC3Fyk+VMOFmUyJdyP5jxBMcqChF3Zsm6vhI="; # Replace with the SHA-256 hash of the new source; nix-prefetch-url --unpack "https://github.com/CompassSecurity/mssqlrelay/archive/bd764b9ba2be25374f26d277bebae54eb1be00b2.tar.gz"
     };
     propagatedBuildInputs = with python3Packages; [ requests impacket ];
     meta = {
