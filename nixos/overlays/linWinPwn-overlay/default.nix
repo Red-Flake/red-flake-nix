@@ -35,7 +35,7 @@ let
     src = super.fetchFromGitHub {
       owner = "tehabstract";
       repo = "textract";
-      rev = "master";
+      rev = "0c80ff5727061587442fc5a1886c668d53e8d16d";
       sha256 = "sha256-QypO4ZjmmHQtHKHmVqd5vETifEDo5v6ELx42GeE1N5w=";
     };
 
@@ -73,8 +73,8 @@ let
     src = super.fetchFromGitHub {
       owner = "blacklanternsecurity";
       repo = "MANSPIDER";
-      rev = "master";
-      sha256 = "sha256-iUANLzLrdHfGWKsCOQ5DJhvvItqXTJd8akzaPqrWuMM";
+      rev = "30ce682f1ec521c47596a2bccd20131ab4ca0e4a";
+      sha256 = "sha256-iUANLzLrdHfGWKsCOQ5DJhvvItqXTJd8akzaPqrWuMM=";
     };
 
     nativeBuildInputs = [
@@ -173,8 +173,8 @@ let
     src = super.fetchFromGitHub {
       owner = "ajm4n";
       repo = "adPEAS";
-      rev = "main";
-      sha256 = "sha256-ONowqHCkT4JRQtj2nwb+VRLXcTBviRaw3dIMEqwTDcw=";
+      rev = "bda3e0c01b61320e51d592e04fa01e82c0c2d440";
+      sha256 = "sha256-GfEgYadvj0p3nTvOyELiNn5lYE+4sLoLojTSQcxUARo=";
     };
     propagatedBuildInputs = with python3Packages; [ ldap3 pandas ];
     meta = {
@@ -189,8 +189,8 @@ let
     projectDir = super.fetchFromGitHub {
       owner = "ScorpionesLabs";
       repo = "MSSqlPwner";
-      rev = "main";
-      sha256 = "sha256-pMOsoGycs81htwcFN8JfbMMoSIMts4nyek62njpjTug";
+      rev = "a30f41f191d542695e9e19bcc711e2dd1af85abd";
+      sha256 = "sha256-pMOsoGycs81htwcFN8JfbMMoSIMts4nyek62njpjTug=";
     };
   };
 
@@ -201,7 +201,7 @@ let
     src = super.fetchFromGitHub {
       owner = "dirkjanm";
       repo = "BloodHound.py";
-      rev = "bloodhound-ce";
+      rev = "093be56a3ff4a0529b5029a31a254f989acc3476"; # branch: bloodhound-ce
       sha256 = "sha256-wfwkqFl/gG75iwRgiEu+mjyKX9Q5qvbPjuOS6uP7Urk=";
     };
 
