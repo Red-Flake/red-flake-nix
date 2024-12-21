@@ -127,7 +127,7 @@
       nixosConfigurations = {
 
           # Virtual Machine host configuration
-          /* vm = nixpkgs.lib.nixosSystem {
+          vm = nixpkgs.lib.nixosSystem {
             inherit system;
             specialArgs = {
               inherit inputs outputs;
@@ -163,7 +163,7 @@
 
               }
             ];
-          }; */
+          };
             
           # ThnkPad T580 host configuration  
           t580 = nixpkgs.lib.nixosSystem {
