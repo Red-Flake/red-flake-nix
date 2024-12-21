@@ -343,8 +343,7 @@ chown -R root:shadow /mnt/persist/etc/shadow.d/
 chmod -R 640 /mnt/persist/etc/shadow.d/
 
 log "INFO" "Installing Red-Flake with host profile ${HOST} for user ${USER} on disk ${DISK}..."
-nix-shell -p git nixFlakes --command \
-    "nixos-install --no-root-password --flake \"${FLAKE}/${GIT_REV:-main}#$HOST\""
+nixos-install --no-root-password --flake "${FLAKE}/${GIT_REV:-main}#$HOST" --option tarball-ttl 0
 
 log "INFO" "Syncing disk writes..."
 sync
