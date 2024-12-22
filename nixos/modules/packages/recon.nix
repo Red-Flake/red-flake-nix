@@ -5,6 +5,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     nmap
+    nmapAutomator
     wafw00f
     nikto
     davtest

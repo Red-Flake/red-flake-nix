@@ -50,6 +50,9 @@
 
        # netexec overlay
        (import ../overlays/netexec-overlay)
+
+       # nmapAutomator overlay
+       (import ../overlays/nmapAutomator-overlay)
      ];
      # Configure your nixpkgs instance
      config = {
