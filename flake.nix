@@ -156,7 +156,7 @@
                     home.homeDirectory = "/home/redflake";
                     home.stateVersion = "23.05";
                     imports = [
-                      ./home-manager
+                      ./home-manager/redflake
                     ];
                   };
                 };
