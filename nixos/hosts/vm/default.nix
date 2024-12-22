@@ -23,7 +23,7 @@
     ../../modules/bootloader.nix
 
     # GPU configuration
-    ../../modules/gpu.nix
+    #../../modules/gpu.nix
 
     # Networking configuration
     ../../modules/networking.nix
