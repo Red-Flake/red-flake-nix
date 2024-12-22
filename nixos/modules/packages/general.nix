@@ -57,5 +57,6 @@
     libfaketime
     wireguard-tools
     wol
+    e2fsprogs
   ];
 }
