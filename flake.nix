@@ -126,8 +126,8 @@
   in {
       nixosConfigurations = {
 
-          # Virtual Machine host configuration
-          vm = nixpkgs.lib.nixosSystem {
+          # KVM host configuration
+          kvm = nixpkgs.lib.nixosSystem {
             inherit system;
             specialArgs = {
               inherit inputs outputs;
@@ -138,7 +138,46 @@
               darkmatter-grub-theme.nixosModule
               inputs.impermanence.nixosModules.impermanence
 
-              ./nixos/hosts/vm
+              ./nixos/hosts/kvm
+              {
+                imports = [ inputs.home-manager.nixosModules.home-manager ];
+
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+
+                home-manager.extraSpecialArgs = { 
+                  inherit inputs;
+                  user = "redflake";
+                };
+
+                home-manager.users = {
+                  redflake = {
+                    home.username = "redflake";
+                    home.homeDirectory = "/home/redflake";
+                    home.stateVersion = "23.05";
+                    imports = [
+                      ./home-manager/redflake
+                    ];
+                  };
+                };
+
+              }
+            ];
+          };
+
+          # VMWare host configuration
+          vmware = nixpkgs.lib.nixosSystem {
+            inherit system;
+            specialArgs = {
+              inherit inputs outputs;
+              user = "redflake";
+            };
+            modules = [
+              chaotic.nixosModules.default
+              darkmatter-grub-theme.nixosModule
+              inputs.impermanence.nixosModules.impermanence
+
+              ./nixos/hosts/vmware
               {
                 imports = [ inputs.home-manager.nixosModules.home-manager ];
 

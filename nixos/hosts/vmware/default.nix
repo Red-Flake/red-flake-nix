@@ -10,6 +10,9 @@
     # Nixpkgs configuration
     ../../modules/nixpkgs.nix
 
+    # Additional hardware configuration for VMware
+    ./hardware.nix
+
     # Additional hardware configuration
     ../../modules/hardware.nix
 
@@ -96,7 +99,7 @@
   ];
 
   # Set hostname
-  networking.hostName = "redflake-vm";
+  networking.hostName = "redflake-vmware";
 
   # Set random hostId (needed for ZFS)
   networking.hostId = builtins.substring 0 8 (builtins.hashString "md5" config.networking.hostName);

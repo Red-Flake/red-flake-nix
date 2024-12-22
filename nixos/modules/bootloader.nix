@@ -86,7 +86,7 @@ in
               else if config.hardware.cpu.intel.updateMicrocode then
                   "/dev/disk/by-id"
               else
-                "/dev/disk/by-partuuid";
+                "/dev/disk/by-path";
 
           package = pkgs.zfs_unstable;
           requestEncryptionCredentials = cfg.encryption;
