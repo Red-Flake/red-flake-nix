@@ -53,6 +53,9 @@
 
        # nmapAutomator overlay
        (import ../overlays/nmapAutomator-overlay)
+
+       # autobloody overlay
+       (import ../overlays/autobloody-overlay)
      ];
      # Configure your nixpkgs instance
      config = {
