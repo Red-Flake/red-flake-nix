@@ -34,6 +34,7 @@
     ./modules/xdg.nix
     ./modules/ssh-agent.nix
     ./modules/ssh-config.nix
+    ./modules/jadx.nix
   ];
 
 
