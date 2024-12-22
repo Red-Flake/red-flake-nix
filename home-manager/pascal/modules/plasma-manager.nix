@@ -191,6 +191,17 @@
     };
 
     #
+    # Keyboard layout settings
+    #
+    input.keyboard.layouts = [
+      {
+        displayName = "de";
+        layout = "de";
+        #variant = "intl";
+      }
+    ];
+
+    #
     # Some low-level settings:
     #
     configFile = {
