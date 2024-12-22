@@ -683,11 +683,11 @@
     "tools": {
       "flake": false,
       "locked": {
-        "lastModified": 1734900443,
-        "narHash": "sha256-/sRGQNA+YLxsZ/cvy3XEgOt6F9gnWNE8GGNYdAHer68=",
+        "lastModified": 1734900732,
+        "narHash": "sha256-W405VeJ/qUU0MgqY3LRuG0BhLHpyAk2ah5iEHPPSWVA=",
         "owner": "Red-Flake",
         "repo": "tools",
-        "rev": "83f0454a9fc3f5f9e2a317e559a98066410fa8d8",
+        "rev": "c3c5fd246ae724c8d15414940fbaac0a221c6b91",
         "type": "github"
       },
       "original": {
