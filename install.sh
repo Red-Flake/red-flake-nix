@@ -346,7 +346,7 @@ log "INFO" "Installing Red-Flake with host profile ${HOST} for user ${USER} on d
 nixos-install --no-root-password --flake "${FLAKE}/${GIT_REV:-main}#$HOST" --option tarball-ttl 0
 
 log "INFO" "Syncing disk writes..."
-syncvm
+sync
 
 log "INFO" "Setting up persistence..."
 
