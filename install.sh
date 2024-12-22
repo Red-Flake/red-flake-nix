@@ -247,9 +247,9 @@ mount --mkdir -t zfs zroot/persist /mnt/persist
 
 
 while true; do
-    read -rp "Which host to install? (vm / t580) " HOST
+    read -rp "Which host to install? (kvm / vmware / t580) " HOST
     case $HOST in
-        vm|t580 ) break;;
+        kvm|vmware|t580 ) break;;
         * ) echo "Invalid host. Please select a valid host.";;
     esac
 done
@@ -293,7 +293,7 @@ done
 
 # Set username based on chosen host
 case $HOST in
-    vm )
+    kvm | vmware )
         USER="redflake"
         ;;
     t580 )
@@ -346,7 +346,7 @@ log "INFO" "Installing Red-Flake with host profile ${HOST} for user ${USER} on d
 nixos-install --no-root-password --flake "${FLAKE}/${GIT_REV:-main}#$HOST" --option tarball-ttl 0
 
 log "INFO" "Syncing disk writes..."
-sync
+syncvm
 
 log "INFO" "Setting up persistence..."
 
