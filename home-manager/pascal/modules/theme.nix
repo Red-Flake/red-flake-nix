@@ -39,20 +39,21 @@
   # force creation of ~/.config/gtk-4.0/settings.ini otherwise home-manager will fail
   xdg.configFile."gtk-4.0/settings.ini".force = true;
 
-  # dconf settings broken atm
   # Fix GTK themes not applied in Wayland
-  #dconf = {
-  #  enable = true;
-  #  settings = {
-  #    "org/gnome/desktop/interface" = {
-  #      gtk-theme = lib.mkForce "Breeze-Dark";
-  #      icon-theme = lib.mkForce "Papirus-Dark";
-  #      color-scheme = lib.mkForce "prefer-dark";
-  #      cursor-theme = lib.mkForce "Bibata-Modern-Classic";
-  #      cursor-size = lib.mkForce 24;
-  #    };
-  #  };
-  #};
+  dconf = {
+    enable = true;
+    settings = {
+
+      "org/gnome/desktop/interface" = {
+        gtk-theme = lib.mkForce "Breeze-Dark";
+        icon-theme = lib.mkForce "Papirus-Dark";
+        color-scheme = lib.mkForce "prefer-dark";
+        cursor-theme = lib.mkForce "Sweet-cursors";
+        cursor-size = lib.mkForce 24;
+      };
+      
+    };
+  };
 
   # Set X11 cursor theme
   home.pointerCursor = {
