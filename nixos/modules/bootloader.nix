@@ -31,7 +31,6 @@ in
         "rd.systemd.show_status=false"
         "nowatchdog"
         "kernel.nmi_watchdog=0"
-        "nomce"
         "mitigations=off"
         "libahci.ignore_sss=1"
         "modprobe.blacklist=iTCO_wdt"
@@ -46,7 +45,7 @@ in
       ];
 
       # Switch to Xanmod kernel
-      kernelPackages = pkgs.linuxPackages;
+      kernelPackages = pkgs.linuxPackages_xanmod_latest;
 
       # Initramfs settings
       initrd = {

@@ -24,4 +24,8 @@
     throttled.enable = true;
   };
 
+  environment.systemPackages = with pkgs; [
+    intel-compute-runtime
+  ];
+
 }
