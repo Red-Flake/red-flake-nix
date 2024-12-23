@@ -56,6 +56,9 @@
 
        # autobloody overlay
        (import ../overlays/autobloody-overlay)
+
+       # social-engineer-toolkit overlay
+       (import ../overlays/social-engineer-toolkit)
      ];
      # Configure your nixpkgs instance
      config = {
