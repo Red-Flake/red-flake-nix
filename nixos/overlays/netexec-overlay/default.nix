@@ -45,7 +45,7 @@ final: prev:
 
   netexec = final.python3.pkgs.buildPythonApplication rec {
     pname = "netexec";
-    version = "1.3.0"; # Updated version
+    version = "unstable-21.12.2024"; # Updated version
     pyproject = true;
     pythonRelaxDeps = true;
     pythonRemoveDeps = [
@@ -56,8 +56,8 @@ final: prev:
     src = final.fetchFromGitHub {
       owner = "Pennyw0rth";
       repo = "NetExec";
-      rev = "6d4fdfdb2d0088405ea3139f4145f198671a0fda"; # Replace with the updated revision if needed
-      hash = "sha256-Pub7PAw6CTN4c/PHTPE9KcnDR2a6hSza1ODp3EWMOH0="; # Replace with the SHA-256 hash of the new source; nix-prefetch-url --unpack "https://github.com/Pennyw0rth/NetExec/archive/6d4fdfdb2d0088405ea3139f4145f198671a0fda.tar.gz"
+      rev = "07980ea48648d24569bdf1a6d569b3c5bd707c81"; # Replace with the updated revision if needed
+      hash = "sha256-RklauS/FAfLWq3+5oJkxxl2QHpZxP1eSoEfRsbOqhs8="; # Replace with the SHA-256 hash of the new source; nix-prefetch-url --unpack "https://github.com/Pennyw0rth/NetExec/archive/6d4fdfdb2d0088405ea3139f4145f198671a0fda.tar.gz"
     };
 
     postPatch = ''
@@ -103,6 +103,7 @@ final: prev:
       xmltodict
       python-dateutil
       pynfsclient
+      jwt
     ];
 
     nativeCheckInputs = with final.python3.pkgs; [];  # Skip tests
