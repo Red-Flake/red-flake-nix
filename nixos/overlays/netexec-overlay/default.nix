@@ -6,7 +6,7 @@ final: prev:
     self = final.python3;
     packageOverrides = self: super: {
       impacket = super.impacket.overridePythonAttrs (old: {
-        version = "unstable"; # Updated version
+        version = "16.12.2024"; # Updated version
         src = final.fetchFromGitHub {
           owner = "fortra"; # Replace with the official or updated repository owner
           repo = "impacket";
@@ -45,7 +45,7 @@ final: prev:
 
   netexec = final.python3.pkgs.buildPythonApplication rec {
     pname = "netexec";
-    version = "unstable-21.12.2024"; # Updated version
+    version = "21.12.2024"; # Updated version
     pyproject = true;
     pythonRelaxDeps = true;
     pythonRemoveDeps = [
