@@ -58,6 +58,5 @@
     wireguard-tools
     wol
     e2fsprogs
-    ghostty.packages.x86_64-linux.default
   ];
 }

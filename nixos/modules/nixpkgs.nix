@@ -59,6 +59,9 @@
 
        # social-engineer-toolkit overlay
        (import ../overlays/social-engineer-toolkit)
+
+       # username-anarchy-overlay
+       (import ../overlays/username-anarchy-overlay)
      ];
      # Configure your nixpkgs instance
      config = {

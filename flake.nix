@@ -83,10 +83,6 @@
     # https://github.com/NixOS/nixos-hardware
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
-    ghostty = {
-      url = "github:ghostty-org/ghostty";
-    };
-
     # Red-Flake artwork
     artwork = {
       url = "github:Red-Flake/artwork";
@@ -123,7 +119,6 @@
       darkmatter-grub-theme,
       poetry2nix,
       nixos-hardware,
-      ghostty,
       ...
   } @ inputs: let
       inherit (self) outputs;
