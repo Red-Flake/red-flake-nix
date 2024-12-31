@@ -7,5 +7,6 @@
     filezilla
     nfs-utils
     python312Packages.wsgidav
+    lftp
   ];
 }
