@@ -24,5 +24,6 @@
     python312Packages.xlsxwriter
     pyGPOAbuse
     python312Packages.pypykatz
+    wmiexec-Pro
   ];
 }

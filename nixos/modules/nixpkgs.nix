@@ -62,6 +62,9 @@
 
        # username-anarchy-overlay
        (import ../overlays/username-anarchy-overlay)
+
+       # wmiexec-Pro-overlay
+       (import ../overlays/wmiexec-Pro-overlay)
      ];
      # Configure your nixpkgs instance
      config = {
