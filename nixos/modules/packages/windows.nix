@@ -25,5 +25,6 @@
     pyGPOAbuse
     python312Packages.pypykatz
     wmiexec-Pro
+    coercer
   ];
 }
