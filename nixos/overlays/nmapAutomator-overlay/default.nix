@@ -21,11 +21,18 @@ self: super:
     installPhase = ''
       mkdir -p $out/bin
       install -m755 ${src} $out/bin/nmapAutomator
+
+      # Create a symlink for nmap.sh
+      ln -s $out/bin/nmapAutomator $out/bin/nmap.sh
     '';
 
     # Use wrapProgram in postInstallPhase
     postInstall = ''
+      # Wrap nmapAutomator with its environment
       wrapProgram $out/bin/nmapAutomator --set NMAP_PATH ${super.nmap}
+
+      # Wrap nmap.sh with the same environment
+      wrapProgram $out/bin/nmap.sh --set NMAP_PATH ${super.nmap}
     '';
 
     meta = with super.lib; {
