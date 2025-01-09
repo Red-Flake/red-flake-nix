@@ -1,6 +1,6 @@
 {
   "performance": {
-    "edge": 5,
+    "edge": 0,
     "lowGraphics": false,
     "nodeLabels": 1,
     "edgeLabels": 1,
