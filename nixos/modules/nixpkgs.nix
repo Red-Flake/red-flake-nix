@@ -65,6 +65,9 @@
 
        # wmiexec-Pro-overlay
        (import ../overlays/wmiexec-Pro-overlay)
+
+       # ntlm_theft-overlay
+       (import ../overlays/ntlm_theft-overlay)
      ];
      # Configure your nixpkgs instance
      config = {
