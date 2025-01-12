@@ -56,8 +56,8 @@ final: prev:
     src = final.fetchFromGitHub {
       owner = "Pennyw0rth";
       repo = "NetExec";
-      rev = "07980ea48648d24569bdf1a6d569b3c5bd707c81"; # Replace with the updated revision if needed
-      hash = "sha256-RklauS/FAfLWq3+5oJkxxl2QHpZxP1eSoEfRsbOqhs8="; # Replace with the SHA-256 hash of the new source; nix-prefetch-url --unpack "https://github.com/Pennyw0rth/NetExec/archive/6d4fdfdb2d0088405ea3139f4145f198671a0fda.tar.gz"
+      rev = "5103f57face6e7c522424c02d4151123eb482f04"; # Replace with the updated revision if needed
+      hash = "sha256-WR9JBuGp+IZHitHYV6thn67Me/8BKjrNXzTVwna2+xI="; # Replace with the SHA-256 hash of the new source; nix-prefetch-url --unpack "https://github.com/Pennyw0rth/NetExec/archive/6d4fdfdb2d0088405ea3139f4145f198671a0fda.tar.gz"
     };
 
     postPatch = ''
