@@ -24,7 +24,10 @@
        builders-use-substitutes = true;
   
        # Enable flakes and new 'nix' command
-       experimental-features = [ "nix-command" "flakes" ];
+       experimental-features = [ 
+        "nix-command"
+        "flakes"
+       ];
   
        # Opinionated: disable global registry
        flake-registry = "";
@@ -48,8 +51,12 @@
   
        # A few extra binary caches and their public keys
        # Enable Cachix Binary Cache for Chaotic-Nyx
-       extra-substituters = [ "https://chaotic-nyx.cachix.org" ];
-       extra-trusted-public-keys = [ "chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8=" ];
+       extra-substituters = [ 
+        "https://chaotic-nyx.cachix.org" 
+       ];
+       extra-trusted-public-keys = [ 
+        "chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8=" 
+       ];
   
        # Show more log lines for failed builds
        log-lines = 20;

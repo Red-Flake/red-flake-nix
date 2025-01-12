@@ -68,6 +68,9 @@
 
        # ntlm_theft-overlay
        (import ../overlays/ntlm_theft-overlay)
+
+       # kerbrute-overlay
+       (import ../overlays/kerbrute-overlay)
      ];
      # Configure your nixpkgs instance
      config = {
