@@ -59,5 +59,6 @@
     wol
     e2fsprogs
     tldr
+    sshpass
   ];
 }
