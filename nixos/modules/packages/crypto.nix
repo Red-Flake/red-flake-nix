@@ -7,6 +7,7 @@
     cryptsetup
     keepassxc
     openssl_legacy
+    osslsigncode
     veracrypt
   ];
 }

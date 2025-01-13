@@ -203,7 +203,7 @@
             ];
           };
             
-          # ThnkPad T580 host configuration  
+          # ThinkPad T580 host configuration  
           t580 = nixpkgs.lib.nixosSystem {
             inherit system;
             specialArgs = {
@@ -235,6 +235,44 @@
                     home.stateVersion = "23.05";
                     imports = [
                       ./home-manager/pascal
+                    ];
+                  };
+                };
+              }
+            ];
+          };
+
+          # VPS host configuration  
+          vps = nixpkgs.lib.nixosSystem {
+            inherit system;
+            specialArgs = {
+              inherit inputs outputs;
+              user = "redcloud";
+            };
+            modules = [
+              chaotic.nixosModules.default
+              darkmatter-grub-theme.nixosModule
+              inputs.impermanence.nixosModules.impermanence
+
+              ./nixos/hosts/vps
+              {
+                imports = [ inputs.home-manager.nixosModules.home-manager ];
+
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+
+                home-manager.extraSpecialArgs = { 
+                  inherit inputs;
+                  user = "redcloud";
+                };
+
+                home-manager.users = {
+                  redcloud = {
+                    home.username = "redcloud";
+                    home.homeDirectory = "/home/redcloud";
+                    home.stateVersion = "23.05";
+                    imports = [
+                      ./home-manager/redcloud
                     ];
                   };
                 };

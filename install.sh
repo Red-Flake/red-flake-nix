@@ -299,6 +299,9 @@ case $HOST in
     t580 )
         USER="pascal"
         ;;
+    vps )
+        USER="redcloud"
+        ;;
     * )
         echo "Invalid host. Please select a valid host."
         ;;
