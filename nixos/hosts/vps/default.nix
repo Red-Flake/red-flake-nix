@@ -1,4 +1,4 @@
-# NixOS hosts config for my Thinkpad T580
+# NixOS hosts config for cloud vps
 { 
   config,
   lib,
