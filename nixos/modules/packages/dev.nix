@@ -26,5 +26,6 @@
     pkgs.pkgsCross.mingwW64.stdenv.cc
     pkgs.llvmPackages.libcxxClang
     pkgs.zig
+    nasm
   ];
 }
