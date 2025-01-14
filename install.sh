@@ -105,21 +105,51 @@ if ! ping -c 1 github.com &> /dev/null; then
 fi
 
 # Check if in a VM
-if [[ -b "/dev/vda" ]]; then
+# Function to detect if running in a VM
+is_vm() {
+    if [[ -b "/dev/vda" ]]; then
+        return 0
+    fi
+
+    # Check DMI system information for virtualization
+    if grep -qE '(QEMU|VirtualBox|VMware|KVM|Hyper-V|vServer)' /sys/class/dmi/id/modalias 2>/dev/null; then
+        return 0
+    fi
+
+    # Check if the hypervisor is reported by CPU info
+    if grep -q 'hypervisor' /proc/cpuinfo 2>/dev/null; then
+        return 0
+    fi
+
+    return 1
+}
+
+# Select the appropriate disk based on the environment
+if is_vm; then
     log "INFO" "VM was detected!"
 
-    DISK="/dev/vda"
+    # Detect disk based on VM storage scheme
+    if [[ -b "/dev/vda" ]]; then
+        DISK="/dev/vda"
+    elif [[ -b "/dev/sda" ]]; then
+        DISK="/dev/sda"
+    else
+        log "ERROR" "No suitable VM disk detected. Exiting."
+        exit 1
+    fi
 
+    log "INFO" "Detected disk: ${DISK}"
     do_format=$(yesno "Will now install Red-Flake to ${DISK}. This irreversibly formats the entire disk. Are you sure?")
     if [[ $do_format == "n" ]]; then
         exit
     fi
 
+    # Partitions in VM scheme
     BOOTDISK="${DISK}3"
     SWAPDISK="${DISK}2"
     ZFSDISK="${DISK}1"
 else
-    log "INFO" "Your attached storage devices will now be listed."
+    log "INFO" "No VM detected. Your attached storage devices will now be listed."
     read -p "Press enter to continue." NULL
 
     printf "\n"
@@ -137,6 +167,7 @@ else
         exit 1
     fi
 
+    # Partitions in non-VM scheme
     BOOTDISK="${DISK}p3"
     SWAPDISK="${DISK}p2"
     ZFSDISK="${DISK}p1"
@@ -149,6 +180,14 @@ else
     if [[ $do_format == "n" ]]; then
         exit
     fi
+fi
+
+log "INFO" "SWAP size selection"
+read -p "How much Swap Size do you want? Enter in GB: " SWAPSIZE
+
+if ! [[ "$SWAPSIZE" =~ ^[0-9]+$ ]] || [[ "$SWAPSIZE" -eq 0 ]]; then
+    log "ERROR" "Invalid SWAPSIZE: $SWAPSIZE. Please enter a positive numeric value."
+    exit 1
 fi
 
 sgdisk -p "$DISK" > /dev/null
@@ -165,11 +204,12 @@ sgdisk -o "$DISK"
 sgdisk -p "$DISK" > /dev/null
 
 log "INFO" "Creating partitions on disk ${DISK} ..."
-sgdisk -n3:1M:+1G -t3:EF00 "$DISK"
+sgdisk -n3:1M:+1G -t3:EF00 "$DISK" # boot
 
-sgdisk -n2:0:+16G -t2:8200 "$DISK"
+log "INFO" "Creating Swap partition with ${SWAPSIZE}GB ..."
+sgdisk -n2:0:+${SWAPSIZE}G -t2:8200 "$DISK" # swap
 
-sgdisk -n1:0:0 -t1:BF01 "$DISK"
+sgdisk -n1:0:0 -t1:BF01 "$DISK" # root(zfs)
 
 log "INFO" "Notifying kernel of partition changes..."
 sgdisk -p "$DISK" > /dev/null
