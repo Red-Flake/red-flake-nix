@@ -110,7 +110,8 @@ in
                     uploadserver = "pipx run uploadserver";
                     bloodhound-quickwin = "bhqc.py";
                     stegsolve = "java -jar /usr/share/tools/Steganography/stegsolve.jar";
-		    msfconsole = "msfconsole -q";
+		                msfconsole = "msfconsole -q";
+                    mono-csc = "csc";
 
                     # nixos
                     redflake-rebuild = "bash <(curl -L https://raw.githubusercontent.com/Red-Flake/red-flake-nix/main/rebuild.sh)";
