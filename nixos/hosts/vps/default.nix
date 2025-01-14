@@ -87,7 +87,7 @@
   networking.hostName = "redflake-vps";
 
   # Set fixed hostId (needed for ZFS)
-  networking.hostId = "ry62tj1q";
+  networking.hostId = "c0e3611d";
 
   # Set timezone
   time.timeZone = "Europe/Berlin";

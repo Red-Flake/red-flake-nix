@@ -15,6 +15,7 @@
     ./modules/zsh.nix
     ./modules/msf.nix
     ./modules/fastfetch.nix
+    ./modules/xdg.nix
     ./modules/flatpak.nix
     ./modules/ssh-agent.nix
     ./modules/ssh-config.nix
