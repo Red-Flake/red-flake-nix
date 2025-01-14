@@ -15,8 +15,11 @@
     # Nixpkgs configuration
     ../../modules/nixpkgs.nix
 
-    # Additional hardware configuration for Thinkpad T580
+    # Additional hardware configuration for vps
     ./hardware.nix
+
+    # Additional general hardware configuration
+    ../../modules/hardware.nix
 
     # Filesystems configuration
     ../../modules/filesystems.nix
