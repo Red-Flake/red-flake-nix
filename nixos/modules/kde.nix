@@ -69,25 +69,6 @@ in
   services.accounts-daemon.enable = true;
   # when changing an account picture the accounts-daemon reads a temporary file containing the image which systemsettings5 may place under /tmp
   systemd.services.accounts-daemon.serviceConfig.PrivateTmp = false;
-  
-  # enable dconf
-  # Fix GTK themes not applied in Wayland
-  programs.dconf.enable = true;
-
-  # enable XDG Desktop Menu specification
-  xdg.menus.enable = true;
-
-  # enable XDG autostart
-  xdg.autostart.enable = true;
-
-  # enable XDG icons
-  xdg.icons.enable = true;
-
-  # enable XDG sounds
-  xdg.sounds.enable = true;
-
-  # enable XDG terminal exec
-  xdg.terminal-exec.enable = true;
 
   # set /etc/xdg/menus/applications-merged
   environment.etc."xdg/menus/applications-merged/redflake-applications.menu".source = ./xdg/redflake-applications.menu;

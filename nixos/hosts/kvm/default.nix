@@ -70,6 +70,9 @@
     # performance optimizations
     ../../modules/performance.nix
 
+    # XDG settings
+    ../../modules/xdg.nix
+
     # theming
     ../../modules/theming.nix
 
