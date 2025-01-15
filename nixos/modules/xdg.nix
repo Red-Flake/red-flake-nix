@@ -23,6 +23,9 @@
   # XDG portal settings
   xdg.portal = {
     enable = true;
+    extraPortals = [
+      pkgs.xdg-desktop-portal
+    ];
   };
 
   # if you use the NixOS module and have useUserPackages = true, make sure to add:
