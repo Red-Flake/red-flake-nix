@@ -20,6 +20,11 @@
   # enable XDG terminal exec
   xdg.terminal-exec.enable = true;
 
+  # XDG portal settings
+  xdg.portal = {
+    enable = true;
+  };
+
   # if you use the NixOS module and have useUserPackages = true, make sure to add:
   environment.pathsToLink = [ "/share/xdg-desktop-portal" "/share/applications" ];
 }
