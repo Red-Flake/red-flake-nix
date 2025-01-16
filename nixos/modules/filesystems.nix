@@ -1,12 +1,12 @@
 { 
   config,
+  isKVM,
   lib,
   pkgs,
   ... 
 }:
 let
   cfg = config.custom.zfs;
-  isVm = lib.elem "virtio_pci" config.boot.initrd.availableKernelModules;
 in
 {
   

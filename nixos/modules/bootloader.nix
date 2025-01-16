@@ -1,5 +1,6 @@
 { 
   config,
+  isKVM,
   lib,
   pkgs,
   modulesPath,
@@ -7,7 +8,6 @@
 }:
 let
   cfg = config.custom.zfs;
-  isKVM = lib.elem "virtio_pci" config.boot.initrd.availableKernelModules;
   redflake-plymouth-src = pkgs.fetchFromGitHub {
       owner = "Red-Flake";
       repo = "redflake-plymouth";

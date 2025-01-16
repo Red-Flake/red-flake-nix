@@ -131,6 +131,7 @@
             specialArgs = {
               inherit inputs outputs;
               user = "redflake";
+              isKVM = true;
             };
             modules = [
               chaotic.nixosModules.default
@@ -170,6 +171,7 @@
             specialArgs = {
               inherit inputs outputs;
               user = "redflake";
+              isKVM = false;
             };
             modules = [
               chaotic.nixosModules.default
@@ -209,6 +211,7 @@
             specialArgs = {
               inherit inputs outputs;
               user = "pascal";
+              isKVM = false;
             };
             modules = [
               chaotic.nixosModules.default
@@ -248,6 +251,7 @@
             specialArgs = {
               inherit inputs outputs;
               user = "redcloud";
+              isKVM = true;
             };
             modules = [
               chaotic.nixosModules.default
