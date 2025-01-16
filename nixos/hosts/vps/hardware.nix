@@ -13,6 +13,7 @@
 
   boot = {
     initrd.availableKernelModules = [
+      "zfs"
       "ahci"
       "xhci_pci"
       "virtio_pci"
