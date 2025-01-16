@@ -55,10 +55,10 @@
     ./services.nix
 
     # Security settings
-    ../../modules/security.nix
+    #../../modules/security.nix
 
     # performance optimizations
-    ../../modules/performance.nix
+    #../../modules/performance.nix
 
     # XDG settings
     ../../modules/xdg.nix
