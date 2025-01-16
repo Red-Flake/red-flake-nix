@@ -1,7 +1,12 @@
 # NixOS hosts config for VM
-{ config, lib, pkgs, inputs, ... }:
-
-{
+{ 
+  config,
+  lib,
+  pkgs,
+  inputs,
+  isKVM,
+  ...
+}: {
   # Import other NixOS modules here
   imports = [
     # Nix configuration

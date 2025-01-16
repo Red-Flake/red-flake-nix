@@ -5,6 +5,7 @@
   pkgs,
   inputs,
   poetry2nix,
+  isKVM,
   ...
 }: {
   # Import other NixOS modules here
