@@ -39,7 +39,7 @@ self: super:
       description = "A script that you can run in the background!";
       homepage = "https://github.com/Red-Flake/nmapAutomator";
       license = licenses.mit;
-      maintainers = [ Mag1cByt3s ];
+      maintainers = with maintainers; [ lib.maintainers.Mag1cByt3s ];
     };
   };
 }
