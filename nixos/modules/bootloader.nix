@@ -7,7 +7,7 @@
 }:
 let
   cfg = config.custom.zfs;
-  isVm = lib.elem "virtio_blk" config.boot.initrd.availableKernelModules;
+  isKVM = lib.elem "virtio_pci" config.boot.initrd.availableKernelModules;
   redflake-plymouth-src = pkgs.fetchFromGitHub {
       owner = "Red-Flake";
       repo = "redflake-plymouth";
@@ -79,7 +79,7 @@ in
       # ZFS settings
       zfs = {
           devNodes =
-              if isVm then
+              if isKVM then
                   "/dev/disk/by-partuuid"
               # use by-id for intel mobo when not in a vm
               else if config.hardware.cpu.intel.updateMicrocode then
