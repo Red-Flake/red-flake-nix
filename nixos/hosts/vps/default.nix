@@ -52,7 +52,7 @@
     ../../modules/setup-shell.nix
 
     # Services settings
-    ../../modules/services.nix
+    ./services.nix
 
     # Security settings
     ../../modules/security.nix
