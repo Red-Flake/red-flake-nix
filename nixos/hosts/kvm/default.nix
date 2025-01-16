@@ -10,6 +10,9 @@
     # Nixpkgs configuration
     ../../modules/nixpkgs.nix
 
+    # Additional hardware configuration for KVM
+    ./hardware.nix
+
     # Additional hardware configuration
     ../../modules/hardware.nix
 

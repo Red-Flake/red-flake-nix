@@ -49,29 +49,12 @@ in
 
       # Initramfs settings
       initrd = {
-
           # enable stage-1 bootloader
           systemd.enable = true;
 
-          # Set kernel modules
-          availableKernelModules = [ 
-              "zfs"
-              "xhci_pci"
-              "thunderbolt"
-              "nvme"
-              "usb_storage"
-              "usbhid"
-              "sd_mod"
-              "ahci"
-          ];
-
           # Enable ZFS filesystem support
           supportedFilesystems = [ "zfs" ];
-
       };
-
-      # Set extra kernel module options
-      extraModprobeConfig = "options kvm_intel nested=1";
 
       # Enable ZFS filesystem support
       supportedFilesystems = [ "zfs" ];
@@ -85,7 +68,7 @@ in
               else if config.hardware.cpu.intel.updateMicrocode then
                   "/dev/disk/by-id"
               else
-                "/dev/disk/by-path";
+                  "/dev/disk/by-path";
 
           package = pkgs.zfs_unstable;
           requestEncryptionCredentials = cfg.encryption;

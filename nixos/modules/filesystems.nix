@@ -6,7 +6,7 @@
 }:
 let
   cfg = config.custom.zfs;
-  isVm = lib.elem "virtio_blk" config.boot.initrd.availableKernelModules;
+  isVm = lib.elem "virtio_pci" config.boot.initrd.availableKernelModules;
 in
 {
   
