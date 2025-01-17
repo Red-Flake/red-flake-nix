@@ -60,5 +60,6 @@
     e2fsprogs
     tldr
     sshpass
+    python312Packages.pyhanko
   ];
 }
