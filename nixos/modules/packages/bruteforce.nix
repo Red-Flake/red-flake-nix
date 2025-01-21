@@ -13,5 +13,6 @@
     thc-hydra
     ncrack
     python311Packages.patator
+    fcrackzip
   ];
 }
