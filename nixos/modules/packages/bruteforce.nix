@@ -14,5 +14,6 @@
     ncrack
     python311Packages.patator
     fcrackzip
+    medusa
   ];
 }
