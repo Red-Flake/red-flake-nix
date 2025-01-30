@@ -8,5 +8,6 @@
     dnsenum
     dnsrecon
     fierce
+    subfinder
   ];
 }
