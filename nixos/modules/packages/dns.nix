@@ -7,5 +7,6 @@
     dig
     dnsenum
     dnsrecon
+    fierce
   ];
 }
