@@ -71,6 +71,9 @@
 
        # kerbrute-overlay
        (import ../overlays/kerbrute-overlay)
+
+       # DNSenum-overlay
+       (import ../overlays/DNSenum-overlay)
      ];
      # Configure your nixpkgs instance
      config = {
