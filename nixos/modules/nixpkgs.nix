@@ -74,6 +74,9 @@
 
        # DNSenum-overlay
        (import ../overlays/DNSenum-overlay)
+
+       # smtp-user-enum-overlay
+       (import ../overlays/smtp-user-enum-overlay)
      ];
      # Configure your nixpkgs instance
      config = {
