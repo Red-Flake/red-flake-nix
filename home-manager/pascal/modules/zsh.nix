@@ -112,6 +112,7 @@ in
                     stegsolve = "java -jar /usr/share/tools/Steganography/stegsolve.jar";
 		                msfconsole = "msfconsole -q";
                     mono-csc = "csc";
+                    proxychains = "proxychains4";
 
                     # nixos
                     redflake-rebuild = "bash <(curl -L https://raw.githubusercontent.com/Red-Flake/red-flake-nix/main/rebuild.sh)";
