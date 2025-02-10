@@ -27,5 +27,6 @@
     wmiexec-Pro
     coercer
     ntlm_theft
+    powerview-py
   ];
 }

@@ -77,6 +77,9 @@
 
        # smtp-user-enum-overlay
        (import ../overlays/smtp-user-enum-overlay)
+
+       # powerview-py-overlay
+       (import ../overlays/powerview-py-overlay)
      ];
      # Configure your nixpkgs instance
      config = {
