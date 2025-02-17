@@ -80,6 +80,9 @@
 
        # powerview-py-overlay
        (import ../overlays/powerview-py-overlay)
+
+       # dnscat2-overlay
+       (import ../overlays/dnscat2-overlay)
      ];
      # Configure your nixpkgs instance
      config = {

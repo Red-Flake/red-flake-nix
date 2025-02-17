@@ -27,5 +27,6 @@
     pkgs.llvmPackages.libcxxClang
     pkgs.zig
     nasm
+    ruby
   ];
 }

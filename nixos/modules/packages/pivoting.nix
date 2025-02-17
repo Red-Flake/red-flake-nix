@@ -8,6 +8,7 @@
     ngrok
     sshuttle
     spose
+    dnscat2
   ];
 
   # enable proxychains
