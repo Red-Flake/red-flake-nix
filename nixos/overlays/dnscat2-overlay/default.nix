@@ -34,8 +34,10 @@ self: super: {
       cat > $out/bin/dnscat2 <<EOF
     #!/bin/sh
     export GEM_HOME=$out/app/vendor/bundle
+    export GEM_PATH=$out/app/vendor/bundle
     export BUNDLE_GEMFILE=$out/app/server/Gemfile
-    exec ${super.ruby}/bin/ruby $out/app/server/dnscat2.rb "\$@"
+    export BUNDLE_PATH=$out/app/vendor/bundle
+    exec ${super.ruby}/bin/ruby -rbundler/setup $out/app/server/dnscat2.rb "\$@"
     EOF
       chmod +x $out/bin/dnscat2
     '';
