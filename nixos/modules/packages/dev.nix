@@ -6,6 +6,8 @@
   environment.systemPackages = with pkgs; [
     gcc
     gnumake
+    autoconf
+    automake
     cmake
     dotnet-sdk_8
     dotnet-runtime_8
