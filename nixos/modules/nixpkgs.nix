@@ -83,6 +83,9 @@
 
        # dnscat2-overlay
        (import ../overlays/dnscat2-overlay)
+
+       # wordlists-overlay
+       (import ../overlays/wordlists-overlay)
      ];
      # Configure your nixpkgs instance
      config = {
