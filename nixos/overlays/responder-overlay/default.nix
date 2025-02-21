@@ -11,6 +11,7 @@ final: prev:
       # Define common paths for use in this shell script.
       responderDir="/usr/share/responder"
       certsDir="$responderDir/certs"
+      logsDir="$responderDir/logs"
 
       mkdir -p $out/bin $out/share/Responder
       cp -R . $out/share/Responder
@@ -23,11 +24,11 @@ final: prev:
 
       # Adjust logging and DB paths in Responder.conf using the literal path.
       substituteInPlace $out/share/Responder/Responder.conf \
-        --replace-quiet "Responder-Session.log" "/usr/share/responder/Responder-Session.log" \
-        --replace-quiet "Poisoners-Session.log" "/usr/share/responder/Poisoners-Session.log" \
-        --replace-quiet "Analyzer-Session.log" "/usr/share/responder/Analyzer-Session.log" \
-        --replace-quiet "Config-Responder.log" "/usr/share/responder/Config-Responder.log" \
-        --replace-quiet "Responder.db" "/usr/share/responder/Responder.db"
+        --replace-quiet "Responder-Session.log" "$logsDir/Responder-Session.log" \
+        --replace-quiet "Poisoners-Session.log" "$logsDir/Poisoners-Session.log" \
+        --replace-quiet "Analyzer-Session.log" "$logsDir/Analyzer-Session.log" \
+        --replace-quiet "Config-Responder.log" "$logsDir/Config-Responder.log" \
+        --replace-quiet "Responder.db" "$responderDir/Responder.db"
 
       runHook postInstall
       runHook postPatch
@@ -37,6 +38,7 @@ final: prev:
       # Define common paths.
       responderDir="/usr/share/responder"
       certsDir="$responderDir/certs"
+      logsDir="$responderDir/logs"
 
       # Further wrap the binary to generate certificates and copy config if needed.
       wrapProgram $out/bin/responder \
@@ -48,16 +50,17 @@ final: prev:
       # Define common paths.
       responderDir="/usr/share/responder"
       certsDir="$responderDir/certs"
+      logsDir="$responderDir/logs"
 
       if [ -f $out/share/Responder/settings.py ]; then
         substituteInPlace $out/share/Responder/settings.py \
-          --replace-quiet "self.LogDir = os.path.join(self.ResponderPATH, 'logs')" "self.LogDir = os.path.join('/usr/share/responder', 'logs')" \
+          --replace-quiet "self.LogDir = os.path.join(self.ResponderPATH, 'logs')" "self.LogDir = '$logsDir'" \
           --replace-quiet "os.path.join(self.ResponderPATH, 'Responder.conf')" "'/etc/responder/Responder.conf'"
       fi
 
       if [ -f $out/share/Responder/utils.py ]; then
         substituteInPlace $out/share/Responder/utils.py \
-          --replace-quiet "logfile = os.path.join(settings.Config.ResponderPATH, 'logs', fname)" "logfile = os.path.join('/usr/share/responder', 'logs', fname)"
+          --replace-quiet "logfile = os.path.join(settings.Config.ResponderPATH, 'logs', fname)" "logfile = os.path.join('$logsDir', fname)"
       fi
 
       if [ -f $out/share/Responder/Responder.py ]; then
