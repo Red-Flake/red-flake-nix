@@ -471,6 +471,12 @@
                   keyword = "lolbas";
                   url = "https://lolbas-project.github.io/";
                 }
+                {
+                  name = "WADComs ";
+                  tags = [ "wadcoms" ];
+                  keyword = "wadcoms";
+                  url = "https://wadcoms.github.io/";
+                }
               ];
             }
             {
