@@ -1,24 +1,28 @@
-{ config, lib, pkgs, ... }:
-{
-  # deploy konsole profile
-  home.file.".config/kwalletrc" = {
-    force = true;
-    text = ''
-      [Wallet]
-      Close When Idle=false
-      Close on Screensaver=false
-      Default Wallet=kdewallet
-      Enabled=false
-      First Use=false
-      Idle Timeout=10
-      Launch Manager=false
-      Leave Manager Open=false
-      Leave Open=true
-      Prompt on Open=false
-      Use One Wallet=true
+{ config, lib, pkgs, ... }: 
 
-      [org.freedesktop.secrets]
-      apiEnabled=false
+let
+  kwalletrcPath = "${config.xdg.configHome}/kwalletrc";
+  sourceKwalletrcPath = "${./kwallet/kwalletrc}";
+in
+{
+  home.activation = {
+    kwallet = lib.hm.dag.entryAfter ["writeBoundary"] ''
+      # Remove the config file only if it is a symlink
+      if [ -L "${kwalletrcPath}" ]; then
+        rm -f "${kwalletrcPath}"
+      fi
+
+      # Copy the new config file only if it doesn't already exist
+      if [ ! -e "${kwalletrcPath}" ]; then
+        cp "${sourceKwalletrcPath}" "${kwalletrcPath}"
+      fi
+
+      # Ensure the config file has the correct permissions
+      if [ -f "${kwalletrcPath}" ]; then
+        chmod u+w "${kwalletrcPath}"
+      else
+        echo "Config file not found: ${kwalletrcPath}"
+      fi
     '';
   };
 }
