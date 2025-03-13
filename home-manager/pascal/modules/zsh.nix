@@ -263,7 +263,8 @@ in
                     keychain2john = "keychain2john.py";
                     keyring2john = "keyring2john.py";
                     keystore2john = "keystore2john.py";
-                    kirbi2john = "kirbi2john.py";
+                    "kirbi2john.py" = "/usr/share/tools/ActiveDirectory/Kerberos/kirbi2john.py";
+                    kirbi2john = "/usr/share/tools/ActiveDirectory/Kerberos/kirbi2john.py";
                     known_hosts2john = "known_hosts2john.py";
                     krb2john = "krb2john.py";
                     kwallet2john = "kwallet2john.py";

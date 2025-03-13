@@ -7,7 +7,7 @@
         "nix-command"
       ];
       extra-substituters = [
-        "https://nyx.chaotic.cx"
+        #"https://nyx.chaotic.cx"
         "https://nix-community.cachix.org/"
         "https://cache.nixos.org/"
       ];
