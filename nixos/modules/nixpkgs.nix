@@ -86,6 +86,9 @@
 
        # wordlists-overlay
        (import ../overlays/wordlists-overlay)
+
+       # PKINITtools-overlay
+       (import ../overlays/PKINITtools-overlay)
      ];
      # Configure your nixpkgs instance
      config = {

@@ -28,5 +28,6 @@
     coercer
     ntlm_theft
     powerview-py
+    pkinittools
   ];
 }
