@@ -89,6 +89,9 @@
 
        # PKINITtools-overlay
        (import ../overlays/PKINITtools-overlay)
+
+       # PetitPotam-overlay
+       (import ../overlays/PetitPotam-overlay)
      ];
      # Configure your nixpkgs instance
      config = {
