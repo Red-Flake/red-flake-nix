@@ -30,5 +30,6 @@
     powerview-py
     pkinittools
     petitpotam
+    adidnsdump
   ];
 }
