@@ -6,12 +6,12 @@ final: prev:
     self = final.python312;
     packageOverrides = self: super: {
       impacket = super.impacket.overridePythonAttrs (old: {
-        version = "0.12.0-unstable-06.02.2025"; # Updated version
+        version = "0.12.0-unstable-16.04.2025"; # Updated version
         src = final.fetchFromGitHub {
           owner = "fortra"; # Replace with the official or updated repository owner
           repo = "impacket";
-          rev = "075f2b10a7a4056374a8c917f75e4419817cd6c7"; # Replace with the commit hash of the newer version
-          hash = "sha256-PjpactVeJLnTLxwxjbskpmkeBeAjihqqkhhEivl6xH4="; # Replace with the SHA-256 hash of the new source; nix-prefetch-url --unpack "https://github.com/fortra/impacket/archive/db53482dc864fec69156898d52c1b595a777ca9a.tar.gz"
+          rev = "c384b5fb112febce1d03c93fb32f47df042e72d8"; # Replace with the commit hash of the newer version
+          hash = "sha256-Onw2JQ35gTIrl1vsu/c/9GXSbElmLuAEPiwDwScOurk="; # Replace with the SHA-256 hash of the new source; nix-prefetch-url --unpack "https://github.com/fortra/impacket/archive/db53482dc864fec69156898d52c1b595a777ca9a.tar.gz"
         };
 
         # Fix version to be compliant with Python packaging rules
