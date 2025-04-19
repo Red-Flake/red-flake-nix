@@ -2,8 +2,8 @@
 final: prev:
 
 {
-  python3 = prev.python3.override {
-    self = final.python3;
+  python312_nxc = prev.python312.override {
+    self = final.python312;
     packageOverrides = self: super: {
       impacket = super.impacket.overridePythonAttrs (old: {
         version = "0.12.0-unstable-06.02.2025"; # Updated version
@@ -21,7 +21,7 @@ final: prev:
         '';
       });
 
-      pynfsclient = final.python3.pkgs.buildPythonPackage rec {
+      pynfsclient = final.python312_nxc.pkgs.buildPythonPackage rec {
         pname = "pyNfsClient";
         version = "1.0.0"; # Updated to match fork version
 
@@ -43,9 +43,9 @@ final: prev:
     };
   };
 
-  netexec = final.python3.pkgs.buildPythonApplication rec {
+  netexec = final.python312_nxc.pkgs.buildPythonApplication rec {
     pname = "netexec";
-    version = "12.02.2025"; # Updated version
+    version = "v1.4.0"; # Updated version
     pyproject = true;
     pythonRelaxDeps = true;
     pythonRemoveDeps = [
@@ -56,22 +56,37 @@ final: prev:
     src = final.fetchFromGitHub {
       owner = "Pennyw0rth";
       repo = "NetExec";
-      rev = "c2f85db63b5b4323ac6f993eefa553ad276fe12f"; # Replace with the updated revision if needed
-      hash = "sha256-FMroXBqpufruqCY4iebOTPuqy2v9ZEN+bOhtWaxLqn0="; # Replace with the SHA-256 hash of the new source; nix-prefetch-url --unpack "https://github.com/Pennyw0rth/NetExec/archive/6d4fdfdb2d0088405ea3139f4145f198671a0fda.tar.gz"
+      rev = "v1.4.0"; # Replace with the updated revision if needed
+      hash = "sha256-1yNnnPntJ5aceX3Z8yYAMLv5bSFfCFVp0pgxAySlVfE="; # Replace with the SHA-256 hash of the new source; nix-prefetch-url --unpack "https://github.com/Pennyw0rth/NetExec/archive/6d4fdfdb2d0088405ea3129f4145f198671a0fda.tar.gz"
     };
 
     postPatch = ''
+      # 1) Replace the placeholder version = "0.0.0" with our version
       substituteInPlace pyproject.toml \
-        --replace '{ git = "https://github.com/Pennyw0rth/impacket.git", branch = "gkdi" }' '"*"' \
-        --replace '{ git = "https://github.com/Pennyw0rth/oscrypto" }' '"*"'
+        --replace 'version = "0.0.0"' 'version = "'"${version}"'"'
+
+      # 2) Rename project.scripts → tool.poetry.scripts so Poetry installs them
+      sed -i 's/^\[project\.scripts\]/[tool.poetry.scripts]/' pyproject.toml
+
+      # 3) Immediately after that version line, inject name/description/authors
+      sed -i '/^version = "'"${version}"'"/a\
+name        = "netexec"\
+description = "Network service exploitation tool"\
+authors     = ["VNCSB <vncsb@users.noreply.github.com>"]' pyproject.toml
+
+      # 4) Turn each git+URL dependency (with its comma) into a wildcard
+      substituteInPlace pyproject.toml \
+        --replace '"impacket @ git+https://github.com/fortra/impacket.git",'  '"*", ' \
+        --replace '"oscrypto @ git+https://github.com/wbond/oscrypto",'      '"*", ' \
+        --replace '"pynfsclient @ git+https://github.com/Pennyw0rth/NfsClient",' '"*",'
     '';
 
-    nativeBuildInputs = with final.python3.pkgs; [
+    nativeBuildInputs = with final.python312_nxc.pkgs; [
       poetry-core
-      poetry-dynamic-versioning
     ];
 
-    propagatedBuildInputs = with final.python3.pkgs; [
+    propagatedBuildInputs = with final.python312_nxc.pkgs; [
+      poetry-dynamic-versioning
       aardwolf
       aioconsole
       aiosqlite
@@ -106,7 +121,7 @@ final: prev:
       jwt
     ];
 
-    nativeCheckInputs = with final.python3.pkgs; [];  # Skip tests
+    nativeCheckInputs = with final.python312_nxc.pkgs; [];  # Skip tests
 
     preCheck = ''
       export HOME=$(mktemp -d)
