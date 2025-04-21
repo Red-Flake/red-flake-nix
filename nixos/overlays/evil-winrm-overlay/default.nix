@@ -3,17 +3,16 @@
 # Pull request that fixes this issue: https://github.com/NixOS/nixpkgs/pull/324530
 
 # evil-winrm-overlay.nix
-# update to v3.7, commit ffe958c841da655ba3c44740ca22aa0eee9fc5ed
 final: prev:
 
 let
   newVersion = "3.7";
-  rev     = "ffe958c841da655ba3c44740ca22aa0eee9fc5ed";
+  rev        = "c22b7c287f94cdac5777661e06cf5910e2e7aadd";  # your commit
   src37 = final.fetchFromGitHub {
-      owner = "Hackplayers";
-      repo = "evil-winrm";
-      rev = "${rev}"; # Replace with the updated revision if needed
-      hash = "sha256-jr8glS732UvSt+qFkhhLFZUB7OIRpRj3SzXm6mVikrE="; # Replace with the SHA-256 hash of the new source; nix-prefetch-url --unpack "https://github.com/Pennyw0rth/NetExec/archive/6d4fdfdb2d0088405ea3139f4145f198671a0fda.tar.gz"
+    owner  = "Hackplayers";
+    repo   = "evil-winrm";
+    rev     = rev;
+    hash    = "sha256-fL4QAB4utf+Ar2LfswD4MKgfmzVLwWwwahfPI3o0Bk4=";
   };
 in
 {
@@ -22,9 +21,13 @@ in
     version = newVersion;
     src     = src37;
 
-    # carry forward makeWrapper and OpenSSL‐legacy fix
+    # keep the existing wrapper & makeWrapper
     nativeBuildInputs = (oldAttrs.nativeBuildInputs or []) ++ [ prev.makeWrapper ];
 
+    # bring in MIT Kerberos so we get libgssapi_krb5.so.2
+    buildInputs = (oldAttrs.buildInputs or []) ++ [ prev.krb5.lib ];
+
+    # OpenSSL‑legacy hack
     openssl_conf = prev.writeText "openssl.conf" ''
       openssl_conf = openssl_init
 
@@ -42,10 +45,12 @@ in
       activate = 1
     '';
 
+    # wrap the binary so that both OPENSSL_CONF and LD_LIBRARY_PATH are set
     postFixup = ''
       ${oldAttrs.postFixup or ""}
       wrapProgram $out/bin/evil-winrm \
-        --prefix OPENSSL_CONF : ${openssl_conf}
+        --prefix OPENSSL_CONF : ${openssl_conf} \
+        --prefix LD_LIBRARY_PATH : ${prev.krb5.lib}/lib
     '';
   });
 }
