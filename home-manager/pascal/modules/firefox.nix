@@ -527,6 +527,15 @@
     };
 
     policies = {
+
+      Certificates = {
+        ImportEnterpriseRoots = true;
+
+        ## install Burp Suite CA cert
+        Install = [
+          "/etc/ssl/certs/BurpSuiteCA.der"
+        ];
+      };
       
       ## to find the correct GUID of an extension go to https://addons.mozilla.org/, open any extension page, view the page source code and search for "guid", then use this value for the extension name.
       ExtensionSettings = {
