@@ -5,6 +5,7 @@
     programs.proxychains = {
       enable = true;
       package = pkgs.proxychains-ng;
+      quietMode = true;
       proxies = {};
     };
 
