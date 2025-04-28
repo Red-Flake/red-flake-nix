@@ -55,8 +55,6 @@
       url = "github:cachix/pre-commit-hooks.nix";
       inputs.flake-compat.follows = "nixpkgs";
       inputs.nixpkgs.follows = "nixpkgs";
-      # Only used for the tests of pre-commit-hooks. Override stops double fetch
-      inputs.nixpkgs-stable.follows = "nixpkgs";
     };
 
     nur.url = "github:nix-community/NUR";
@@ -68,19 +66,36 @@
     };
 
     # https://github.com/thiagokokada/nix-alien
-    nix-alien.url = "github:thiagokokada/nix-alien";
+    nix-alien = {
+      url = "github:thiagokokada/nix-alien";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # https://github.com/nix-community/impermanence
-    impermanence.url = "github:nix-community/impermanence";
+    impermanence = {
+      url = "github:nix-community/impermanence";
+    };
 
     # https://github.com/jchv/nix-binary-ninja
-    nix-binary-ninja.url = "github:jchv/nix-binary-ninja";
+    nix-binary-ninja = {
+      url = "github:jchv/nix-binary-ninja";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # https://github.com/nix-community/poetry2nix
-    poetry2nix.url = "github:nix-community/poetry2nix";
+    poetry2nix = {
+      url = "github:nix-community/poetry2nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # https://github.com/NixOS/nixos-hardware
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+
+    # https://github.com/pwndbg/pwndbg
+    pwndbg = {
+      url = "github:pwndbg/pwndbg";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Red-Flake artwork
     artwork = {
@@ -118,6 +133,7 @@
       darkmatter-grub-theme,
       poetry2nix,
       nixos-hardware,
+      pwndbg,
       ...
   } @ inputs: let
       inherit (self) outputs;
@@ -143,12 +159,20 @@
               {
                 imports = [ inputs.home-manager.nixosModules.home-manager ];
 
-                home-manager.useGlobalPkgs = true;
+                home-manager.useGlobalPkgs = false;
                 home-manager.useUserPackages = true;
 
                 home-manager.extraSpecialArgs = { 
                   inherit inputs;
                   user = "redflake";
+                  pkgs = import inputs.nixpkgs {
+                    system = "x86_64-linux";
+                    config.allowUnfree = true;
+                    overlays = [
+                      # impacket overlay
+                      (import nixos/overlays/impacket-overlay)
+                    ];
+                  };
                 };
 
                 home-manager.users = {
@@ -184,12 +208,20 @@
               {
                 imports = [ inputs.home-manager.nixosModules.home-manager ];
 
-                home-manager.useGlobalPkgs = true;
+                home-manager.useGlobalPkgs = false;
                 home-manager.useUserPackages = true;
 
                 home-manager.extraSpecialArgs = { 
                   inherit inputs;
                   user = "redflake";
+                  pkgs = import inputs.nixpkgs {
+                    system = "x86_64-linux";
+                    config.allowUnfree = true;
+                    overlays = [
+                      # impacket overlay
+                      (import nixos/overlays/impacket-overlay)
+                    ];
+                  };
                 };
 
                 home-manager.users = {
@@ -229,12 +261,20 @@
               {
                 imports = [ inputs.home-manager.nixosModules.home-manager ];
 
-                home-manager.useGlobalPkgs = true;
+                home-manager.useGlobalPkgs = false;
                 home-manager.useUserPackages = true;
 
                 home-manager.extraSpecialArgs = { 
                   inherit inputs;
                   user = "pascal";
+                  pkgs = import inputs.nixpkgs {
+                    system = "x86_64-linux";
+                    config.allowUnfree = true;
+                    overlays = [
+                      # impacket overlay
+                      (import nixos/overlays/impacket-overlay)
+                    ];
+                  };
                 };
 
                 home-manager.users = {
@@ -269,12 +309,20 @@
               {
                 imports = [ inputs.home-manager.nixosModules.home-manager ];
 
-                home-manager.useGlobalPkgs = true;
+                home-manager.useGlobalPkgs = false;
                 home-manager.useUserPackages = true;
 
                 home-manager.extraSpecialArgs = { 
                   inherit inputs;
                   user = "redcloud";
+                  pkgs = import inputs.nixpkgs {
+                    system = "x86_64-linux";
+                    config.allowUnfree = true;
+                    overlays = [
+                      # impacket overlay
+                      (import nixos/overlays/impacket-overlay)
+                    ];
+                  };
                 };
 
                 home-manager.users = {

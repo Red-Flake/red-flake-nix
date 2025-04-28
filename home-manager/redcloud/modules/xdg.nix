@@ -5,10 +5,10 @@
   xdg.portal = {
     enable = true;
     extraPortals = with pkgs; [
-      xdg-desktop-portal-kde
+      kdePackages.xdg-desktop-portal-kde
     ];
     configPackages = with pkgs; [
-      xdg-desktop-portal-kde
+      kdePackages.xdg-desktop-portal-kde
     ];
   };
 

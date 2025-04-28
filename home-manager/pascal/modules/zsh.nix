@@ -29,7 +29,7 @@ in
                 syntaxHighlighting.enable = true;
 
                 # Commands that should be added to top of {file}.zshrc.
-                initExtraFirst = ''
+                initContent = lib.mkBefore ''
                   # The powerlevel theme I'm using is distgusting in TTY, let's default
                   # to something else
                   # See https://github.com/romkatv/powerlevel10k/issues/325
@@ -46,12 +46,9 @@ in
                   else
                     [[ ! -f ${configThemeTTY} ]] || source ${configThemeTTY}
                   fi
-                '';
 
-                # Extra commands that should be added to {file}.zshrc.
-                initExtra = ''
-                    # disable nomatch to fix weird compatility issues with bash
-                    setopt +o nomatch
+                  # disable nomatch to fix weird compatility issues with bash
+                  setopt +o nomatch
                 '';
 
                 plugins = [

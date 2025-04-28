@@ -13,16 +13,16 @@
 
      # You can add overlays here
      overlays = with inputs; [
-
+      
       # Chaotic-Nyx overlay 
       (final: prev: {
         chaoticPkgs = import inputs.chaotic { inherit (prev) system; };
       })
 
        # NUR overlay
-       nur.overlay
+       inputs.nur.overlays.default
 
-       poetry2nix.overlays.default
+       inputs.poetry2nix.overlays.default
 
        # impacket overlay
        (import ../overlays/impacket-overlay)

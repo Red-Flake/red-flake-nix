@@ -7,10 +7,16 @@
   pkgs,
   user,
   ... 
-}: {
+}: let
+  # Clean pkgs for home-manager
+  homePkgs = import inputs.nixpkgs {
+    system = "x86_64-linux";
+    config.allowUnfree = true; # Optional
+  };
+in {
   # import other home-manager modules
   imports = [
-    inputs.nur.hmModules.nur
+    inputs.nur.modules.homeManager.default
     inputs.plasma-manager.homeManagerModules.plasma-manager
     ./modules/git.nix
     ./modules/dconf.nix
@@ -40,39 +46,39 @@
 
   home = {
 
-      # set username
-      username = "${user}";
+    # set username
+    username = "${user}";
 
-      # set home directory
-      homeDirectory = "/home/${user}";
+    # set home directory
+    homeDirectory = "/home/${user}";
 
-      # do not change this value!
-      stateVersion = "23.05";
+    # do not change this value!
+    stateVersion = "23.05";
 
-      # disable warning about mismatched version between Home Manager and Nixpkgs
-      enableNixpkgsReleaseCheck = false;
+    # disable warning about mismatched version between Home Manager and Nixpkgs
+    enableNixpkgsReleaseCheck = false;
 
-      # set user packages
-      packages = with pkgs; [
-          papirus-icon-theme
-          bibata-cursors
-          sweet-nova
-          oh-my-zsh
-          zsh-autosuggestions
-          zsh-completions
-          nix-zsh-completions
-          zsh-syntax-highlighting
-          zsh-powerlevel10k
-          meslo-lgs-nf
-          thefuck
-          flatpak
-      ];
+    # set user packages
+    packages = with homePkgs; [
+      papirus-icon-theme
+      bibata-cursors
+      sweet-nova
+      oh-my-zsh
+      zsh-autosuggestions
+      zsh-completions
+      nix-zsh-completions
+      zsh-syntax-highlighting
+      zsh-powerlevel10k
+      meslo-lgs-nf
+      thefuck
+      flatpak
+    ];
 
-      # set user session variables
-      sessionVariables = {
-        # This should be default soon
-        MOZ_ENABLE_WAYLAND = 1;
-      };
+    # set user session variables
+    sessionVariables = {
+      # This should be default soon
+      MOZ_ENABLE_WAYLAND = 1;
+    };
 
   };
 
