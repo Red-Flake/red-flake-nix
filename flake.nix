@@ -130,6 +130,7 @@
             inherit system;
             specialArgs = {
               inherit inputs outputs;
+              chaoticPkgs = inputs.chaotic;
               user = "redflake";
               isKVM = true;
             };
@@ -170,6 +171,7 @@
             inherit system;
             specialArgs = {
               inherit inputs outputs;
+              chaoticPkgs = inputs.chaotic;
               user = "redflake";
               isKVM = false;
             };
@@ -210,11 +212,15 @@
             inherit system;
             specialArgs = {
               inherit inputs outputs;
+              chaoticPkgs = import inputs.nixpkgs {
+                inherit system;
+                overlays = [ inputs.chaotic.overlays.default ];
+                config.allowUnfree = true;
+              };
               user = "pascal";
               isKVM = false;
             };
             modules = [
-              chaotic.nixosModules.default
               nixos-hardware.nixosModules.lenovo-thinkpad-t590
               darkmatter-grub-theme.nixosModule
               inputs.impermanence.nixosModules.impermanence
@@ -250,6 +256,7 @@
             inherit system;
             specialArgs = {
               inherit inputs outputs;
+              chaoticPkgs = inputs.chaotic;
               user = "redcloud";
               isKVM = true;
             };

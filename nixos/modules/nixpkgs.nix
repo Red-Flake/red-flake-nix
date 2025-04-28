@@ -13,8 +13,11 @@
 
      # You can add overlays here
      overlays = with inputs; [
-       # Chaotic Nyx overlay
-       chaotic.overlays.default
+
+      # Chaotic-Nyx overlay 
+      (final: prev: {
+        chaoticPkgs = import inputs.chaotic { inherit (prev) system; };
+      })
 
        # NUR overlay
        nur.overlay

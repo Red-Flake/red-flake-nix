@@ -3,6 +3,7 @@
   isKVM,
   lib,
   pkgs,
+  chaoticPkgs,
   modulesPath,
   ... 
 }:
@@ -45,7 +46,7 @@ in
       ];
 
       # Switch to Xanmod kernel
-      kernelPackages = pkgs.linuxPackages_xanmod_latest;
+      kernelPackages = chaoticPkgs.linuxPackages_xanmod_latest;
 
       # Initramfs settings
       initrd = {

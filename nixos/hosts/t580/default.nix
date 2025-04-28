@@ -3,6 +3,7 @@
   config,
   lib,
   pkgs,
+  chaoticPkgs,
   inputs,
   poetry2nix,
   isKVM,
