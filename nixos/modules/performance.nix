@@ -2,8 +2,12 @@
 
 {
     powerManagement = {
-        enable = true;
+        enable = lib.mkForce true;
         cpuFreqGovernor = lib.mkDefault "performance";
-        powertop.enable = true;
+        powertop.enable = lib.mkForce false;
+    };
+
+    services.tlp = {
+      enable = lib.mkForce false;
     };
 }

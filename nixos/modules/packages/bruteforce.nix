@@ -11,8 +11,8 @@
     hashcat
     john
     thc-hydra
-    ncrack
-    python311Packages.patator
+    # ncrack  # disable ncrack for now due to build errors
+    # python313Packages.patator  # disable patator for now due to build errors
     fcrackzip
     medusa
   ];

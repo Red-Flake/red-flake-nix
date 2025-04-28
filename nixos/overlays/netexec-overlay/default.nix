@@ -11,7 +11,7 @@ final: prev:
           owner = "fortra"; # Replace with the official or updated repository owner
           repo = "impacket";
           rev = "00ced47f3ed61b64441146e24042f865dcc017b9"; # Replace with the commit hash of the newer version
-          hash = "sha256-Onw2JQ35gTIrl1vsu/c/9GXSbElmLuAEPiwDwScOurk="; # Replace with the SHA-256 hash of the new source; nix-prefetch-url --unpack "https://github.com/fortra/impacket/archive/db53482dc864fec69156898d52c1b595a777ca9a.tar.gz"
+          hash = "sha256-ETQGJz5a3snGOaIJVM4PBALHVcuqZSLqoff/zeta0Xk="; # Replace with the SHA-256 hash of the new source; nix-prefetch-url --unpack "https://github.com/fortra/impacket/archive/db53482dc864fec69156898d52c1b595a777ca9a.tar.gz"
         };
 
         # apply our fix to avoid __bool__ on ASN.1 schema
@@ -74,15 +74,15 @@ final: prev:
 
       # 3) Immediately after that version line, inject name/description/authors
       sed -i '/^version = "'"${version}"'"/a\
-name        = "netexec"\
-description = "Network service exploitation tool"\
-authors     = ["VNCSB <vncsb@users.noreply.github.com>"]' pyproject.toml
+    name        = "netexec"\
+    description = "Network service exploitation tool"\
+    authors     = ["VNCSB <vncsb@users.noreply.github.com>"]' pyproject.toml
 
-      # 4) Turn each git+URL dependency (with its comma) into a wildcard
-      substituteInPlace pyproject.toml \
-        --replace '"impacket @ git+https://github.com/fortra/impacket.git",'  '"*", ' \
-        --replace '"oscrypto @ git+https://github.com/wbond/oscrypto",'      '"*", ' \
-        --replace '"pynfsclient @ git+https://github.com/Pennyw0rth/NfsClient",' '"*",'
+    # 4) Replace git+ dependencies with proper names
+    substituteInPlace pyproject.toml \
+      --replace '"impacket @ git+https://github.com/fortra/impacket.git",'  '"impacket", ' \
+      --replace '"oscrypto @ git+https://github.com/wbond/oscrypto",'       '"oscrypto", ' \
+      --replace '"pynfsclient @ git+https://github.com/Pennyw0rth/NfsClient",' '"pynfsclient",'
     '';
 
     nativeBuildInputs = with final.python312_nxc.pkgs; [

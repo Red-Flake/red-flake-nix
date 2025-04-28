@@ -184,15 +184,15 @@ let
     };
   };
 
-  #mssqlpwner = super.poetry2nix.mkPoetryApplication {
-  #  python = python3;
-  #  projectDir = super.fetchFromGitHub {
-  #    owner = "ScorpionesLabs";
-  #    repo = "MSSqlPwner";
-  #    rev = "a30f41f191d542695e9e19bcc711e2dd1af85abd";
-  #    sha256 = "sha256-pMOsoGycs81htwcFN8JfbMMoSIMts4nyek62njpjTug=";
-  #  };
-  #};
+  mssqlpwner = super.poetry2nix.mkPoetryApplication {
+    python = python3;
+    projectDir = super.fetchFromGitHub {
+      owner = "ScorpionesLabs";
+      repo = "MSSqlPwner";
+      rev = "a30f41f191d542695e9e19bcc711e2dd1af85abd";
+      sha256 = "sha256-pMOsoGycs81htwcFN8JfbMMoSIMts4nyek62njpjTug=";
+    };
+  };
 
   bloodhound-python_ce = python3Packages.buildPythonPackage rec {
     pname = "bloodhound-python_ce";
@@ -282,7 +282,7 @@ in
       ]))
       adpeas
       adcheck
-      #mssqlpwner
+      mssqlpwner
       bloodhound-python_ce
       manspider
       self.nmap
@@ -348,7 +348,7 @@ in
           mssqlrelay
           adcheck
           adpeas
-          #mssqlpwner
+          mssqlpwner
           bloodhound-python_ce
           manspider
           python3Packages.impacket

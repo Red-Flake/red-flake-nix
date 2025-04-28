@@ -10,7 +10,7 @@
     pdf-parser
     pdfid
     exiftool
-    zeek
+    # zeek    # disable zeek for now due to build errors
     oletools
   ];
 }
