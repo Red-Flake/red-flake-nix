@@ -7,5 +7,6 @@
     httrack
     updog
     burpsuite
+    zap
   ];
 }
