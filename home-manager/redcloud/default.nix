@@ -16,7 +16,7 @@
 in {
   # import other home-manager modules
   imports = [
-    nur.modules.homeManager.default
+    inputs.nur.modules.homeManager.default
     ./modules/git.nix
     ./modules/zsh.nix
     ./modules/msf.nix
