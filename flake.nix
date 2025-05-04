@@ -146,7 +146,11 @@
             inherit system;
             specialArgs = {
               inherit inputs outputs;
-              chaoticPkgs = inputs.chaotic;
+              chaoticPkgs = import inputs.nixpkgs {
+                inherit system;
+                overlays = [ inputs.chaotic.overlays.default ];
+                config.allowUnfree = true;
+              };
               user = "redflake";
               isKVM = true;
             };
@@ -195,7 +199,11 @@
             inherit system;
             specialArgs = {
               inherit inputs outputs;
-              chaoticPkgs = inputs.chaotic;
+              chaoticPkgs = import inputs.nixpkgs {
+                inherit system;
+                overlays = [ inputs.chaotic.overlays.default ];
+                config.allowUnfree = true;
+              };
               user = "redflake";
               isKVM = false;
             };
@@ -296,7 +304,11 @@
             inherit system;
             specialArgs = {
               inherit inputs outputs;
-              chaoticPkgs = inputs.chaotic;
+              chaoticPkgs = import inputs.nixpkgs {
+                inherit system;
+                overlays = [ inputs.chaotic.overlays.default ];
+                config.allowUnfree = true;
+              };
               user = "redcloud";
               isKVM = true;
             };
