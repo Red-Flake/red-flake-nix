@@ -1,5 +1,18 @@
 { config, lib, pkgs, modulesPath, ... }:
 
+let
+    # use old version of neo4j due to incompatbility with gds; use: https://lazamar.co.uk/nix-versions/
+    # get sha256 from rev using: nix-prefetch-git https://github.com/NixOS/nixpkgs/ 882842d2a908700540d206baa79efb922ac1c33d
+    # https://lazamar.co.uk/nix-versions/?package=neo4j&version=5.24.2&fullName=neo4j-5.24.2&keyName=neo4j&revision=882842d2a908700540d206baa79efb922ac1c33d&channel=nixpkgs-unstable#instructions
+    revpkgs = import (builtins.fetchTarball {
+        url = "https://github.com/NixOS/nixpkgs/archive/882842d2a908700540d206baa79efb922ac1c33d.tar.gz";
+        sha256 = "105v2h9gpaxq6b5035xb10ykw9i3b3k1rwfq4s6inblphiz5yw7q";
+    }) {
+        system = "x86_64-linux"; # Set your system explicitly
+    };
+
+    neo4j_5_24_2 = revpkgs.neo4j;
+in
 {
   # ZFS services
   services.zfs = {
@@ -54,6 +67,7 @@
   # Neo4j settings
   services.neo4j = {
     enable = true;
+    package = neo4j_5_24_2;
     directories.home = lib.mkForce "/var/lib/neo4j";
     https.sslPolicy = "legacy";
     http.listenAddress = ":7474";
