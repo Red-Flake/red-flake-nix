@@ -36,6 +36,9 @@
 
     # enable all firmware regardless of license
     enableAllFirmware = lib.mkForce true;
+
+    # enable CPU microcode updates
+    cpu.intel.updateMicrocode = lib.mkForce true;
   };
 
   services = {
