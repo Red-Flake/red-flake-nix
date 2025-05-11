@@ -116,6 +116,9 @@
 
        # PetitPotam-overlay
        (import ../overlays/PetitPotam-overlay)
+
+       # CUPP-overlay
+       (import ../overlays/cupp-overlay)
      ];
      # Configure your nixpkgs instance
      config = {

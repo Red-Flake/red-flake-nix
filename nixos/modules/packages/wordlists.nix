@@ -9,5 +9,6 @@
     wordlists
     rockyou
     username-anarchy
+    cupp
   ];
 }
