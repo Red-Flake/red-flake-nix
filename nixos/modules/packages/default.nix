@@ -3,6 +3,9 @@
 { inputs, config, lib, pkgs, modulesPath, ... }:
 
 {
+  # disable default packages
+  environment.defaultPackages = [];
+
   imports = [
     # General programs
     ./general.nix
