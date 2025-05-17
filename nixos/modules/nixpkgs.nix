@@ -119,6 +119,9 @@
 
        # CUPP-overlay
        (import ../overlays/cupp-overlay)
+
+       # john-overlay
+       (import ../overlays/john-overlay)
      ];
      # Configure your nixpkgs instance
      config = {
