@@ -13,28 +13,6 @@
 
      # You can add overlays here
      overlays = with inputs; [
-
-      # fix ldeep: https://github.com/NixOS/nixpkgs/pull/402068
-      (final: prev: {
-        ldeep = prev.ldeep.overrideAttrs (oldAttrs: {
-          pythonRelaxDeps = (oldAttrs.pythonRelaxDeps or []) ++ [
-            "termcolor"
-          ];
-        });
-      })
-
-      # fix bloodyAD: cryptography==44.0.1 not satisfied by version 44.0.2
-      # see: https://github.com/NixOS/nixpkgs/pull/402181/files
-      (final: prev: {
-        python313Packages = prev.python313Packages.overrideScope (pyfinal: pyprev: {
-          bloodyad = pyprev.bloodyad.overrideAttrs (oldAttrs: {
-            pythonRelaxDeps = (oldAttrs.pythonRelaxDeps or []) ++ [
-              "cryptography"
-            ];
-          });
-        });
-      })
-      
       # Chaotic-Nyx overlay 
       (final: prev: {
         chaoticPkgs = import inputs.chaotic { inherit (prev) system; };
