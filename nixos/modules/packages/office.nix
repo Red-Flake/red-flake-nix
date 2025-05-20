@@ -5,7 +5,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     #libreoffice-qt6-fresh   # compiles from source and takes ages to compile
-    freeoffice
+    #freeoffice   # mirror is very slow
     onlyoffice-desktopeditors
   ];
 }
