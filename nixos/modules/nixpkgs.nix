@@ -100,6 +100,9 @@
 
        # john-overlay
        (import ../overlays/john-overlay)
+
+       # certipy-overlay
+       (import ../overlays/certipy-overlay)
      ];
      # Configure your nixpkgs instance
      config = {

@@ -31,5 +31,6 @@
     pkinittools
     petitpotam
     adidnsdump
+    adenum
   ];
 }
