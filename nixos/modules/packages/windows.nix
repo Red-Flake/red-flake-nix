@@ -10,7 +10,7 @@
     python312Packages.impacket-patched
     openldap
     ldapdomaindump-patched
-    certipy
+    python312Packages.certipy-ad
     netexec
     powershell
     python313Packages.bloodyad
