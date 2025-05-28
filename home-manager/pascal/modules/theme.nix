@@ -28,16 +28,16 @@
   };
 
   # force creation of ~/.config/gtk-2.0/gtkrc otherwise home-manager will fail
-  home.file.${config.gtk.gtk2.configLocation}.force = true;
+  home.file.${config.gtk.gtk2.configLocation}.force = lib.mkForce true;
 
   # force creation of ~/.config/gtk-3.0/settings.ini otherwise home-manager will fail
-  xdg.configFile."gtk-3.0/settings.ini".force = true;
+  xdg.configFile."gtk-3.0/settings.ini".force = lib.mkForce true;
 
   # force creation of ~/.config/gtk-4.0/gtk.css otherwise home-manager will fail
-  xdg.configFile."gtk-4.0/gtk.css".force = true;
+  xdg.configFile."gtk-4.0/gtk.css".force = lib.mkForce true;
 
   # force creation of ~/.config/gtk-4.0/settings.ini otherwise home-manager will fail
-  xdg.configFile."gtk-4.0/settings.ini".force = true;
+  xdg.configFile."gtk-4.0/settings.ini".force = lib.mkForce true;
 
   # Fix GTK themes not applied in Wayland
   dconf = {
