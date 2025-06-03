@@ -9,5 +9,6 @@
     burpsuite
     zap
     xssstrike
+    xsser
   ];
 }

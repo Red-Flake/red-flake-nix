@@ -106,6 +106,9 @@
 
        # XSStrike-overlay
        (import ../overlays/XSStrike-overlay)
+
+       # XSSer-overlay
+       (import ../overlays/XSSer-overlay)
      ];
      # Configure your nixpkgs instance
      config = {
