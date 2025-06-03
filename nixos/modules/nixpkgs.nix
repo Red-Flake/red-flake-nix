@@ -103,6 +103,9 @@
 
        # certipy-overlay
        (import ../overlays/certipy-overlay)
+
+       # XSStrike-overlay
+       (import ../overlays/XSStrike-overlay)
      ];
      # Configure your nixpkgs instance
      config = {

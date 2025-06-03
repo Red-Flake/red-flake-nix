@@ -8,5 +8,6 @@
     updog
     burpsuite
     zap
+    xssstrike
   ];
 }
