@@ -103,7 +103,7 @@ in
                     vscode = "codium";
                     vscodium = "codium";
                     smbclient-ng ="smbclientng";
-                    pyftpdlib = "pipx runpip pyftpdlib install -q pyftpdlib --exists-action i && ~/.local/share/pipx/venvs/pyftpdlib/bin/python -m pyftpdlib";
+                    pyftpdlib = "pipx run pyftpdlib";
                     uploadserver = "pipx run uploadserver";
                     bloodhound-quickwin = "bhqc.py";
                     stegsolve = "java -jar /usr/share/tools/Steganography/stegsolve.jar";
