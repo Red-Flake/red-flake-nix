@@ -6,6 +6,6 @@
   environment.systemPackages = with pkgs; [
     nix-index
     home-manager
-    #inputs.nix-alien.packages.${system}.nix-alien
+    inputs.nix-alien.packages.${system}.nix-alien
   ];
 }
