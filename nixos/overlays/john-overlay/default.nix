@@ -6,14 +6,18 @@ let
   fetchFromGitHub = super.fetchFromGitHub;
 in {
   john = super.john.overrideAttrs (old: {
-    version = "unstable-2025-05-01";
+    version = "unstable-2025-06-15";
 
     src = fetchFromGitHub {
       owner = "openwall";
       repo = "john";
-      rev = "8b5bfefbdc9b643513037f30c8200f5dc0ffc841"; # https://github.com/openwall/john/commit/8b5bfefbdc9b643513037f30c8200f5dc0ffc841
-      hash = "sha256-R1HzCeutxOWRlTZzEun9OtP1n/LCa6rKVzBs1meTNf0="; # ← update this
+      rev = "2c69bc24d0a2f5539b2ca95393f0231912f1756b"; # https://github.com/openwall/john/commit/2c69bc24d0a2f5539b2ca95393f0231912f1756b
+      hash = "sha256-EaVaHa35213vUbmZk/RNnAF2MjDG1BCyvqA14JSzGnE="; # ← update this
     };
+
+    propagatedBuildInputs = old.propagatedBuildInputs ++ [
+      super.python3Packages.pyhanko
+    ];
 
     # Remove the opencl.patch
     patches = [];
