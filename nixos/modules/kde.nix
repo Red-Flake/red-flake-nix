@@ -47,6 +47,7 @@ in
       TimeoutStopSec  = "5sec";
       Slice           = "background.slice";
       Restart         = "on-failure";
+      RestartSec      = "5s";
     };
 
     # Start it whenever your user session comes up
