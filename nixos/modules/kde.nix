@@ -29,29 +29,27 @@ in
   ];
 
   # make sure the plasma-powerdevil service runs
-  systemd.user.services."plasma-powerdevil" = {
+  systemd.user.services.plasma-powerdevil = {
     enable      = true;
     description = "KDE Powerdevil power-management daemon";
 
-    # Unit-level settings
+    # Don’t tie to graphical-session.target
     unitConfig = {
-      PartOf = "graphical-session.target";
-      After  = "plasma-core.target";
+      After = "dbus.service";            # ensure D-Bus is up
     };
 
-    # Service-level settings: must re-declare ExecStart etc.
     serviceConfig = {
-      ExecStart       = "${pkgs.kdePackages.powerdevil}/libexec/org_kde_powerdevil";
-      Type            = "dbus";
-      BusName         = "org.kde.Solid.PowerManagement";
-      TimeoutStopSec  = "5sec";
-      Slice           = "background.slice";
-      Restart         = "on-failure";
-      RestartSec      = "5s";
+      ExecStart      = "${pkgs.kdePackages.powerdevil}/libexec/org_kde_powerdevil";
+      Type           = "dbus";
+      BusName        = "org.kde.Solid.PowerManagement";
+      Restart        = "always";        # restart even after TERM
+      RestartSec     = "5s";
+      # Optional: disable DDC if that’s crashing you
+      # Environment  = "POWERDEVIL_NO_DDCUTIL=1";
     };
 
-    # Start it whenever your user session comes up
-    wantedBy = [ "graphical-session.target" ];
+    # Hook it into your user manager, not just the graphical session
+    wantedBy = [ "default.target" ];
   };
    
   # Display-Manager settings
