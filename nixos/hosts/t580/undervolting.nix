@@ -17,7 +17,7 @@
   services.undervolt = {
     enable         = true;   # turn on the undervolt service at boot
     package        = pkgs.undervolt;  # use the ‘undervolt’ CLI from nixpkgs
-    useTimer       = false;  # apply offsets once at boot (no periodic re-application)
+    useTimer       = true;  # run via systemd-timer (retries a few seconds after boot)
     verbose        = true;   # log each MSR write to journalctl for debugging
 
     turbo          = 0;      # 0 = keep Intel Turbo Boost enabled (max clocks allowed)

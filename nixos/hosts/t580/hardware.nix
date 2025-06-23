@@ -22,6 +22,7 @@
       "sd_mod"
       "ahci"
       "thinkpad_acpi"
+      "msr"
     ];
     initrd.kernelModules = [ ];
     kernelModules = [
