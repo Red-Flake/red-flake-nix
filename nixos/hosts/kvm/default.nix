@@ -91,6 +91,9 @@
     # symlinks for webshells
     ../../modules/webshells.nix
 
+    # symlinks for payloads
+    ../../modules/payloads.nix
+
     # symlinks for tools
     ../../modules/tools.nix
 
