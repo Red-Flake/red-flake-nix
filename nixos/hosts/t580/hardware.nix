@@ -32,7 +32,7 @@
     extraModulePackages = [ ];
     
     # Set extra kernel module options
-    extraModprobeConfig = "options kvm_intel nested=1\noptions thinkpad_acpi fan_control=1 experimental=1";
+    extraModprobeConfig = "options kvm_intel nested=1\noptions thinkpad_acpi fan_control=1 experimental=1\noptions i915 enable_dc=0";
   };
 
   hardware = {
