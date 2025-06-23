@@ -20,6 +20,9 @@
     # Additional hardware configuration for Thinkpad T580
     ./hardware.nix
 
+    # Packages and settings for Undervolting the Thinkpad T580
+    ./undervolting.nix
+
     # Additional general hardware configuration
     ../../modules/hardware.nix
 

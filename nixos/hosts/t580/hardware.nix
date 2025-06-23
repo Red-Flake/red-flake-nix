@@ -24,7 +24,10 @@
       "thinkpad_acpi"
     ];
     initrd.kernelModules = [ ];
-    kernelModules = [ "kvm-intel" ];
+    kernelModules = [
+      "kvm-intel"
+      "msr"  # for undervolting Intel CPUs
+    ];
     extraModulePackages = [ ];
     
     # Set extra kernel module options
