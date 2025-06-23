@@ -92,6 +92,9 @@
     # symlinks for payloads
     ../../modules/payloads.nix
 
+    # symlinks for exploits
+    ../../modules/exploits.nix
+
     # symlinks for tools
     ../../modules/tools.nix
 

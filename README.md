@@ -61,6 +61,7 @@ redflake-rebuild
 - various wordlists in `/usr/share/wordlists`
 - various webshells in `/usr/share/webshells`
 - PayloadsAllTheThings in `/usr/share/payloads/payloadsallthethings`
+- exploitdb in `/usr/share/exploits/exploitdb`
 - customized zsh shell with oh-my-zsh
 - support for Docker, LXC, KVM & VirtualBox
 - postgres & neo4j databases for metasploit & bloodhound
