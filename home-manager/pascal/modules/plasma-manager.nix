@@ -202,6 +202,14 @@
     ];
 
     #
+    # Plasma session settings
+    #
+    session = {
+      # Start with a clean, empty session each time.
+      sessionRestore.restoreOpenApplicationsOnLogin = "startWithEmptySession";
+    };
+
+    #
     # Some low-level settings:
     #
     configFile = {
