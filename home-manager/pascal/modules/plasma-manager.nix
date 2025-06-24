@@ -77,7 +77,7 @@
                   "applications:org.telegram.desktop.desktop"
                   "applications:vesktop.desktop"
                   "applications:codium.desktop"
-                  "applications:burpsuite.desktop"
+                  "applications:burpsuitepro.desktop"
                   "applications:bloodhound.desktop"
                   "applications:ghidra.desktop"
                   #"applications:re.rizin.cutter.desktop"

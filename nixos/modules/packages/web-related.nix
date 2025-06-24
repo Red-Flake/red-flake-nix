@@ -7,6 +7,7 @@
     httrack
     updog
     burpsuite
+    inputs.burpsuitepro.packages.${system}.default
     zap
     xssstrike
     xsser

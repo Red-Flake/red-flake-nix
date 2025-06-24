@@ -16,6 +16,26 @@
         "type": "github"
       }
     },
+    "burpsuitepro": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1749779111,
+        "narHash": "sha256-7hAsPW51Til3DRXpYHJ8DGaAF/RUsNd4dkntcAF/UCE=",
+        "owner": "xiv3r",
+        "repo": "Burpsuite-Professional",
+        "rev": "50287e78ee79d51094d4bca334f0d8d115c56f89",
+        "type": "github"
+      },
+      "original": {
+        "owner": "xiv3r",
+        "repo": "Burpsuite-Professional",
+        "type": "github"
+      }
+    },
     "chaotic": {
       "inputs": {
         "fenix": "fenix",
@@ -662,6 +682,7 @@
     "root": {
       "inputs": {
         "artwork": "artwork",
+        "burpsuitepro": "burpsuitepro",
         "chaotic": "chaotic",
         "darkmatter-grub-theme": "darkmatter-grub-theme",
         "flake-parts": "flake-parts",

@@ -97,6 +97,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # https://github.com/xiv3r/Burpsuite-Professional
+    burpsuitepro = {
+      type = "github";
+      owner = "xiv3r";
+      repo = "Burpsuite-Professional";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Red-Flake artwork
     artwork = {
       url = "github:Red-Flake/artwork";
@@ -134,6 +142,7 @@
       poetry2nix,
       nixos-hardware,
       pwndbg,
+      burpsuitepro,
       ...
   } @ inputs: let
       inherit (self) outputs;
