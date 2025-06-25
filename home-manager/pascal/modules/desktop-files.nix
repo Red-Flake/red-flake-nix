@@ -798,13 +798,17 @@
 
 
   ## .desktop application entries
-  xdg.desktopEntries.outline = {
+  xdg.desktopEntries."chrome-magicbytes.getoutline.com__-Default" = {
     name = "Outline";
     genericName = "MagicBytes' Outline";
     exec = "${pkgs.ungoogled-chromium}/bin/chromium --app=https://magicbytes.getoutline.com";
     icon = "${pkgs.outline}/share/outline/public/images/icon-192.png";
     type = "Application";
-    categories = [ "X-usual_applications" ];
+    categories = [ "X-Usual-Applications" ];
+    # inject the StartupWMClass key:
+    settings = {
+      StartupWMClass = "chrome-magicbytes.getoutline.com__-Default";
+    };
   };
   xdg.desktopEntries.ghidra = {
     name = "ghidra";
