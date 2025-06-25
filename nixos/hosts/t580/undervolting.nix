@@ -31,6 +31,18 @@
                              # → reduces power in the cache/interconnect domain
     analogioOffset = -10;    # subtract 10 mV from analog I/O voltage
                              # → tiny extra power/heat savings (optional)
+
+    ## Set Power Limits
+    # Short-burst cap: 45 W for 1 s
+    p1 = {
+      limit  = 45;    # watts; PSU adapter only outputs max 45w
+      window = 1;     # seconds
+    };
+    # Sustained cap: 45 W for 28 s
+    p2 = {
+      limit  = 45;    # watts; PSU adapter only outputs max 45w
+      window = 28;    # seconds (default in many BIOSes)
+    };
   };
 
 }
