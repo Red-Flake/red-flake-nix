@@ -798,6 +798,14 @@
 
 
   ## .desktop application entries
+  xdg.desktopEntries.outline = {
+    name = "Outline";
+    genericName = "MagicBytes' Outline";
+    exec = "${pkgs.ungoogled-chromium}/bin/chromium --app=https://magicbytes.getoutline.com";
+    icon = "${pkgs.outline}/share/outline/public/images/icon-192.png";
+    type = "Application";
+    categories = [ "X-usual_applications" ];
+  };
   xdg.desktopEntries.ghidra = {
     name = "ghidra";
     genericName = "";
