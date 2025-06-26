@@ -57,12 +57,12 @@
             "java":{
                 "folder_for_loading_library_jar_files":""
             },
-            "python":{
-                "folder_for_loading_modules":"",
-                "location_of_jython_standalone_jar_file":"{% if 'jython' in burpsuite_extras_jars %}{{ burpsuite_extras_dir }}/{{ burpsuite_extras_jars.jython.jar }}{% endif %}"
+            "python": {
+                "folder_for_loading_modules": "",
+                "location_of_jython_standalone_jar_file": "jython-standalone-2.7.4.jar"
             },
-            "ruby":{
-                "location_of_jruby_jar_file":"{% if 'jruby' in burpsuite_extras_jars %}{{ burpsuite_extras_dir }}/{{ burpsuite_extras_jars.jruby.jar }}{% endif %}"
+            "ruby": {
+                "location_of_jruby_jar_file": "jruby-complete-10.0.0.1.jar"
             },
             "settings":{
                 "automatically_reload_extensions_on_startup":true,
