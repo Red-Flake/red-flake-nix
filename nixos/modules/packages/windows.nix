@@ -32,5 +32,6 @@
     petitpotam
     adidnsdump
     adenum
+    wimlib
   ];
 }
