@@ -51,7 +51,7 @@
       "bloodhound_default"
     ];
     ports = [
-      "127.0.0.1:8080:8080/tcp"
+      "127.0.0.1:9090:8080/tcp"
     ];
     dependsOn = [
       "bloodhound-app-db"
