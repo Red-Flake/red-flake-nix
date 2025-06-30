@@ -32,13 +32,20 @@
     autoStart = true;
     image = "docker.io/specterops/bloodhound:latest";
     environment = {
+      # https://github.com/SpecterOps/BloodHound/blob/main/examples/docker-compose/.env.example
       "bhe_database_connection" = "user=bloodhound password=bloodhoundcommunityedition dbname=bloodhound host=bloodhound-app-db";
       "bhe_disable_cypher_complexity_limit" = "false";
       "bhe_enable_cypher_mutations" = "false";
       "bhe_graph_driver" = "neo4j";
       "bhe_graph_query_memory_limit" = "2";
       "bhe_neo4j_connection" = "neo4j://neo4j:bloodhoundcommunityedition@bloodhound-graph-db:7687/";
-      "bhe_recreate_default_admin" = "false";
+      "bhe_recreate_default_admin" = "true";
+      "bhe_default_admin_principal_name" = "bloodhound";
+      "bhe_default_admin_password" = "Password1337";
+      "bhe_default_admin_email_address" = "bloodhound@localhost";
+      "bhe_default_admin_first_name" = "bloodhound";
+      "bhe_default_admin_last_name" = "admin";
+      "bhe_default_admin_expire_now" = "false";   # https://github.com/SpecterOps/BloodHound/blob/1507fa2774fc0d090fe0a22de1589f5e3322846f/cmd/api/src/config/config.go#L133C30-L133C40
     };
     networks = [ 
       "bloodhound_default"
