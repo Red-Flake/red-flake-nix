@@ -9,6 +9,25 @@
     virtualisation.docker.enable = true;
     virtualisation.docker.extraOptions = "--iptables=false --ip6tables=false";
 
+    # enable Podman support
+    virtualisation.podman = {
+      enable = true;
+      autoPrune.enable = true;
+      dockerCompat = false;
+    };
+
+    # set OCI container backend to podman
+    virtualisation.oci-containers = {
+      backend = "podman";
+    };
+
+    # Enable container name DNS for all Podman networks.
+    networking.firewall.interfaces = let
+      matchAll = if !config.networking.nftables.enable then "podman+" else "podman*";
+    in {
+      "${matchAll}".allowedUDPPorts = [ 53 ];
+    };
+
     # enable LXC support
     virtualisation.lxd.enable = true;
     virtualisation.lxc.lxcfs.enable = true;
