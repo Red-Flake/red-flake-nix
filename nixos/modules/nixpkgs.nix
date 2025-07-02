@@ -109,6 +109,9 @@
 
        # XSSer-overlay
        (import ../overlays/XSSer-overlay)
+
+       # bashfuscator-overlay
+       (import ../overlays/bashfuscator-overlay)
      ];
      # Configure your nixpkgs instance
      config = {
