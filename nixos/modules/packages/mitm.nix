@@ -5,6 +5,6 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     responder-patched
-    ssh-mitm
+    #ssh-mitm     # disable for now due to failing build of python313Packages.paramiko
   ];
 }

@@ -19,7 +19,6 @@
     lsb-release
     socat
     rlwrap
-    thefuck
     dfc
     zsh
     openvpn

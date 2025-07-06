@@ -23,6 +23,16 @@
 
        inputs.poetry2nix.overlays.default
 
+      # fix issue with future-1.0.0; force python312
+      (final: prev: {
+        coercer = prev.coercer.override { python3 = final.python312; };
+        adidnsdump = prev.adidnsdump.override { python3 = final.python312; };
+        adenum = prev.adenum.override { python3 = final.python312; };
+        smbmap = prev.smbmap.override { python3 = final.python312; };
+        enum4linux-ng = prev.enum4linux-ng.override { python3 = final.python312; };
+        smbclient-ng = prev.smbclient-ng.override { python3 = final.python312; };
+      })
+
        # impacket overlay
        (import ../overlays/impacket-overlay)
 
@@ -39,7 +49,7 @@
        #(import ../overlays/linWinPwn-overlay)
 
        # ldapdomaindump overlay
-       (import ../overlays/ldapdomaindump-overlay)
+       #(import ../overlays/ldapdomaindump-overlay)
 
        # SMB_Killer overlay
        (import ../overlays/SMB_Killer-overlay)

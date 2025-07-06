@@ -5,11 +5,11 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     bloodhound
-    bloodhound-py
+    python312Packages.bloodhound-py
     bloodhound-quickwin
     python312Packages.impacket-patched
     openldap
-    ldapdomaindump-patched
+    #ldapdomaindump-patched
     python312Packages.certipy-ad
     netexec
     powershell

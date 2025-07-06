@@ -1,6 +1,6 @@
 # powerview-py-overlay.nix
 self: super: {
-  powerview-py = super.python3Packages.buildPythonPackage rec {
+  powerview-py = super.python312Packages.buildPythonPackage rec {
     pname = "powerview-py";
     version = "2025.0.4";
 
@@ -13,12 +13,12 @@ self: super: {
 
     format = "pyproject";
 
-    nativeBuildInputs = with super.python3Packages; [
+    nativeBuildInputs = with super.python312Packages; [
       poetry-core
       setuptools
     ];
 
-    propagatedBuildInputs = with super.python3Packages; [
+    propagatedBuildInputs = with super.python312Packages; [
       impacket
       ldap3-bleeding-edge
       dnspython

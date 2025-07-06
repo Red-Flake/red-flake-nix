@@ -2,7 +2,7 @@
 final: prev: 
 
 {
-  social-engineer-toolkit = final.python3Packages.buildPythonApplication rec {
+  social-engineer-toolkit = final.python312Packages.buildPythonApplication rec {
     pname = "social-engineer-toolkit";
     version = "8.0.3";
     format = "other";
@@ -41,7 +41,7 @@ final: prev:
       final.makeWrapper
     ];
 
-    propagatedBuildInputs = with final.python3Packages; [
+    propagatedBuildInputs = with final.python312Packages; [
       pexpect
       pycrypto
       requests

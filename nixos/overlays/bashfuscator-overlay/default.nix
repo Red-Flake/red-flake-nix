@@ -11,6 +11,11 @@ in
     pname = "bashfuscator";
     version = "unstable-05-09-2025"; # Adjust if there's a specific version or use a commit hash
 
+    pyproject = true;
+    build-system = with python313Packages; [
+      setuptools # Required for setup.py
+    ];
+
     src = fetchFromGitHub {
       owner = "Red-Flake";
       repo = "Bashfuscator";

@@ -24,7 +24,7 @@ in
 
     # Use setuptools to properly install the package and create entry points
     buildInputs = [
-      (super.python3.withPackages (ps: with ps; [
+      (super.python312.withPackages (ps: with ps; [
         msldap
         impacket
       ]))

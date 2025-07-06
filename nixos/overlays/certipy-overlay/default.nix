@@ -3,16 +3,18 @@ self: super:
 let
   pkgs = super;
 
+  version = "5.0.3";
+
   certipySrc = pkgs.fetchFromGitHub {
     owner = "ly4k";
     repo  = "Certipy";
-    rev   = "5.0.2";
+    rev   = version;
     hash  = "sha256-riFhpB8AMDewz7s4d7jKwmezTHFHJrenC3pWKzfAk6Q=";
   };
 in {
-  python312Packages = pkgs.python312Packages // {
-    certipy-ad = pkgs.python312Packages.certipy-ad.overrideAttrs (old: rec {
-      version = "5.0.2";
+  python314Packages = pkgs.python314Packages // {
+    certipy-ad = pkgs.python314Packages.certipy-ad.overrideAttrs (old: rec {
+      version = version;
       src     = certipySrc;
 
       postPatch = ''
@@ -26,9 +28,9 @@ in {
       '';
 
       propagatedBuildInputs = old.propagatedBuildInputs ++ [
-        pkgs.python312Packages.beautifulsoup4
-        pkgs.python312Packages.httpx
-        pkgs.python312Packages.argcomplete
+        pkgs.python314Packages.beautifulsoup4
+        pkgs.python314Packages.httpx
+        pkgs.python314Packages.argcomplete
       ];
 
       # Disable checks

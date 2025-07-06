@@ -29,6 +29,11 @@ final: prev:
         pname = "pyNfsClient";
         version = "1.0.0"; # Updated to match fork version
 
+        pyproject = true;
+        build-system = with final.python312Packages; [
+          setuptools # Required for setup.py
+        ];
+
         src = final.fetchFromGitHub {
           owner = "Pennyw0rth";
           repo = "NfsClient";

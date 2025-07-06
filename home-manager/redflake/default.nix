@@ -24,7 +24,6 @@ in {
     ./modules/theme.nix
     ./modules/zsh.nix
     ./modules/msf.nix
-    #./modules/thefuck.nix
     ./modules/fastfetch.nix
     ./modules/bloodhound.nix
     ./modules/plasma-manager.nix
@@ -68,7 +67,6 @@ in {
       zsh-syntax-highlighting
       zsh-powerlevel10k
       meslo-lgs-nf
-      thefuck
       flatpak
     ];
 
