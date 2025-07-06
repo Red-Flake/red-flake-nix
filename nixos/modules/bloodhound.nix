@@ -39,7 +39,7 @@
       "bhe_graph_driver" = "neo4j";
       "bhe_graph_query_memory_limit" = "2";
       "bhe_neo4j_connection" = "neo4j://neo4j:bloodhoundcommunityedition@bloodhound-graph-db:7687/";
-      "bhe_recreate_default_admin" = "true";
+      "bhe_recreate_default_admin" = "false";
       "bhe_default_admin_principal_name" = "bloodhound";
       "bhe_default_admin_password" = "Password1337";
       "bhe_default_admin_email_address" = "bloodhound@localhost";
@@ -86,6 +86,47 @@
       "--network-alias=bloodhound-graph-db"
       "--network=bloodhound_default"
     ];
+  };
+
+  # Networks
+  systemd.services."podman-network-bloodhound_default" = {
+    path = [ pkgs.podman ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStop = "podman network rm -f bloodhound_default";
+    };
+    script = ''
+      podman network inspect bloodhound_default || podman network create bloodhound_default
+    '';
+    partOf = [ "podman-compose-bloodhound-root.target" ];
+    wantedBy = [ "podman-compose-bloodhound-root.target" ];
+  };
+
+  # Volumes
+  systemd.services."podman-volume-bloodhound_neo4j-data" = {
+    path = [ pkgs.podman ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+    };
+    script = ''
+      podman volume inspect bloodhound_neo4j-data || podman volume create bloodhound_neo4j-data
+    '';
+    partOf = [ "podman-compose-bloodhound-root.target" ];
+    wantedBy = [ "podman-compose-bloodhound-root.target" ];
+  };
+  systemd.services."podman-volume-bloodhound_postgres-data" = {
+    path = [ pkgs.podman ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+    };
+    script = ''
+      podman volume inspect bloodhound_postgres-data || podman volume create bloodhound_postgres-data
+    '';
+    partOf = [ "podman-compose-bloodhound-root.target" ];
+    wantedBy = [ "podman-compose-bloodhound-root.target" ];
   };
 
   # Root service
