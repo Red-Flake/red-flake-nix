@@ -21,7 +21,6 @@ in {
     ./modules/git.nix
     ./modules/dconf.nix
     ./modules/artwork.nix
-    ./modules/avatar.nix
     ./modules/theme.nix
     ./modules/zsh.nix
     ./modules/msf.nix

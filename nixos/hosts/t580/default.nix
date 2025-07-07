@@ -62,6 +62,9 @@
     # KDE settings
     ../../modules/kde.nix
 
+    # Avatar settings
+    ./avatar.nix
+
     # Security settings
     ../../modules/security.nix
 
