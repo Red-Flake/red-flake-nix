@@ -4,7 +4,18 @@ let
   browser = "firefox.desktop";
 in
 {
-# enable xdg desktop portal
+
+  home.activation = {
+    mimeapps = lib.hm.dag.entryBefore ["writeBoundary"] ''
+      # Check if ~/.config/mimeapps.list exists
+      if [ -f "${config.xdg.configHome}/mimeapps.list" ]; then
+        # Ensure the existing config file is removed before activation
+        rm -f "${config.xdg.configHome}/mimeapps.list"
+      fi
+    '';
+  };
+
+  # enable xdg desktop portal
   xdg.portal = {
     enable = true;
     extraPortals = with pkgs; [
