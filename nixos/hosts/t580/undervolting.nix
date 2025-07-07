@@ -23,13 +23,13 @@
     turbo          = 0;      # 0 = keep Intel Turbo Boost enabled (max clocks allowed)
                              # 1 = disable Turbo (locks to base frequency)
 
-    coreOffset     = -85;    # subtract 85 mV from CPU core & cache voltage
+    coreOffset     = -80;    # subtract 80 mV from CPU core & cache voltage
                              # → lowers power & heat, extends sustained turbo windows
-    gpuOffset      = -60;    # subtract 60 mV from the integrated GPU voltage
+    gpuOffset      = -50;    # subtract 50 mV from the integrated GPU voltage
                              # → cooler iGPU under graphics or compute load
-    uncoreOffset   = -60;    # subtract 60 mV from the ring/uncore voltage
+    uncoreOffset   = -50;    # subtract 50 mV from the ring/uncore voltage
                              # → reduces power in the cache/interconnect domain
-    analogioOffset = -10;    # subtract 10 mV from analog I/O voltage
+    analogioOffset = -5;    # subtract 5 mV from analog I/O voltage
                              # → tiny extra power/heat savings (optional)
 
     ## Set Power Limits
