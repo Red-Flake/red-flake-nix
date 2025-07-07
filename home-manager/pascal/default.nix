@@ -40,6 +40,8 @@ in {
     ./modules/ssh-agent.nix
     ./modules/ssh-config.nix
     ./modules/jadx.nix
+    ./modules/bat.nix
+    ./modules/services.nix
   ];
 
 

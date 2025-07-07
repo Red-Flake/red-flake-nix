@@ -73,6 +73,12 @@ in
     plasma6.enable = true;
   };
 
+  # Enable XWayland
+  programs.xwayland.enable = true;
+
+  # Enable KDE Connect
+  programs.kdeconnect.enable = true;
+
   # Add ~/.config/kdedefaults to XDG_CONFIG_DIRS for shells, since Plasma sets that.
   # FIXME: maybe we should append to XDG_CONFIG_DIRS in /etc/set-environment instead?
   environment.sessionVariables.XDG_CONFIG_DIRS = ["$HOME/.config/kdedefaults"];
@@ -104,6 +110,15 @@ in
     ## As of NixOS 22.05 ("Quokka"), you can enable Ozone Wayland support in Chromium and Electron based applications by setting the environment variable NIXOS_OZONE_WL=1. For example, in a configuration.nix: 
     NIXOS_OZONE_WL = "1";
 
+    # this env is useful for electron wayland
+    ELECTRON_OZONE_PLATFORM_HINT = "auto";
+
+    # variable for qt (wayland with fallback to x11)
+    QT_QPA_PLATFORM = "wayland;xcb";
+
+    # set sessiontype
+    XDG_SESSION_TYPE = "wayland";
+
     # Firefox
     ## Enable wayland for firefox
     MOZ_ENABLE_WAYLAND = "1";
@@ -124,6 +139,9 @@ in
   # KDE PAM Settings
   security.pam.services = {
     login.kwallet = {
+      enable = true;
+    };
+    sddm.kwallet = {
       enable = true;
     };
     kde.kwallet = {
