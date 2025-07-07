@@ -129,5 +129,8 @@
 
     # SNMP tools
     ./snmp.nix
+
+    # C2 frameworks
+    ./c2.nix
   ];
 }

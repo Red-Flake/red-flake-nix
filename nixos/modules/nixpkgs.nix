@@ -122,6 +122,9 @@
 
        # bashfuscator-overlay
        (import ../overlays/bashfuscator-overlay)
+
+       # sliver-overlay
+       (import ../overlays/sliver-overlay)
      ];
      # Configure your nixpkgs instance
      config = {
