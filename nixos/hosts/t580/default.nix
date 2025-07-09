@@ -117,7 +117,7 @@
     ../../modules/appimage.nix
 
     # BloodHound CE
-    ../../modules/bloodhound.nix
+    #../../modules/bloodhound.nix
   ];
 
   # Set hostname

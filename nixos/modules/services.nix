@@ -65,21 +65,24 @@ in
   };
 
   # Neo4j settings
-  # Disable for now since we are already deploying neo4j vie podman and exposing the ports
-  #services.neo4j = {
-  #  enable = true;
-  #  package = neo4j_5_24_2;
-  #  directories.home = lib.mkForce "/var/lib/neo4j";
-  #  https.sslPolicy = "legacy";
-  #  http.listenAddress = ":7474";
-  #  https.listenAddress = ":7473";
-  #  bolt.tlsLevel = "DISABLED";
-  #  bolt.sslPolicy = "legacy";
-  #  bolt.listenAddress = ":7687";
-  #  bolt.enable = true;
-  #  https.enable = false;
-  #  extraServerConfig = "dbms.security.procedures.unrestricted=gds.*\ndbms.security.procedures.allowlist=gds.*\n";
-  #};
+  services.neo4j = {
+    enable = true;
+    package = neo4j_5_24_2;
+    directories.home = lib.mkForce "/var/lib/neo4j";
+    directories.data = lib.mkForce "/var/lib/neo4j/data";
+    directories.plugins = lib.mkForce "/var/lib/neo4j/plugins";
+    directories.imports = lib.mkForce "/var/lib/neo4j/import";
+    directories.certificates = lib.mkForce "/var/lib/neo4j/certificates";
+    https.sslPolicy = "legacy";
+    http.listenAddress = ":7474";
+    https.listenAddress = ":7473";
+    bolt.tlsLevel = "DISABLED";
+    bolt.sslPolicy = "legacy";
+    bolt.listenAddress = ":7687";
+    bolt.enable = true;
+    https.enable = false;
+    extraServerConfig = "dbms.security.procedures.unrestricted=gds.*\ndbms.security.procedures.allowlist=gds.*\n";
+  };
 
   # Fwupd settings
   services.fwupd = {

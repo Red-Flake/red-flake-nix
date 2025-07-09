@@ -97,10 +97,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # https://github.com/xiv3r/Burpsuite-Professional
+    # https://github.com/Red-Flake/Burpsuite-Professional
     burpsuitepro = {
       type = "github";
-      owner = "xiv3r";
+      owner = "Red-Flake";
       repo = "Burpsuite-Professional";
       inputs.nixpkgs.follows = "nixpkgs";
     };

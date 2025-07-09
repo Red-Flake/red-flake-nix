@@ -23,15 +23,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1749779111,
-        "narHash": "sha256-7hAsPW51Til3DRXpYHJ8DGaAF/RUsNd4dkntcAF/UCE=",
-        "owner": "xiv3r",
+        "lastModified": 1752084966,
+        "narHash": "sha256-Jz6P9yq+dQCBK8TurvpqUK3Cf7znNnJIksJ+M8SGl6s=",
+        "owner": "Red-Flake",
         "repo": "Burpsuite-Professional",
-        "rev": "50287e78ee79d51094d4bca334f0d8d115c56f89",
+        "rev": "a7a1875fd265d3d57994aa4e708c5dd3e0894c3a",
         "type": "github"
       },
       "original": {
-        "owner": "xiv3r",
+        "owner": "Red-Flake",
         "repo": "Burpsuite-Professional",
         "type": "github"
       }
