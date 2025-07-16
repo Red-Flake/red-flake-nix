@@ -18,6 +18,10 @@ in
     kdePackages.powerdevil
     krita
     kdePackages.krdc
+    kdePackages.kwallet
+    kdePackages.kwallet-pam
+    kdePackages.kwalletmanager
+    kdePackages.ksshaskpass
 
     # Install custom sddm theme.conf.user
     (
