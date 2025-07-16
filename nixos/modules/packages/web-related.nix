@@ -11,5 +11,6 @@
     zap
     xssstrike
     xsser
+    xxeinjector
   ];
 }

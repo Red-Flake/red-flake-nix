@@ -125,6 +125,9 @@
 
        # sliver-overlay
        (import ../overlays/sliver-overlay)
+
+       # XXEinjector-overlay
+       (import ../overlays/XXEinjector-overlay)
      ];
      # Configure your nixpkgs instance
      config = {
