@@ -13,5 +13,7 @@
     whatweb
     onesixtyone
     whois
+    eyewitness
+    aquatone
   ];
 }

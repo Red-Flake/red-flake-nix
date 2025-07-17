@@ -128,6 +128,9 @@
 
        # XXEinjector-overlay
        (import ../overlays/XXEinjector-overlay)
+
+       # aquatone-overlay
+       (import ../overlays/aquatone-overlay)
      ];
      # Configure your nixpkgs instance
      config = {
