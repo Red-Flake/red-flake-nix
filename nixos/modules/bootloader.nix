@@ -44,6 +44,7 @@ in
         "audit=0"
         "net.ifnames=0"
         "biosdevname=0"
+        "pcie_aspm.policy=performance"
       ];
 
       # Switch to Xanmod kernel
