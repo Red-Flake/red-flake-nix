@@ -13,6 +13,9 @@
     Settings = {
       AutoConnect = true;
     };
+    General = {
+      PowerSave = false;
+    };
   };
   networking.networkmanager.wifi.backend = "iwd";
   networking.networkmanager.wifi.powersave = false;
