@@ -35,7 +35,7 @@
     extraModprobeConfig = ''
       options kvm_intel nested=1
       options thinkpad_acpi fan_control=1 experimental=1
-      options i915 enable_dc=0
+      options i915 enable_dc=0 enable_psr=0
       options iwlwifi power_save=0 uapsd_disable=1
     '';
   };
