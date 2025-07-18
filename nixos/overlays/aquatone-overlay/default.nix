@@ -21,6 +21,7 @@ self: super: {
     postPatch = ''
       sed -i '/import (/a\ \ "os/user"' core/session.go
       sed -i '/session.Options.OutDir = envOutPath/a \ \ session.Options.OutDir = os.ExpandEnv(session.Options.OutDir)\n\ \ if strings.HasPrefix(session.Options.OutDir, "~\/") {\n\ \ \ \ u, err := user.Current()\n\ \ \ \ if err == nil {\n\ \ \ \ \ \ session.Options.OutDir = u.HomeDir + session.Options.OutDir[1:]\n\ \ \ \ }\n\ \ }' core/session.go
+      sed -i 's/os\.Mkdir/os.MkdirAll/g' core/session.go
     '';
 
     postInstall = ''
