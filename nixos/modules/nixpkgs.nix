@@ -131,6 +131,9 @@
 
        # aquatone-overlay
        (import ../overlays/aquatone-overlay)
+       
+       # eyewitness-overlay
+       (import ../overlays/eyewitness-overlay)
      ];
      # Configure your nixpkgs instance
      config = {
