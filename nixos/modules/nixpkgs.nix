@@ -134,6 +134,9 @@
        
        # eyewitness-overlay
        (import ../overlays/eyewitness-overlay)
+
+       # droopescan-overlay
+       (import ../overlays/droopescan-overlay)
      ];
      # Configure your nixpkgs instance
      config = {
