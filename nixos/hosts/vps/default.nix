@@ -83,6 +83,9 @@
     # symlinks for tools
     ../../modules/tools.nix
 
+    # symlinks for metasploit-framework
+    ../../modules/metasploit.nix
+
     # apply various system tweaks which are required for red-flake to work
     ../../modules/tweaks.nix
 
