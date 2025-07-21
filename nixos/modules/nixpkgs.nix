@@ -140,6 +140,9 @@
 
        # JoomlaScan-overlay
        (import ../overlays/JoomlaScan-overlay)
+
+       # joomla-brute-overlay
+       (import ../overlays/joomla-brute-overlay)
      ];
      # Configure your nixpkgs instance
      config = {

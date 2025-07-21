@@ -8,5 +8,6 @@
     joomscan
     droopescan
     JoomlaScan
+    joomla-brute
   ];
 }
