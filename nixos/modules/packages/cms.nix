@@ -7,5 +7,6 @@
     wpscan
     joomscan
     droopescan
+    JoomlaScan
   ];
 }

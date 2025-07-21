@@ -7,5 +7,11 @@
     nix-index
     home-manager
     inputs.nix-alien.packages.${system}.nix-alien
+    nix-prefetch-github
+    nix-prefetch-git
+    nix-prefetch-docker
+    nix-prefetch-cvs
+    nix-prefetch-svn
+    nix-prefetch-hg
   ];
 }

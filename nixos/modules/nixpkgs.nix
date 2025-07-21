@@ -137,6 +137,9 @@
 
        # droopescan-overlay
        (import ../overlays/droopescan-overlay)
+
+       # JoomlaScan-overlay
+       (import ../overlays/JoomlaScan-overlay)
      ];
      # Configure your nixpkgs instance
      config = {
