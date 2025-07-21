@@ -29,10 +29,10 @@
         engines = {
           "SearXNG" = {
             urls = [{
-              template = "https://searxng.world/search?q={searchTerms}";
+              template = "https://search.inetol.net/search?q={searchTerms}";
             }];
 
-            icon = "https://searxng.world/static/themes/simple/img/favicon.svg";
+            icon = "https://search.inetol.net/static/themes/simple/img/favicon.svg";
             updateInterval = 24 * 60 * 60 * 1000;
             definedAliases = [ "@sx" ];
           };

@@ -19,8 +19,24 @@
       isDefault = true;
 
       search = {
-        default = "duckduckgo";
+        default = "SearXNG";
+        privateDefault = "SearXNG";
         force = true;
+        order = [
+          "SearXNG"
+        ];
+
+        engines = {
+          "SearXNG" = {
+            urls = [{
+              template = "https://search.inetol.net/search?q={searchTerms}";
+            }];
+
+            icon = "https://search.inetol.net/static/themes/simple/img/favicon.svg";
+            updateInterval = 24 * 60 * 60 * 1000;
+            definedAliases = [ "@sx" ];
+          };
+        };
       };
 
       settings = {
