@@ -21,6 +21,12 @@ self: super: {
       beautifulsoup4
     ];
 
+    # Patch to change 'rb+' to 'rb' for read-only wordlist files
+    postPatch = ''
+      substituteInPlace joomla-brute.py \
+        --replace "'rb+'" "'rb'"
+    '';
+
     # Custom install: install script and wrap it
     installPhase = ''
       mkdir -p $out/bin $out/share/joomla-brute
