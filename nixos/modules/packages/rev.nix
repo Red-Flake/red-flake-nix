@@ -8,7 +8,7 @@
     #cutterPlugins.jsdec
     #cutterPlugins.rz-ghidra
     ghidra-bin
-    jadx
+    #jadx     disable jadx for now due to issues with arrow / flight
     radare2
     avalonia-ilspy
     inputs.nix-binary-ninja.packages.${system}.binary-ninja-free-wayland

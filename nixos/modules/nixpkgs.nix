@@ -31,6 +31,32 @@
         smbmap = prev.smbmap.override { python3 = final.python312; };
         enum4linux-ng = prev.enum4linux-ng.override { python3 = final.python312; };
         smbclient-ng = prev.smbclient-ng.override { python3 = final.python312; };
+        samba4Full = prev.samba4Full.override { enableCephFS = false; };  # disable cephfs in order to disable arrow-cpp and get around issues with Flight
+      })
+
+      # fix issue with gRPC and abseil; override the arrow-cpp package to disable Flight
+      (self: super: {
+        arrow-cpp = super.arrow-cpp.overrideAttrs (old: {
+          cmakeFlags = (old.cmakeFlags or []) ++ [
+            "-DARROW_BUILD_TESTS=OFF"          # Disables tests (high memory for debug-like parts)
+            "-DARROW_BUILD_INTEGRATION=OFF"    # Disables integration executables
+            "-DARROW_BUILD_UTILITIES=OFF"      # Disables CLI utils
+            "-DARROW_FLIGHT=OFF"               # Disables Flight (gRPC-dependent, your main linker issue)
+            "-DARROW_FLIGHT_SQL=OFF"           # Disables Flight SQL
+            "-DARROW_COMPUTE=OFF"              # Disables compute kernels (if not needed for SciPy/Ceph)
+            "-DARROW_PARQUET=OFF"              # Disables Parquet (if not critical; check if SciPy needs it)
+            "-DARROW_GANDIVA=OFF"              # Disables Gandiva (LLVM-heavy)
+            "-DARROW_ORC=OFF"                  # Disables ORC
+            "-DARROW_CUDA=OFF"                 # Disables CUDA
+            # Optional: Disable compressions if unused
+            "-DARROW_WITH_BROTLI=OFF"
+            "-DARROW_WITH_BZ2=OFF"
+            "-DARROW_WITH_LZ4=OFF"
+            "-DARROW_WITH_SNAPPY=OFF"
+            "-DARROW_WITH_ZLIB=OFF"
+            "-DARROW_WITH_ZSTD=OFF"
+          ];
+        });
       })
 
        # impacket overlay
