@@ -129,5 +129,9 @@
         # Set kernel tick rate to 1000Hz
         # This increases the frequency at which the kernel's scheduler runs, which can improve system responsiveness.
         "kernel.hz" = 1000;
+
+        # Disable Split Lock Mitigate
+        # In some cases, split lock mitigate can slow down performance in some applications and games.
+        "kernel.split_lock_mitigate" = 0;
     };
 }
