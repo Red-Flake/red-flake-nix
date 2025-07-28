@@ -656,6 +656,26 @@
         "type": "github"
       }
     },
+    "redflake-packages": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1752622476,
+        "narHash": "sha256-ZuoGGmkQjjNBV3kJpCwaf25tKr59LOpLHW6Tkahqp+k=",
+        "owner": "Red-Flake",
+        "repo": "packages",
+        "rev": "cdab44042d0cd4499ae0ed66f58eedb05a77fd5e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Red-Flake",
+        "repo": "packages",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "artwork": "artwork",
@@ -675,6 +695,7 @@
         "poetry2nix": "poetry2nix",
         "pre-commit-hooks": "pre-commit-hooks",
         "pwndbg": "pwndbg",
+        "redflake-packages": "redflake-packages",
         "tools": "tools",
         "webshells": "webshells"
       }

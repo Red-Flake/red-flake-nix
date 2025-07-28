@@ -33,5 +33,6 @@
     adidnsdump
     adenum
     wimlib
+    inputs.redflake-packages.packages.x86_64-linux.bloodhound-ce-desktop
   ];
 }

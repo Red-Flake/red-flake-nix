@@ -122,6 +122,14 @@
       url = "github:Red-Flake/tools";
       flake = false;
     };
+
+    # Red-Flake NUR packages
+    redflake-packages = {
+      type = "github";
+      owner = "Red-Flake";
+      repo = "packages";
+      inputs.nixpkgs.follows = "nixpkgs";
+    }; 
     
   };
 
@@ -137,7 +145,8 @@
       nix-binary-ninja,
       artwork, 
       webshells, 
-      tools, 
+      tools,
+      redflake-packages,
       darkmatter-grub-theme,
       poetry2nix,
       nixos-hardware,
