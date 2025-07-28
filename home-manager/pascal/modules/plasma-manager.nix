@@ -230,7 +230,8 @@
         };
         "Plugins" = {
           "dimscreenEnabled" = true;
-          "hidecursorEnabled"= true;
+          "hidecursorEnabled" = true;
+          "zoomEnabled"  = false;
         };
       };
       #"kscreenlockerrc" = {
