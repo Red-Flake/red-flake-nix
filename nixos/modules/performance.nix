@@ -17,7 +17,8 @@
       scheduler = "scx_bpfland";
       # Optional: Set extra options for the scheduler
       extraArgs = [
-        "--lowlatency"  # Optional: For better responsiveness under load
+        "--slice-us-lag" "-5000"  # Negative lag for more consistent performance (reduces responsiveness but smooths long-running tasks)
+        "--primary-domain" "performance"  # Prioritize fastest cores initially (e.g., for bursty compilation phases)
       ];
     };
 }
