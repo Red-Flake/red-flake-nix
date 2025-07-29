@@ -48,7 +48,7 @@ in
       ];
 
       # Switch to Xanmod kernel
-      kernelPackages = chaoticPkgs.linuxPackages_xanmod_latest;
+      kernelPackages = chaoticPkgs.linuxPackages_cachyos-lto;
 
       # Initramfs settings
       initrd = {
