@@ -169,6 +169,9 @@
 
        # joomla-brute-overlay
        (import ../overlays/joomla-brute-overlay)
+
+       # apachetomcatscanner-overlay
+       (import ../overlays/apachetomcatscanner-overlay)
      ];
      # Configure your nixpkgs instance
      config = {
