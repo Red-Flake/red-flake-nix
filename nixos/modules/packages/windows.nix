@@ -9,7 +9,7 @@
     bloodhound-quickwin
     python312Packages.impacket-patched
     openldap
-    #ldapdomaindump-patched
+    ldapdomaindump-patched
     python312Packages.certipy-ad
     netexec
     powershell
