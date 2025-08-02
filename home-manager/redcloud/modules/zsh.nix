@@ -123,7 +123,7 @@ in
                         local venv_dir=".venv"
                         python3 -m venv "$venv_dir" && \
                         source "$venv_dir/bin/activate" && \
-                        pip install pycryptodome pycryptodomex pwntools
+                        pip install pycryptodome pycryptodomex pwntools requests
                       }
                       _python3_shell
                     '';
@@ -136,7 +136,7 @@ in
                         # Create a new Python 2 venv and activate it
                         python2 -m virtualenv "$venv_dir" && \
                         source "$venv_dir/bin/activate" && \
-                        pip install pycryptodome pwntools
+                        pip install pycryptodome pwntools requests
                       }
                       _python2_shell
                     '';
