@@ -47,8 +47,8 @@ in
         "pcie_aspm.policy=performance"
       ];
 
-      # Switch to Xanmod kernel
-      kernelPackages = chaoticPkgs.linuxPackages_cachyos-lto;
+      # Switch to CachyOS kernel
+      kernelPackages = chaoticPkgs.linuxPackages_cachyos;
 
       # Initramfs settings
       initrd = {
@@ -73,7 +73,7 @@ in
               else
                   "/dev/disk/by-path";
 
-          package = pkgs.zfs_unstable;
+          package = chaoticPkgs.zfs_cachyos;
           requestEncryptionCredentials = cfg.encryption;
       };
 
