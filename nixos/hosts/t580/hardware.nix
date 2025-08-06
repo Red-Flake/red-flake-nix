@@ -9,6 +9,9 @@
   custom = {
     # enable ZFS encryption
     zfs.encryption = true;
+
+    # enable Intel OpenCL legacy runtime
+    IntelComputeRuntimeLegacy.enable = true;
   };
 
   boot = {
@@ -50,6 +53,21 @@
 
     # enable CPU microcode updates
     cpu.intel.updateMicrocode = lib.mkForce true;
+
+    # Set Intel iGPU driver settings
+    intelgpu = {
+      # Set iGPU driver to i915
+      driver = lib.mkForce "i915";
+
+      # Load iGPU driver into initrd
+      loadInInitrd = lib.mkForce true;
+
+      # Set Intel VAAPI driver to intel-media-driver
+      vaapiDriver = lib.mkForce "intel-media-driver";
+
+      # Enable Hybrid Codec Support (e.g., VP9 decoding on Skylake)
+      enableHybridCodec = lib.mkForce true;
+    };
   };
 
   services = {
@@ -92,8 +110,13 @@
 
   };
 
-  environment.systemPackages = with pkgs; [
-    intel-compute-runtime
-  ];
+  # create symlink for intel-opencl/libigdrcl_legacy1.so
+  systemd.tmpfiles.rules =
+    let
+      createLink = src: dest: "L+ ${dest} - - - - ${src}";
+    in
+    [
+      (createLink "${pkgs.intel-compute-runtime-legacy1}/lib/intel-opencl/libigdrcl_legacy1.so" "/usr/lib/x86_64-linux-gnu/intel-opencl/libigdrcl_legacy1.so")
+    ];
 
 }

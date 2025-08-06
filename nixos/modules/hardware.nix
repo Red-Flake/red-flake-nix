@@ -14,7 +14,14 @@
         default = true;
       };
     };
-    
+
+    # Intel OpenCL legacy runtime settings
+    IntelComputeRuntimeLegacy = {
+      enable = lib.mkEnableOption "intel compute runtime legacy" // {
+        default = false;
+      };
+    };
+
   };
   
 }
