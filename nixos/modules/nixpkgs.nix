@@ -172,6 +172,9 @@
 
        # apachetomcatscanner-overlay
        (import ../overlays/apachetomcatscanner-overlay)
+
+       # dehashed-overlay
+       (import ../overlays/dehashed-overlay)
      ] ++ lib.optionals config.custom.IntelComputeRuntimeLegacy.enable [
        # enable Intel OpenCL legacy runtime if needed
        (import ../overlays/intel-legacy-overlay)
