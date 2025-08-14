@@ -15,6 +15,5 @@
     whois
     eyewitness
     aquatone
-    dehashed
   ];
 }
