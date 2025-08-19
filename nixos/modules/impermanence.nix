@@ -28,6 +28,7 @@
            "/root"
            "/etc/NetworkManager/system-connections"
            "/var/lib/NetworkManager"
+           "/var/lib/iwd"
            "/var/lib/systemd/coredump"
            "/var/lib/bluetooth"
            "/var/lib/fwupd"

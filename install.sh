@@ -401,10 +401,19 @@ mkdir -p /mnt/persist/var/lib/
 # Create the destination directory for NetworkManager configuration
 mkdir -p /mnt/persist/etc/NetworkManager
 
+# setup iwd persistence
+mkdir -p /mnt/persist/var/lib/iwd
+
 # Check if the system-connections directory exists before copying
 if [ -d /etc/NetworkManager/system-connections ]; then
     # Copy the directory recursively while preserving attributes
     cp -r -p /etc/NetworkManager/system-connections /mnt/persist/etc/NetworkManager/
+fi
+
+# Check if the iwd directory exists before copying
+if [ -d /var/lib/iwd ]; then
+    # Copy the directory recursively while preserving attributes
+    cp -r -p /var/lib/iwd /mnt/persist/var/lib/iwd/
 fi
 
 # Create the destination directory for NetworkManager state files
