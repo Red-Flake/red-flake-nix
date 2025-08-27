@@ -13,5 +13,6 @@
     nix-prefetch-cvs
     nix-prefetch-svn
     nix-prefetch-hg
+    nixfmt
   ];
 }
