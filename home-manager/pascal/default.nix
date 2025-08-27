@@ -42,6 +42,8 @@ in {
     ./modules/jadx.nix
     ./modules/bat.nix
     ./modules/services.nix
+    ./modules/vscode.nix
+    ./modules/direnv.nix
   ];
 
 

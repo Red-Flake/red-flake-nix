@@ -76,7 +76,7 @@
                   "applications:firefox.desktop"
                   "applications:org.telegram.desktop.desktop"
                   "applications:vesktop.desktop"
-                  "applications:codium.desktop"
+                  "applications:code.desktop"
                   "applications:burpsuitepro.desktop"
                   "applications:bloodhound.desktop"
                   "applications:ghidra.desktop"

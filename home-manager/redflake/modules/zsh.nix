@@ -99,9 +99,7 @@ in
                     patator = "patator.py";
                     pdf-parser = "pdf-parser.py";
                     ysoserial = "java -jar /usr/share/tools/Deserialization/ysoserial-all.jar";
-                    code = "codium";
-                    vscode = "codium";
-                    vscodium = "codium";
+                    vscode = "code";
                     smbclient-ng ="smbclientng";
                     pyftpdlib = "pipx run pyftpdlib";
                     uploadserver = "pipx run uploadserver";
@@ -333,7 +331,7 @@ in
                 # https://home-manager-options.extranix.com/?query=programs.zsh.localVariables&release=master
                 localVariables = {
                     LANG = "en_US.UTF-8";
-                    EDITOR = "vim";
+                    EDITOR = "code";
                     XDG_RUNTIME_DIR = "/run/user/$UID";
                 };
 
