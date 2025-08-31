@@ -1,5 +1,5 @@
 # NixOS hosts config for VM
-{ 
+{
   config,
   lib,
   pkgs,
@@ -7,7 +7,8 @@
   inputs,
   isKVM,
   ...
-}: {
+}:
+{
   # Import other NixOS modules here
   imports = [
     # Nix configuration
@@ -61,6 +62,9 @@
     # KDE settings
     ../../modules/kde.nix
 
+    # Thunar settings
+    ../../modules/thunar.nix
+
     # Security settings
     ../../modules/security.nix
 
@@ -93,7 +97,7 @@
 
     # symlinks for payloads
     ../../modules/payloads.nix
-    
+
     # symlinks for exploits
     ../../modules/exploits.nix
 

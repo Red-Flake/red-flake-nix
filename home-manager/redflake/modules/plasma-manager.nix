@@ -71,7 +71,7 @@
                 showOnlyCurrentActivity = "true";
                 showOnlyCurrentScreen = "true";
                 launchers = [
-                  "applications:org.kde.dolphin.desktop"
+                  "applications:thunar.desktop"
                   "applications:org.kde.konsole.desktop"
                   "applications:firefox.desktop"
                   "applications:org.telegram.desktop.desktop"
@@ -134,13 +134,15 @@
       }
     ];
 
-
     #
     # Some mid-level settings:
     #
     shortcuts = {
       ksmserver = {
-        "Lock Session" = [ "Screensaver" "Ctrl+Alt+L" ];
+        "Lock Session" = [
+          "Screensaver"
+          "Ctrl+Alt+L"
+        ];
       };
 
       kwin = {
@@ -229,16 +231,16 @@
         };
         "Plugins" = {
           "dimscreenEnabled" = true;
-          "hidecursorEnabled"= true;
+          "hidecursorEnabled" = true;
         };
       };
       #"kscreenlockerrc" = {
       #  "Greeter"."WallpaperPlugin" = "org.kde.potd";
-        # To use nested groups use / as a separator. In the below example,
-        # Provider will be added to [Greeter][Wallpaper][org.kde.potd][General].
+      # To use nested groups use / as a separator. In the below example,
+      # Provider will be added to [Greeter][Wallpaper][org.kde.potd][General].
       #  "Greeter/Wallpaper/org.kde.potd/General".Provider = "bing";
       #};
     };
   };
-  
+
 }

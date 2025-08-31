@@ -1,5 +1,5 @@
 # NixOS hosts config for my Thinkpad T580
-{ 
+{
   config,
   lib,
   pkgs,
@@ -8,7 +8,8 @@
   poetry2nix,
   isKVM,
   ...
-}: {
+}:
+{
   # Import other NixOS modules here
   imports = [
     # Nix configuration
@@ -61,6 +62,9 @@
 
     # KDE settings
     ../../modules/kde.nix
+
+    # Thunar settings
+    ../../modules/thunar.nix
 
     # Avatar settings
     ./avatar.nix
