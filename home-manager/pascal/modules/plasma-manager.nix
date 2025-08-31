@@ -61,8 +61,7 @@
             };
           }
           # Adding configuration to the widgets can also for example be used to
-          # pin apps to the task-manager, which this example illustrates by
-          # pinning dolphin and konsole to the task-manager by default.
+          # pin apps to the task-manager.
           {
             name = "org.kde.plasma.icontasks";
             config = {

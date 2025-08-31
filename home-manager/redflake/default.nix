@@ -1,19 +1,21 @@
 # This is your home-manager configuration file
 # Use this to configure your home environment (it replaces ~/.config/nixpkgs/home.nix)
-{ 
+{
   inputs,
   lib,
   config,
   pkgs,
   user,
-  ... 
-}: let
+  ...
+}:
+let
   # Clean pkgs for home-manager
   homePkgs = import inputs.nixpkgs {
     system = "x86_64-linux";
     config.allowUnfree = true; # Optional
   };
-in {
+in
+{
   # import other home-manager modules
   imports = [
     inputs.nur.modules.homeManager.default
@@ -29,7 +31,6 @@ in {
     ./modules/plasma-manager.nix
     ./modules/kwallet.nix
     ./modules/konsole.nix
-    ./modules/dolphin.nix
     ./modules/firefox.nix
     ./modules/burpsuite.nix
     ./modules/psd.nix
