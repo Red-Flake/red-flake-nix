@@ -62,9 +62,6 @@
     # KDE settings
     ../../modules/kde.nix
 
-    # Thunar settings
-    ../../modules/thunar.nix
-
     # Security settings
     ../../modules/security.nix
 

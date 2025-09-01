@@ -1,4 +1,11 @@
-{ inputs, config, lib, pkgs, modulesPath, ... }:
+{
+  inputs,
+  config,
+  lib,
+  pkgs,
+  modulesPath,
+  ...
+}:
 
 {
   # List packages installed in system profile. To search, run:
@@ -63,5 +70,6 @@
     # qt recommends this system package for wayland
     qt6.qtwayland
     lm_sensors
+    nemo-with-extensions
   ];
 }

@@ -63,9 +63,6 @@
     # KDE settings
     ../../modules/kde.nix
 
-    # Thunar settings
-    ../../modules/thunar.nix
-
     # Avatar settings
     ./avatar.nix
 
