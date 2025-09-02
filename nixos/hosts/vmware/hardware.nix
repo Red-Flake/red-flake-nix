@@ -9,6 +9,9 @@
   custom = {
     # enable ZFS encryption
     zfs.encryption = true;
+
+    # set display resolution to 1080p
+    display.resolution = "1080p";
   };
 
   hardware = {

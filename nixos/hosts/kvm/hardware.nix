@@ -9,6 +9,9 @@
   custom = {
     # disable ZFS encryption
     zfs.encryption = lib.mkForce false;
+
+    # set display resolution to 1080p
+    display.resolution = "1080p";
   };
 
   boot = {

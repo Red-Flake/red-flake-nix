@@ -5,10 +5,10 @@
   pkgs,
   chaoticPkgs,
   modulesPath,
-  ... 
+  ...
 }:
 let
-  cfg = config.custom.zfs;
+  cfg = config.custom;
   redflake-plymouth-src = pkgs.fetchFromGitHub {
       owner = "Red-Flake";
       repo = "redflake-plymouth";
@@ -47,8 +47,8 @@ in
         "pcie_aspm=off"
       ];
 
-      # Switch to CachyOS kernel
-      kernelPackages = chaoticPkgs.linuxPackages_cachyos;
+      # Switch to latest XanMod kernel
+      kernelPackages = pkgs.linuxPackages_xanmod_latest;
 
       # Initramfs settings
       initrd = {
@@ -74,7 +74,7 @@ in
                   "/dev/disk/by-path";
 
           package = chaoticPkgs.zfs_cachyos;
-          requestEncryptionCredentials = cfg.encryption;
+          requestEncryptionCredentials = cfg.zfs.encryption;
       };
 
       # Clear /tmp on boot, since it's a zfs dataset
@@ -115,7 +115,7 @@ in
                 enable = true;
                 style = "nixos";
                 icon = "color";
-                resolution = "1080p";
+                resolution = cfg.display.resolution;
               };
           };
       };

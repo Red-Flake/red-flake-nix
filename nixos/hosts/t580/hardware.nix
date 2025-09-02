@@ -12,6 +12,9 @@
 
     # enable Intel OpenCL legacy runtime
     IntelComputeRuntimeLegacy.enable = true;
+
+    # set display resolution to 1080p
+    display.resolution = "1080p";
   };
 
   boot = {

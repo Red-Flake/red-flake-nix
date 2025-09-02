@@ -130,6 +130,9 @@
       repo = "packages";
       inputs.nixpkgs.follows = "nixpkgs";
     }; 
+
+    # https://github.com/Red-Flake/tuxedo-nixos
+    tuxedo-nixos.url = "github:Red-Flake/tuxedo-nixos";
     
   };
 
@@ -152,6 +155,7 @@
       nixos-hardware,
       pwndbg,
       burpsuitepro,
+      tuxedo-nixos,
       ...
   } @ inputs: let
       inherit (self) outputs;
@@ -286,6 +290,59 @@
               inputs.impermanence.nixosModules.impermanence
 
               ./nixos/hosts/t580
+              {
+                imports = [ inputs.home-manager.nixosModules.home-manager ];
+
+                home-manager.useGlobalPkgs = false;
+                home-manager.useUserPackages = true;
+                home-manager.backupFileExtension = "bak";
+
+                home-manager.extraSpecialArgs = { 
+                  inherit inputs;
+                  user = "pascal";
+                  pkgs = import inputs.nixpkgs {
+                    system = "x86_64-linux";
+                    config.allowUnfree = true;
+                    overlays = [
+                      # impacket overlay
+                      (import nixos/overlays/impacket-overlay)
+                    ];
+                  };
+                };
+
+                home-manager.users = {
+                  pascal = {
+                    home.username = "pascal";
+                    home.homeDirectory = "/home/pascal";
+                    home.stateVersion = "23.05";
+                    imports = [
+                      ./home-manager/pascal
+                    ];
+                  };
+                };
+              }
+            ];
+          };
+
+          # TUXEDO Stellaris 16 Gen7
+          stellaris = nixpkgs.lib.nixosSystem {
+            inherit system;
+            specialArgs = {
+              inherit inputs outputs;
+              chaoticPkgs = import inputs.nixpkgs {
+                inherit system;
+                overlays = [ inputs.chaotic.overlays.default ];
+                config.allowUnfree = true;
+              };
+              user = "pascal";
+              isKVM = false;
+            };
+            modules = [
+              tuxedo-nixos.nixosModules.default
+              darkmatter-grub-theme.nixosModule
+              inputs.impermanence.nixosModules.impermanence
+
+              ./nixos/hosts/stellaris
               {
                 imports = [ inputs.home-manager.nixosModules.home-manager ];
 
