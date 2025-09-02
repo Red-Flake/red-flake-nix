@@ -19,7 +19,7 @@
       windowDecorations.library = "org.kde.breeze"; # The library for the window decorations theme. To see available values see the library key in the org.kde.kdecoration2 section of ~/.config/kwinrc after applying the window-decoration via the settings app.
       windowDecorations.theme = "Breeze"; # The window decorations theme. To see available values see the theme key in the org.kde.kdecoration2 section of ~/.config/kwinrc after applying the window-decoration via the settings app.
       iconTheme = "Papirus-Dark"; # The Plasma icon theme.
-      wallpaper = "${config.home.homeDirectory}/.local/share/wallpapers/red-flake/Red-Flake-Wallpaper_1920x1080.png"; # The Plasma wallpaper. Can be either be the path to an image file or a kpackage.
+      wallpaper = "${config.home.homeDirectory}/.local/share/wallpapers/red-flake/Red-Flake-Wallpaper_2560x1600.png"; # The Plasma wallpaper. Can be either be the path to an image file or a kpackage.
     };
 
     kwin = {
