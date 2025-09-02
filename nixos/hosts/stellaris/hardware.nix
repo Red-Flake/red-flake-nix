@@ -1,10 +1,11 @@
-{ 
+{
   config,
   lib,
   pkgs,
   inputs,
-  ... 
-}: {
+  ...
+}:
+{
 
   custom = {
     # enable ZFS encryption
@@ -15,6 +16,9 @@
 
     # set display resolution to 1600p
     display.resolution = "1600p";
+
+    # set bootloader resolution to 1080p or 1440p (Dark Matter GRUB Theme only supports these two resolutions)
+    bootloader.resolution = "1440p";
   };
 
   boot = {
@@ -32,10 +36,10 @@
     initrd.kernelModules = [ ];
     kernelModules = [
       "kvm-intel"
-      "msr"  # /dev/cpu/CPUNUM/msr provides an interface to read and write the model-specific registers (MSRs) of an x86 CPU
+      "msr" # /dev/cpu/CPUNUM/msr provides an interface to read and write the model-specific registers (MSRs) of an x86 CPU
     ];
     extraModulePackages = [ ];
-    
+
     # Set extra kernel module options
     extraModprobeConfig = ''
       options kvm_intel nested=1
@@ -62,7 +66,7 @@
     graphics = {
       enable = true;
       extraPackages = with pkgs; [
-        intel-media-driver  # LIBVA_DRIVER_NAME=iHD
+        intel-media-driver # LIBVA_DRIVER_NAME=iHD
         vaapiIntel
         libvdpau-va-gl
       ];
@@ -94,7 +98,7 @@
       tailor-gui.enable = true; # GUI for TUXEDO Control Center equivalent
     };
     tuxedo-keyboard.enable = true;
-    tuxedo-control-center.enable = true;  # Enable original TUXEDO Control Center via tuxedo-nixos
+    tuxedo-control-center.enable = true; # Enable original TUXEDO Control Center via tuxedo-nixos
   };
 
   # Enable Intel and NVIDIA driver in XServer
@@ -103,8 +107,8 @@
     "nvidia"
   ];
 
-  environment.sessionVariables = { 
-    LIBVA_DRIVER_NAME = "iHD";  # Force intel-media-driver
+  environment.sessionVariables = {
+    LIBVA_DRIVER_NAME = "iHD"; # Force intel-media-driver
   };
 
 }

@@ -111,6 +111,20 @@
         "type": "github"
       }
     },
+    "flake-compat_3": {
+      "locked": {
+        "lastModified": 1733328505,
+        "narHash": "sha256-NeCCThCEP3eCl2l/+27kNNK7QrwZB1IJCrXfrbv5oqU=",
+        "rev": "ff81ac966bb2cae68946d5ed5fc4994f96d0ffec",
+        "revCount": 69,
+        "type": "tarball",
+        "url": "https://api.flakehub.com/f/pinned/edolstra/flake-compat/1.1.0/01948eb7-9cba-704f-bbf3-3fa956735b52/source.tar.gz"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://flakehub.com/f/edolstra/flake-compat/1.tar.gz"
+      }
+    },
     "flake-parts": {
       "inputs": {
         "nixpkgs-lib": [
@@ -493,6 +507,22 @@
         "type": "github"
       }
     },
+    "nixpkgs_4": {
+      "locked": {
+        "lastModified": 1688392541,
+        "narHash": "sha256-lHrKvEkCPTUO+7tPfjIcb7Trk6k31rz18vkyqmkeJfY=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "ea4c80b39be4c09702b0cb3b42eab59e2ba4f24b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-22.11",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nur": {
       "inputs": {
         "flake-parts": "flake-parts_2",
@@ -697,6 +727,7 @@
         "pwndbg": "pwndbg",
         "redflake-packages": "redflake-packages",
         "tools": "tools",
+        "tuxedo-nixos": "tuxedo-nixos",
         "webshells": "webshells"
       }
     },
@@ -800,6 +831,25 @@
       "original": {
         "owner": "numtide",
         "repo": "treefmt-nix",
+        "type": "github"
+      }
+    },
+    "tuxedo-nixos": {
+      "inputs": {
+        "flake-compat": "flake-compat_3",
+        "nixpkgs": "nixpkgs_4"
+      },
+      "locked": {
+        "lastModified": 1755038358,
+        "narHash": "sha256-93dqFbY+aSLSQrmPM5Ra47K0EfUZSi+FX+VpbwJrfQ0=",
+        "owner": "Red-Flake",
+        "repo": "tuxedo-nixos",
+        "rev": "180356e47744b3fdcc87257e1ed4611bc8422704",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Red-Flake",
+        "repo": "tuxedo-nixos",
         "type": "github"
       }
     },

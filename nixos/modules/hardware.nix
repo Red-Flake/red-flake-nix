@@ -1,10 +1,11 @@
-{ 
+{
   config,
   lib,
   pkgs,
   modulesPath,
-  ... 
-}: {
+  ...
+}:
+{
 
   options.custom = {
 
@@ -22,6 +23,25 @@
       };
     };
 
+    # Display settings
+    display = {
+      resolution = lib.mkOption {
+        type = lib.types.str;
+        default = "1080p";
+        description = "Set display resolution. Options: 1080p, 1440p, 1600p, 2160p";
+      };
+    };
+
+    # bootloader settings
+    # Dark Matter GRUB Theme only supports 1080p and 1440p resolutions
+    bootloader = {
+      resolution = lib.mkOption {
+        type = lib.types.str;
+        default = "1080p";
+        description = "Set display resolution. Options: 1080p, 1440p";
+      };
+    };
+
   };
-  
+
 }

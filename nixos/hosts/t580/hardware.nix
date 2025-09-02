@@ -1,10 +1,11 @@
-{ 
+{
   config,
   lib,
   pkgs,
   inputs,
-  ... 
-}: {
+  ...
+}:
+{
 
   custom = {
     # enable ZFS encryption
@@ -15,6 +16,9 @@
 
     # set display resolution to 1080p
     display.resolution = "1080p";
+
+    # set bootloader resolution to 1080p or 1440p (Dark Matter GRUB Theme only supports these two resolutions)
+    bootloader.resolution = "1080p";
   };
 
   boot = {
@@ -33,10 +37,10 @@
     initrd.kernelModules = [ ];
     kernelModules = [
       "kvm-intel"
-      "msr"  # for undervolting Intel CPUs
+      "msr" # for undervolting Intel CPUs
     ];
     extraModulePackages = [ ];
-    
+
     # Set extra kernel module options
     extraModprobeConfig = ''
       options kvm_intel nested=1
@@ -82,31 +86,78 @@
       enable = true;
 
       # Use tpacpi to control the ThinkPad fan via ACPI
-      fans = [ { type = "tpacpi"; query = "/proc/acpi/ibm/fan"; } ];
+      fans = [
+        {
+          type = "tpacpi";
+          query = "/proc/acpi/ibm/fan";
+        }
+      ];
 
       # "extraArgs" lets you pass any CLI flags (e.g. -s <seconds>) directly
       # to the thinkfan binary.
       # Here, we slow polling down to 10 s instead of 5 s. Poll more slowly to reduce "hunting" around a boundary:
-      extraArgs = [ "-s" "10" ];
+      extraArgs = [
+        "-s"
+        "10"
+      ];
 
       # Adjust thresholds for quieter operation:
       levels = [
         # LEVEL MIN_TEMP  MAX_TEMP
-        [ 0      0          60   ]   # fan off until cores reach ~60 °C
-        [ 1     59          65   ]   # 59–65 °C: very low-speed fan
-        [ 2     64          70   ]   # 64–70 °C: low RPM
-        [ 3     69          75   ]   # 69–75 °C: medium RPM
-        [ 4     74          80   ]   # 74–80 °C: moderately silent but spinning
-        [ 5     79          85   ]   # 79–85 °C: medium-high RPM
-        [ 6     84          90   ]   # 84–90 °C: high RPM
-        [ "level full-speed" 89  32767 ] # ≥ 89 °C: full blast
+        [
+          0
+          0
+          60
+        ] # fan off until cores reach ~60 °C
+        [
+          1
+          59
+          65
+        ] # 59–65 °C: very low-speed fan
+        [
+          2
+          64
+          70
+        ] # 64–70 °C: low RPM
+        [
+          3
+          69
+          75
+        ] # 69–75 °C: medium RPM
+        [
+          4
+          74
+          80
+        ] # 74–80 °C: moderately silent but spinning
+        [
+          5
+          79
+          85
+        ] # 79–85 °C: medium-high RPM
+        [
+          6
+          84
+          90
+        ] # 84–90 °C: high RPM
+        [
+          "level full-speed"
+          89
+          32767
+        ] # ≥ 89 °C: full blast
       ];
 
       # Monitor all three CPU cores via coretemp.
       sensors = [
-        { type = "hwmon"; 
-          query = "/sys/devices/platform/coretemp.0/hwmon/"; 
-          indices = [ 1 2 3 4 5 ];  # usually coretemp exposes temp1_input, temp2_input, temp3_input, etc.
+        {
+          type = "hwmon";
+          query = "/sys/devices/platform/coretemp.0/hwmon/";
+          indices = [
+            1
+            2
+            3
+            4
+            5
+          ]; # usually coretemp exposes temp1_input, temp2_input, temp3_input, etc.
         }
       ];
     };

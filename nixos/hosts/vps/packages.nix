@@ -1,4 +1,11 @@
-{ inputs, config, lib, pkgs, modulesPath, ... }:
+{
+  inputs,
+  config,
+  lib,
+  pkgs,
+  modulesPath,
+  ...
+}:
 
 {
   # List packages installed in system profile. To search, run:
@@ -17,7 +24,6 @@
     lsb-release
     socat
     rlwrap
-    thefuck
     dfc
     zsh
     openvpn
