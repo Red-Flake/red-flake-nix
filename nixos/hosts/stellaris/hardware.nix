@@ -108,8 +108,9 @@
     tuxedo-drivers.enable = lib.mkForce true;
     tuxedo-keyboard.enable = lib.mkForce false; # Important: disable tuxedo-keyboard to avoid conflict with tuxedo-drivers
     tuxedo-rs = {
-      enable = true;
-      tailor-gui.enable = true; # GUI for TUXEDO Control Center equivalent
+      # Important: disable tuxedo-rs and tailor-gui to avoid conflict with tuxedo-drivers and tuxedo-control-center
+      enable = lib.mkForce false;
+      tailor-gui.enable = lib.mkForce false; # GUI for TUXEDO Control Center equivalent
     };
     tuxedo-control-center = {
       enable = true; # Enable original TUXEDO Control Center via tuxedo-nixos

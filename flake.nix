@@ -134,7 +134,6 @@
 
     # https://github.com/Red-Flake/tuxedo-nixos
     tuxedo-nixos.url = "github:Red-Flake/tuxedo-nixos";
-
   };
 
   outputs =
