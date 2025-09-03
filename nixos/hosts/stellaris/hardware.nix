@@ -90,9 +90,10 @@
       modesetting.enable = true;
       powerManagement.enable = true; # Enable for laptop power saving
       powerManagement.finegrained = false;
-      open = false; # Proprietary driver for RTX 50-series
+      open = true;
       nvidiaSettings = true;
-      package = config.boot.kernelPackages.nvidiaPackages.stable; # Or .production if stability issues
+      # Optionally, you may need to select the appropriate driver version for your specific GPU.
+      package = config.boot.kernelPackages.nvidiaPackages.latest;
       prime = {
         offload = {
           enable = true;
