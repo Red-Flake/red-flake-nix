@@ -93,6 +93,11 @@ The following ZFS datasets will be created:
     - zroot/persist (mounted at /persist)
     - zroot/cache (mounted at /cache)"
 
+# ZFS got removed from the live ISO, so we need to install it manually
+nix-env -iA nixos.zfs_unstable
+# and also load the zfs kernel module
+modprobe zfs
+
 # Check for required commands
 for cmd in blkdiscard sgdisk zpool zfs mkfs.fat mkswap swapon; do
     check_command "$cmd"
