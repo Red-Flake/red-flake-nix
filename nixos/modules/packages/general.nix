@@ -74,5 +74,6 @@
     libnotify
     zenity
     restic
+    rsync
   ];
 }
