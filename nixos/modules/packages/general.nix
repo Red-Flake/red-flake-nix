@@ -73,5 +73,6 @@
     nemo-with-extensions
     libnotify
     zenity
+    restic
   ];
 }
