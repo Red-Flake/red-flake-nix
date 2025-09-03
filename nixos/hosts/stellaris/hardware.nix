@@ -48,10 +48,6 @@
     '';
   };
 
-  nixpkgs.config.packageOverrides = pkgs: {
-    intel-vaapi-driver = pkgs.intel-vaapi-driver.override { enableHybridCodec = true; };
-  };
-
   hardware = {
     # enable firmware with a license allowing redistribution
     enableRedistributableFirmware = lib.mkForce true;
@@ -67,8 +63,13 @@
       enable = true;
       extraPackages = with pkgs; [
         intel-media-driver # LIBVA_DRIVER_NAME=iHD
-        vaapiIntel
-        libvdpau-va-gl
+        libvdpau-va-gl  # VDPAU driver with OpenGL/VAAPI backend
+        vpl-gpu-rt  # For Intel QSV (Quick Sync Video)
+      ];
+      extraPackages32 = with pkgs.pkgsi686Linux; [
+        intel-media-driver # LIBVA_DRIVER_NAME=iHD
+        libvdpau-va-gl  # VDPAU driver with OpenGL/VAAPI backend
+        vpl-gpu-rt  # For Intel QSV (Quick Sync Video)
       ];
     };
 
