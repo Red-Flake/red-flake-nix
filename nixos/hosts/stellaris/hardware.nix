@@ -106,7 +106,7 @@
 
     # TUXEDO-specific: drivers, Keyboard lighting and fan control (from nixpkgs)
     tuxedo-drivers.enable = lib.mkForce true;
-    tuxedo-keyboard.enable = lib.mkForce false; # disable tuxedo-keyboard to avoid conflict with tuxedo-drivers
+    tuxedo-keyboard.enable = lib.mkForce false; # Important: disable tuxedo-keyboard to avoid conflict with tuxedo-drivers
     tuxedo-rs = {
       enable = true;
       tailor-gui.enable = true; # GUI for TUXEDO Control Center equivalent
