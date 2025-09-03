@@ -1,4 +1,11 @@
-{ inputs, config, lib, pkgs, modulesPath, ... }:
+{
+  inputs,
+  config,
+  lib,
+  pkgs,
+  modulesPath,
+  ...
+}:
 
 {
   # List packages installed in system profile. To search, run:
@@ -11,6 +18,7 @@
     #jadx     disable jadx for now due to issues with arrow / flight
     radare2
     avalonia-ilspy
-    inputs.nix-binary-ninja.packages.${system}.binary-ninja-free-wayland
+    # disable binary-ninja for now due to hash mismatch issues
+    #inputs.nix-binary-ninja.packages.${system}.binary-ninja-free-wayland
   ];
 }

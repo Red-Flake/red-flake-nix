@@ -2,20 +2,20 @@
   description = "Red-Flake";
 
   nixConfig = {
-      experimental-features = [
-        "flakes"
-        "nix-command"
-      ];
-      extra-substituters = [
-        "https://nyx.chaotic.cx"
-        "https://nix-community.cachix.org/"
-        "https://cache.nixos.org/"
-      ];
-      extra-trusted-public-keys = [
-        "chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
-        "nyx.chaotic.cx-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
-        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      ];
+    experimental-features = [
+      "flakes"
+      "nix-command"
+    ];
+    extra-substituters = [
+      "https://nyx.chaotic.cx"
+      "https://nix-community.cachix.org/"
+      "https://cache.nixos.org/"
+    ];
+    extra-trusted-public-keys = [
+      "chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
+      "nyx.chaotic.cx-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+    ];
   };
 
   inputs = {
@@ -61,7 +61,7 @@
 
     # https://gitlab.com/VandalByte/darkmatter-grub-theme
     darkmatter-grub-theme = {
-      url = gitlab:VandalByte/darkmatter-grub-theme;
+      url = "gitlab:VandalByte/darkmatter-grub-theme";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -76,11 +76,12 @@
       url = "github:nix-community/impermanence";
     };
 
+    # disable for now due to hash mismatch issues
     # https://github.com/jchv/nix-binary-ninja
-    nix-binary-ninja = {
-      url = "github:jchv/nix-binary-ninja";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    #nix-binary-ninja = {
+    #  url = "github:jchv/nix-binary-ninja";
+    #  inputs.nixpkgs.follows = "nixpkgs";
+    #};
 
     # https://github.com/nix-community/poetry2nix
     poetry2nix = {
@@ -129,25 +130,26 @@
       owner = "Red-Flake";
       repo = "packages";
       inputs.nixpkgs.follows = "nixpkgs";
-    }; 
+    };
 
     # https://github.com/Red-Flake/tuxedo-nixos
     tuxedo-nixos.url = "github:Red-Flake/tuxedo-nixos";
-    
+
   };
 
-  outputs = { 
-      self, 
+  outputs =
+    {
+      self,
       nixpkgs,
       impermanence,
-      chaotic, 
-      flake-parts, 
-      pre-commit-hooks, 
-      home-manager, 
-      plasma-manager, 
-      nix-binary-ninja,
-      artwork, 
-      webshells, 
+      chaotic,
+      flake-parts,
+      pre-commit-hooks,
+      home-manager,
+      plasma-manager,
+      #nix-binary-ninja,  # disable for now due to hash mismatch issues
+      artwork,
+      webshells,
       tools,
       redflake-packages,
       darkmatter-grub-theme,
@@ -157,279 +159,281 @@
       burpsuitepro,
       tuxedo-nixos,
       ...
-  } @ inputs: let
+    }@inputs:
+    let
       inherit (self) outputs;
       system = "x86_64-linux";
-  in {
+    in
+    {
       nixosConfigurations = {
 
-          # KVM host configuration
-          kvm = nixpkgs.lib.nixosSystem {
-            inherit system;
-            specialArgs = {
-              inherit inputs outputs;
-              chaoticPkgs = import inputs.nixpkgs {
-                inherit system;
-                overlays = [ inputs.chaotic.overlays.default ];
-                config.allowUnfree = true;
-              };
-              user = "redflake";
-              isKVM = true;
+        # KVM host configuration
+        kvm = nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = {
+            inherit inputs outputs;
+            chaoticPkgs = import inputs.nixpkgs {
+              inherit system;
+              overlays = [ inputs.chaotic.overlays.default ];
+              config.allowUnfree = true;
             };
-            modules = [
-              chaotic.nixosModules.default
-              darkmatter-grub-theme.nixosModule
-              inputs.impermanence.nixosModules.impermanence
-
-              ./nixos/hosts/kvm
-              {
-                imports = [ inputs.home-manager.nixosModules.home-manager ];
-
-                home-manager.useGlobalPkgs = false;
-                home-manager.useUserPackages = true;
-                home-manager.backupFileExtension = "bak";
-
-                home-manager.extraSpecialArgs = { 
-                  inherit inputs;
-                  user = "redflake";
-                  pkgs = import inputs.nixpkgs {
-                    system = "x86_64-linux";
-                    config.allowUnfree = true;
-                    overlays = [
-                      # impacket overlay
-                      (import nixos/overlays/impacket-overlay)
-                    ];
-                  };
-                };
-
-                home-manager.users = {
-                  redflake = {
-                    home.username = "redflake";
-                    home.homeDirectory = "/home/redflake";
-                    home.stateVersion = "23.05";
-                    imports = [
-                      ./home-manager/redflake
-                    ];
-                  };
-                };
-
-              }
-            ];
+            user = "redflake";
+            isKVM = true;
           };
+          modules = [
+            chaotic.nixosModules.default
+            darkmatter-grub-theme.nixosModule
+            inputs.impermanence.nixosModules.impermanence
 
-          # VMWare host configuration
-          vmware = nixpkgs.lib.nixosSystem {
-            inherit system;
-            specialArgs = {
-              inherit inputs outputs;
-              chaoticPkgs = import inputs.nixpkgs {
-                inherit system;
-                overlays = [ inputs.chaotic.overlays.default ];
-                config.allowUnfree = true;
+            ./nixos/hosts/kvm
+            {
+              imports = [ inputs.home-manager.nixosModules.home-manager ];
+
+              home-manager.useGlobalPkgs = false;
+              home-manager.useUserPackages = true;
+              home-manager.backupFileExtension = "bak";
+
+              home-manager.extraSpecialArgs = {
+                inherit inputs;
+                user = "redflake";
+                pkgs = import inputs.nixpkgs {
+                  system = "x86_64-linux";
+                  config.allowUnfree = true;
+                  overlays = [
+                    # impacket overlay
+                    (import nixos/overlays/impacket-overlay)
+                  ];
+                };
               };
-              user = "redflake";
-              isKVM = false;
-            };
-            modules = [
-              chaotic.nixosModules.default
-              darkmatter-grub-theme.nixosModule
-              inputs.impermanence.nixosModules.impermanence
 
-              ./nixos/hosts/vmware
-              {
-                imports = [ inputs.home-manager.nixosModules.home-manager ];
-
-                home-manager.useGlobalPkgs = false;
-                home-manager.useUserPackages = true;
-                home-manager.backupFileExtension = "bak";
-
-                home-manager.extraSpecialArgs = { 
-                  inherit inputs;
-                  user = "redflake";
-                  pkgs = import inputs.nixpkgs {
-                    system = "x86_64-linux";
-                    config.allowUnfree = true;
-                    overlays = [
-                      # impacket overlay
-                      (import nixos/overlays/impacket-overlay)
-                    ];
-                  };
+              home-manager.users = {
+                redflake = {
+                  home.username = "redflake";
+                  home.homeDirectory = "/home/redflake";
+                  home.stateVersion = "23.05";
+                  imports = [
+                    ./home-manager/redflake
+                  ];
                 };
-
-                home-manager.users = {
-                  redflake = {
-                    home.username = "redflake";
-                    home.homeDirectory = "/home/redflake";
-                    home.stateVersion = "23.05";
-                    imports = [
-                      ./home-manager/redflake
-                    ];
-                  };
-                };
-
-              }
-            ];
-          };
-            
-          # ThinkPad T580 host configuration  
-          t580 = nixpkgs.lib.nixosSystem {
-            inherit system;
-            specialArgs = {
-              inherit inputs outputs;
-              chaoticPkgs = import inputs.nixpkgs {
-                inherit system;
-                overlays = [ inputs.chaotic.overlays.default ];
-                config.allowUnfree = true;
               };
-              user = "pascal";
-              isKVM = false;
+
+            }
+          ];
+        };
+
+        # VMWare host configuration
+        vmware = nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = {
+            inherit inputs outputs;
+            chaoticPkgs = import inputs.nixpkgs {
+              inherit system;
+              overlays = [ inputs.chaotic.overlays.default ];
+              config.allowUnfree = true;
             };
-            modules = [
-              nixos-hardware.nixosModules.lenovo-thinkpad-t590
-              darkmatter-grub-theme.nixosModule
-              inputs.impermanence.nixosModules.impermanence
-
-              ./nixos/hosts/t580
-              {
-                imports = [ inputs.home-manager.nixosModules.home-manager ];
-
-                home-manager.useGlobalPkgs = false;
-                home-manager.useUserPackages = true;
-                home-manager.backupFileExtension = "bak";
-
-                home-manager.extraSpecialArgs = { 
-                  inherit inputs;
-                  user = "pascal";
-                  pkgs = import inputs.nixpkgs {
-                    system = "x86_64-linux";
-                    config.allowUnfree = true;
-                    overlays = [
-                      # impacket overlay
-                      (import nixos/overlays/impacket-overlay)
-                    ];
-                  };
-                };
-
-                home-manager.users = {
-                  pascal = {
-                    home.username = "pascal";
-                    home.homeDirectory = "/home/pascal";
-                    home.stateVersion = "23.05";
-                    imports = [
-                      ./home-manager/pascal
-                    ];
-                  };
-                };
-              }
-            ];
+            user = "redflake";
+            isKVM = false;
           };
+          modules = [
+            chaotic.nixosModules.default
+            darkmatter-grub-theme.nixosModule
+            inputs.impermanence.nixosModules.impermanence
 
-          # TUXEDO Stellaris 16 Gen7
-          stellaris = nixpkgs.lib.nixosSystem {
-            inherit system;
-            specialArgs = {
-              inherit inputs outputs;
-              chaoticPkgs = import inputs.nixpkgs {
-                inherit system;
-                overlays = [ inputs.chaotic.overlays.default ];
-                config.allowUnfree = true;
+            ./nixos/hosts/vmware
+            {
+              imports = [ inputs.home-manager.nixosModules.home-manager ];
+
+              home-manager.useGlobalPkgs = false;
+              home-manager.useUserPackages = true;
+              home-manager.backupFileExtension = "bak";
+
+              home-manager.extraSpecialArgs = {
+                inherit inputs;
+                user = "redflake";
+                pkgs = import inputs.nixpkgs {
+                  system = "x86_64-linux";
+                  config.allowUnfree = true;
+                  overlays = [
+                    # impacket overlay
+                    (import nixos/overlays/impacket-overlay)
+                  ];
+                };
               };
-              user = "pascal";
-              isKVM = false;
-            };
-            modules = [
-              tuxedo-nixos.nixosModules.default
-              darkmatter-grub-theme.nixosModule
-              inputs.impermanence.nixosModules.impermanence
 
-              ./nixos/hosts/stellaris
-              {
-                imports = [ inputs.home-manager.nixosModules.home-manager ];
-
-                home-manager.useGlobalPkgs = false;
-                home-manager.useUserPackages = true;
-                home-manager.backupFileExtension = "bak";
-
-                home-manager.extraSpecialArgs = { 
-                  inherit inputs;
-                  user = "pascal";
-                  pkgs = import inputs.nixpkgs {
-                    system = "x86_64-linux";
-                    config.allowUnfree = true;
-                    overlays = [
-                      # impacket overlay
-                      (import nixos/overlays/impacket-overlay)
-                    ];
-                  };
+              home-manager.users = {
+                redflake = {
+                  home.username = "redflake";
+                  home.homeDirectory = "/home/redflake";
+                  home.stateVersion = "23.05";
+                  imports = [
+                    ./home-manager/redflake
+                  ];
                 };
-
-                home-manager.users = {
-                  pascal = {
-                    home.username = "pascal";
-                    home.homeDirectory = "/home/pascal";
-                    home.stateVersion = "23.05";
-                    imports = [
-                      ./home-manager/pascal
-                    ];
-                  };
-                };
-              }
-            ];
-          };
-
-          # VPS host configuration  
-          vps = nixpkgs.lib.nixosSystem {
-            inherit system;
-            specialArgs = {
-              inherit inputs outputs;
-              chaoticPkgs = import inputs.nixpkgs {
-                inherit system;
-                overlays = [ inputs.chaotic.overlays.default ];
-                config.allowUnfree = true;
               };
-              user = "redcloud";
-              isKVM = true;
+
+            }
+          ];
+        };
+
+        # ThinkPad T580 host configuration
+        t580 = nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = {
+            inherit inputs outputs;
+            chaoticPkgs = import inputs.nixpkgs {
+              inherit system;
+              overlays = [ inputs.chaotic.overlays.default ];
+              config.allowUnfree = true;
             };
-            modules = [
-              chaotic.nixosModules.default
-              darkmatter-grub-theme.nixosModule
-              inputs.impermanence.nixosModules.impermanence
-
-              ./nixos/hosts/vps
-              {
-                imports = [ inputs.home-manager.nixosModules.home-manager ];
-
-                home-manager.useGlobalPkgs = false;
-                home-manager.useUserPackages = true;
-                home-manager.backupFileExtension = "bak";
-
-                home-manager.extraSpecialArgs = { 
-                  inherit inputs;
-                  user = "redcloud";
-                  pkgs = import inputs.nixpkgs {
-                    system = "x86_64-linux";
-                    config.allowUnfree = true;
-                    overlays = [
-                      # impacket overlay
-                      (import nixos/overlays/impacket-overlay)
-                    ];
-                  };
-                };
-
-                home-manager.users = {
-                  redcloud = {
-                    home.username = "redcloud";
-                    home.homeDirectory = "/home/redcloud";
-                    home.stateVersion = "23.05";
-                    imports = [
-                      ./home-manager/redcloud
-                    ];
-                  };
-                };
-              }
-            ];
+            user = "pascal";
+            isKVM = false;
           };
+          modules = [
+            nixos-hardware.nixosModules.lenovo-thinkpad-t590
+            darkmatter-grub-theme.nixosModule
+            inputs.impermanence.nixosModules.impermanence
 
+            ./nixos/hosts/t580
+            {
+              imports = [ inputs.home-manager.nixosModules.home-manager ];
+
+              home-manager.useGlobalPkgs = false;
+              home-manager.useUserPackages = true;
+              home-manager.backupFileExtension = "bak";
+
+              home-manager.extraSpecialArgs = {
+                inherit inputs;
+                user = "pascal";
+                pkgs = import inputs.nixpkgs {
+                  system = "x86_64-linux";
+                  config.allowUnfree = true;
+                  overlays = [
+                    # impacket overlay
+                    (import nixos/overlays/impacket-overlay)
+                  ];
+                };
+              };
+
+              home-manager.users = {
+                pascal = {
+                  home.username = "pascal";
+                  home.homeDirectory = "/home/pascal";
+                  home.stateVersion = "23.05";
+                  imports = [
+                    ./home-manager/pascal
+                  ];
+                };
+              };
+            }
+          ];
+        };
+
+        # TUXEDO Stellaris 16 Gen7
+        stellaris = nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = {
+            inherit inputs outputs;
+            chaoticPkgs = import inputs.nixpkgs {
+              inherit system;
+              overlays = [ inputs.chaotic.overlays.default ];
+              config.allowUnfree = true;
+            };
+            user = "pascal";
+            isKVM = false;
+          };
+          modules = [
+            tuxedo-nixos.nixosModules.default
+            darkmatter-grub-theme.nixosModule
+            inputs.impermanence.nixosModules.impermanence
+
+            ./nixos/hosts/stellaris
+            {
+              imports = [ inputs.home-manager.nixosModules.home-manager ];
+
+              home-manager.useGlobalPkgs = false;
+              home-manager.useUserPackages = true;
+              home-manager.backupFileExtension = "bak";
+
+              home-manager.extraSpecialArgs = {
+                inherit inputs;
+                user = "pascal";
+                pkgs = import inputs.nixpkgs {
+                  system = "x86_64-linux";
+                  config.allowUnfree = true;
+                  overlays = [
+                    # impacket overlay
+                    (import nixos/overlays/impacket-overlay)
+                  ];
+                };
+              };
+
+              home-manager.users = {
+                pascal = {
+                  home.username = "pascal";
+                  home.homeDirectory = "/home/pascal";
+                  home.stateVersion = "23.05";
+                  imports = [
+                    ./home-manager/pascal
+                  ];
+                };
+              };
+            }
+          ];
+        };
+
+        # VPS host configuration
+        vps = nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = {
+            inherit inputs outputs;
+            chaoticPkgs = import inputs.nixpkgs {
+              inherit system;
+              overlays = [ inputs.chaotic.overlays.default ];
+              config.allowUnfree = true;
+            };
+            user = "redcloud";
+            isKVM = true;
+          };
+          modules = [
+            chaotic.nixosModules.default
+            darkmatter-grub-theme.nixosModule
+            inputs.impermanence.nixosModules.impermanence
+
+            ./nixos/hosts/vps
+            {
+              imports = [ inputs.home-manager.nixosModules.home-manager ];
+
+              home-manager.useGlobalPkgs = false;
+              home-manager.useUserPackages = true;
+              home-manager.backupFileExtension = "bak";
+
+              home-manager.extraSpecialArgs = {
+                inherit inputs;
+                user = "redcloud";
+                pkgs = import inputs.nixpkgs {
+                  system = "x86_64-linux";
+                  config.allowUnfree = true;
+                  overlays = [
+                    # impacket overlay
+                    (import nixos/overlays/impacket-overlay)
+                  ];
+                };
+              };
+
+              home-manager.users = {
+                redcloud = {
+                  home.username = "redcloud";
+                  home.homeDirectory = "/home/redcloud";
+                  home.stateVersion = "23.05";
+                  imports = [
+                    ./home-manager/redcloud
+                  ];
+                };
+              };
+            }
+          ];
+        };
+
+      };
     };
-  };
 }
