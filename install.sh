@@ -459,12 +459,6 @@ fi
 mkdir -p /mnt/persist/etc/
 cp /mnt/etc/machine-id /mnt/persist/etc/
 
-# setup ssh host key persistence
-cp /mnt/etc/ssh/ssh_host_ed25519_key /mnt/persist/etc/ssh/
-cp /mnt/etc/ssh/ssh_host_ed25519_key.pub /mnt/persist/etc/ssh/
-cp /mnt/etc/ssh/ssh_host_rsa_key /mnt/persist/etc/ssh/
-cp /mnt/etc/ssh/ssh_host_rsa_key.pub /mnt/persist/etc/ssh/
-
 log "INFO" "Taking initial ZFS snapshot of freshly installed system"
 zfs snapshot -r zroot@install
 
