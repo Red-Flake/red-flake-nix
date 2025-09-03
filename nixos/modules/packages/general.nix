@@ -71,5 +71,6 @@
     qt6.qtwayland
     lm_sensors
     nemo-with-extensions
+    libnotify
   ];
 }
