@@ -72,5 +72,6 @@
     lm_sensors
     nemo-with-extensions
     libnotify
+    zenity
   ];
 }
