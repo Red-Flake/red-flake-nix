@@ -60,6 +60,9 @@
     '';
   };
 
+  # Enable CUDA support
+  nixpkgs.config.cudaSupport = true;
+
   hardware = {
     # enable firmware with a license allowing redistribution
     enableRedistributableFirmware = lib.mkForce true;
