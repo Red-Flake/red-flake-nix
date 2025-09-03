@@ -14,5 +14,5 @@
       export __VK_LAYER_NV_optimus=NVIDIA_only
       exec "$@"
     '')
-  ]
+  ];
 }
