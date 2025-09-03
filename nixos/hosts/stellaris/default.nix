@@ -42,6 +42,9 @@
     # System packages
     ../../modules/packages
 
+    # Additional packages for TUXEDO Stellaris 16 Gen7
+    ./packages.nix
+
     # FHS tweaks
     ../../modules/fhs.nix
 
