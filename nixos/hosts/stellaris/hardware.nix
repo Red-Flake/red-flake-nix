@@ -118,33 +118,6 @@
     };
   };
 
-  # Enable Tuxedo-RS dbus integration
-  services.dbus.packages = [ pkgs.tuxedo-rs ];
-
-  # Install Tuxedo-RS and tailor-gui
-  environment.systemPackages = [
-    pkgs.tuxedo-rs
-    pkgs.tailor-gui
-  ];
-
-  # Enable tailord service for Tuxedo-RS
-  systemd = {
-    services.tailord = {
-      enable = true;
-      description = "Tuxedo Tailor hardware control service";
-      after = [ "systemd-logind.service" ];
-      wantedBy = [ "multi-user.target" ];
-
-      serviceConfig = {
-        Type = "dbus";
-        BusName = "com.tux.Tailor";
-        ExecStart = "${pkgs.tuxedo-rs}/bin/tailord";
-        Environment = "RUST_BACKTRACE=1";
-        Restart = "on-failure";
-      };
-    };
-  };
-
   # Enable Intel and NVIDIA driver in XServer
   services.xserver.videoDrivers = [
     "modesetting"
