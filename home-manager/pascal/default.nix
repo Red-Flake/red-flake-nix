@@ -29,6 +29,7 @@ in
     ./modules/fastfetch.nix
     ./modules/bloodhound.nix
     ./modules/plasma-manager.nix
+    ./modules/optimus-gpu-switcher-widget.nix
     ./modules/kwallet.nix
     ./modules/konsole.nix
     ./modules/firefox.nix
@@ -75,6 +76,7 @@ in
       zsh-powerlevel10k
       meslo-lgs-nf
       flatpak
+      kdePackages.kpackage
     ];
 
     # set user session variables
