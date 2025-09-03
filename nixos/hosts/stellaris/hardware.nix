@@ -3,6 +3,7 @@
   lib,
   pkgs,
   inputs,
+  tuxedo-nixos,
   ...
 }:
 {
@@ -37,8 +38,19 @@
     kernelModules = [
       "kvm-intel"
       "msr" # /dev/cpu/CPUNUM/msr provides an interface to read and write the model-specific registers (MSRs) of an x86 CPU
+      "tuxedo_keyboard"
+      "tuxedo-io"
     ];
-    extraModulePackages = [ ];
+    extraModulePackages = with pkgs; [
+      linuxKernel.packages.linux_xanmod_latest.tuxedo-drivers
+    ];
+
+    # TUXEDO-specific: set keyboard brightness and color at boot
+    kernelParams = [
+      "tuxedo_keyboard.mode=0"
+      "tuxedo_keyboard.brightness=255"
+      "tuxedo_keyboard.color_left=0x0000ff"
+    ];
 
     # Set extra kernel module options
     extraModprobeConfig = ''
@@ -63,13 +75,13 @@
       enable = true;
       extraPackages = with pkgs; [
         intel-media-driver # LIBVA_DRIVER_NAME=iHD
-        libvdpau-va-gl  # VDPAU driver with OpenGL/VAAPI backend
-        vpl-gpu-rt  # For Intel QSV (Quick Sync Video)
+        libvdpau-va-gl # VDPAU driver with OpenGL/VAAPI backend
+        vpl-gpu-rt # For Intel QSV (Quick Sync Video)
       ];
       extraPackages32 = with pkgs.pkgsi686Linux; [
         intel-media-driver # LIBVA_DRIVER_NAME=iHD
-        libvdpau-va-gl  # VDPAU driver with OpenGL/VAAPI backend
-        vpl-gpu-rt  # For Intel QSV (Quick Sync Video)
+        libvdpau-va-gl # VDPAU driver with OpenGL/VAAPI backend
+        vpl-gpu-rt # For Intel QSV (Quick Sync Video)
       ];
     };
 
@@ -93,13 +105,43 @@
     };
 
     # TUXEDO-specific: drivers, Keyboard lighting and fan control (from nixpkgs)
-    tuxedo-drivers.enable = true;
+    tuxedo-drivers.enable = lib.mkForce true;
+    tuxedo-keyboard.enable = lib.mkForce false; # disable tuxedo-keyboard to avoid conflict with tuxedo-drivers
     tuxedo-rs = {
       enable = true;
       tailor-gui.enable = true; # GUI for TUXEDO Control Center equivalent
     };
-    tuxedo-keyboard.enable = true;
-    tuxedo-control-center.enable = true; # Enable original TUXEDO Control Center via tuxedo-nixos
+    tuxedo-control-center = {
+      enable = true; # Enable original TUXEDO Control Center via tuxedo-nixos
+      package = inputs.tuxedo-nixos.packages.x86_64-linux.default;
+    };
+  };
+
+  # Enable Tuxedo-RS dbus integration
+  services.dbus.packages = [ pkgs.tuxedo-rs ];
+
+  # Install Tuxedo-RS and tailor-gui
+  environment.systemPackages = [
+    pkgs.tuxedo-rs
+    pkgs.tailor-gui
+  ];
+
+  # Enable tailord service for Tuxedo-RS
+  systemd = {
+    services.tailord = {
+      enable = true;
+      description = "Tuxedo Tailor hardware control service";
+      after = [ "systemd-logind.service" ];
+      wantedBy = [ "multi-user.target" ];
+
+      serviceConfig = {
+        Type = "dbus";
+        BusName = "com.tux.Tailor";
+        ExecStart = "${pkgs.tuxedo-rs}/bin/tailord";
+        Environment = "RUST_BACKTRACE=1";
+        Restart = "on-failure";
+      };
+    };
   };
 
   # Enable Intel and NVIDIA driver in XServer
