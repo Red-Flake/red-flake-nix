@@ -60,6 +60,7 @@
       "tuxedo_keyboard.color_left=0x0000ff"
       "mem_sleep_default=deep"
       "nvidia-drm.modeset=1"  # required for PRIME offload and proper suspend/resume integration with Wayland/XWayland
+      "nvidia.NVreg_TemporaryFilePath=/tmp" # save nvidia gpu video memory to /tmp instead of /var/tmp to avoid filling up /var/tmp and so we don't write into ram on suspend
     ];
 
     # Set extra kernel module options
