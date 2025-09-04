@@ -67,7 +67,6 @@
       options kvm_intel nested=1
       options iwlmvm power_scheme=1
       options iwlwifi power_save=0 uapsd_disable=1
-      options nvidia NVreg_DynamicPowerManagement=0x02  # 0x00 → disable runtime PM (default); 0x01 → manual control; 0x02 → auto (recommended)
     '';
   };
 
@@ -165,8 +164,20 @@
   # Force runtime PM for the PCI device
   # Create a udev rule so the GPU defaults to auto instead of on
   services.udev.extraRules = ''
-    ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{power/control}="auto"
+    SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{power/control}="auto"
   '';
+
+  systemd.services.nvidia-pm-auto = {
+    description = "Force NVIDIA GPU runtime PM to auto";
+    enable = true;
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStart = "${pkgs.bash}/bin/bash -c 'for devpath in /sys/bus/pci/devices/0000:*; do pciaddr=$(basename $devpath); if lspci -s $pciaddr 2>/dev/null | grep -iq NVIDIA; then ctl=\"$devpath/power/control\"; if [ -f \"$ctl\" ]; then echo auto > \"$ctl\" || true; fi; fi; done'";
+    };
+    wantedBy = [ "multi-user.target" "sleep.target" "suspend.target" "hibernate.target" "hybrid-sleep.target" ];
+    after = [ "multi-user.target" "sleep.target" "suspend.target" "hibernate.target" "hybrid-sleep.target" ];
+  };
 
   # Enable Intel and NVIDIA driver in XServer
   services.xserver.videoDrivers = [
