@@ -3,11 +3,11 @@
     "artwork": {
       "flake": false,
       "locked": {
-        "lastModified": 1722360302,
-        "narHash": "sha256-T4DiklErb81XlTwUTiUeS+U9HvaxyCqoTvNa42hPOQE=",
+        "lastModified": 1756853176,
+        "narHash": "sha256-09cgy2yPwB1ZxVVc0JgcOyPT868xswlD9JAbZNRwY6k=",
         "owner": "Red-Flake",
         "repo": "artwork",
-        "rev": "c3d5c77db9314184e2404d290fb5b99020c30388",
+        "rev": "f4907a11a6730bc5fbbf97c2e811d1ea0c68eb10",
         "type": "github"
       },
       "original": {
