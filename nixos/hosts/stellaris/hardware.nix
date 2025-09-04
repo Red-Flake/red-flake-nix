@@ -87,6 +87,7 @@
     # Enable general graphics acceleration (required for hybrid setups)
     graphics = {
       enable = true;
+      enable32Bit = true; # For Steam and other 32-bit apps
       extraPackages = with pkgs; [
         intel-media-driver # LIBVA_DRIVER_NAME=iHD
         libvdpau-va-gl # VDPAU driver with OpenGL/VAAPI backend
@@ -96,7 +97,6 @@
       extraPackages32 = with pkgs.pkgsi686Linux; [
         intel-media-driver # LIBVA_DRIVER_NAME=iHD
         libvdpau-va-gl # VDPAU driver with OpenGL/VAAPI backend
-        vpl-gpu-rt # For Intel QSV (Quick Sync Video)
         vaapiVdpau # For Nvidia VDPAU backend
       ];
     };
