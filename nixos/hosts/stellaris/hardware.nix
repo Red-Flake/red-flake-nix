@@ -23,7 +23,7 @@
   };
 
   # Increase the number of parallel build jobs for Nix to 24
-  nix.maxJobs = lib.mkDefault 24;
+  nix.settings.max-jobs = lib.mkForce 24;
 
   # Accept the NVIDIA license
   nixpkgs.config.nvidia.acceptLicencse = true;

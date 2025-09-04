@@ -16,7 +16,7 @@
       optimise.automatic = true;
 
       gc = {
-        automatic = true;
+        # automatic = true; # Disabled due to conflict with nh
         dates = "weekly";
         options = "--delete-older-than 7d";
       };
