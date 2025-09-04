@@ -59,8 +59,10 @@
       "tuxedo_keyboard.brightness=255"
       "tuxedo_keyboard.color_left=0x0000ff"
       "mem_sleep_default=deep"
+      "i915.force_probe=*"
       "nvidia-drm.modeset=1"  # required for PRIME offload and proper suspend/resume integration with Wayland/XWayland
-      "nvidia.NVreg_TemporaryFilePath=/tmp" # save nvidia gpu video memory to /tmp instead of /var/tmp to avoid filling up /var/tmp and so we don't write into ram on suspend
+      "nvidia.NVreg_DynamicPowerManagement=0x02"
+      "nvidia.NVreg_DynamicPowerManagementVideoMemorySaver=1"
     ];
 
     # Set extra kernel module options
@@ -68,6 +70,8 @@
       options kvm_intel nested=1
       options iwlmvm power_scheme=1
       options iwlwifi power_save=0 uapsd_disable=1
+      options nvidia NVreg_DynamicPowerManagement=0x02  # Auto mode for power management
+      options nvidia NVreg_PreserveVideoMemoryAllocations=0  # Disable to allow suspend
     '';
   };
 
@@ -168,6 +172,16 @@
     SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{power/control}="auto"
   '';
 
+  # For Wayland (KDE), prevent kwin_wayland from using NVIDIA by default.
+  # This forces it to use Intel instead, which is more stable and power-efficient
+  services.xserver.displayManager.sessionCommands = ''
+    export __GLX_VENDOR_LIBRARY_NAME=mesa
+    export LIBVA_DRIVER_NAME=iHD
+    export VDPAU_DRIVER = "va_gl";
+    export __GLX_VENDOR_LIBRARY_NAME = "mesa";
+    export DRI_PRIME = "0";
+  '';
+
   systemd.services.nvidia-pm-auto = {
     description = "Force NVIDIA GPU runtime PM to auto";
     enable = true;
@@ -180,14 +194,104 @@
     after = [ "multi-user.target" "sleep.target" "suspend.target" "hibernate.target" "hybrid-sleep.target" ];
   };
 
+  # Try to suspend Nvidia GPU properly on sleep/suspend/hibernate
+  systemd.sleep.extraConfig = ''
+    [Sleep]
+    AllowSuspend=yes
+    AllowHibernation=yes
+  '';
+  
+  # Extend the existing nvidia-suspend service with your custom script
+  systemd.services.nvidia-suspend = lib.mkIf config.hardware.nvidia.powerManagement.enable {
+    serviceConfig.ExecStart = lib.mkForce ''
+      ${pkgs.bash}/bin/bash -c '${pkgs.writeShellScriptBin "nvidia-suspend-custom" ''
+        #!/bin/sh
+        case "$1" in
+          suspend)
+            # Unload NVIDIA modules to free video memory
+            ${pkgs.kmod}/bin/modprobe -r nvidia_drm nvidia_modeset nvidia_uvm nvidia || true
+            ${pkgs.kmod}/bin/modprobe -r nvidia || true
+            ;;
+          hibernate)
+            ${pkgs.kmod}/bin/modprobe -r nvidia_drm nvidia_modeset nvidia_uvm nvidia || true
+            ${pkgs.kmod}/bin/modprobe -r nvidia || true
+            ;;
+          resume|thaw)
+            ${pkgs.kmod}/bin/modprobe nvidia || true
+            if [ -d /sys/module/nvidia_modeset ]; then
+              ${pkgs.kmod}/bin/modprobe nvidia_modeset || true
+            fi
+            if [ -d /sys/module/nvidia_drm ]; then
+              ${pkgs.kmod}/bin/modprobe nvidia_drm || true
+            fi
+            if [ -d /sys/module/nvidia_uvm ]; then
+              ${pkgs.kmod}/bin/modprobe nvidia_uvm || true
+            fi
+            ;;
+        esac
+      ''}/bin/nvidia-suspend-custom suspend || true'
+    '';
+    serviceConfig.ExecStop = lib.mkForce ''
+      ${pkgs.bash}/bin/bash -c '${pkgs.writeShellScriptBin "nvidia-resume-custom" ''
+        #!/bin/sh
+        case "$1" in
+          resume|thaw)
+            ${pkgs.kmod}/bin/modprobe nvidia || true
+            if [ -d /sys/module/nvidia_modeset ]; then
+              ${pkgs.kmod}/bin/modprobe nvidia_modeset || true
+            fi
+            if [ -d /sys/module/nvidia_drm ]; then
+              ${pkgs.kmod}/bin/modprobe nvidia_drm || true
+            fi
+            if [ -d /sys/module/nvidia_uvm ]; then
+              ${pkgs.kmod}/bin/modprobe nvidia_uvm || true
+            fi
+            ;;
+        esac
+      ''}/bin/nvidia-resume-custom resume || true'
+    '';
+  };
+
   # Enable Intel and NVIDIA driver in XServer
   services.xserver.videoDrivers = [
     "modesetting"
     "nvidia"
   ];
 
+  environment.systemPackages = with pkgs; [
+    (writeShellScriptBin "nvidia-sleep.sh" ''
+      #!/bin/sh
+      case "$1" in
+        suspend)
+          # Unload NVIDIA modules to free video memory
+          ${pkgs.kmod}/bin/modprobe -r nvidia_drm nvidia_modeset nvidia_uvm nvidia || true
+          ${pkgs.kmod}/bin/modprobe -r nvidia || true
+          ;;
+        hibernate)
+          ${pkgs.kmod}/bin/modprobe -r nvidia_drm nvidia_modeset nvidia_uvm nvidia || true
+          ${pkgs.kmod}/bin/modprobe -r nvidia || true
+          ;;
+        resume|thaw)
+          ${pkgs.kmod}/bin/modprobe nvidia || true
+          if [ -d /sys/module/nvidia_modeset ]; then
+            ${pkgs.kmod}/bin/modprobe nvidia_modeset || true
+          fi
+          if [ -d /sys/module/nvidia_drm ]; then
+            ${pkgs.kmod}/bin/modprobe nvidia_drm || true
+          fi
+          if [ -d /sys/module/nvidia_uvm ]; then
+              ${pkgs.kmod}/bin/modprobe nvidia_uvm || true
+          fi
+          ;;
+      esac
+    '')
+  ];
+
   environment.sessionVariables = {
     LIBVA_DRIVER_NAME = "iHD"; # Force intel-media-driver
+    __GLX_VENDOR_LIBRARY_NAME = "mesa";  # Default to Mesa (Intel) for OpenGL
+    VDPAU_DRIVER = "va_gl";  # Forces Intel via VAAPI
+    DRI_PRIME = "0"; # Default to Intel
   };
 
   # HiDPI fixes => https://github.com/NixOS/nixos-hardware/blob/3f7d0bca003eac1a1a7f4659bbab9c8f8c2a0958/common/hidpi.nix
