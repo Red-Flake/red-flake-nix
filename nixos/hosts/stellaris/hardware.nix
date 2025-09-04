@@ -91,11 +91,13 @@
         intel-media-driver # LIBVA_DRIVER_NAME=iHD
         libvdpau-va-gl # VDPAU driver with OpenGL/VAAPI backend
         vpl-gpu-rt # For Intel QSV (Quick Sync Video)
+        vaapiVdpau # For Nvidia VDPAU backend
       ];
       extraPackages32 = with pkgs.pkgsi686Linux; [
         intel-media-driver # LIBVA_DRIVER_NAME=iHD
         libvdpau-va-gl # VDPAU driver with OpenGL/VAAPI backend
         vpl-gpu-rt # For Intel QSV (Quick Sync Video)
+        vaapiVdpau # For Nvidia VDPAU backend
       ];
     };
 
