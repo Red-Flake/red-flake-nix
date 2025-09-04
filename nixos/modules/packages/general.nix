@@ -75,5 +75,6 @@
     zenity
     restic
     rsync
+    lsof
   ];
 }
