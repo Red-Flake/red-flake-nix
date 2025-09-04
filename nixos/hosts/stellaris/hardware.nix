@@ -40,14 +40,15 @@
       "ahci"
       "msr"
     ];
-    initrd.kernelModules = [ ];
+    initrd.kernelModules = ["xe"];  # load Intel Xe Graphics kernel module at boot
     blacklistedKernelModules = ["nouveau"];
     kernelModules = [
+      "xe"  # load Intel Xe Graphics kernel module
       "kvm-intel"
       "msr" # /dev/cpu/CPUNUM/msr provides an interface to read and write the model-specific registers (MSRs) of an x86 CPU
       "tuxedo_keyboard"
       "tuxedo-io"
-      "nvidia"
+      #"nvidia"   # DO NOT LOAD nvidia module in either initrd or kernelModules; it will still get loaded by nvidia-offload when needed
     ];
     extraModulePackages = with pkgs; [
       linuxKernel.packages.linux_xanmod_latest.tuxedo-drivers
@@ -59,7 +60,6 @@
       "tuxedo_keyboard.brightness=255"
       "tuxedo_keyboard.color_left=0x0000ff"
       "mem_sleep_default=deep"
-      "i915.force_probe=*"
       "nvidia-drm.modeset=1"  # required for PRIME offload and proper suspend/resume integration with Wayland/XWayland
       "nvidia.NVreg_DynamicPowerManagement=0x02"
       "nvidia.NVreg_DynamicPowerManagementVideoMemorySaver=1"
@@ -177,9 +177,8 @@
   services.xserver.displayManager.sessionCommands = ''
     export __GLX_VENDOR_LIBRARY_NAME=mesa
     export LIBVA_DRIVER_NAME=iHD
-    export VDPAU_DRIVER = "va_gl";
-    export __GLX_VENDOR_LIBRARY_NAME = "mesa";
-    export DRI_PRIME = "0";
+    export VDPAU_DRIVER=va_gl
+    export DRI_PRIME=0
   '';
 
   systemd.services.nvidia-pm-auto = {

@@ -33,7 +33,6 @@ in
       "nowatchdog"
       "kernel.nmi_watchdog=0"
       "mitigations=off"
-      "i915.mitigations=off" # disable i915 gpu mitigations
       "libahci.ignore_sss=1"
       "modprobe.blacklist=iTCO_wdt"
       "modprobe.blacklist=sp5100_tco"
