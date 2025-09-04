@@ -178,4 +178,7 @@
     LIBVA_DRIVER_NAME = "iHD"; # Force intel-media-driver
   };
 
+  # HiDPI fixes => https://github.com/NixOS/nixos-hardware/blob/3f7d0bca003eac1a1a7f4659bbab9c8f8c2a0958/common/hidpi.nix
+  console.font = lib.mkDefault "${pkgs.terminus_font}/share/consolefonts/ter-v32n.psf.gz";
+  console.earlySetup = lib.mkDefault true;
 }
