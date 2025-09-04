@@ -26,7 +26,7 @@
   nix.settings.max-jobs = lib.mkForce 24;
 
   # Accept the NVIDIA license
-  nixpkgs.config.nvidia.acceptLicencse = true;
+  nixpkgs.config.nvidia.acceptLicense = true;
 
   boot = {
     initrd.availableKernelModules = [
