@@ -25,7 +25,6 @@ in
     kernelParams = [
       "quiet"
       "splash"
-      "elevator=none"
       "loglevel=0"
       "rd.systemd.show_status=false"
       "nowatchdog"
