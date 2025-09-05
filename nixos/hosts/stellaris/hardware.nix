@@ -67,6 +67,7 @@
       "nvidia.NVreg_DynamicPowerManagement=0x02"  # Auto mode for power management
       "nvidia.NVreg_PreserveVideoMemoryAllocations=0" # Disable to allow suspend
       "acpi=strict" # "nvAssertFailedNoLog: Assertion failed: 0 @ osapi.c:1939"—ACPI DSM call before init; common NVIDIA power bug. Fix: Add "acpi=strict" to kernelParams or BIOS update.
+      "i915.force_probe=*" # [drm] PHY A failed to request refclk after 1us."—Timing issue; force iGPU detection
       "i915.enable_psr=0" # i915 PHY A Refclk Fail: "[drm] PHY A failed to request refclk after 1us"—i915 timing issue; add "i915.enable_psr=0 i915.enable_dc=0" to kernelParams for display/power stability.
       "i915.enable_dc=0" # i915 PHY A Refclk Fail: "[drm] PHY A failed to request refclk after 1us"—i915 timing issue; add "i915.enable_psr=0 i915.enable_dc=0" to kernelParams for display/power stability.
     ];
