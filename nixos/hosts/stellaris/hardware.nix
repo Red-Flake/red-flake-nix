@@ -59,9 +59,9 @@
 
     # TUXEDO-specific: set keyboard brightness and color at boot
     kernelParams = [
-      "tuxedo_keyboard.mode=0"
-      "tuxedo_keyboard.brightness=255"
-      "tuxedo_keyboard.color_left=0x0000ff"
+      "tuxedo_keyboard.kbd_backlight_mode=0"
+      "tuxedo_keyboard.kbd_backlight_brightness=255"
+      "tuxedo_keyboard.kbd_backlight_color_left=0x0000ff"
       "mem_sleep_default=s2idle"  # Use s2idle (S0ix) (modern standby) instead of deep (S3) as S3 (Suspend to RAM) is not supported on modern laptops like Core Ultra CPUs, See: https://www.tuxedocomputers.com/en/Power-management-with-suspend-for-current-hardware.tuxedo
       "nvidia-drm.modeset=1"  # required for PRIME offload and proper suspend/resume integration with Wayland/XWayland
       "nvidia.NVreg_DynamicPowerManagement=0x02"  # Auto mode for power management
