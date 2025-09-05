@@ -25,9 +25,7 @@ in
     kernelParams = [
       "quiet"
       "splash"
-      "nohibernate"
       "elevator=none"
-      "fsck.mode=skip"
       "loglevel=0"
       "rd.systemd.show_status=false"
       "nowatchdog"
@@ -36,14 +34,11 @@ in
       "libahci.ignore_sss=1"
       "modprobe.blacklist=iTCO_wdt"
       "modprobe.blacklist=sp5100_tco"
-      "processor.ignore_ppc=1"
       "sysrq_always_enabled=1"
       "split_lock_detect=off"
-      "consoleblank=0"
       "audit=0"
       "net.ifnames=0"
       "biosdevname=0"
-      "pcie_aspm=off"
     ];
 
     # Switch to latest XanMod kernel

@@ -26,6 +26,12 @@ let
         checkPhase = "";          # Empty check phase
         pythonImportsCheckPhase = "";
         unittestCheckPhase = "";
+        
+        # Completely override patchPhase to prevent substituteStream from running
+        patchPhase = ''
+          # Only run dos2unix (optional) and nothing else
+          find . -type f -name '*.py' -exec dos2unix {} \;
+        '';
       });
     };
   };

@@ -6,6 +6,7 @@ self: super: {
     # Pin urllib3 to 1.26.18 ( <2 )
     urllib3 = python.pkgs.urllib3.overrideAttrs (old: {
       version = "1.26.18";
+      pyproject = false;
       src = python.pkgs.fetchPypi {
         pname = "urllib3";
         version = "1.26.18";
@@ -14,6 +15,11 @@ self: super: {
       propagatedBuildInputs = [
         python.pkgs.six
       ];
+      # Disable all automatic pyproject substitution/patching
+      patchPhase = ''
+        # Optional: just run dos2unix on all Python files
+        find . -type f -name '*.py' -exec dos2unix {} \;
+      '';
     });
     # Pin requests to 2.29.0
     requests = python.pkgs.requests.overrideAttrs (old: {

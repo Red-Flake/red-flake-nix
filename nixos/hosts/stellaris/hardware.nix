@@ -41,7 +41,10 @@
       "msr"
     ];
     initrd.kernelModules = ["xe"];  # load Intel Xe Graphics kernel module at boot
-    blacklistedKernelModules = ["nouveau"];
+    blacklistedKernelModules = [
+      "nouveau"
+      "tuxedo_nb02_nvidia_power_ctrl" # blacklist to avoid conflict with nvidia module; the tuxedo module cannot control the power state
+    ];
     kernelModules = [
       "xe"  # load Intel Xe Graphics kernel module
       "kvm-intel"
@@ -59,10 +62,10 @@
       "tuxedo_keyboard.mode=0"
       "tuxedo_keyboard.brightness=255"
       "tuxedo_keyboard.color_left=0x0000ff"
-      "mem_sleep_default=deep"
+      "mem_sleep_default=s2idle"  # Use s2idle (S0ix) (modern standby) instead of deep (S3) as S3 (Suspend to RAM) is not supported on modern laptops like Core Ultra CPUs, See: https://www.tuxedocomputers.com/en/Power-management-with-suspend-for-current-hardware.tuxedo
       "nvidia-drm.modeset=1"  # required for PRIME offload and proper suspend/resume integration with Wayland/XWayland
-      "nvidia.NVreg_DynamicPowerManagement=0x02"
-      "nvidia.NVreg_DynamicPowerManagementVideoMemorySaver=1"
+      "nvidia.NVreg_DynamicPowerManagement=0x02"  # Auto mode for power management
+      "nvidia.NVreg_PreserveVideoMemoryAllocations=0" # Disable to allow suspend
     ];
 
     # Set extra kernel module options
@@ -201,55 +204,55 @@
   '';
   
   # Extend the existing nvidia-suspend service with your custom script
-  systemd.services.nvidia-suspend = lib.mkIf config.hardware.nvidia.powerManagement.enable {
-    serviceConfig.ExecStart = lib.mkForce ''
-      ${pkgs.bash}/bin/bash -c '${pkgs.writeShellScriptBin "nvidia-suspend-custom" ''
-        #!/bin/sh
-        case "$1" in
-          suspend)
-            # Unload NVIDIA modules to free video memory
-            ${pkgs.kmod}/bin/modprobe -r nvidia_drm nvidia_modeset nvidia_uvm nvidia || true
-            ${pkgs.kmod}/bin/modprobe -r nvidia || true
-            ;;
-          hibernate)
-            ${pkgs.kmod}/bin/modprobe -r nvidia_drm nvidia_modeset nvidia_uvm nvidia || true
-            ${pkgs.kmod}/bin/modprobe -r nvidia || true
-            ;;
-          resume|thaw)
-            ${pkgs.kmod}/bin/modprobe nvidia || true
-            if [ -d /sys/module/nvidia_modeset ]; then
-              ${pkgs.kmod}/bin/modprobe nvidia_modeset || true
-            fi
-            if [ -d /sys/module/nvidia_drm ]; then
-              ${pkgs.kmod}/bin/modprobe nvidia_drm || true
-            fi
-            if [ -d /sys/module/nvidia_uvm ]; then
-              ${pkgs.kmod}/bin/modprobe nvidia_uvm || true
-            fi
-            ;;
-        esac
-      ''}/bin/nvidia-suspend-custom suspend || true'
-    '';
-    serviceConfig.ExecStop = lib.mkForce ''
-      ${pkgs.bash}/bin/bash -c '${pkgs.writeShellScriptBin "nvidia-resume-custom" ''
-        #!/bin/sh
-        case "$1" in
-          resume|thaw)
-            ${pkgs.kmod}/bin/modprobe nvidia || true
-            if [ -d /sys/module/nvidia_modeset ]; then
-              ${pkgs.kmod}/bin/modprobe nvidia_modeset || true
-            fi
-            if [ -d /sys/module/nvidia_drm ]; then
-              ${pkgs.kmod}/bin/modprobe nvidia_drm || true
-            fi
-            if [ -d /sys/module/nvidia_uvm ]; then
-              ${pkgs.kmod}/bin/modprobe nvidia_uvm || true
-            fi
-            ;;
-        esac
-      ''}/bin/nvidia-resume-custom resume || true'
-    '';
-  };
+  # systemd.services.nvidia-suspend = lib.mkIf config.hardware.nvidia.powerManagement.enable {
+  #   serviceConfig.ExecStart = lib.mkForce ''
+  #     ${pkgs.bash}/bin/bash -c '${pkgs.writeShellScriptBin "nvidia-suspend-custom" ''
+  #       #!/bin/sh
+  #       case "$1" in
+  #         suspend)
+  #           # Unload NVIDIA modules to free video memory
+  #           ${pkgs.kmod}/bin/modprobe -r nvidia_drm nvidia_modeset nvidia_uvm nvidia || true
+  #           ${pkgs.kmod}/bin/modprobe -r nvidia || true
+  #           ;;
+  #         hibernate)
+  #           ${pkgs.kmod}/bin/modprobe -r nvidia_drm nvidia_modeset nvidia_uvm nvidia || true
+  #           ${pkgs.kmod}/bin/modprobe -r nvidia || true
+  #           ;;
+  #         resume|thaw)
+  #           ${pkgs.kmod}/bin/modprobe nvidia || true
+  #           if [ -d /sys/module/nvidia_modeset ]; then
+  #             ${pkgs.kmod}/bin/modprobe nvidia_modeset || true
+  #           fi
+  #           if [ -d /sys/module/nvidia_drm ]; then
+  #             ${pkgs.kmod}/bin/modprobe nvidia_drm || true
+  #           fi
+  #           if [ -d /sys/module/nvidia_uvm ]; then
+  #             ${pkgs.kmod}/bin/modprobe nvidia_uvm || true
+  #           fi
+  #           ;;
+  #       esac
+  #     ''}/bin/nvidia-suspend-custom suspend || true'
+  #   '';
+  #   serviceConfig.ExecStop = lib.mkForce ''
+  #     ${pkgs.bash}/bin/bash -c '${pkgs.writeShellScriptBin "nvidia-resume-custom" ''
+  #       #!/bin/sh
+  #       case "$1" in
+  #         resume|thaw)
+  #           ${pkgs.kmod}/bin/modprobe nvidia || true
+  #           if [ -d /sys/module/nvidia_modeset ]; then
+  #             ${pkgs.kmod}/bin/modprobe nvidia_modeset || true
+  #           fi
+  #           if [ -d /sys/module/nvidia_drm ]; then
+  #             ${pkgs.kmod}/bin/modprobe nvidia_drm || true
+  #           fi
+  #           if [ -d /sys/module/nvidia_uvm ]; then
+  #             ${pkgs.kmod}/bin/modprobe nvidia_uvm || true
+  #           fi
+  #           ;;
+  #       esac
+  #     ''}/bin/nvidia-resume-custom resume || true'
+  #   '';
+  # };
 
   # Enable Intel and NVIDIA driver in XServer
   services.xserver.videoDrivers = [
