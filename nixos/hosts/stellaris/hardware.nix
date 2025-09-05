@@ -66,7 +66,7 @@
       "nvidia-drm.modeset=1"  # required for PRIME offload and proper suspend/resume integration with Wayland/XWayland
       "nvidia.NVreg_DynamicPowerManagement=0x02"  # Auto mode for power management
       "nvidia.NVreg_PreserveVideoMemoryAllocations=0" # Disable to allow suspend
-      "acpi=strict" # "nvAssertFailedNoLog: Assertion failed: 0 @ osapi.c:1939"—ACPI DSM call before init; common NVIDIA power bug. Fix: Add "acpi=strict" to kernelParams or BIOS update.
+      "acpi_enforce_resources=lax" # ACPI Lid Non-Compliant: allow legacy driver access, which is a common fix for SW_LID non-compliance without broader ACPI disablement
       "i915.force_probe=*" # [drm] PHY A failed to request refclk after 1us."—Timing issue; force iGPU detection
       "i915.enable_psr=0" # i915 PHY A Refclk Fail: "[drm] PHY A failed to request refclk after 1us"—i915 timing issue; add "i915.enable_psr=0 i915.enable_dc=0" to kernelParams for display/power stability.
       "i915.enable_dc=0" # i915 PHY A Refclk Fail: "[drm] PHY A failed to request refclk after 1us"—i915 timing issue; add "i915.enable_psr=0 i915.enable_dc=0" to kernelParams for display/power stability.
@@ -75,11 +75,19 @@
     # Set extra kernel module options
     extraModprobeConfig = ''
       options kvm_intel nested=1
+
+      # Wi-Fi power tweaks
       options iwlmvm power_scheme=1
       options iwlwifi power_save=0 uapsd_disable=1
-      options nvidia NVreg_DynamicPowerManagement=0x02  # Auto mode for power management
-      options nvidia NVreg_PreserveVideoMemoryAllocations=0  # Disable to allow suspend
-      options i915 enable_guc=3 # GuC / HuC firmware for Alder Lake-P (Mobile) and newer
+
+      # NVIDIA: Auto mode for power management
+      options nvidia NVreg_DynamicPowerManagement=0x02
+
+      # NVIDIA: Disable to allow suspend
+      options nvidia NVreg_PreserveVideoMemoryAllocations=0
+
+      # Intel GPU: GuC / HuC firmware for Alder Lake-P (Mobile) and newer
+      options i915 enable_guc=3
     '';
   };
 
