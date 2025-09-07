@@ -122,6 +122,9 @@
 
     # BloodHound CE
     #../../modules/bloodhound.nix
+
+    # Gaming
+    ./gaming.nix
   ];
 
   # Set hostname

@@ -77,12 +77,33 @@ in
       meslo-lgs-nf
       flatpak
       kdePackages.kpackage
+
+      # gaming related package
+      mangohud
+      steam-run
+      steamtinkerlaunch
+      steam-rom-manager
+      umu-launcher
+      protonup-qt
+      protonup-ng
+      lutris
+      heroic
+      itch
+      ludusavi
+
+      # wine
+      winetricks
+      wineWow64Packages.waylandFull
+      bottles
     ];
 
     # set user session variables
     sessionVariables = {
       # This should be default soon
       MOZ_ENABLE_WAYLAND = 1;
+
+      # Set steam proton path
+      STEAM_EXTRA_COMPAT_TOOLS_PATHS = "\\\${HOME}/.steam/root/compatibilitytools.d";
     };
 
   };

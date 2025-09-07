@@ -134,6 +134,10 @@
 
     # https://github.com/Red-Flake/tuxedo-nixos
     tuxedo-nixos.url = "github:Red-Flake/tuxedo-nixos";
+
+    # Nix Gaming for Steam platformOptimizations
+    # https://github.com/fufexan/nix-gaming
+    nix-gaming.url = "github:fufexan/nix-gaming";
   };
 
   outputs =
@@ -157,6 +161,7 @@
       pwndbg,
       burpsuitepro,
       tuxedo-nixos,
+      nix-gaming,
       ...
     }@inputs:
     let
