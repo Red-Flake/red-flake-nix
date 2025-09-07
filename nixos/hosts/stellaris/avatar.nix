@@ -21,15 +21,35 @@ in
   # Enable AccountsService (required for KDE to read the avatar)
   services.accounts-daemon.enable = true;
 
-  # Declaratively set up the avatar and user configuration
-  systemd.tmpfiles.rules = [
-    # Ensure the icons directory exists
-    "d /var/lib/AccountsService/icons 0755 root root -"
-    # Place the avatar image in the correct location
-    "f /var/lib/AccountsService/icons/${username} 0644 root root - ${avatar}"
-    # Ensure the users directory exists
-    "d /var/lib/AccountsService/users 0755 root root -"
-    # Create a user configuration file pointing to the avatar
-    "f /var/lib/AccountsService/users/${username} 0644 root root - \"[User]\\nIcon=/var/lib/AccountsService/icons/${username}\\n\""
-  ];
+  # Declaratively set the user avatar using a systemd service
+  systemd.services.place-user-icon = {
+    before = [ "display-manager.service" ];
+    wantedBy = [ "display-manager.service" ];
+
+    serviceConfig = {
+      Type = "simple";
+      User = "root";
+      Group = "root";
+    };
+
+    script = ''
+      mkdir -p /var/lib/AccountsService/{icons,users}
+      pic="${avatar}"
+
+      if [ ! -f "$pic" ]; then
+        echo "User image not existing in '$pic' -> Skip setup."
+        exit 0
+      fi
+
+      echo "User image existing in '$pic' -> Setup."
+      cp "$pic" /var/lib/AccountsService/icons/${username}
+      echo -e "[User]\nIcon=/var/lib/AccountsService/icons/${username}\n" > /var/lib/AccountsService/users/${username}
+
+      chown root:root /var/lib/AccountsService/users/${username}
+      chmod 0600 /var/lib/AccountsService/users/${username}
+
+      chown root:root /var/lib/AccountsService/icons/${username}
+      chmod 0444 /var/lib/AccountsService/icons/${username}
+    '';
+  };
 }
