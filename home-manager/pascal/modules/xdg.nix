@@ -11,6 +11,7 @@ let
   fileManager = "nemo.desktop";
   editor = "code.desktop";
   imageViewer = "gwenview.desktop";
+  pdfViewer = "org.kde.okular.desktop";
 in
 {
 
@@ -157,6 +158,9 @@ in
         "image/vnd.microsoft.icon" = imageViewer;
         "image/heif" = imageViewer;
         "image/heic" = imageViewer;
+
+        # set default pdf viewer to okular
+        "application/pdf" = pdfViewer;
       };
     };
   };
