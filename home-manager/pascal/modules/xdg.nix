@@ -9,6 +9,7 @@ let
   browser = "firefox.desktop";
   terminal = "konsole.desktop";
   fileManager = "nemo.desktop";
+  editor = "code.desktop";
 in
 {
 
@@ -75,6 +76,7 @@ in
         "application/x-extension-htm" = browser;
         "application/x-extension-html" = browser;
         "application/xhtml+xml" = browser;
+        "application/xml" = browser;
         "application/x-extension-xht" = browser;
         "application/x-extension-xhtml" = browser;
         "application/x-extension-shtml" = browser;
@@ -95,6 +97,51 @@ in
         # set default file manager
         "inode/directory" = fileManager;
         "application/x-gnome-saved-search" = fileManager;
+
+        # set default text editor to vscode
+        "text/plain" = editor;
+        "text/x-log" = editor;
+        "text/x-c" = editor;
+        "text/x-c++src" = editor;
+        "text/x-chdr" = editor;
+        "text/x-c++hdr" = editor;
+        "text/x-c++-src" = editor;
+        "text/x-cmake" = editor;
+        "text/x-python" = editor;
+        "text/x-shellscript" = editor;
+        "text/x-rustsrc" = editor;
+        "text/x-go" = editor;
+        "text/x-java-source" = editor;
+        "text/x-php" = editor;
+        "text/x-javascript" = editor;
+        "text/x-typescript" = editor;
+        "text/x-markdown" = editor;
+        "text/markdown" = editor;
+        "application/json" = editor;
+        "application/x-yaml" = editor;
+        "application/x-toml" = editor;
+        "application/x-httpd-php" = editor;
+        "application/x-ruby" = editor;
+        "application/x-perl" = editor;
+        "application/x-lua" = editor;
+        "application/x-sh" = editor;
+        "application/x-bash" = editor;
+        "application/x-zsh" = editor;
+        "application/x-csh" = editor;
+        "application/x-fish" = editor;
+        "application/x-rust" = editor;
+        "application/x-go" = editor;
+        "application/x-java" = editor;
+        "application/x-javascript" = editor;
+        "application/x-typescript" = editor;
+        "application/x-python-bytecode" = editor;
+        "application/x-shellscript" = editor;
+        "application/x-perl-script" = editor;
+        "application/x-ruby-script" = editor;
+        "application/x-lua-script" = editor;
+        "application/x-cmake" = editor;
+        "application/x-makefile" = editor;
+        "text/x-makefile" = editor;
       };
     };
   };
