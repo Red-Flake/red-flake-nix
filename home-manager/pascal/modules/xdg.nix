@@ -1,12 +1,19 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   browser = "firefox.desktop";
+  terminal = "konsole.desktop";
+  fileManager = "nemo.desktop";
 in
 {
 
   home.activation = {
-    mimeapps = lib.hm.dag.entryBefore ["writeBoundary"] ''
+    mimeapps = lib.hm.dag.entryBefore [ "writeBoundary" ] ''
       # Check if ~/.config/mimeapps.list exists
       if [ -f "${config.xdg.configHome}/mimeapps.list" ]; then
         # Ensure the existing config file is removed before activation
@@ -27,13 +34,15 @@ in
   };
 
   # enable XDG mime
-  xdg.mime = { enable = true; };
+  xdg.mime = {
+    enable = true;
+  };
 
   # set default XDG mime applications
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
-      # set default browser
+      # set default browser to firefox
       "text/html" = browser;
       "application/x-extension-htm" = browser;
       "application/x-extension-html" = browser;
@@ -46,6 +55,18 @@ in
       "x-scheme-handler/about" = browser;
       "x-scheme-handler/unknown" = browser;
       "x-scheme-handler/chrome" = browser;
+
+      # set default terminal to konsole
+      "application/x-gnome-terminal" = terminal;
+      "application/x-terminal-emulator" = terminal;
+      "application/x-terminator" = terminal;
+      "application/x-uxterm" = terminal;
+      "application/x-vte-terminal" = terminal;
+      "application/x-xterm" = terminal;
+
+      # set default file manager to nemo
+      "inode/directory" = fileManager;
+      "application/x-gnome-saved-search" = fileManager;
     };
     associations = {
       added = {
@@ -62,6 +83,18 @@ in
         "x-scheme-handler/about" = browser;
         "x-scheme-handler/unknown" = browser;
         "x-scheme-handler/chrome" = browser;
+
+        # set default terminal
+        "application/x-gnome-terminal" = terminal;
+        "application/x-terminal-emulator" = terminal;
+        "application/x-terminator" = terminal;
+        "application/x-uxterm" = terminal;
+        "application/x-vte-terminal" = terminal;
+        "application/x-xterm" = terminal;
+
+        # set default file manager
+        "inode/directory" = fileManager;
+        "application/x-gnome-saved-search" = fileManager;
       };
     };
   };

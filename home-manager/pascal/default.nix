@@ -104,6 +104,9 @@ in
 
       # Set steam proton path
       STEAM_EXTRA_COMPAT_TOOLS_PATHS = "\\\${HOME}/.steam/root/compatibilitytools.d";
+
+      # Set terminal to konsole
+      TERMINAL = "konsole";
     };
 
   };

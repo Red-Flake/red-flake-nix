@@ -28,6 +28,7 @@
   };
   dconf = {
     settings = {
+      # set default terminal for nemo to konsole
       "org/cinnamon/desktop/applications/terminal" = {
         exec = "konsole";
         # exec-arg = ""; # argument
