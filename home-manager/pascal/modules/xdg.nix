@@ -10,6 +10,7 @@ let
   terminal = "konsole.desktop";
   fileManager = "nemo.desktop";
   editor = "code.desktop";
+  imageViewer = "gwenview.desktop";
 in
 {
 
@@ -142,6 +143,20 @@ in
         "application/x-cmake" = editor;
         "application/x-makefile" = editor;
         "text/x-makefile" = editor;
+
+        # set default image viewer to gwenview
+        "image/jpeg" = imageViewer;
+        "image/png" = imageViewer;
+        "image/gif" = imageViewer;
+        "image/bmp" = imageViewer;
+        "image/tiff" = imageViewer;
+        "image/x-xcf" = imageViewer;
+        "image/webp" = imageViewer;
+        "image/svg+xml" = imageViewer;
+        "image/x-icon" = imageViewer;
+        "image/vnd.microsoft.icon" = imageViewer;
+        "image/heif" = imageViewer;
+        "image/heic" = imageViewer;
       };
     };
   };
