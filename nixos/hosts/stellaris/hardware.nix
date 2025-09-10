@@ -192,6 +192,8 @@
   # This forces it to use Intel instead, which is more stable and power-efficient
   services.xserver.displayManager.sessionCommands = ''
     export __GLX_VENDOR_LIBRARY_NAME=mesa
+    export __NV_PRIME_RENDER_OFFLOAD=0
+    export __VK_LAYER_NV_optimus=non_NVIDIA_only
     export LIBVA_DRIVER_NAME=iHD
     export VDPAU_DRIVER=va_gl
     export DRI_PRIME=0
