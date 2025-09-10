@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   bloodhoundPath = "${config.xdg.configHome}/bloodhound";
@@ -7,7 +12,7 @@ let
 in
 {
   home.activation = {
-    bloodhound = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    bloodhound = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       # Check if bloodhound folder exists
       if [ ! -d "${bloodhoundPath}" ]; then
         # If not, create bloodhound folderbloodhound
@@ -33,8 +38,19 @@ in
 
   xdg.desktopEntries.bloodhound = {
     name = "BloodHound";
-    genericName = "BloodHound";
-    exec = "BloodHound";
+    genericName = "Six Degrees of Domain Admin";
+    exec = ''
+      env XCURSOR_SIZE=36 BloodHound --no-sandbox --ozone-platform=wayland --ozone-platform-hint=auto --enable-features=WaylandWindowDecorations %U
+    '';
     icon = "${config.home.homeDirectory}/.local/share/icons/red-flake/bloodhound.svg";
+    terminal = false;
+    type = "Application";
+    categories = [
+      "X-Post-Exploitation"
+    ];
+    startupNotify = true;
+    settings = {
+      StartupWMClass = "BloodHound";
+    };
   };
 }
