@@ -59,6 +59,7 @@ in
           RADV_PERFTEST = "nggc,sam,gpl";
           DXVK_ASYNC = "1";
           STEAM_FORCE_DESKTOPUI_SCALING = "2";
+          XCURSOR_SIZE = "36";
         }
         // (prev.extraEnv or { });
 
