@@ -40,13 +40,13 @@
       "ahci"
       "msr"
     ];
-    initrd.kernelModules = ["xe"];  # load Intel Xe Graphics kernel module at boot
+    initrd.kernelModules = [ "xe" ]; # load Intel Xe Graphics kernel module at boot
     blacklistedKernelModules = [
       "nouveau"
       "tuxedo_nb02_nvidia_power_ctrl" # blacklist to avoid conflict with nvidia module; the tuxedo module cannot control the power state
     ];
     kernelModules = [
-      "xe"  # load Intel Xe Graphics kernel module
+      "xe" # load Intel Xe Graphics kernel module
       "kvm-intel"
       "msr" # /dev/cpu/CPUNUM/msr provides an interface to read and write the model-specific registers (MSRs) of an x86 CPU
       "tuxedo_keyboard"
@@ -62,9 +62,9 @@
       "tuxedo_keyboard.kbd_backlight_mode=0"
       "tuxedo_keyboard.kbd_backlight_brightness=255"
       "tuxedo_keyboard.kbd_backlight_color_left=0x0000ff"
-      "mem_sleep_default=s2idle"  # Use s2idle (S0ix) (modern standby) instead of deep (S3) as S3 (Suspend to RAM) is not supported on modern laptops like Core Ultra CPUs, See: https://www.tuxedocomputers.com/en/Power-management-with-suspend-for-current-hardware.tuxedo
-      "nvidia-drm.modeset=1"  # required for PRIME offload and proper suspend/resume integration with Wayland/XWayland
-      "nvidia.NVreg_DynamicPowerManagement=0x02"  # Auto mode for power management
+      "mem_sleep_default=s2idle" # Use s2idle (S0ix) (modern standby) instead of deep (S3) as S3 (Suspend to RAM) is not supported on modern laptops like Core Ultra CPUs, See: https://www.tuxedocomputers.com/en/Power-management-with-suspend-for-current-hardware.tuxedo
+      "nvidia-drm.modeset=1" # required for PRIME offload and proper suspend/resume integration with Wayland/XWayland
+      "nvidia.NVreg_DynamicPowerManagement=0x02" # Auto mode for power management
       "nvidia.NVreg_PreserveVideoMemoryAllocations=0" # Disable to allow suspend
       "acpi_enforce_resources=lax" # ACPI Lid Non-Compliant: allow legacy driver access, which is a common fix for SW_LID non-compliance without broader ACPI disablement
       "i915.force_probe=*" # [drm] PHY A failed to request refclk after 1us."—Timing issue; force iGPU detection
@@ -128,7 +128,7 @@
 
       # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
       # Enable this if you have graphical corruption issues or application crashes after waking
-      # up from sleep. This fixes it by saving the entire VRAM memory to /tmp/ instead 
+      # up from sleep. This fixes it by saving the entire VRAM memory to /tmp/ instead
       # of just the bare essentials.
       powerManagement.enable = true;
 
@@ -138,17 +138,17 @@
 
       # Use the Nvidia open source kernel module (not to be confused with the
       # independent third-party "nouveau" open source driver).
-      # Support is limited to the Turing and later architectures. Full list of 
-      # supported GPUs is at: 
-      # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus 
+      # Support is limited to the Turing and later architectures. Full list of
+      # supported GPUs is at:
+      # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus
       # Only available from driver 515.43.04+
       # An important note to take is that the option hardware.nvidia.open
       # should only be set to false if you have a GPU with an older
-      # architecture than Turing (older than the RTX 20-Series). 
+      # architecture than Turing (older than the RTX 20-Series).
       open = true;
 
       # Enable the Nvidia settings menu,
-	    # accessible via `nvidia-settings`.
+      # accessible via `nvidia-settings`.
       nvidiaSettings = true;
 
       # Disable NVIDIA persistence mode so hopefully the GPU powers down when not in use.
@@ -205,8 +205,20 @@
       RemainAfterExit = true;
       ExecStart = "${pkgs.bash}/bin/bash -c 'for devpath in /sys/bus/pci/devices/0000:*; do pciaddr=$(basename $devpath); if lspci -s $pciaddr 2>/dev/null | grep -iq NVIDIA; then ctl=\"$devpath/power/control\"; if [ -f \"$ctl\" ]; then echo auto > \"$ctl\" || true; fi; fi; done'";
     };
-    wantedBy = [ "multi-user.target" "sleep.target" "suspend.target" "hibernate.target" "hybrid-sleep.target" ];
-    after = [ "multi-user.target" "sleep.target" "suspend.target" "hibernate.target" "hybrid-sleep.target" ];
+    wantedBy = [
+      "multi-user.target"
+      "sleep.target"
+      "suspend.target"
+      "hibernate.target"
+      "hybrid-sleep.target"
+    ];
+    after = [
+      "multi-user.target"
+      "sleep.target"
+      "suspend.target"
+      "hibernate.target"
+      "hybrid-sleep.target"
+    ];
   };
 
   # Try to suspend Nvidia GPU properly on sleep/suspend/hibernate
@@ -215,7 +227,7 @@
     AllowSuspend=yes
     AllowHibernation=yes
   '';
-  
+
   # Extend the existing nvidia-suspend service with your custom script
   # systemd.services.nvidia-suspend = lib.mkIf config.hardware.nvidia.powerManagement.enable {
   #   serviceConfig.ExecStart = lib.mkForce ''
@@ -304,9 +316,11 @@
 
   environment.sessionVariables = {
     LIBVA_DRIVER_NAME = "iHD"; # Force intel-media-driver
-    __GLX_VENDOR_LIBRARY_NAME = "mesa";  # Default to Mesa (Intel) for OpenGL
-    VDPAU_DRIVER = "va_gl";  # Forces Intel via VAAPI
+    VDPAU_DRIVER = "va_gl"; # Forces Intel via VAAPI
     DRI_PRIME = "0"; # Default to Intel
+    __NV_PRIME_RENDER_OFFLOAD = "0"; # Disable offload by default
+    __VK_LAYER_NV_optimus = "non_NVIDIA_only"; # Only report non-NVIDIA GPUs to the Vulkan application
+    __GLX_VENDOR_LIBRARY_NAME = "mesa"; # Default to Mesa (Intel) for OpenGL
   };
 
   # HiDPI fixes => https://github.com/NixOS/nixos-hardware/blob/3f7d0bca003eac1a1a7f4659bbab9c8f8c2a0958/common/hidpi.nix
