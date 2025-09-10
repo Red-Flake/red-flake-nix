@@ -60,6 +60,7 @@ in
           DXVK_ASYNC = "1";
           STEAM_FORCE_DESKTOPUI_SCALING = "2";
           XCURSOR_SIZE = "36";
+          DRI_PRIME = "1"; # Force discrete GPU
         }
         // (prev.extraEnv or { });
 
