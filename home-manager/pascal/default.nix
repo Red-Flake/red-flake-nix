@@ -107,6 +107,9 @@ in
 
       # Set terminal to konsole
       TERMINAL = "konsole";
+
+      # Set global xcursor size to 36; this matches the default cursor size in KDE Plasma of 24
+      XCURSOR_SIZE = "36";
     };
 
   };
