@@ -61,6 +61,10 @@ in
           STEAM_FORCE_DESKTOPUI_SCALING = "2";
           XCURSOR_SIZE = "36";
           DRI_PRIME = "1"; # Force discrete GPU
+          __NV_PRIME_RENDER_OFFLOAD = "1"; # Offload rendering to discrete NVIDIA GPU
+          __GLX_VENDOR_LIBRARY_NAME = "nvidia"; # Use NVIDIA GLX library
+          __VK_LAYER_NV_optimus = "NVIDIA_only"; # Use NVIDIA Vulkan layer
+          __VK_DRIVER_ID = "nvidia"; # Use NVIDIA Vulkan driver
         }
         // (prev.extraEnv or { });
 
