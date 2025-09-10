@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
 
@@ -430,7 +435,7 @@
     icon = "kali-maintaining-access-trans";
     terminal = null;
   };
-  
+
   xdg.desktopEntries.information_gathering_directory = {
     name = "Information Gathering";
     genericName = "";
@@ -793,23 +798,19 @@
     terminal = null;
   };
 
-
-
-
-
   ## .desktop application entries
   xdg.desktopEntries."chrome-magicbytes.getoutline.com__-Default" = {
     name = "Outline";
     genericName = "MagicBytes' Outline";
-    exec = "${pkgs.ungoogled-chromium}/bin/chromium --app=https://magicbytes.getoutline.com";
+    exec = "${pkgs.ungoogled-chromium}/bin/chromium --app=https://magicbytes.getoutline.com --disable-extensions --disable-background-networking --disable-sync --disable-translate --disable-default-apps --disable-popup-blocking --disable-background-timer-throttling --disable-client-side-phishing-detection --disable-hang-monitor --disable-breakpad --disable-component-update --no-first-run --no-default-browser-check --disable-features=TranslateUI,BackForwardCache,AutofillServerCommunication --enable-features=WaylandWindowDecorations,OverlayScrollbar,OverlayScrollbarFlashAfterAnyScroll --ozone-platform=wayland --ozone-platform-hint=auto %U";
     icon = "${pkgs.outline}/share/outline/public/images/icon-192.png";
     type = "Application";
     categories = [ "X-Usual-Applications" ];
-    # inject the StartupWMClass key:
     settings = {
       StartupWMClass = "chrome-magicbytes.getoutline.com__-Default";
     };
   };
+
   xdg.desktopEntries.ghidra = {
     name = "ghidra";
     genericName = "";
@@ -896,7 +897,7 @@
     exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"pdf-parser --help && zsh\"";
     icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/pdf-parser.svg";
     type = "Application";
-    categories = [ "X-pdf-forensics-tools"  ];
+    categories = [ "X-pdf-forensics-tools" ];
   };
   xdg.desktopEntries.hash-identifier = {
     name = "hash-identifier";
@@ -912,7 +913,7 @@
     exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"commix --help && zsh\"";
     icon = "commix";
     type = "Application";
-    categories = [ "X-webapp-analysis"  ];
+    categories = [ "X-webapp-analysis" ];
   };
   xdg.desktopEntries.netexec = {
     name = "netexec";
