@@ -67,7 +67,7 @@
       "nvidia.NVreg_EnableS0ixPowerManagement=1" # Enable S0ix
       "nvidia.NVreg_DynamicPowerManagement=0x02" # Auto mode for power management
       "nvidia.NVreg_PreserveVideoMemoryAllocations=1" # Enable to support s0ix; Preserve video memory allocations across suspend/resume cycles to allow the GPU to power down properly
-      "NVreg_TemporaryFilePath=/tmp" # Save GPU memory to /tmp; this is fine since /tmp is on zfs and not tmpfs
+      "nvidia.NVreg_TemporaryFilePath=/tmp" # Save GPU memory to /tmp; this is fine since /tmp is on zfs and not tmpfs
       "acpi_enforce_resources=lax" # ACPI Lid Non-Compliant: allow legacy driver access, which is a common fix for SW_LID non-compliance without broader ACPI disablement
       "i915.force_probe=*" # [drm] PHY A failed to request refclk after 1us."—Timing issue; force iGPU detection
       "i915.enable_psr=0" # i915 PHY A Refclk Fail: "[drm] PHY A failed to request refclk after 1us"—i915 timing issue; add "i915.enable_psr=0 i915.enable_dc=0" to kernelParams for display/power stability.
@@ -88,8 +88,11 @@
       # NVIDIA: Auto mode for power management
       options nvidia NVreg_DynamicPowerManagement=0x02
 
-      # NVIDIA: Disable to allow suspend
-      options nvidia NVreg_PreserveVideoMemoryAllocations=0
+      # NVIDIA: Enable to support s0ix; Preserve video memory allocations across suspend/resume cycles to allow the GPU to power down properly
+      options nvidia NVreg_PreserveVideoMemoryAllocations=1
+
+      # NVIDIA: Save GPU memory to /tmp; this is fine since /tmp is on zfs and not tmpfs
+      options nvidia NVreg_TemporaryFilePath=/tmp
 
       # Intel GPU: GuC / HuC firmware for Alder Lake-P (Mobile) and newer
       options i915 enable_guc=3
