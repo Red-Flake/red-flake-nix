@@ -59,6 +59,7 @@
 
     # TUXEDO-specific: set keyboard brightness and color at boot
     kernelParams = [
+      "acpi_enforce_resources=lax" # ACPI Lid Non-Compliant: allow legacy driver access, which is a common fix for SW_LID non-compliance without broader ACPI disablement
       "tuxedo_keyboard.kbd_backlight_mode=0"
       "tuxedo_keyboard.kbd_backlight_brightness=255"
       "tuxedo_keyboard.kbd_backlight_color_left=0x0000ff"
@@ -68,7 +69,6 @@
       "nvidia.NVreg_DynamicPowerManagement=0x02" # Auto mode for power management
       "nvidia.NVreg_PreserveVideoMemoryAllocations=1" # Enable to support s0ix; Preserve video memory allocations across suspend/resume cycles to allow the GPU to power down properly
       "nvidia.NVreg_TemporaryFilePath=/tmp" # Save GPU memory to /tmp; this is fine since /tmp is on zfs and not tmpfs
-      "acpi_enforce_resources=lax" # ACPI Lid Non-Compliant: allow legacy driver access, which is a common fix for SW_LID non-compliance without broader ACPI disablement
       "i915.force_probe=*" # [drm] PHY A failed to request refclk after 1us."—Timing issue; force iGPU detection
       "i915.enable_psr=0" # i915 PHY A Refclk Fail: "[drm] PHY A failed to request refclk after 1us"—i915 timing issue; add "i915.enable_psr=0 i915.enable_dc=0" to kernelParams for display/power stability.
       "i915.enable_dc=0" # i915 PHY A Refclk Fail: "[drm] PHY A failed to request refclk after 1us"—i915 timing issue; add "i915.enable_psr=0 i915.enable_dc=0" to kernelParams for display/power stability.
