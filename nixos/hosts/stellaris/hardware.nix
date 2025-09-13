@@ -57,46 +57,56 @@
       linuxKernel.packages.linux_xanmod_latest.tuxedo-drivers
     ];
 
-    # TUXEDO-specific: set keyboard brightness and color at boot
+    # TUXEDO-specific: kernel parameters
     kernelParams = [
-      "acpi_enforce_resources=lax" # ACPI Lid Non-Compliant: allow legacy driver access, which is a common fix for SW_LID non-compliance without broader ACPI disablement
-      "tuxedo_keyboard.kbd_backlight_mode=0"
-      "tuxedo_keyboard.kbd_backlight_brightness=255"
-      "tuxedo_keyboard.kbd_backlight_color_left=0x0000ff"
-      "mem_sleep_default=s2idle" # Use s2idle (S0ix) (modern standby) instead of deep (S3) as S3 (Suspend to RAM) is not supported on modern laptops like Core Ultra CPUs, See: https://www.tuxedocomputers.com/en/Power-management-with-suspend-for-current-hardware.tuxedo
-      "nvidia-drm.modeset=1" # required for PRIME offload and proper suspend/resume integration with Wayland/XWayland
-      "nvidia.NVreg_EnableS0ixPowerManagement=1" # Enable S0ix
-      "nvidia.NVreg_DynamicPowerManagement=0x02" # Auto mode for power management
-      "nvidia.NVreg_PreserveVideoMemoryAllocations=1" # Enable to support s0ix; Preserve video memory allocations across suspend/resume cycles to allow the GPU to power down properly
-      "nvidia.NVreg_TemporaryFilePath=/tmp" # Save GPU memory to /tmp; this is fine since /tmp is on zfs and not tmpfs
-      "i915.force_probe=*" # [drm] PHY A failed to request refclk after 1us."—Timing issue; force iGPU detection
-      "i915.enable_psr=0" # i915 PHY A Refclk Fail: "[drm] PHY A failed to request refclk after 1us"—i915 timing issue; add "i915.enable_psr=0 i915.enable_dc=0" to kernelParams for display/power stability.
-      "i915.enable_dc=0" # i915 PHY A Refclk Fail: "[drm] PHY A failed to request refclk after 1us"—i915 timing issue; add "i915.enable_psr=0 i915.enable_dc=0" to kernelParams for display/power stability.
+      # ACPI / keyboard
+      "acpi_enforce_resources=lax" # Allow legacy driver access to ACPI resources; fixes non-compliant SW_LID implementations on some laptops
+
+      # Modern standby / suspend
+      "mem_sleep_default=s2idle" # Use s2idle (a.k.a. S0ix / modern standby) instead of deep (S3); Core Ultra CPUs don’t support S3
+      # See: https://www.tuxedocomputers.com/en/Power-management-with-suspend-for-current-hardware.tuxedo
+
+      # NVIDIA PRIME Offloading / suspend helpers
+      "nvidia-drm.modeset=1" # Required for PRIME render offload and proper Wayland/XWayland integration
+      "nvidia.NVreg_EnableS0ixPowerManagement=1" # Enable S0ix support in NVIDIA driver
+      "nvidia.NVreg_DynamicPowerManagement=0x02" # Auto dynamic power management (0x01=disabled, 0x02=auto, 0x03=always on)
+      "nvidia.NVreg_PreserveVideoMemoryAllocations=1" # Preserve video memory across suspend/resume; required for stable S0ix
+      "nvidia.NVreg_TemporaryFilePath=/tmp" # Path to save VRAM contents during suspend (ok since /tmp is on ZFS, not tmpfs)
+
+      # Intel Xe / i915 binding for Meteor Lake / Arrow Lake
+      "xe.force_probe=7d67" # Force the new xe driver to bind the Meteor Lake device (PCI ID 7d67)
+      "i915.force_probe=!7d67" # Prevent old i915 driver from binding this GPU
+
+      # --- Intel GPU (legacy workarounds; can still matter if other outputs fallback to i915) ---
+      "i915.enable_psr=0" # Disable Panel Self Refresh (PSR); avoids "PHY A failed to request refclk" timing bug
+      "i915.enable_dc=0" # Disable Display C-states (deep idle); avoids the same refclk bug
     ];
 
-    # Set extra kernel module options
+    # --- extra kernel module options (goes into /etc/modprobe.d/nixos.conf) ---#
+    # Keep this minimal: ONLY 'options' lines and no stray prose (avoid multi-line comment blocks that might confuse parsing).
     extraModprobeConfig = ''
+      # Virtualization
       options kvm_intel nested=1
 
-      # Wi-Fi power tweaks
+      # Wi-Fi / power
       options iwlmvm power_scheme=1
       options iwlwifi power_save=0 uapsd_disable=1
 
-      # NVIDIA: Enable S0ix
+      # NVIDIA module options (module-level equivalent of the kernel params above)
       options nvidia NVreg_EnableS0ixPowerManagement=1
-
-      # NVIDIA: Auto mode for power management
       options nvidia NVreg_DynamicPowerManagement=0x02
-
-      # NVIDIA: Enable to support s0ix; Preserve video memory allocations across suspend/resume cycles to allow the GPU to power down properly
       options nvidia NVreg_PreserveVideoMemoryAllocations=1
-
-      # NVIDIA: Save GPU memory to /tmp; this is fine since /tmp is on zfs and not tmpfs
       options nvidia NVreg_TemporaryFilePath=/tmp
 
-      # Intel GPU: GuC / HuC firmware for Alder Lake-P (Mobile) and newer
+      # Intel GPU: enable GuC/HuC firmware loading (needed for newer platforms)
       options i915 enable_guc=3
+
+      # TUXEDO keyboard module: set these as module options (NOT kernel cmdline)
+      options tuxedo_keyboard kbd_backlight_mode=0
+      options tuxedo_keyboard kbd_backlight_brightness=255
+      options tuxedo_keyboard kbd_backlight_color_left=0x0000ff
     '';
+
   };
 
   # Enable CUDA support
