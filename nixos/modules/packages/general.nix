@@ -70,7 +70,6 @@
     # qt recommends this system package for wayland
     qt6.qtwayland
     lm_sensors
-    nemo-with-extensions
     libnotify
     zenity
     restic

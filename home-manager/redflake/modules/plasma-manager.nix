@@ -70,7 +70,7 @@
                 showOnlyCurrentActivity = "true";
                 showOnlyCurrentScreen = "true";
                 launchers = [
-                  "applications:nemo.desktop"
+                  "applications:org.kde.dolphin.desktop"
                   "applications:org.kde.konsole.desktop"
                   "applications:firefox.desktop"
                   "applications:org.telegram.desktop.desktop"

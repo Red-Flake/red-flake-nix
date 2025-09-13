@@ -7,10 +7,10 @@
 
 let
   browser = "firefox.desktop";
-  terminal = "konsole.desktop";
-  fileManager = "nemo.desktop";
+  terminal = "org.kde.konsole.desktop";
+  fileManager = "org.kde.dolphin.desktop";
   editor = "code.desktop";
-  imageViewer = "gwenview.desktop";
+  imageViewer = "org.kde.gwenview.desktop";
   pdfViewer = "org.kde.okular.desktop";
 in
 {
@@ -67,7 +67,7 @@ in
       "application/x-vte-terminal" = terminal;
       "application/x-xterm" = terminal;
 
-      # set default file manager to nemo
+      # set default file manager to dolphin
       "inode/directory" = fileManager;
       "application/x-gnome-saved-search" = fileManager;
     };

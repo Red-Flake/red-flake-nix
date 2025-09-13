@@ -45,7 +45,6 @@ in
     ./modules/services.nix
     ./modules/vscode.nix
     ./modules/direnv.nix
-    ./modules/nemo.nix
   ];
 
   home = {
