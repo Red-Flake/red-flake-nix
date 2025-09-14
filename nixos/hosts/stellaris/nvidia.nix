@@ -50,11 +50,10 @@
       options nvidia "NVreg_DeviceFileGID=26"
       options nvidia "NVreg_DeviceFileMode=0660"
       options nvidia "NVreg_PreserveVideoMemoryAllocations=1"
-      options nvidia "NVreg_TemporaryFilePath=/run/nvidia-persistenced"
+      options nvidia "NVreg_TemporaryFilePath=/dev/shm"
       options nvidia "NVreg_EnableS0ixPowerManagement=1"
       options nvidia "NVreg_DynamicPowerManagementVideoMemoryThreshold=0"
       options nvidia "NVreg_S0ixPowerManagementVideoMemoryThreshold=0"
-      options nvidia "NVreg_RegistryDwords="\"PowerMizerEnable=0x1\";\"OverrideMaxPerf=0x1\";\"PowerMizerDefault=0x3\";\"PowerMizerDefaultAC=0x3\""
     '';
     # https://forums.developer.nvidia.com/t/power-mizer-difference-between-powermizerdefault-and-powermizerlevel/46884/3
   };
