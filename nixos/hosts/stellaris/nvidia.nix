@@ -15,7 +15,7 @@
   nixpkgs.config.cudaSupport = true;
 
   boot = {
-    # TUXEDO-specific: kernel parameters
+    # Nvidia-specific: kernel parameters
     # See: https://download.nvidia.com/XFree86/Linux-x86_64/580.65.06/README/dynamicpowermanagement.html
     initrd.kernelModules = [
       "nvidia"
@@ -37,7 +37,7 @@
       "nvidia.NVreg_DynamicPowerManagementVideoMemoryThreshold=0"
       "nvidia.NVreg_S0ixPowerManagementVideoMemoryThreshold=16000" # always save VRAM contents on s0ix (0=always save, 1=save if unused, 2=never save)
       "nvidia.NVreg_PreserveVideoMemoryAllocations=1" # Preserve video memory across suspend/resume; required for stable S0ix
-      "nvidia.NVreg_TemporaryFilePath=/run/nvidia-persistenced" # Path to save VRAM contents during suspend
+      "nvidia.NVreg_TemporaryFilePath=/dev/shm" # Path to save VRAM contents during suspend
     ];
 
     # 26 is the GID of the "video" group on NixOS
@@ -53,7 +53,7 @@
       options nvidia "NVreg_TemporaryFilePath=/dev/shm"
       options nvidia "NVreg_EnableS0ixPowerManagement=1"
       options nvidia "NVreg_DynamicPowerManagementVideoMemoryThreshold=0"
-      options nvidia "NVreg_S0ixPowerManagementVideoMemoryThreshold=0"
+      options nvidia "NVreg_S0ixPowerManagementVideoMemoryThreshold=16000"
     '';
     # https://forums.developer.nvidia.com/t/power-mizer-difference-between-powermizerdefault-and-powermizerlevel/46884/3
   };
