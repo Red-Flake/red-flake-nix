@@ -1,9 +1,10 @@
+# https://markwatkinson.com/knowledge/linux/nvidia-dgpu-power/
+
 {
   config,
   lib,
   pkgs,
   inputs,
-  tuxedo-nixos,
   ...
 }:
 {
@@ -15,25 +16,47 @@
 
   boot = {
     # TUXEDO-specific: kernel parameters
+    # See: https://download.nvidia.com/XFree86/Linux-x86_64/580.65.06/README/dynamicpowermanagement.html
+    initrd.kernelModules = [
+      "nvidia"
+      "nvidia_drm"
+      "nvidia_modeset"
+      # "nvidia_uvm" # Don't load it early as it causes power-management issues
+    ];
+
     kernelParams = [
       # NVIDIA PRIME Offloading / suspend helpers
       "nvidia-drm.modeset=1" # Required for PRIME render offload and proper Wayland/XWayland integration
+      "nvidia.NVreg_UsePageAttributeTable=1" # nvidia assume that by default your CPU does not support PAT; why this isn't default is beyond me.
+      "nvidia.NVreg_InitializeSystemMemoryAllocations=0" # Disable pre-allocation of system memory for pinned allocations; helps with memory fragmentation
+      "nvidia.NVreg_DeviceFileUID=0" # Set device file ownership to root
+      "nvidia.NVreg_DeviceFileGID=26" # 26 is the GID of the "video" group on NixOS
+      "nvidia.NVreg_DeviceFileMode=0660" # Set device file permissions to rw-rw----
       "nvidia.NVreg_EnableS0ixPowerManagement=1" # Enable S0ix support in NVIDIA driver
       "nvidia.NVreg_DynamicPowerManagement=0x02" # Auto dynamic power management (0x01=disabled, 0x02=auto, 0x03=always on)
+      "nvidia.NVreg_DynamicPowerManagementVideoMemoryThreshold=0"
+      "nvidia.NVreg_S0ixPowerManagementVideoMemoryThreshold=16000" # always save VRAM contents on s0ix (0=always save, 1=save if unused, 2=never save)
       "nvidia.NVreg_PreserveVideoMemoryAllocations=1" # Preserve video memory across suspend/resume; required for stable S0ix
-      "nvidia.NVreg_TemporaryFilePath=/tmp" # Path to save VRAM contents during suspend (ok since /tmp is on ZFS, not tmpfs)
+      "nvidia.NVreg_TemporaryFilePath=/run/nvidia-persistenced" # Path to save VRAM contents during suspend
     ];
 
-    # --- extra kernel module options (goes into /etc/modprobe.d/nixos.conf) ---#
-    # Keep this minimal: ONLY 'options' lines and no stray prose (avoid multi-line comment blocks that might confuse parsing).
+    # 26 is the GID of the "video" group on NixOS
     extraModprobeConfig = ''
-      # NVIDIA module options (module-level equivalent of the kernel params above)
-      options nvidia NVreg_EnableS0ixPowerManagement=1
-      options nvidia NVreg_DynamicPowerManagement=0x02
-      options nvidia NVreg_PreserveVideoMemoryAllocations=1
-      options nvidia NVreg_TemporaryFilePath=/tmp
+      options nvidia "NVreg_DynamicPowerManagement=0x02"
+      options nvidia_drm "modeset=1"
+      options nvidia_drm "fbdev=1"
+      options nvidia "NVreg_UsePageAttributeTable=1"
+      options nvidia "NVreg_DeviceFileUID=0"
+      options nvidia "NVreg_DeviceFileGID=26"
+      options nvidia "NVreg_DeviceFileMode=0660"
+      options nvidia "NVreg_PreserveVideoMemoryAllocations=1"
+      options nvidia "NVreg_TemporaryFilePath=/run/nvidia-persistenced"
+      options nvidia "NVreg_EnableS0ixPowerManagement=1"
+      options nvidia "NVreg_DynamicPowerManagementVideoMemoryThreshold=0"
+      options nvidia "NVreg_S0ixPowerManagementVideoMemoryThreshold=0"
+      options nvidia "NVreg_RegistryDwords="\"PowerMizerEnable=0x1\";\"OverrideMaxPerf=0x1\";\"PowerMizerDefault=0x3\";\"PowerMizerDefaultAC=0x3\""
     '';
-
+    # https://forums.developer.nvidia.com/t/power-mizer-difference-between-powermizerdefault-and-powermizerlevel/46884/3
   };
 
   hardware = {
@@ -67,11 +90,11 @@
       # accessible via `nvidia-settings`.
       nvidiaSettings = true;
 
-      # Disable NVIDIA persistence mode so hopefully the GPU powers down when not in use.
-      nvidiaPersistenced = false;
+      # Enable NVIDIA persistence mode
+      nvidiaPersistenced = true;
 
       # Optionally, you may need to select the appropriate driver version for your specific GPU.
-      package = config.boot.kernelPackages.nvidiaPackages.beta;
+      package = config.boot.kernelPackages.nvidiaPackages.latest;
 
       prime = {
         offload = {
@@ -95,10 +118,25 @@
     };
   };
 
-  # Force runtime PM for the PCI device
-  # Create a udev rule so the GPU defaults to auto instead of on
+  # Custom udev rules for NVIDIA GPU
+  # See: https://download.nvidia.com/XFree86/Linux-x86_64/580.65.06/README/dynamicpowermanagement.html
   services.udev.extraRules = ''
-    SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{power/control}="auto"
+    # Remove NVIDIA USB xHCI Host Controller devices, if present
+    ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x0c0330", ATTR{remove}="1"
+
+    # Remove NVIDIA USB Type-C UCSI devices, if present
+    ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x0c8000", ATTR{remove}="1"
+
+    # Remove NVIDIA Audio devices, if present
+    ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x040300", ATTR{remove}="1"
+
+    # Enable runtime PM for NVIDIA VGA/3D controller devices on driver bind
+    ACTION=="bind", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x030000", TEST=="power/control", ATTR{power/control}="auto"
+    ACTION=="bind", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x030200", TEST=="power/control", ATTR{power/control}="auto"
+
+    # Disable runtime PM for NVIDIA VGA/3D controller devices on driver unbind
+    ACTION=="unbind", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x030000", TEST=="power/control", ATTR{power/control}="on"
+    ACTION=="unbind", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x030200", TEST=="power/control", ATTR{power/control}="on"
   '';
 
   # For Wayland (KDE), prevent kwin_wayland from using NVIDIA by default.
@@ -112,70 +150,46 @@
     export DRI_PRIME=0
   '';
 
-  systemd.services.nvidia-pm-auto = {
-    description = "Force NVIDIA GPU runtime PM to auto";
-    enable = true;
-    serviceConfig = {
-      Type = "oneshot";
-      RemainAfterExit = true;
-      ExecStart = "${pkgs.bash}/bin/bash -c 'for devpath in /sys/bus/pci/devices/0000:*; do pciaddr=$(basename $devpath); if lspci -s $pciaddr 2>/dev/null | grep -iq NVIDIA; then ctl=\"$devpath/power/control\"; if [ -f \"$ctl\" ]; then echo auto > \"$ctl\" || true; fi; fi; done'";
-    };
-    wantedBy = [
-      "multi-user.target"
-      "sleep.target"
-      "suspend.target"
-      "hibernate.target"
-      "hybrid-sleep.target"
-    ];
-    after = [
-      "multi-user.target"
-      "sleep.target"
-      "suspend.target"
-      "hibernate.target"
-      "hybrid-sleep.target"
-    ];
-  };
-
-  # Try to suspend Nvidia GPU properly on sleep/suspend/hibernate
-  systemd.sleep.extraConfig = ''
-    [Sleep]
-    AllowSuspend=yes
-    AllowHibernation=yes
-  '';
-
   # Enable NVIDIA driver in XServer
   services.xserver.videoDrivers = [
     "nvidia"
   ];
 
+  # Enable nvidia-suspend service
+  systemd.services.nvidia-suspend = {
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = lib.mkForce "${config.boot.kernelPackages.nvidiaPackages.latest}/bin/nvidia-sleep.sh suspend";
+    };
+    before = [ "systemd-suspend.service" ];
+    wantedBy = [ "suspend.target" ];
+  };
+
+  systemd.services.nvidia-hibernate = {
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = lib.mkForce "${config.boot.kernelPackages.nvidiaPackages.latest}/bin/nvidia-sleep.sh hibernate";
+    };
+    before = [ "systemd-hibernate.service" ];
+    wantedBy = [ "hibernate.target" ];
+  };
+
+  systemd.services.nvidia-resume = {
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = lib.mkForce "${config.boot.kernelPackages.nvidiaPackages.latest}/bin/nvidia-sleep.sh resume";
+    };
+    after = [
+      "systemd-suspend.service"
+      "systemd-hibernate.service"
+    ];
+    wantedBy = [
+      "suspend.target"
+      "hibernate.target"
+    ];
+  };
+
   environment.systemPackages = with pkgs; [
     envycontrol
-
-    (writeShellScriptBin "nvidia-sleep.sh" ''
-      #!/bin/sh
-      case "$1" in
-        suspend)
-          # Unload NVIDIA modules to free video memory
-          ${pkgs.kmod}/bin/modprobe -r nvidia_drm nvidia_modeset nvidia_uvm nvidia || true
-          ${pkgs.kmod}/bin/modprobe -r nvidia || true
-          ;;
-        hibernate)
-          ${pkgs.kmod}/bin/modprobe -r nvidia_drm nvidia_modeset nvidia_uvm nvidia || true
-          ${pkgs.kmod}/bin/modprobe -r nvidia || true
-          ;;
-        resume|thaw)
-          ${pkgs.kmod}/bin/modprobe nvidia || true
-          if [ -d /sys/module/nvidia_modeset ]; then
-            ${pkgs.kmod}/bin/modprobe nvidia_modeset || true
-          fi
-          if [ -d /sys/module/nvidia_drm ]; then
-            ${pkgs.kmod}/bin/modprobe nvidia_drm || true
-          fi
-          if [ -d /sys/module/nvidia_uvm ]; then
-              ${pkgs.kmod}/bin/modprobe nvidia_uvm || true
-          fi
-          ;;
-      esac
-    '')
   ];
 }

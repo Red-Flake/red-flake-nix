@@ -7,6 +7,8 @@
   inputs,
   poetry2nix,
   isKVM,
+  envycontrol,
+  tuxedo-nixos,
   ...
 }:
 {
@@ -23,7 +25,7 @@
 
     # Nvidia hardware configuration for TUXEDO Stellaris 16 Gen7
     # disabled for now as it causes issues with s0ix suspend
-    # ./nvidia.nix
+    ./nvidia.nix
 
     # Additional general hardware configuration
     ../../modules/hardware.nix

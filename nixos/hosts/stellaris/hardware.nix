@@ -40,7 +40,10 @@
     initrd.kernelModules = [ "xe" ]; # load Intel Xe Graphics kernel module at boot
     blacklistedKernelModules = [
       "nouveau"
-      #"tuxedo_nb02_nvidia_power_ctrl" # blacklist to avoid conflict with nvidia module; the tuxedo module cannot control the power state
+      "nvidiafb"
+      "rivafb"
+      "spd5118" # blacklist to avoid these issues: [  146.522972] spd5118 14-0050: Failed to write b = 0: -6    [  146.522974] spd5118 14-0050: PM: dpm_run_callback(): spd5118_resume [spd5118] returns -6     [  146.522978] spd5118 14-0050: PM: failed to resume async: error -6
+      "tuxedo_nb02_nvidia_power_ctrl" # blacklist to avoid conflict with nvidia module; the tuxedo module cannot control the power state
     ];
     kernelModules = [
       "xe" # load Intel Xe Graphics kernel module
@@ -48,10 +51,9 @@
       "msr" # /dev/cpu/CPUNUM/msr provides an interface to read and write the model-specific registers (MSRs) of an x86 CPU
       "tuxedo_keyboard"
       "tuxedo-io"
-      #"nvidia"   # DO NOT LOAD nvidia module in either initrd or kernelModules; it will still get loaded by nvidia-offload when needed
     ];
     extraModulePackages = with pkgs; [
-      linuxKernel.packages.linux_xanmod_latest.tuxedo-drivers
+      linuxPackages_latest.tuxedo-drivers
     ];
 
     # TUXEDO-specific: kernel parameters
