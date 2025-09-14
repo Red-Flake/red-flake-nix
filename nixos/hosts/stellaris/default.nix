@@ -24,7 +24,6 @@
     ./hardware.nix
 
     # Nvidia hardware configuration for TUXEDO Stellaris 16 Gen7
-    # disabled for now as it causes issues with s0ix suspend
     ./nvidia.nix
 
     # Additional general hardware configuration

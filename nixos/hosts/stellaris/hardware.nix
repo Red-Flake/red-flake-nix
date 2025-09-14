@@ -53,7 +53,7 @@
       "tuxedo-io"
     ];
     extraModulePackages = with pkgs; [
-      linuxPackages_latest.tuxedo-drivers
+      linuxKernel.packages.linux_xanmod_latest.tuxedo-drivers
     ];
 
     # TUXEDO-specific: kernel parameters

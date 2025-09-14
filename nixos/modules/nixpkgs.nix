@@ -177,7 +177,7 @@
         (import ../overlays/apachetomcatscanner-overlay)
 
         # tuxedo-drivers overlay
-        #(import ../overlays/tuxedo-drivers-overlay)
+        (import ../overlays/tuxedo-drivers-overlay)
 
         # envycontrol overlay
         (import ../overlays/envycontrol-overlay)

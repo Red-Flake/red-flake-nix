@@ -40,8 +40,8 @@ in
       "biosdevname=0"
     ];
 
-    # Switch to latest Linux kernel
-    kernelPackages = pkgs.linuxPackages_latest;
+    # Switch to latest XanMod kernel
+    kernelPackages = pkgs.linuxPackages_xanmod_latest;
 
     # Initramfs settings
     initrd = {
