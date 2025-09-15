@@ -89,8 +89,8 @@
       # accessible via `nvidia-settings`.
       nvidiaSettings = true;
 
-      # Enable NVIDIA persistence mode
-      nvidiaPersistenced = true;
+      # Disable NVIDIA persistence mode so the driver can be unloaded when not in use.
+      nvidiaPersistenced = false;
 
       # Optionally, you may need to select the appropriate driver version for your specific GPU.
       package = config.boot.kernelPackages.nvidiaPackages.latest;
