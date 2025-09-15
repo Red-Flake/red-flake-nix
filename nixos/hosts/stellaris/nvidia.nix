@@ -17,7 +17,9 @@
   boot = {
     # Nvidia-specific: kernel parameters
     # See: https://download.nvidia.com/XFree86/Linux-x86_64/580.65.06/README/dynamicpowermanagement.html
-    initrd.kernelModules = [
+    # Preserving video memory in early KMS fails, see: https://www.reddit.com/r/hyprland/comments/1cyb0h7/hibernate_on_nvidia
+    # Do not load nvidia in early KMS (boot.initrd.kernelModules), load via boot.kernelModules instead
+    kernelModules = [
       "nvidia"
       "nvidia_drm"
       "nvidia_modeset"
