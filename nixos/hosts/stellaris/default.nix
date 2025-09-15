@@ -7,7 +7,6 @@
   inputs,
   poetry2nix,
   isKVM,
-  envycontrol,
   tuxedo-nixos,
   ...
 }:

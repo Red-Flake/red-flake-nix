@@ -171,8 +171,4 @@
       "hibernate.target"
     ];
   };
-
-  environment.systemPackages = with pkgs; [
-    envycontrol
-  ];
 }

@@ -178,9 +178,6 @@
 
         # tuxedo-drivers overlay
         (import ../overlays/tuxedo-drivers-overlay)
-
-        # envycontrol overlay
-        (import ../overlays/envycontrol-overlay)
       ]
       ++ lib.optionals config.custom.IntelComputeRuntimeLegacy.enable [
         # enable Intel OpenCL legacy runtime if needed
