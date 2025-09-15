@@ -66,12 +66,8 @@
       # See: https://www.tuxedocomputers.com/en/Power-management-with-suspend-for-current-hardware.tuxedo
 
       # Intel Xe / i915 binding for Meteor Lake / Arrow Lake
-      "xe.force_probe=7d67" # Force the new xe driver to bind the Meteor Lake device (PCI ID 7d67)
       "i915.force_probe=!7d67" # Prevent old i915 driver from binding this GPU
-
-      # --- Intel GPU (legacy workarounds; can still matter if other outputs fallback to i915) ---
-      "i915.enable_psr=0" # Disable Panel Self Refresh (PSR); avoids "PHY A failed to request refclk" timing bug
-      "i915.enable_dc=0" # Disable Display C-states (deep idle); avoids the same refclk bug
+      "xe.force_probe=7d67" # Force the new xe driver to bind the Meteor Lake device (PCI ID 7d67)
     ];
 
     # --- extra kernel module options (goes into /etc/modprobe.d/nixos.conf) ---#
@@ -83,9 +79,6 @@
       # Wi-Fi / power
       options iwlmvm power_scheme=1
       options iwlwifi power_save=0 uapsd_disable=1
-
-      # Intel GPU: enable GuC/HuC firmware loading (needed for newer platforms)
-      options i915 enable_guc=3
 
       # TUXEDO keyboard module: set these as module options (NOT kernel cmdline)
       options tuxedo_keyboard kbd_backlight_mode=0
@@ -145,9 +138,10 @@
     export DRI_PRIME=0
   '';
 
-  # Enable Intel driver in XServer
+  # Enable Intel & NVIDIA driver in XServer
   services.xserver.videoDrivers = [
     "modesetting"
+    "nvidia"
   ];
 
   environment.sessionVariables = {

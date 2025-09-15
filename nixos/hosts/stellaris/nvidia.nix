@@ -138,11 +138,6 @@
     ACTION=="unbind", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x030200", TEST=="power/control", ATTR{power/control}="on"
   '';
 
-  # Enable NVIDIA driver in XServer
-  services.xserver.videoDrivers = [
-    "nvidia"
-  ];
-
   # Enable nvidia-suspend service
   systemd.services.nvidia-suspend = {
     serviceConfig = {
