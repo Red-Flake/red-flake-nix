@@ -104,12 +104,10 @@
       enable32Bit = true; # For Steam and other 32-bit apps
       extraPackages = with pkgs; [
         intel-media-driver # LIBVA_DRIVER_NAME=iHD
-        libvdpau-va-gl # VDPAU driver with OpenGL/VAAPI backend
         vpl-gpu-rt # For Intel QSV (Quick Sync Video)
       ];
-      extraPackages32 = with pkgs.pkgsi686Linux; [
+      extraPackages32 = with pkgs.driversi686Linux; [
         intel-media-driver # LIBVA_DRIVER_NAME=iHD
-        libvdpau-va-gl # VDPAU driver with OpenGL/VAAPI backend
       ];
     };
 
