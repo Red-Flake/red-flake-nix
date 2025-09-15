@@ -138,17 +138,6 @@
     ACTION=="unbind", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x030200", TEST=="power/control", ATTR{power/control}="on"
   '';
 
-  # For Wayland (KDE), prevent kwin_wayland from using NVIDIA by default.
-  # This forces it to use Intel instead, which is more stable and power-efficient
-  services.xserver.displayManager.sessionCommands = ''
-    export __GLX_VENDOR_LIBRARY_NAME=mesa
-    export __NV_PRIME_RENDER_OFFLOAD=0
-    export __VK_LAYER_NV_optimus=non_NVIDIA_only
-    export LIBVA_DRIVER_NAME=iHD
-    export VDPAU_DRIVER=va_gl
-    export DRI_PRIME=0
-  '';
-
   # Enable NVIDIA driver in XServer
   services.xserver.videoDrivers = [
     "nvidia"
