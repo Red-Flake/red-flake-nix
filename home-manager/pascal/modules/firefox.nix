@@ -351,10 +351,28 @@
                 name = "AI";
                 bookmarks = [
                   {
+                    name = "PentestGPT";    
+                    tags = [ "pentestgpt" ];
+                    keyword = "pentestgpt";  
+                    url = "https://pentestgpt.ai";
+                  }
+                  {
+                    name = "Grok";
+                    tags = [ "grok" ];
+                    keyword = "grok";
+                    url = "https://grok.com";
+                  }
+                  {
                     name = "ChatGPT";
                     tags = [ "chatgpt" ];
                     keyword = "chatgpt";
                     url = "https://chatgpt.com";
+                  }
+                  {
+                    name = "Perplexity";
+                    tags = [ "perplexity" ];
+                    keyword = "perplexity";
+                    url = "https://perplexity.ai";
                   }
                 ];
               }
