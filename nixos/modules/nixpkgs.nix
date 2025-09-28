@@ -178,6 +178,9 @@
 
         # tuxedo-drivers overlay
         (import ../overlays/tuxedo-drivers-overlay)
+
+        # freerdp3 overlay
+        (import ../overlays/freerdp3-overlay)
       ]
       ++ lib.optionals config.custom.IntelComputeRuntimeLegacy.enable [
         # enable Intel OpenCL legacy runtime if needed
