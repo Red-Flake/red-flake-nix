@@ -182,8 +182,8 @@
         # freerdp3 overlay
         (import ../overlays/freerdp3-overlay)
 
-        # mcfgthreads overlay
-        (import ../overlays/mcfgthreads-overlay)
+        # mingwW64 overlay
+        (import ../overlays/mingwW64-overlay)
       ]
       ++ lib.optionals config.custom.IntelComputeRuntimeLegacy.enable [
         # enable Intel OpenCL legacy runtime if needed
