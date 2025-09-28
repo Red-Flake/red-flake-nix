@@ -31,8 +31,6 @@
     pkgs.pkgsCross.mingw32.buildPackages.gcc # i686-w64-mingw32-gcc & g++
     pkgs.pkgsCross.mingwW64.buildPackages.binutils # Binutils for 64-bit
     pkgs.pkgsCross.mingw32.buildPackages.binutils # Binutils for 32-bit
-    pkgs.pkgsCross.mingw32.windows.mcfgthreads
-    pkgs.pkgsCross.mingwW64.windows.mcfgthreads
     pkgs.pkgsCross.mingwW64.stdenv.cc
     pkgs.llvmPackages.libcxxClang
     pkgs.zig
