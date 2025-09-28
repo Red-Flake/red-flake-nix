@@ -815,11 +815,11 @@
     "tools": {
       "flake": false,
       "locked": {
-        "lastModified": 1758601229,
-        "narHash": "sha256-Z0vrQ4L3e1qdf8XUKRW2TrO9nt/AwTgWmGdZS0voRBk=",
+        "lastModified": 1759026195,
+        "narHash": "sha256-2+BdsgozqsXTy5FVtvI3WCYG99C5W/rGS8hCOwNzRLs=",
         "owner": "Red-Flake",
         "repo": "tools",
-        "rev": "22ea428cd8fed216234f34e81b5231ed4dd6c23d",
+        "rev": "f185fa323fc4730efc51687bb7b506fa47e6989d",
         "type": "github"
       },
       "original": {
