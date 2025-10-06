@@ -19,7 +19,7 @@ in
   # import other home-manager modules
   imports = [
     inputs.nur.modules.homeManager.default
-    inputs.plasma-manager.homeManagerModules.plasma-manager
+    inputs.plasma-manager.homeModules.plasma-manager
     ./modules/git.nix
     ./modules/dconf.nix
     ./modules/artwork.nix
