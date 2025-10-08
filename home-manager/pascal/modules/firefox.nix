@@ -53,6 +53,28 @@
         "gfx.webrender.all" = true;
         "gfx.webgpu.ignore-blocklist" = true;
 
+        # use smooth fonts
+        "gfx.use_text_smoothing_setting" = true;
+
+        # disable vsync
+        "widget.wayland.vsync.enabled" = false;
+        "gfx.vsync.force-disable-waitforvblank" = true;
+
+        # bump DOM IPC process count to 24 (= number of CPU threads)
+        "dom.ipc.processCount" = 24;
+
+        # enable DOM webgpu
+        "dom.webgpu.enabled" = true;
+
+        # enable webrender compositor
+        "gfx.webrender.compositor" = true;
+
+        # force enable webrender compositor
+        "gfx.webrender.compositor.force-enabled" = true;
+
+        # enable webrender layer compositor
+        "gfx.webrender.layer-compositor" = true;
+
         # pre cache webrender shaders
         "gfx.webrender.precache-shaders" = true;
 
@@ -69,6 +91,12 @@
         "gfx.canvas.accelerated.aa-stroke.enabled" = true;
         "gfx.canvas.accelerated.async-present" = true;
         "gfx.canvas.accelerated.force-enabled" = true;
+
+        # enable fractional scaling on wayland
+        "widget.wayland.fractional-scale.enabled" = true;
+
+        # fix issue with dropped frames
+        "widget.wayland.opaque-region.enabled" = false;
 
         "browser.aboutConfig.showWarning" = false;
         "toolkit.telemetry.enabled" = false;
@@ -192,7 +220,16 @@
         user_pref("gfx.webgpu.ignore-blocklist", true);
         user_pref("gfx.webrender.precache-shaders", true);
         user_pref("layout.frame_rate", 300);
-
+        user_pref("gfx.use_text_smoothing_setting", true);
+        user_pref("widget.wayland.vsync.enabled", false);
+        user_pref("gfx.vsync.force-disable-waitforvblank", true);
+        user_pref("dom.ipc.processCount", 24);
+        user_pref("dom.webgpu.enabled", true);
+        user_pref("gfx.webrender.compositor", true);
+        user_pref("gfx.webrender.compositor.force-enabled", true);
+        user_pref("gfx.webrender.layer-compositor", true);
+        user_pref("widget.wayland.fractional-scale.enabled", true);
+        user_pref("widget.wayland.opaque-region.enabled", false);
         user_pref("browser.theme.content-theme", 0);
         user_pref("browser.theme.toolbar-theme", 0);
         user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
