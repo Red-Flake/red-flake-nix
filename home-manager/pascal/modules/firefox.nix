@@ -49,10 +49,23 @@
         # Disable recommended performance preferences; this helps improve render performance a lot
         "browser.preferences.defaultPerformanceSettings.enabled" = false;
 
+        # Force hardware acceleration
+        "gfx.webrender.all" = true;
+        "gfx.webgpu.ignore-blocklist" = true;
+
+        # pre cache webrender shaders
+        "gfx.webrender.precache-shaders" = true;
+
         # Force hardware acceleration for compositing browser layers
         "layers.force-active" = true;
         "layers.acceleration.disabled" = false;
         "layers.acceleration.force-enabled" = true;
+
+        # Force canvas acceleration
+        "gfx.canvas.accelerated" = true;
+        "gfx.canvas.accelerated.aa-stroke.enabled" = true;
+        "gfx.canvas.accelerated.async-present" = true;
+        "gfx.canvas.accelerated.force-enabled" = true;
 
         "browser.aboutConfig.showWarning" = false;
         "toolkit.telemetry.enabled" = false;
@@ -158,8 +171,6 @@
         "extensions.formautofill.heuristics.enabled" = false;
         "signon.formlessCapture.enabled" = false;
         "network.auth.subresource-http-auth-allow" = 1;
-        "gfx.webrender.all" = true;
-        "gfx.webgpu.ignore-blocklist" = true;
         "media.ffmpeg.vaapi.enabled" = true;
         "widget.dmabuf.force-enabled" = true;
         "webgl.enable-debug-renderer-info" = false;
@@ -176,6 +187,7 @@
         user_pref("layers.force-active", true);
         user_pref("gfx.webrender.all", true);
         user_pref("gfx.webgpu.ignore-blocklist", true);
+        user_pref("gfx.webrender.precache-shaders", true);
 
         user_pref("browser.theme.content-theme", 0);
         user_pref("browser.theme.toolbar-theme", 0);
