@@ -4,7 +4,8 @@
   lib,
   pkgs,
   ...
-}: {
+}:
+{
 
   # force creation of ~/.mozilla/firefox/profiles.ini otherwise home-manager will fail
   home.file.".mozilla/firefox/profiles.ini".force = true;
@@ -28,9 +29,11 @@
 
         engines = {
           "SearXNG" = {
-            urls = [{
-              template = "https://search.inetol.net/search?q={searchTerms}";
-            }];
+            urls = [
+              {
+                template = "https://search.inetol.net/search?q={searchTerms}";
+              }
+            ];
 
             icon = "https://search.inetol.net/static/themes/simple/img/favicon.svg";
             updateInterval = 24 * 60 * 60 * 1000;
@@ -40,6 +43,12 @@
       };
 
       settings = {
+        # By default remote protocols attempts to set a range of preferences deemed suitable in automation when it starts. These include the likes of disabling auto-updates, Telemetry, and first-run UX. Set this preference to false to skip setting those preferences, which is mostly useful for internal Firefox CI suites.
+        "remote.prefs.recommended" = false;
+
+        # Disable recommended performance preferences; this helps improve render performance a lot
+        "browser.preferences.defaultPerformanceSettings.enabled" = false;
+
         "browser.aboutConfig.showWarning" = false;
         "toolkit.telemetry.enabled" = false;
         "browser.startup.page" = 3; # Open windows and tabs from the last session
@@ -134,7 +143,8 @@
         "network.prefetch-next" = false;
         "network.dns.disablePrefetch" = true;
         "media.peerconnection.ice.default_address_only" = true;
-        "geo.provider.network.url" = "https://location.services.mozilla.com/v1/geolocate?key=%MOZILLA_API_KEY%";
+        "geo.provider.network.url" =
+          "https://location.services.mozilla.com/v1/geolocate?key=%MOZILLA_API_KEY%";
         "signon.rememberSignons" = false;
         "signon.autofillForms" = false;
         "browser.formfill.enable" = false;
@@ -153,6 +163,9 @@
       };
 
       extraConfig = ''
+        user_pref("remote.prefs.recommended", false);
+        user_pref("browser.preferences.defaultPerformanceSettings.enabled", false);
+
         user_pref("browser.theme.content-theme", 0);
         user_pref("browser.theme.toolbar-theme", 0);
         user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
@@ -351,10 +364,28 @@
                 name = "AI";
                 bookmarks = [
                   {
+                    name = "PentestGPT";
+                    tags = [ "pentestgpt" ];
+                    keyword = "pentestgpt";
+                    url = "https://pentestgpt.ai";
+                  }
+                  {
+                    name = "Grok";
+                    tags = [ "grok" ];
+                    keyword = "grok";
+                    url = "https://grok.com";
+                  }
+                  {
                     name = "ChatGPT";
                     tags = [ "chatgpt" ];
                     keyword = "chatgpt";
                     url = "https://chatgpt.com";
+                  }
+                  {
+                    name = "Perplexity";
+                    tags = [ "perplexity" ];
+                    keyword = "perplexity";
+                    url = "https://perplexity.ai";
                   }
                 ];
               }
@@ -554,7 +585,7 @@
           "/etc/ssl/certs/BurpSuiteCA.der"
         ];
       };
-      
+
       ## to find the correct GUID of an extension go to https://addons.mozilla.org/, open any extension page, view the page source code and search for "guid", then use this value for the extension name.
       ExtensionSettings = {
         "addon@darkreader.org" = {
@@ -609,9 +640,9 @@
       };
     };
 
-      # extraConfig = '' ''; # user.js
-      # userChrome = '' ''; # chrome CSS
-      # userContent = '' ''; # content CSS
+    # extraConfig = '' ''; # user.js
+    # userChrome = '' ''; # chrome CSS
+    # userContent = '' ''; # content CSS
   };
 
 }
