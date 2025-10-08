@@ -438,6 +438,58 @@
           ];
         };
 
+        # Letgamer desktop-pc
+        redline = nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = {
+            inherit inputs outputs;
+            chaoticPkgs = import inputs.nixpkgs {
+              inherit system;
+              overlays = [ inputs.chaotic.overlays.default ];
+              config.allowUnfree = true;
+            };
+            user = "let";
+            isKVM = false;
+          };
+          modules = [
+            darkmatter-grub-theme.nixosModule
+            inputs.impermanence.nixosModules.impermanence
+
+            ./nixos/hosts/redline
+            {
+              imports = [ inputs.home-manager.nixosModules.home-manager ];
+
+              home-manager.useGlobalPkgs = false;
+              home-manager.useUserPackages = true;
+              home-manager.backupFileExtension = "bak";
+
+              home-manager.extraSpecialArgs = {
+                inherit inputs;
+                user = "let";
+                pkgs = import inputs.nixpkgs {
+                  system = "x86_64-linux";
+                  config.allowUnfree = true;
+                  overlays = [
+                    # impacket overlay
+                    (import nixos/overlays/impacket-overlay)
+                  ];
+                };
+              };
+
+              home-manager.users = {
+                "let" = {
+                  home.username = "let";
+                  home.homeDirectory = "/home/let";
+                  home.stateVersion = "23.05";
+                  imports = [
+                    ./home-manager/pascal
+                  ];
+                };
+              };
+            }
+          ];
+        };
+
       };
     };
 }
