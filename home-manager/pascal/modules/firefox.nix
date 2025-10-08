@@ -61,6 +61,9 @@
         "layers.acceleration.disabled" = false;
         "layers.acceleration.force-enabled" = true;
 
+        # Force 300 FPS framerate
+        "layout.frame_rate" = 300;
+
         # Force canvas acceleration
         "gfx.canvas.accelerated" = true;
         "gfx.canvas.accelerated.aa-stroke.enabled" = true;
@@ -188,6 +191,7 @@
         user_pref("gfx.webrender.all", true);
         user_pref("gfx.webgpu.ignore-blocklist", true);
         user_pref("gfx.webrender.precache-shaders", true);
+        user_pref("layout.frame_rate", 300);
 
         user_pref("browser.theme.content-theme", 0);
         user_pref("browser.theme.toolbar-theme", 0);
