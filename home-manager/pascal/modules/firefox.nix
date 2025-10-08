@@ -50,6 +50,7 @@
         "browser.preferences.defaultPerformanceSettings.enabled" = false;
 
         # Force hardware acceleration for compositing browser layers
+        "layers.force-active" = true;
         "layers.acceleration.disabled" = false;
         "layers.acceleration.force-enabled" = true;
 
@@ -172,6 +173,7 @@
         user_pref("browser.preferences.defaultPerformanceSettings.enabled", false);
         user_pref("layers.acceleration.disabled", false);
         user_pref("layers.acceleration.force-enabled", true);
+        user_pref("layers.force-active", true);
         user_pref("gfx.webrender.all", true);
         user_pref("gfx.webgpu.ignore-blocklist", true);
 
