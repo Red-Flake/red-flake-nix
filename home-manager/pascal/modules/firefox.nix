@@ -49,6 +49,10 @@
         # Disable recommended performance preferences; this helps improve render performance a lot
         "browser.preferences.defaultPerformanceSettings.enabled" = false;
 
+        # Force hardware acceleration for compositing browser layers
+        "layers.acceleration.disabled" = false;
+        "layers.acceleration.force-enabled" = true;
+
         "browser.aboutConfig.showWarning" = false;
         "toolkit.telemetry.enabled" = false;
         "browser.startup.page" = 3; # Open windows and tabs from the last session
@@ -165,6 +169,8 @@
       extraConfig = ''
         user_pref("remote.prefs.recommended", false);
         user_pref("browser.preferences.defaultPerformanceSettings.enabled", false);
+        user_pref("layers.acceleration.disabled", false);
+        user_pref("layers.acceleration.force-enabled", true);
 
         user_pref("browser.theme.content-theme", 0);
         user_pref("browser.theme.toolbar-theme", 0);
