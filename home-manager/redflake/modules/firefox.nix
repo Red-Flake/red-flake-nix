@@ -158,6 +158,7 @@
         "signon.formlessCapture.enabled" = false;
         "network.auth.subresource-http-auth-allow" = 1;
         "gfx.webrender.all" = true;
+        "gfx.webgpu.ignore-blocklist" = true;
         "media.ffmpeg.vaapi.enabled" = true;
         "widget.dmabuf.force-enabled" = true;
         "webgl.enable-debug-renderer-info" = false;
@@ -171,6 +172,8 @@
         user_pref("browser.preferences.defaultPerformanceSettings.enabled", false);
         user_pref("layers.acceleration.disabled", false);
         user_pref("layers.acceleration.force-enabled", true);
+        user_pref("gfx.webrender.all", true);
+        user_pref("gfx.webgpu.ignore-blocklist", true);
 
         user_pref("browser.theme.content-theme", 0);
         user_pref("browser.theme.toolbar-theme", 0);
