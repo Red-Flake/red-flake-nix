@@ -84,7 +84,7 @@ in
       umu-launcher
       protonup-qt
       protonup-ng
-      lutris
+      #lutris   # disabled for now due to https://github.com/NixOS/nixpkgs/issues/449493
       heroic
       itch
       ludusavi

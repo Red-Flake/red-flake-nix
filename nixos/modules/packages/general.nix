@@ -26,7 +26,7 @@
     lsb-release
     socat
     rlwrap
-    dfc
+    #dfc
     zsh
     openvpn
     macchanger

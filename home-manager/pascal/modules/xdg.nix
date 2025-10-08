@@ -14,7 +14,6 @@ let
   pdfViewer = "org.kde.okular.desktop";
 in
 {
-
   home.activation = {
     mimeapps = lib.hm.dag.entryBefore [ "writeBoundary" ] ''
       # Check if ~/.config/mimeapps.list exists
