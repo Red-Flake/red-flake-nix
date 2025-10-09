@@ -811,6 +811,25 @@
     };
   };
 
+  # fix vscode StartupWMClass so that it groups properly in taskbar
+  xdg.desktopEntries."code" = {
+    name = "Visual Studio Code";
+    genericName = "Text Editor";
+    exec = "code %F";
+    icon = "code";
+    type = "Application";
+    categories = [
+      "Utility"
+      "TextEditor"
+      "Development"
+      "IDE"
+    ];
+    startupNotify = true;
+    settings = {
+      StartupWMClass = "code"; # fixes duplicate taskbar entry
+    };
+  };
+
   xdg.desktopEntries.ghidra = {
     name = "ghidra";
     genericName = "";

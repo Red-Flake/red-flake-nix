@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
 
@@ -430,7 +435,7 @@
     icon = "kali-maintaining-access-trans";
     terminal = null;
   };
-  
+
   xdg.desktopEntries.information_gathering_directory = {
     name = "Information Gathering";
     genericName = "";
@@ -793,11 +798,26 @@
     terminal = null;
   };
 
-
-
-
-
   ## .desktop application entries
+  # fix vscode StartupWMClass so that it groups properly in taskbar
+  xdg.desktopEntries."code" = {
+    name = "Visual Studio Code";
+    genericName = "Text Editor";
+    exec = "code %F";
+    icon = "code";
+    type = "Application";
+    categories = [
+      "Utility"
+      "TextEditor"
+      "Development"
+      "IDE"
+    ];
+    startupNotify = true;
+    settings = {
+      StartupWMClass = "code"; # fixes duplicate taskbar entry
+    };
+  };
+
   xdg.desktopEntries.ghidra = {
     name = "ghidra";
     genericName = "";
@@ -884,7 +904,7 @@
     exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"pdf-parser --help && zsh\"";
     icon = "${pkgs.flat-remix-icon-theme}/share/icons/Flat-Remix-Blue-Dark/apps/scalable/pdf-parser.svg";
     type = "Application";
-    categories = [ "X-pdf-forensics-tools"  ];
+    categories = [ "X-pdf-forensics-tools" ];
   };
   xdg.desktopEntries.hash-identifier = {
     name = "hash-identifier";
@@ -900,7 +920,7 @@
     exec = "/run/current-system/sw/bin/konsole --profile red-flake --noclose -e /run/current-system/sw/bin/zsh -c \"commix --help && zsh\"";
     icon = "commix";
     type = "Application";
-    categories = [ "X-webapp-analysis"  ];
+    categories = [ "X-webapp-analysis" ];
   };
   xdg.desktopEntries.netexec = {
     name = "netexec";
