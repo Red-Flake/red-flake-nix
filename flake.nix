@@ -488,7 +488,7 @@
                   home.homeDirectory = "/home/let";
                   home.stateVersion = "23.05";
                   imports = [
-                    ./home-manager/pascal
+                    ./home-manager/redline
                   ];
                 };
               };

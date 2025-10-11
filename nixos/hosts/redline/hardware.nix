@@ -67,6 +67,8 @@
     };
   };
 
+  
+
   services.fstrim.enable = true;
 
   # Recommended to explicitly declare video driver for Xorg and fallback support
