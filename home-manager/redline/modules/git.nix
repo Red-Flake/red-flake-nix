@@ -7,7 +7,8 @@
     userName  = "Letgamer";
     userEmail = "alexstephan005@gmail.com";
     extraConfig = {
-      push = { autoSetupRemote = true; };
+      pull.rebase = true;
+      push.autoSetupRemote = true;
     };
   };
 }
