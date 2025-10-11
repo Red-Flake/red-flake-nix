@@ -18,7 +18,10 @@
     #jadx     disable jadx for now due to issues with arrow / flight
     radare2
     avalonia-ilspy
-    # disable binary-ninja for now due to hash mismatch issues
-    #inputs.nix-binary-ninja.packages.${system}.binary-ninja-free-wayland
   ];
+
+  programs.binary-ninja = {
+    enable = true;
+    package = pkgs.binary-ninja-free-wayland;
+  };
 }

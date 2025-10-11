@@ -78,10 +78,10 @@
 
     # disable for now due to hash mismatch issues
     # https://github.com/jchv/nix-binary-ninja
-    #nix-binary-ninja = {
-    #  url = "github:jchv/nix-binary-ninja";
-    #  inputs.nixpkgs.follows = "nixpkgs";
-    #};
+    binaryninja = {
+      url = "github:jchv/nix-binary-ninja";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # https://github.com/nix-community/poetry2nix
     poetry2nix = {
@@ -150,7 +150,7 @@
       pre-commit-hooks,
       home-manager,
       plasma-manager,
-      #nix-binary-ninja,  # disable for now due to hash mismatch issues
+      binaryninja,
       artwork,
       webshells,
       tools,
@@ -188,6 +188,7 @@
             chaotic.nixosModules.default
             darkmatter-grub-theme.nixosModule
             inputs.impermanence.nixosModules.impermanence
+            binaryninja.nixosModules.binaryninja
 
             ./nixos/hosts/kvm
             {
@@ -242,6 +243,7 @@
             chaotic.nixosModules.default
             darkmatter-grub-theme.nixosModule
             inputs.impermanence.nixosModules.impermanence
+            binaryninja.nixosModules.binaryninja
 
             ./nixos/hosts/vmware
             {
@@ -296,6 +298,7 @@
             nixos-hardware.nixosModules.lenovo-thinkpad-t590
             darkmatter-grub-theme.nixosModule
             inputs.impermanence.nixosModules.impermanence
+            binaryninja.nixosModules.binaryninja
 
             ./nixos/hosts/t580
             {
@@ -349,6 +352,7 @@
             tuxedo-nixos.nixosModules.default
             darkmatter-grub-theme.nixosModule
             inputs.impermanence.nixosModules.impermanence
+            binaryninja.nixosModules.binaryninja
 
             ./nixos/hosts/stellaris
             {
@@ -402,6 +406,7 @@
             chaotic.nixosModules.default
             darkmatter-grub-theme.nixosModule
             inputs.impermanence.nixosModules.impermanence
+            binaryninja.nixosModules.binaryninja
 
             ./nixos/hosts/vps
             {
@@ -454,6 +459,7 @@
           modules = [
             darkmatter-grub-theme.nixosModule
             inputs.impermanence.nixosModules.impermanence
+            binaryninja.nixosModules.binaryninja
 
             ./nixos/hosts/redline
             {
