@@ -1,17 +1,26 @@
-{ config, lib, pkgs, modulesPath, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  modulesPath,
+  ...
+}:
 
 let
-    # use old version of neo4j due to incompatbility with gds; use: https://lazamar.co.uk/nix-versions/
-    # get sha256 from rev using: nix-prefetch-git https://github.com/NixOS/nixpkgs/ 882842d2a908700540d206baa79efb922ac1c33d
-    # https://lazamar.co.uk/nix-versions/?package=neo4j&version=5.24.2&fullName=neo4j-5.24.2&keyName=neo4j&revision=882842d2a908700540d206baa79efb922ac1c33d&channel=nixpkgs-unstable#instructions
-    revpkgs = import (builtins.fetchTarball {
+  # use old version of neo4j due to incompatbility with gds; use: https://lazamar.co.uk/nix-versions/
+  # get sha256 from rev using: nix-prefetch-git https://github.com/NixOS/nixpkgs/ 882842d2a908700540d206baa79efb922ac1c33d
+  # https://lazamar.co.uk/nix-versions/?package=neo4j&version=5.24.2&fullName=neo4j-5.24.2&keyName=neo4j&revision=882842d2a908700540d206baa79efb922ac1c33d&channel=nixpkgs-unstable#instructions
+  revpkgs =
+    import
+      (builtins.fetchTarball {
         url = "https://github.com/NixOS/nixpkgs/archive/882842d2a908700540d206baa79efb922ac1c33d.tar.gz";
         sha256 = "105v2h9gpaxq6b5035xb10ykw9i3b3k1rwfq4s6inblphiz5yw7q";
-    }) {
+      })
+      {
         system = "x86_64-linux"; # Set your system explicitly
-    };
+      };
 
-    neo4j_5_24_2 = revpkgs.neo4j;
+  neo4j_5_24_2 = revpkgs.neo4j;
 in
 {
   # ZFS services
@@ -28,7 +37,6 @@ in
     ## Enable TRIM
     trim.enable = true;
   };
-
 
   # https://github.com/openzfs/zfs/issues/10891
   systemd.services.systemd-udev-settle.enable = false;
@@ -48,7 +56,7 @@ in
     enable = true;
     enableTCPIP = true;
     settings = {
-        port = 5432;
+      port = 5432;
     };
     authentication = pkgs.lib.mkOverride 10 ''
       #type database  DBuser  auth-method
@@ -58,9 +66,13 @@ in
       host all msf 127.0.0.1/32 trust
     '';
     initialScript = pkgs.writeText "backend-initScript" ''
-        CREATE ROLE msf WITH LOGIN PASSWORD 'msf' CREATEDB;
-        CREATE DATABASE msf;
-        GRANT ALL PRIVILEGES ON DATABASE msf TO msf;
+      CREATE ROLE msf WITH LOGIN PASSWORD 'msf' CREATEDB;
+      CREATE DATABASE msf;
+      GRANT ALL PRIVILEGES ON DATABASE msf TO msf;
+
+      CREATE ROLE bloodhound WITH LOGIN PASSWORD 'bloodhound' CREATEDB;
+      CREATE DATABASE bloodhound;
+      GRANT ALL PRIVILEGES ON DATABASE bloodhound TO bloodhound;
     '';
   };
 
@@ -82,6 +94,26 @@ in
     bolt.enable = true;
     https.enable = false;
     extraServerConfig = "dbms.security.procedures.unrestricted=gds.*\ndbms.security.procedures.allowlist=gds.*\n";
+  };
+
+  # BloodHound-CE service settings
+  services.bloodhound-ce = {
+    enable = true;
+    package = pkgs.bloodhound-ce;
+    openFirewall = true;
+    # optional DB env if not using ident socket auth
+    # database.passwordFile = "/run/secrets/bh-db.env"; # contains: PGPASSWORD=...
+    settings = {
+      server.host = "127.0.0.1";
+      server.port = 9090;
+    };
+
+    database = {
+      host = "127.0.0.1";
+      user = "bloodhound";
+      name = "bloodhound";
+      password = "bloodhound";
+    };
   };
 
   # Fwupd settings
@@ -112,7 +144,7 @@ in
   services.dbus = {
     # Enable DBus
     enable = true;
-    
+
     # use dbus broker as the default implementation
     implementation = "broker";
   };
@@ -139,7 +171,7 @@ in
     };
   };
 
-   # Make nixos boot slightly faster by turning these off during boot
+  # Make nixos boot slightly faster by turning these off during boot
   systemd.services.NetworkManager-wait-online.enable = false;
 
   # Schedulers from https://wiki.archlinux.org/title/improving_performance

@@ -185,7 +185,7 @@
             isKVM = true;
           };
           modules = [
-            chaotic.nixosModules.default
+            redflake-packages.nixosModules.bloodhound-ce
             darkmatter-grub-theme.nixosModule
             inputs.impermanence.nixosModules.impermanence
             binaryninja.nixosModules.binaryninja
@@ -240,7 +240,7 @@
             isKVM = false;
           };
           modules = [
-            chaotic.nixosModules.default
+            redflake-packages.nixosModules.bloodhound-ce
             darkmatter-grub-theme.nixosModule
             inputs.impermanence.nixosModules.impermanence
             binaryninja.nixosModules.binaryninja
@@ -295,6 +295,7 @@
             isKVM = false;
           };
           modules = [
+            redflake-packages.nixosModules.bloodhound-ce
             nixos-hardware.nixosModules.lenovo-thinkpad-t590
             darkmatter-grub-theme.nixosModule
             inputs.impermanence.nixosModules.impermanence
@@ -349,6 +350,7 @@
             isKVM = false;
           };
           modules = [
+            redflake-packages.nixosModules.bloodhound-ce
             tuxedo-nixos.nixosModules.default
             darkmatter-grub-theme.nixosModule
             inputs.impermanence.nixosModules.impermanence
@@ -403,7 +405,6 @@
             isKVM = true;
           };
           modules = [
-            chaotic.nixosModules.default
             darkmatter-grub-theme.nixosModule
             inputs.impermanence.nixosModules.impermanence
             binaryninja.nixosModules.binaryninja
@@ -457,6 +458,7 @@
             isKVM = false;
           };
           modules = [
+            redflake-packages.nixosModules.bloodhound-ce
             darkmatter-grub-theme.nixosModule
             inputs.impermanence.nixosModules.impermanence
             binaryninja.nixosModules.binaryninja

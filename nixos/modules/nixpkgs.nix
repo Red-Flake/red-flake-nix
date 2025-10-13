@@ -24,7 +24,11 @@
         # NUR overlay
         inputs.nur.overlays.default
 
+        # poetry2nix overlay
         inputs.poetry2nix.overlays.default
+
+        # redflake-packages overlay
+        inputs.redflake-packages.overlays.default
 
         # fix issue with future-1.0.0; force python312
         (final: prev: {
