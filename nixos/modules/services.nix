@@ -24,6 +24,7 @@ let
 
   neo4j_4_4_11 = revpkgs.neo4j;
 
+  # also add neo4j settings from https://github.com/SpecterOps/BloodHound/blob/03454913830fec12eebc4451dca8af8b3b3c44d7/tools/docker-compose/neo4j.Dockerfile#L17
   neo4j44Conf = pkgs.writeText "neo4j-4.4.conf" ''
     # Neo4j 4.4 style config (no server.* keys)
 
@@ -46,6 +47,11 @@ let
     # GDS permissions
     dbms.security.procedures.unrestricted=gds.*
     dbms.security.procedures.allowlist=gds.*
+
+    # from https://github.com/SpecterOps/BloodHound/blob/03454913830fec12eebc4451dca8af8b3b3c44d7/tools/docker-compose/neo4j.Dockerfile#L17
+    dbms.security.auth_enabled=false
+    dbms.security.procedures.unrestricted=apoc.periodic.*,*.specterops.*
+    dbms.security.procedures.allowlist=apoc.periodic.*,*.specterops.*
 
     # Logs/data/run live under /var/lib/neo4j
   '';
