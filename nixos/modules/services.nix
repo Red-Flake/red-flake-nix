@@ -64,6 +64,7 @@ in
       host all all      ::1/128      trust
       host all postgres 127.0.0.1/32 trust
       host all msf 127.0.0.1/32 trust
+      host all bloodhound 127.0.0.1/32 trust
     '';
     initialScript = pkgs.writeText "backend-initScript" ''
       CREATE ROLE msf WITH LOGIN PASSWORD 'msf' CREATEDB;
