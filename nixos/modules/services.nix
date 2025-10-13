@@ -114,6 +114,16 @@ in
       user = "bloodhound";
       name = "bloodhound";
       password = "bloodhound";
+      # passwordFile = "/run/secrets/bh-db.env"; # bhe_database_secret=...
+    };
+
+    neo4j = {
+      host = "127.0.0.1";
+      port = 7687;
+      database = "neo4j";
+      user = "neo4j";
+      password = "Password1337";
+      # passwordFile = "/run/secrets/bh-neo4j.env"; # bhe_neo4j_secret=...
     };
   };
 
