@@ -166,7 +166,11 @@ in
         expireNow = false;
       };
 
-      recreateDefaultAdmin = true;
+      recreateDefaultAdmin = false;
+
+      featureFlags = {
+        darkMode = true;
+      };
     };
 
     database = {
