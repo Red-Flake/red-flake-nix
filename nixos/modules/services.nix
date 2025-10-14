@@ -163,6 +163,7 @@ in
       defaultAdmin = {
         principalName = "admin";
         password = "Password1337";
+        expireNow = false;
       };
 
       recreateDefaultAdmin = true;
