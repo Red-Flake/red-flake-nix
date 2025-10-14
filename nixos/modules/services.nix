@@ -156,6 +156,16 @@ in
     settings = {
       server.host = "127.0.0.1";
       server.port = 9090;
+
+      logLevel = "info";
+      logPath = "/var/log/bloodhound-ce/bloodhound.log";
+
+      defaultAdmin = {
+        principalName = "admin";
+        password = "Password1337";
+      };
+
+      recreateDefaultAdmin = true;
     };
 
     database = {
