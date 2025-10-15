@@ -79,7 +79,7 @@
         "layers.force-active" = true;
         "layers.acceleration.disabled" = false;
         "layers.acceleration.force-enabled" = true;
-        
+
         # Force canvas acceleration
         "gfx.canvas.accelerated" = true;
         "gfx.canvas.accelerated.aa-stroke.enabled" = true;
@@ -603,9 +603,13 @@
               }
               {
                 name = "BloodHound-CE";
-                tags = [ "bh", "bloodhound", "bloodhound-ce" ];
+                tags = [
+                  "bh"
+                  "bloodhound"
+                  "bloodhound-ce"
+                ];
                 keyword = "bloodhound";
-                url = "https://crackstation.net";
+                url = "http://127.0.0.1:9090/";
               }
               {
                 name = "Crackstation";

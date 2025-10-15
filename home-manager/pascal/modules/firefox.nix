@@ -611,9 +611,13 @@
               }
               {
                 name = "BloodHound-CE";
-                tags = [ "bh", "bloodhound", "bloodhound-ce" ];
+                tags = [
+                  "bh"
+                  "bloodhound"
+                  "bloodhound-ce"
+                ];
                 keyword = "bloodhound";
-                url = "https://crackstation.net";
+                url = "http://127.0.0.1:9090/";
               }
               {
                 name = "Crackstation";
