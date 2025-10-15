@@ -610,6 +610,12 @@
                 ];
               }
               {
+                name = "BloodHound-CE";
+                tags = [ "bh", "bloodhound", "bloodhound-ce" ];
+                keyword = "bloodhound";
+                url = "https://crackstation.net";
+              }
+              {
                 name = "Crackstation";
                 tags = [ "crackstation" ];
                 keyword = "crackstation";
