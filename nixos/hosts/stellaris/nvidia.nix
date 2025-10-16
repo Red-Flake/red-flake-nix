@@ -14,6 +14,14 @@
   # Enable CUDA support
   nixpkgs.config.cudaSupport = true;
 
+  # Enable Nix cache for CUDA packages
+  nix.settings = {
+    substituters = [ "https://cuda-maintainers.cachix.org" ];
+    trusted-public-keys = [
+      "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E="
+    ];
+  };
+
   boot = {
     # Nvidia-specific: kernel parameters
     # See: https://download.nvidia.com/XFree86/Linux-x86_64/580.65.06/README/dynamicpowermanagement.html

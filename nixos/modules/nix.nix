@@ -13,7 +13,8 @@
       flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
     in
     {
-      optimise.automatic = true;
+      # Use latest nix version
+      package = pkgs.nixVersions.latest;
 
       gc = {
         # automatic = true; # Disabled due to conflict with nh
@@ -36,16 +37,45 @@
         experimental-features = [
           "nix-command"
           "flakes"
+          "ca-derivations"
         ];
 
         # Opinionated: disable global registry
         flake-registry = "";
 
-        # Workaround for https://github.com/NixOS/nix/issues/9574
-        nix-path = config.nix.nixPath;
-
         # Enable deduplication
         auto-optimise-store = true;
+
+        # Don't warn about dirty flakes
+        accept-flake-config = true;
+        warn-dirty = false;
+
+        # Performance optimizations for faster rebuilds
+        keep-outputs = true;
+        keep-derivations = true;
+
+        # Additional performance settings
+        eval-cache = true;
+        narinfo-cache-positive-ttl = 3600;
+        narinfo-cache-negative-ttl = 60;
+        fsync-metadata = false; # Faster on SSDs
+        connect-timeout = 10; # Faster timeout handling
+        max-substitution-jobs = 128; # Increased parallel downloads
+        http-connections = 128; # Max http connections (default 25)
+        keep-build-log = false; # Reduce storage overhead
+        compress-build-log = true;
+        cores = 0; # Use all available CPU cores
+        max-jobs = "auto"; # Auto-detect based on CPU cores
+
+        # Rebuild performance
+        preallocate-contents = true;
+        min-free = 1024 * 1024 * 1024; # 1GB free before pausing builds
+
+        # Slightly higher logs for debugging without flooding
+        log-lines = 50;
+
+        # Store optimization settings
+        fallback = true; # Fall back to building if substitution fails
 
         # Substituters
         substituters = [
@@ -66,18 +96,13 @@
         extra-trusted-public-keys = [
           "chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
         ];
-
-        # Show more log lines for failed builds
-        log-lines = 20;
-
-        # Max number of parallel jobs
-        max-jobs = "auto";
       };
 
       # Opinionated: disable channels
       channel.enable = false;
 
       # Opinionated: make flake registry and nix path match flake inputs
+      # Add each flake input as a registry and nix_path
       registry = lib.mapAttrs (_: flake: { inherit flake; }) flakeInputs;
       nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
     };
