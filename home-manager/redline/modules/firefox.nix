@@ -20,24 +20,24 @@
       isDefault = true;
 
       search = {
-        default = "SearXNG";
-        privateDefault = "SearXNG";
+        default = "google";
+        privateDefault = "google";
         force = true;
         order = [
-          "SearXNG"
+          "google"
         ];
 
         engines = {
-          "SearXNG" = {
+          google = {
             urls = [
               {
-                template = "https://search.inetol.net/search?q={searchTerms}";
+                template = "https://www.google.com/search?q={searchTerms}";
               }
             ];
 
-            icon = "https://search.inetol.net/static/themes/simple/img/favicon.svg";
+            icon = "https://www.google.com/favicon.ico";
             updateInterval = 24 * 60 * 60 * 1000;
-            definedAliases = [ "@sx" ];
+            definedAliases = [ "@g" ];
           };
         };
       };
@@ -684,8 +684,8 @@
           installation_mode = "force_installed";
           default_area = "navbar";
         };
-        "foxyproxy@eric.h.jung" = {
-          install_url = "https://addons.mozilla.org/firefox/downloads/latest/foxyproxy-standard/latest.xpi";
+        "PwnFoxy@la1n23.lol" = {
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/pwnfox/latest.xpi";
           installation_mode = "force_installed";
           default_area = "navbar";
         };
