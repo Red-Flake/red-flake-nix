@@ -20,8 +20,6 @@ in
   imports = [
     inputs.nur.modules.homeManager.default
     inputs.plasma-manager.homeModules.plasma-manager
-    ./modules/git.nix
-    ./modules/firefox.nix
     ../redflake/modules/dconf.nix
     ../redflake/modules/artwork.nix
     ../redflake/modules/theme.nix
@@ -29,7 +27,6 @@ in
     ../redflake/modules/msf.nix
     ../redflake/modules/fastfetch.nix
     ../redflake/modules/bloodhound.nix
-    ../redflake/modules/plasma-manager.nix
     ../redflake/modules/kwallet.nix
     ../redflake/modules/konsole.nix
     ../redflake/modules/burpsuite.nix
@@ -45,6 +42,10 @@ in
     ../redflake/modules/services.nix
     ../redflake/modules/vscode.nix
     ../redflake/modules/direnv.nix
+    ./modules/git.nix
+    ./modules/firefox.nix
+    ./modules/monitors.nix
+    ./modules/plasma-manager.nix
   ];
 
   home = {
