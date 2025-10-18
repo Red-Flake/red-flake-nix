@@ -1,11 +1,18 @@
-{ inputs, config, lib, pkgs, modulesPath, ... }:
+{
+  inputs,
+  config,
+  lib,
+  pkgs,
+  modulesPath,
+  ...
+}:
 
 {
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     bloodhound
-    python312Packages.bloodhound-py
+    inputs.redflake-packages.packages.x86_64-linux.bloodhound-ce-py
     bloodhound-quickwin
     python312Packages.impacket-patched
     openldap
@@ -33,7 +40,6 @@
     adidnsdump
     adenum
     wimlib
-    inputs.redflake-packages.packages.x86_64-linux.bloodhound-ce-desktop
     shortscan
   ];
 }
