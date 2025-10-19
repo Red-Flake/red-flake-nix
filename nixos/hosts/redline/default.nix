@@ -11,6 +11,10 @@
 {
   # Import other NixOS modules here
   imports = [
+
+    # Spotify Configuration
+    ../../modules/spotify.nix
+
     # Nix configuration
     ../../modules/nix.nix
 
