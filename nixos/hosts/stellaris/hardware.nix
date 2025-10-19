@@ -37,7 +37,12 @@
       "ahci"
       "msr"
     ];
-    initrd.kernelModules = [ "xe" ]; # load Intel Xe Graphics kernel module at boot
+    initrd.kernelModules = [
+      "mei" # Make sure MEI is up before xe tries to talk to GSC
+      "mei_me"
+      "mei_gsc_proxy"
+      "xe"
+    ];
     blacklistedKernelModules = [
       "nouveau"
       "nvidiafb"
@@ -46,7 +51,6 @@
       "tuxedo_nb02_nvidia_power_ctrl" # blacklist to avoid conflict with nvidia module; the tuxedo module cannot control the power state
     ];
     kernelModules = [
-      "xe" # load Intel Xe Graphics kernel module
       "kvm-intel"
       "msr" # /dev/cpu/CPUNUM/msr provides an interface to read and write the model-specific registers (MSRs) of an x86 CPU
       "tuxedo_keyboard"
@@ -73,6 +77,13 @@
     # --- extra kernel module options (goes into /etc/modprobe.d/nixos.conf) ---#
     # Keep this minimal: ONLY 'options' lines and no stray prose (avoid multi-line comment blocks that might confuse parsing).
     extraModprobeConfig = ''
+      # Make sure MEI is up before xe tries to talk to GSC
+      softdep xe pre: mei_gsc_proxy mei_me mei
+
+      # Quiet the FBC/PSR noise / flicker
+      options xe enable_fbc=0
+      options xe enable_psr=0
+
       # Virtualization
       options kvm_intel nested=1
 

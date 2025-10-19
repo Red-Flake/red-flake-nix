@@ -29,12 +29,12 @@ let
     sha256 = "sha256-hzEakrAEUHsEOm0u9i6pbzemwKrbWJGqcY6ZGLip5Uk=";
   };
 
-  apocVersion = "4.4.0.24"; # as being compatible with 4.4.11
-  apocJarName = "apoc-${apocVersion}-core.jar";
-  apocJar = pkgs.fetchurl {
-    url = "https://github.com/neo4j-contrib/neo4j-apoc-procedures/releases/download/${apocVersion}/${apocJarName}";
-    sha256 = "sha256-doaN5k+i3SmKmsxWx4OcwDzeTokRbV4OAGJOl4G+Tkc=";
-  };
+  #apocVersion = "4.4.0.24"; # as being compatible with 4.4.11
+  #apocJarName = "apoc-${apocVersion}-core.jar";
+  #apocJar = pkgs.fetchurl {
+  #  url = "https://github.com/neo4j-contrib/neo4j-apoc-procedures/releases/download/${apocVersion}/${apocJarName}";
+  #  sha256 = "sha256-doaN5k+i3SmKmsxWx4OcwDzeTokRbV4OAGJOl4G+Tkc=";
+  #};
 in
 {
   system.activationScripts.setup-neo4j.text = ''
@@ -48,12 +48,6 @@ in
     if [ ! -e /var/lib/neo4j/plugins/${gdsJarName} ]; then
       ln -sfn ${gdsJar} /var/lib/neo4j/plugins/${gdsJarName}
       chown -h neo4j:neo4j /var/lib/neo4j/plugins/${gdsJarName}
-    fi
-
-    # Install (symlink) APOC plugin immutably
-    if [ ! -e /var/lib/neo4j/plugins/${apocJarName} ]; then
-      ln -sfn ${apocJar} /var/lib/neo4j/plugins/${apocJarName}
-      chown -h neo4j:neo4j /var/lib/neo4j/plugins/${apocJarName}
     fi
 
     # Set initial password only once (before first start)
