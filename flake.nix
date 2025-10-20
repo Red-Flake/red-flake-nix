@@ -138,6 +138,9 @@
     # Nix Gaming for Steam platformOptimizations
     # https://github.com/fufexan/nix-gaming
     nix-gaming.url = "github:fufexan/nix-gaming";
+
+    #Modded Spotify
+    spicetify-nix.url = "github:Gerg-L/spicetify-nix";
   };
 
   outputs =
@@ -162,6 +165,7 @@
       burpsuitepro,
       tuxedo-nixos,
       nix-gaming,
+      spicetify-nix,
       ...
     }@inputs:
     let
@@ -462,6 +466,7 @@
             darkmatter-grub-theme.nixosModule
             inputs.impermanence.nixosModules.impermanence
             binaryninja.nixosModules.binaryninja
+            spicetify-nix.nixosModules.default
 
             ./nixos/hosts/redline
             {
