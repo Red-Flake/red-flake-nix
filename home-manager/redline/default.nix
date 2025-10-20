@@ -20,6 +20,7 @@ in
   imports = [
     inputs.nur.modules.homeManager.default
     inputs.plasma-manager.homeModules.plasma-manager
+    inputs.nixcord.homeModules.nixcord
     ../redflake/modules/dconf.nix
     ../redflake/modules/artwork.nix
     ../redflake/modules/theme.nix
@@ -46,6 +47,7 @@ in
     ./modules/firefox.nix
     ./modules/monitors.nix
     ./modules/plasma-manager.nix
+    ./modules/vesktop.nix
   ];
 
   home = {

@@ -141,6 +141,8 @@
 
     #Modded Spotify
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
+
+    nixcord.url = "github:kaylorben/nixcord";
   };
 
   outputs =
@@ -166,6 +168,7 @@
       tuxedo-nixos,
       nix-gaming,
       spicetify-nix,
+      nixcord,
       ...
     }@inputs:
     let

@@ -20,6 +20,7 @@ in
   imports = [
     inputs.nur.modules.homeManager.default
     inputs.plasma-manager.homeModules.plasma-manager
+    inputs.nixcord.homeModules.nixcord
     ./modules/git.nix
     ./modules/dconf.nix
     ./modules/artwork.nix
@@ -45,6 +46,7 @@ in
     ./modules/services.nix
     ./modules/vscode.nix
     ./modules/direnv.nix
+    ./modules/vesktop.nix
   ];
 
   home = {
