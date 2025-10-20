@@ -144,7 +144,7 @@
     export __VK_LAYER_NV_optimus=non_NVIDIA_only
     export LIBVA_DRIVER_NAME=iHD
     export VDPAU_DRIVER=va_gl
-    export DRI_PRIME=0
+    export DRI_PRIME=0!
   '';
 
   # Enable Intel & NVIDIA driver in XServer
@@ -156,7 +156,7 @@
   environment.sessionVariables = {
     LIBVA_DRIVER_NAME = "iHD"; # Force intel-media-driver
     VDPAU_DRIVER = "va_gl"; # Forces Intel via VAAPI
-    DRI_PRIME = "0"; # Default to Intel
+    DRI_PRIME = "0!"; # Default to Intel
     __NV_PRIME_RENDER_OFFLOAD = "0"; # Disable offload by default
     __VK_LAYER_NV_optimus = "non_NVIDIA_only"; # Only report non-NVIDIA GPUs to the Vulkan application
     __GLX_VENDOR_LIBRARY_NAME = "mesa"; # Default to Mesa (Intel) for OpenGL
