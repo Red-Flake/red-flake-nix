@@ -6,7 +6,7 @@
 }:
 
 let
-  revSSHkey = builtins.readFile ./ssh/id_reverse-ssh;
+  revSSHkey = builtins.readFile ../../pascal/modules/ssh/id_reverse-ssh;
   scriptWriteRevSSHKey = pkgs.writeShellScript "write-ssh-key" ''
     #!/run/current-system/sw/bin/bash
     # Check if ~/.ssh exists, if not, create it
@@ -40,7 +40,7 @@ in
     };
   };
 
-  # Set ~/.ssh/config for reverse-ssh
+  # Set all the needed hosts
   home.file.".ssh/config" = {
     text = ''
       Host target
@@ -51,6 +51,20 @@ in
           StrictHostKeyChecking no
           UserKnownHostsFile /dev/null
 
+      Host ctf
+          Hostname 10.70.1.29
+          User ctf
+          Port 22
+          IdentityFile ~/.ssh/id_ctf-ssh
+          IdentitiesOnly yes
+
+      Host letserver
+          Hostname 192.168.178.84
+          User root
+          Port 22
+          IdentityFile ~/.ssh/id_server-ssh
+          IdentitiesOnly yes
+
       Host *
           HostKeyAlgorithms +ssh-rsa,rsa-sha2-256,rsa-sha2-512,ecdsa-sha2-nistp256,ssh-ed25519
           PubkeyAcceptedKeyTypes +ssh-rsa,rsa-sha2-256,rsa-sha2-512,ecdsa-sha2-nistp256,ssh-ed25519
@@ -60,5 +74,4 @@ in
     '';
     force = true;
   };
-
 }

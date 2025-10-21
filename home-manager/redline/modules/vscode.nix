@@ -27,7 +27,7 @@
           # --- Nix / Environment ---
           mkhl.direnv # integrates direnv with VSCode
           bbenoist.nix # basic Nix language support
-          arrterian.nix-env-selector # select nix-env / nix-shell for projects
+          oops418.nix-env-picker # select nix-env / nix-shell for projects
           jnoortheen.nix-ide # advanced Nix IDE features (linting, completion)
 
           # --- Code editing / navigation ---
@@ -74,14 +74,18 @@
           # This property will be used to generate settings.json:
           # https://code.visualstudio.com/docs/getstarted/settings#_settingsjson
           "update.channel" = "none";
+          "telemetry.telemetryLevel" = "off";
+          "telemetry.feedback.enabled" = false;
           "[nix]"."editor.tabSize" = 2;
           "editor.formatOnSave" = true;
           "workbench.colorTheme" = "Catppuccin Mocha";
           "security.workspace.trust.enabled" = false;
-
+          "remote.SSH.defaultExtensions" = [
+            "ms-azuretools.vscode-docker"
+            "oderwat.indent-rainbow"
+          ];
         };
       };
     };
-
   };
 }

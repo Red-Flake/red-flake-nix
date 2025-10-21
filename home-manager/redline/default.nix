@@ -37,11 +37,11 @@ in
     ../redflake/modules/desktop-files.nix
     ../redflake/modules/xdg.nix
     ../redflake/modules/ssh-agent.nix
-    ../redflake/modules/ssh-config.nix
     ../redflake/modules/jadx.nix
     ../redflake/modules/bat.nix
     ../redflake/modules/services.nix
     ../redflake/modules/direnv.nix
+    ./modules/ssh-config.nix
     ./modules/vscode.nix
     ./modules/git.nix
     ./modules/firefox.nix
@@ -76,6 +76,7 @@ in
       zsh-powerlevel10k
       meslo-lgs-nf
       flatpak
+      eduvpn-client
     ];
 
     # set user session variables

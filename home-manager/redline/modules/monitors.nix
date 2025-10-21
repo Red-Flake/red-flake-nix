@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   home.file.".config/kwinoutputconfig.json".text = ''
     [
@@ -113,5 +118,5 @@
             "name": "setups"
         }
     ]
-    '';
+  '';
 }
