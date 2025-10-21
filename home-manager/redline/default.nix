@@ -41,8 +41,8 @@ in
     ../redflake/modules/jadx.nix
     ../redflake/modules/bat.nix
     ../redflake/modules/services.nix
-    ../redflake/modules/vscode.nix
     ../redflake/modules/direnv.nix
+    ./modules/vscode.nix
     ./modules/git.nix
     ./modules/firefox.nix
     ./modules/monitors.nix
