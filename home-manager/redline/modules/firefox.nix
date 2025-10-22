@@ -363,6 +363,12 @@
                 name = "Streaming";
                 bookmarks = [
                   {
+                    name = "Mediathek";
+                    tags = [ "mediathek" ];
+                    keyword = "mediathek";
+                    url = "https://mediathekviewweb.de/#query=%23Livestream%20%2BLivestream";
+                  }
+                  {
                     name = "Tarnkappe";
                     tags = [ "tarnkappe" ];
                     keyword = "tarnkappe";
@@ -451,6 +457,12 @@
                     url = "https://snyk.io/code-checker/";
                   }
                   {
+                    name = "Grep.app";
+                    tags = [ "grep" ];
+                    keyword = "grep";
+                    url = "https://grep.app/";
+                  }
+                  {
                     name = "IP Adderss Converter";
                     tags = [
                       "ip"
@@ -524,6 +536,15 @@
                     ];
                     keyword = "tools";
                     url = "https://mermaid.live/";
+                  }
+                  {
+                    name = "Canva";
+                    tags = [
+                      "tools"
+                      "canva"
+                    ];
+                    keyword = "tools";
+                    url = "https://www.canva.com/";
                   }
                 ];
               }
@@ -654,6 +675,12 @@
                     tags = [ "jorianwoltjer" ];
                     keyword = "jorianwoltjer";
                     url = "https://book.jorianwoltjer.com/";
+                  }
+                  {
+                    name = "CTF Database";
+                    tags = [ "ctf" ];
+                    keyword = "ctf";
+                    url = "https://ctfsearch.hackmap.win/";
                   }
                 ];
               }
