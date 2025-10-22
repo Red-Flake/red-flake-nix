@@ -135,6 +135,8 @@
         "extensions.pocket.enabled" = false;
         "extensions.screenshots.disabled" = true;
         "extensions.blocklist.enabled" = false;
+        "extensions.update.autoUpdateDefault" = false;
+        "extensions.update.enabled" = false;
         "identity.fxaccounts.enabled" = false;
 
         "breakpad.reportURL" = "";
@@ -179,9 +181,11 @@
         "layout.css.prefers-color-scheme.content-override" = 0;
         "dom.security.https_only_mode" = false;
         "dom.serviceWorkers.enabled" = false;
-        "network.trr.mode" = 1;
-        "network.trr.uri" = "https://mozilla.cloudflare-dns.com/dns-query";
+        "network.trr.mode" = 2;
+        "network.trr.uri" = "https://doh.mullvad.net/dns-query";
+        "network.trr.wait-for-portal" = true;
         "network.dns.echconfig.enabled" = true;
+        "security.OCSP.enabled" = 0;
         "network.dns.http3_echconfig.enabled" = true;
         "network.prefetch-next" = false;
         "network.dns.disablePrefetch" = true;
@@ -252,10 +256,276 @@
             toolbar = true;
             bookmarks = [
               {
+                name = "YouTube";
+                tags = [ "youtube" ];
+                keyword = "youtube";
+                url = "https://www.youtube.com/";
+              }
+              {
+                name = "WhatsApp";
+                tags = [ "whatsapp" ];
+                keyword = "whatsapp";
+                url = "https://web.whatsapp.com/";
+              }
+              {
+                name = "Google Maps";
+                tags = [
+                  "google"
+                  "maps"
+                ];
+                keyword = "maps";
+                url = "https://www.google.com/maps";
+              }
+              {
+                name = "Mastodon";
+                tags = [ "mastodon" ];
+                keyword = "mastodon";
+                url = "https://social.tchncs.de/home";
+              }
+              {
+                name = "Proton Mail";
+                tags = [ "mail" ];
+                keyword = "mail";
+                url = "https://mail.proton.me/u/0/inbox";
+              }
+              {
+                name = "Typst";
+                tags = [ "typst" ];
+                keyword = "typst";
+                url = "https://typst.app/";
+              }
+              {
+                name = "Annas Archive";
+                tags = [ "archive" ];
+                keyword = "archive";
+                url = "https://annas-archive.org/";
+              }
+              {
+                name = "Reddit";
+                tags = [ "reddit" ];
+                keyword = "reddit";
+                url = "https://www.reddit.com/";
+              }
+              {
                 name = "Red-Flake";
                 tags = [ "redflake" ];
                 keyword = "redflake";
                 url = "https://github.com/Red-Flake";
+              }
+              {
+                name = "Server";
+                bookmarks = [
+                  {
+                    name = "Notes";
+                    tags = [ "selfhosted" ];
+                    keyword = "selfhosted";
+                    url = "https://outline.let-net.cc/home";
+                  }
+                  {
+                    name = "RSS";
+                    tags = [ "selfhosted" ];
+                    keyword = "selfhosted";
+                    url = "https://feed.let-net.cc/";
+                  }
+                  {
+                    name = "Vaultwarden";
+                    tags = [ "selfhosted" ];
+                    keyword = "selfhosted";
+                    url = "https://vaultwarden.let-net.cc/";
+                  }
+                  {
+                    name = "Gitea";
+                    tags = [ "selfhosted" ];
+                    keyword = "selfhosted";
+                    url = "https://git.let-net.cc/";
+                  }
+                  {
+                    name = "Tailscale";
+                    tags = [
+                      "selfhosted"
+                      "tailscale"
+                    ];
+                    keyword = "selfhosted";
+                    url = "https://login.tailscale.com/admin/machines";
+                  }
+                  {
+                    name = "Cloudflare";
+                    tags = [
+                      "selfhosted"
+                      "cloudflare"
+                    ];
+                    keyword = "selfhosted";
+                    url = "https://dash.cloudflare.com";
+                  }
+                ];
+              }
+              {
+                name = "Streaming";
+                bookmarks = [
+                  {
+                    name = "Tarnkappe";
+                    tags = [ "tarnkappe" ];
+                    keyword = "tarnkappe";
+                    url = "https://tarnkappe.info/listen";
+                  }
+                  {
+                    name = "S.to";
+                    tags = [ "series" ];
+                    keyword = "series";
+                    url = "https://s.to";
+                  }
+                  {
+                    name = "Cine.to";
+                    tags = [ "movies" ];
+                    keyword = "movies";
+                    url = "https://cine.to";
+                  }
+                  {
+                    name = "Filmpalast.to";
+                    tags = [ "movies" ];
+                    keyword = "movies";
+                    url = "https://cine.to";
+                  }
+                  {
+                    name = "Einschalten.io";
+                    tags = [ "movies" ];
+                    keyword = "movies";
+                    url = "https://einschalten.in";
+                  }
+                  {
+                    name = "Huhu.to";
+                    tags = [ "movies" ];
+                    keyword = "movies";
+                    url = "https://huhu.to/web-vod/browse?id=movie.trending";
+                  }
+                ];
+              }
+              {
+                name = "News";
+                bookmarks = [
+                  {
+                    name = "Zeit";
+                    tags = [ "news" ];
+                    keyword = "news";
+                    url = "https://www.zeit.de/exklusive-zeit-artikel";
+                  }
+                  {
+                    name = "Zeit Energiemonitor";
+                    tags = [ "news" ];
+                    keyword = "news";
+                    url = "https://www.zeit.de/wirtschaft/energiemonitor-strompreis-gaspreis-erneuerbare-energien-ausbau";
+                  }
+                  {
+                    name = "SZ";
+                    tags = [ "news" ];
+                    keyword = "news";
+                    url = "https://plus.sueddeutsche.de/";
+                  }
+                  {
+                    name = "Spiegel";
+                    tags = [ "news" ];
+                    keyword = "news";
+                    url = "https://www.spiegel.de/plus/";
+                  }
+                ];
+              }
+              {
+                name = "Tools";
+                bookmarks = [
+                  {
+                    name = "Crackstation";
+                    tags = [ "crackstation" ];
+                    keyword = "crackstation";
+                    url = "https://crackstation.net";
+                  }
+                  {
+                    name = "CyberChef";
+                    tags = [ "cyberchef" ];
+                    keyword = "cyberchef";
+                    url = "https://gchq.github.io/CyberChef/";
+                  }
+                  {
+                    name = "Synk Code Checker";
+                    tags = [ "snyk" ];
+                    keyword = "synk";
+                    url = "https://snyk.io/code-checker/";
+                  }
+                  {
+                    name = "IP Adderss Converter";
+                    tags = [
+                      "ip"
+                      "converter"
+                    ];
+                    keyword = "converter";
+                    url = "https://www.abuseipdb.com/tools/ip-address-converter";
+                  }
+                  {
+                    name = "Base64";
+                    tags = [ "base64" ];
+                    keyword = "base64";
+                    url = "https://www.base64encode.org/";
+                  }
+                  {
+                    name = "NameThatHash";
+                    tags = [ "hash" ];
+                    keyword = "hash";
+                    url = "https://nth.skerritt.blog/";
+                  }
+                  {
+                    name = "RegEx";
+                    tags = [ "regex" ];
+                    keyword = "regex";
+                    url = "https://regex101.com/";
+                  }
+                  {
+                    name = "Linux Cheatsheets";
+                    tags = [ "linux" ];
+                    keyword = "linux";
+                    url = "https://linuxcommandlibrary.com/";
+                  }
+                  {
+                    name = "IT Tools";
+                    tags = [ "tools" ];
+                    keyword = "tools";
+                    url = "https://it-tools.tech/";
+                  }
+                  {
+                    name = "VERT";
+                    tags = [
+                      "tools"
+                      "vert"
+                    ];
+                    keyword = "tools";
+                    url = "https://vert.sh/";
+                  }
+                  {
+                    name = "RSS Feed Finder";
+                    tags = [
+                      "tools"
+                      "rss"
+                    ];
+                    keyword = "rssfinder";
+                    url = "https://lighthouseapp.io/tools/feed-finder/";
+                  }
+                  {
+                    name = "Tree";
+                    tags = [
+                      "tools"
+                      "tree"
+                    ];
+                    keyword = "tree";
+                    url = "https://tree.nathanfriend.com/";
+                  }
+                  {
+                    name = "MermaidJS";
+                    tags = [
+                      "tools"
+                      "mermaid"
+                    ];
+                    keyword = "tools";
+                    url = "https://mermaid.live/";
+                  }
+                ];
               }
               {
                 name = "NixOS";
@@ -338,6 +608,18 @@
                     keyword = "nix";
                     url = "https://nix-community.github.io/plasma-manager/options.xhtml";
                   }
+                  {
+                    name = "Nixpkgs PRs Dashboard";
+                    tags = [ "nix" ];
+                    keyword = "nix";
+                    url = "https://nixpkgs-prs.fliegendewurst.eu/";
+                  }
+                  {
+                    name = "Nixpkgs PR Tracker";
+                    tags = [ "nix" ];
+                    keyword = "nix";
+                    url = "https://nixpk.gs/pr-tracker.html";
+                  }
                 ];
               }
               {
@@ -366,6 +648,12 @@
                     tags = [ "hardwareallthethings" ];
                     keyword = "hardwareallthethings";
                     url = "https://swisskyrepo.github.io/HardwareAllTheThings/";
+                  }
+                  {
+                    name = "Jorian CTF";
+                    tags = [ "jorianwoltjer" ];
+                    keyword = "jorianwoltjer";
+                    url = "https://book.jorianwoltjer.com/";
                   }
                 ];
               }
@@ -446,29 +734,6 @@
                 ];
               }
               {
-                name = "Git";
-                bookmarks = [
-                  {
-                    name = "GitHub";
-                    tags = [ "github" ];
-                    keyword = "github";
-                    url = "https://github.com";
-                  }
-                  {
-                    name = "GitLab";
-                    tags = [ "gitlab" ];
-                    keyword = "gitlab";
-                    url = "https://gitlab.com";
-                  }
-                  {
-                    name = "Codeberg";
-                    tags = [ "codeberg" ];
-                    keyword = "codeberg";
-                    url = "https://codeberg.org/";
-                  }
-                ];
-              }
-              {
                 name = "OSINT";
                 bookmarks = [
                   {
@@ -528,25 +793,14 @@
                 ];
               }
               {
-                name = "BugBounty";
+                name = "Web";
                 bookmarks = [
                   {
-                    name = "HackerOne";
-                    tags = [ "hackerone" ];
-                    keyword = "hackerone";
-                    url = "https://www.hackerone.com/";
+                    name = "CSPBypass";
+                    tags = [ "csp" ];
+                    keyword = "csp";
+                    url = "https://cspbypass.com/";
                   }
-                  {
-                    name = "bugcrowd";
-                    tags = [ "bugcrowd" ];
-                    keyword = "bugcrowd";
-                    url = "https://www.bugcrowd.com/";
-                  }
-                ];
-              }
-              {
-                name = "Auth";
-                bookmarks = [
                   {
                     name = "jwt.io";
                     tags = [ "jwt.io" ];
@@ -558,6 +812,30 @@
                     tags = [ "oauth.tools" ];
                     keyword = "oauth.tools";
                     url = "https://oauth.tools/";
+                  }
+                  {
+                    name = "Chrome Extension Security";
+                    tags = [ "extension" ];
+                    keyword = "extension";
+                    url = "https://extensions.neplox.security/";
+                  }
+                  {
+                    name = "Dom-Clobbering";
+                    tags = [ "dom" ];
+                    keyword = "dom";
+                    url = "https://domclob.xyz/";
+                  }
+                  {
+                    name = "Dom-Explorer";
+                    tags = [ "dom" ];
+                    keyword = "dom";
+                    url = "https://yeswehack.github.io/Dom-Explorer/";
+                  }
+                  {
+                    name = "XS-Leaks";
+                    tags = [ "xs" ];
+                    keyword = "xs";
+                    url = "https://xsleaks.dev/";
                   }
                 ];
               }
@@ -600,40 +878,6 @@
                     url = "https://htb.sysreptor.com/";
                   }
                 ];
-              }
-              {
-                name = "BloodHound-CE";
-                tags = [
-                  "bh"
-                  "bloodhound"
-                  "bloodhound-ce"
-                ];
-                keyword = "bloodhound";
-                url = "http://127.0.0.1:9090/";
-              }
-              {
-                name = "Crackstation";
-                tags = [ "crackstation" ];
-                keyword = "crackstation";
-                url = "https://crackstation.net";
-              }
-              {
-                name = "CyberChef";
-                tags = [ "cyberchef" ];
-                keyword = "cyberchef";
-                url = "https://gchq.github.io/CyberChef/";
-              }
-              {
-                name = "Synk Code Checker";
-                tags = [ "snyk" ];
-                keyword = "synk";
-                url = "https://snyk.io/code-checker/";
-              }
-              {
-                name = "IP Adderss Converter";
-                tags = [ "ip, converter" ];
-                keyword = "converter";
-                url = "https://www.abuseipdb.com/tools/ip-address-converter";
               }
             ];
           }
@@ -701,6 +945,10 @@
         };
         "default-compact-dark-theme@glitchii.github.io" = {
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/default-compact-dark-theme/latest.xpi";
+          installation_mode = "force_installed";
+        };
+        "magnolia_limited_permissions@12.34" = {
+          install_url = "https://gitflic.ru/project/magnolia1234/bpc_uploads/blob/raw?file=bypass_paywalls_clean-4.2.3.0-custom.xpi";
           installation_mode = "force_installed";
         };
       };
