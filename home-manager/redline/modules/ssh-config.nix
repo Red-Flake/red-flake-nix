@@ -66,6 +66,7 @@ in
           IdentitiesOnly yes
 
       Host *
+          AddKeysToAgent yes
           HostKeyAlgorithms +ssh-rsa,rsa-sha2-256,rsa-sha2-512,ecdsa-sha2-nistp256,ssh-ed25519
           PubkeyAcceptedKeyTypes +ssh-rsa,rsa-sha2-256,rsa-sha2-512,ecdsa-sha2-nistp256,ssh-ed25519
           KexAlgorithms +diffie-hellman-group14-sha256,curve25519-sha256,diffie-hellman-group14-sha1
