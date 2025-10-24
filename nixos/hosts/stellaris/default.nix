@@ -129,6 +129,9 @@
 
     # Gaming
     ./gaming.nix
+
+    # Ollama
+    ./ollama.nix
   ];
 
   # Set hostname

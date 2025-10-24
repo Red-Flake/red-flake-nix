@@ -52,6 +52,7 @@
         "/var/lib/containers/storage" # persist container storage
         "/var/lib/libvirt" # persist libvirt data
         "/var/lib/lxd" # persist LXC data
+        "/var/cache/fwupd" # persist fwupd cache
       ];
     };
 
