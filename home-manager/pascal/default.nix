@@ -49,6 +49,11 @@ in
     ./modules/vesktop.nix
   ];
 
+  # home-manager specific nixpkgs overlays
+  nixpkgs.overlays = [
+    inputs.claude-code.overlays.default
+  ];
+
   home = {
 
     # set username
@@ -95,6 +100,9 @@ in
       winetricks
       wineWow64Packages.waylandFull
       bottles
+
+      # AI tools
+      claude-code
     ];
 
     # set user session variables

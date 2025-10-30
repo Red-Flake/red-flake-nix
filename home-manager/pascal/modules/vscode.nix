@@ -58,6 +58,7 @@
 
           # --- AI ---
           github.copilot # GitHub Copilot AI pair programmer
+          anthropic.claude-code # Claude Code AI integration
         ];
 
         # set user settings

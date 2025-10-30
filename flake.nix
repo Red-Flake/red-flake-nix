@@ -10,11 +10,13 @@
       "https://nyx.chaotic.cx"
       "https://nix-community.cachix.org/"
       "https://cache.nixos.org/"
+      "https://claude-code.cachix.org"
     ];
     extra-trusted-public-keys = [
       "chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
       "nyx.chaotic.cx-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "claude-code.cachix.org-1:YeXf2aNu7UTX8Vwrze0za1WEDS+4DuI2kVeWEE4fsRk="
     ];
   };
 
@@ -143,6 +145,9 @@
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
 
     nixcord.url = "github:kaylorben/nixcord";
+
+    # https://github.com/sadjow/claude-code-nix/
+    claude-code.url = "github:sadjow/claude-code-nix";
   };
 
   outputs =
@@ -169,6 +174,7 @@
       nix-gaming,
       spicetify-nix,
       nixcord,
+      claude-code,
       ...
     }@inputs:
     let
