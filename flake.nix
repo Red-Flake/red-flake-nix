@@ -5,7 +5,6 @@
     experimental-features = [
       "flakes"
       "nix-command"
-      "ca-derivations"
     ];
     extra-substituters = [
       "https://cache.nixos.org/"
@@ -19,6 +18,9 @@
       "chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
       "nyx.chaotic.cx-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
       "claude-code.cachix.org-1:YeXf2aNu7UTX8Vwrze0za1WEDS+4DuI2kVeWEE4fsRk="
+    ];
+    extra-deprecated-features = [
+      "url-literals"
     ];
     builders-use-substituters = true;
     max-jobs = "auto";

@@ -13,8 +13,8 @@
       flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
     in
     {
-      # Use latest nix version
-      package = pkgs.nixVersions.latest;
+      # Switch to stable Lix package manager
+      package = pkgs.lixPackageSets.stable.lix;
 
       gc = {
         # automatic = true; # Disabled due to conflict with nh
@@ -37,7 +37,6 @@
         experimental-features = [
           "nix-command"
           "flakes"
-          "ca-derivations"
         ];
 
         # Opinionated: disable global registry
