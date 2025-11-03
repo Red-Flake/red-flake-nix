@@ -13,7 +13,7 @@
   environment.systemPackages = with pkgs; [
     nmap
     nmapAutomator
-    # wafw00f     # diabled for now due to failing build; see: https://github.com/NixOS/nixpkgs/issues/449737
+    wafw00f
     nikto
     davtest
     joomscan

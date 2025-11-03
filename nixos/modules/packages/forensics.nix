@@ -1,4 +1,11 @@
-{ inputs, config, lib, pkgs, modulesPath, ... }:
+{
+  inputs,
+  config,
+  lib,
+  pkgs,
+  modulesPath,
+  ...
+}:
 
 {
   # List packages installed in system profile. To search, run:
@@ -10,7 +17,7 @@
     pdf-parser
     pdfid
     exiftool
-    # zeek    # disable zeek for now due to build errors
+    zeek
     oletools
   ];
 }

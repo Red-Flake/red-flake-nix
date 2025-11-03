@@ -1,4 +1,11 @@
-{ inputs, config, lib, pkgs, modulesPath, ... }:
+{
+  inputs,
+  config,
+  lib,
+  pkgs,
+  modulesPath,
+  ...
+}:
 
 {
   # List packages installed in system profile. To search, run:
@@ -11,8 +18,8 @@
     hashcat
     john
     thc-hydra
-    # ncrack  # disable ncrack for now due to build errors
-    # python313Packages.patator  # disable patator for now due to build errors
+    ncrack
+    # python312Packages.patator   # is marked as broken
     fcrackzip
     medusa
   ];

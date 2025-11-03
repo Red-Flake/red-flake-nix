@@ -26,7 +26,7 @@
     lsb-release
     socat
     rlwrap
-    #dfc
+    dfc
     zsh
     openvpn
     macchanger
@@ -38,8 +38,7 @@
     imagemagick
     strace
     clamav
-    # xsser broken at the moment due to python nose
-    #xsser
+    xsser
     lsd
     bat
     man
@@ -50,7 +49,7 @@
     lshw-gui
     thunderbird-bin
     helvum
-    #mission-center
+    mission-center
     psmisc
     aha
     pciutils

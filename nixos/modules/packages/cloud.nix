@@ -11,9 +11,9 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    #azure-cli   # build failed
+    azure-cli
     google-cloud-sdk
-    # awscli2   # disabled for now due to build failure; see: https://github.com/NixOS/nixpkgs/issues/449755
+    awscli2
     cloudlist
     gcp-scanner
   ];

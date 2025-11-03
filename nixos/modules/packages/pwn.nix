@@ -14,9 +14,9 @@ in
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    # edb   # disabled for now due to https://github.com/NixOS/nixpkgs/issues/449493
+    edb
     pwndbg
-    # gef   # disabled for now due to https://github.com/NixOS/nixpkgs/issues/449493
+    gef
     gdb
   ];
 }
