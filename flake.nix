@@ -250,6 +250,7 @@
           hostPath,
           user,
           isKVM,
+          system ? "x86_64-linux",
           extraModules ? [ ],
           includeSpicetify ? false,
         }:
@@ -322,6 +323,7 @@
           hostPath = ./nixos/hosts/stellaris;
           user = "pascal";
           isKVM = false;
+          system = "x86_64-v3-linux";
           extraModules = [
             tuxedo-nixos.nixosModules.default
             (mkHomeManagerConfig {
@@ -334,7 +336,7 @@
 
         # VPS host configuration (lightweight - no bloodhound-ce)
         vps = nixpkgs.lib.nixosSystem {
-          inherit system;
+          system = "x86_64-linux";
           specialArgs = {
             inherit inputs outputs;
             chaoticPkgs = commonPkgs;
@@ -359,6 +361,7 @@
           hostPath = ./nixos/hosts/redline;
           user = "let";
           isKVM = false;
+          system = "x86_64-v3-linux";
           includeSpicetify = true;
           extraModules = [
             (mkHomeManagerConfig {

@@ -22,8 +22,20 @@
     bootloader.resolution = "1440p";
   };
 
-  # Increase the number of parallel build jobs for Nix to 24
-  nix.settings.max-jobs = lib.mkForce 24;
+  nix.settings = {
+    # Increase the number of parallel build jobs for Nix to 24
+    max-jobs = lib.mkForce 24;
+
+    # Enable system features for better performance based on the CPU features
+    system-features = [
+      "nixos-test"
+      "benchmark"
+      "kvm"
+      "big-parallel"
+      "gccarch-arrowlake"
+      "gccarch-x86-64-v3"
+    ];
+  };
 
   boot = {
     initrd.availableKernelModules = [
