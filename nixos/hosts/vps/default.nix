@@ -1,5 +1,5 @@
 # NixOS hosts config for cloud vps
-{ 
+{
   config,
   lib,
   pkgs,
@@ -8,7 +8,8 @@
   poetry2nix,
   isKVM,
   ...
-}: {
+}:
+{
   # Import other NixOS modules here
   imports = [
     # Nix configuration
@@ -97,7 +98,6 @@
 
     # AppImage settings
     ../../modules/appimage.nix
-
   ];
 
   # Set hostname
@@ -128,5 +128,4 @@
 
   # Do not modify this value
   system.stateVersion = "23.05";
-
 }

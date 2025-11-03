@@ -115,9 +115,6 @@
 
     # AppImage settings
     ../../modules/appimage.nix
-
-    # BloodHound CE
-    ../../modules/bloodhound.nix
   ];
 
   # Set hostname
