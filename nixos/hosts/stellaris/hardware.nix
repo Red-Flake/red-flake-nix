@@ -105,8 +105,6 @@
 
       # TUXEDO keyboard module: set these as module options (NOT kernel cmdline)
       options tuxedo_keyboard kbd_backlight_mode=0
-      options tuxedo_keyboard kbd_backlight_brightness=255
-      options tuxedo_keyboard kbd_backlight_color_left=0x0000ff
     '';
 
   };
@@ -136,7 +134,6 @@
 
     # TUXEDO-specific: drivers, Keyboard lighting and fan control (from nixpkgs)
     tuxedo-drivers.enable = lib.mkForce true;
-    tuxedo-keyboard.enable = lib.mkForce false; # Important: disable tuxedo-keyboard to avoid conflict with tuxedo-drivers
     tuxedo-rs = {
       # Important: disable tuxedo-rs and tailor-gui to avoid conflict with tuxedo-drivers and tuxedo-control-center
       enable = lib.mkForce false;
