@@ -1,4 +1,11 @@
-{ config, lib, pkgs, modulesPath, inputs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  modulesPath,
+  inputs,
+  ...
+}:
 
 let
   background-package = pkgs.stdenvNoCC.mkDerivation {
@@ -24,30 +31,28 @@ in
     kdePackages.ksshaskpass
 
     # Install custom sddm theme.conf.user
-    (
-      writeTextDir "share/sddm/themes/breeze/theme.conf.user" ''
-        [General]
-        background = ${background-package}
-      ''
-    )
+    (writeTextDir "share/sddm/themes/breeze/theme.conf.user" ''
+      [General]
+      background = ${background-package}
+    '')
   ];
 
   # make sure the plasma-powerdevil service runs
   systemd.user.services.plasma-powerdevil = {
-    enable      = true;
+    enable = true;
     description = "KDE Powerdevil power-management daemon";
 
     # Don’t tie to graphical-session.target
     unitConfig = {
-      After = "dbus.service";            # ensure D-Bus is up
+      After = "dbus.service"; # ensure D-Bus is up
     };
 
     serviceConfig = {
-      ExecStart      = "${pkgs.kdePackages.powerdevil}/libexec/org_kde_powerdevil";
-      Type           = "dbus";
-      BusName        = "org.kde.Solid.PowerManagement";
-      Restart        = "always";        # restart even after TERM
-      RestartSec     = "5s";
+      ExecStart = "${pkgs.kdePackages.powerdevil}/libexec/org_kde_powerdevil";
+      Type = "dbus";
+      BusName = "org.kde.Solid.PowerManagement";
+      Restart = "always"; # restart even after TERM
+      RestartSec = "5s";
       # Optional: disable DDC if that’s crashing you
       # Environment  = "POWERDEVIL_NO_DDCUTIL=1";
     };
@@ -55,7 +60,7 @@ in
     # Hook it into your user manager, not just the graphical session
     wantedBy = [ "default.target" ];
   };
-   
+
   # Display-Manager settings
   services.displayManager = {
     # Enable SDDM
@@ -85,7 +90,7 @@ in
 
   # Add ~/.config/kdedefaults to XDG_CONFIG_DIRS for shells, since Plasma sets that.
   # FIXME: maybe we should append to XDG_CONFIG_DIRS in /etc/set-environment instead?
-  environment.sessionVariables.XDG_CONFIG_DIRS = ["$HOME/.config/kdedefaults"];
+  environment.sessionVariables.XDG_CONFIG_DIRS = [ "$HOME/.config/kdedefaults" ];
 
   # Needed for things that depend on other store.kde.org packages to install correctly,
   # notably Plasma look-and-feel packages (a.k.a. Global Themes)
@@ -97,7 +102,7 @@ in
   environment.sessionVariables.KPACKAGE_DEP_RESOLVERS_PATH = "${pkgs.kdePackages.frameworkintegration.out}/libexec/kf6/kpackagehandlers";
 
   # Enable GTK applications to load SVG icons
-  programs.gdk-pixbuf.modulePackages = [pkgs.librsvg];
+  programs.gdk-pixbuf.modulePackages = [ pkgs.librsvg ];
 
   # Enable helpful DBus services.
   services.accounts-daemon.enable = true;
@@ -105,13 +110,14 @@ in
   systemd.services.accounts-daemon.serviceConfig.PrivateTmp = false;
 
   # set /etc/xdg/menus/applications-merged
-  environment.etc."xdg/menus/applications-merged/redflake-applications.menu".source = ./xdg/redflake-applications.menu;
+  environment.etc."xdg/menus/applications-merged/redflake-applications.menu".source =
+    ./xdg/redflake-applications.menu;
 
   # Env Variables
   environment.sessionVariables = {
 
     # Electron and Chromium
-    ## As of NixOS 22.05 ("Quokka"), you can enable Ozone Wayland support in Chromium and Electron based applications by setting the environment variable NIXOS_OZONE_WL=1. For example, in a configuration.nix: 
+    ## As of NixOS 22.05 ("Quokka"), you can enable Ozone Wayland support in Chromium and Electron based applications by setting the environment variable NIXOS_OZONE_WL=1. For example, in a configuration.nix:
     NIXOS_OZONE_WL = "1";
 
     # this env is useful for electron wayland
@@ -154,5 +160,5 @@ in
     kde-fingerprint = lib.mkIf config.services.fprintd.enable { fprintAuth = true; };
     kde-smartcard = lib.mkIf config.security.pam.p11.enable { p11Auth = true; };
   };
-  
+
 }

@@ -1,4 +1,10 @@
-{ config, lib, pkgs, modulesPath, ... }: 
+{
+  config,
+  lib,
+  pkgs,
+  modulesPath,
+  ...
+}:
 
 {
   # enable dconf
@@ -27,7 +33,7 @@
   #  to specify which portal backend to use for the requested interface.
   #
   #  https://github.com/flatpak/xdg-desktop-portal/blob/1.18.1/doc/portals.conf.rst.in
-  # 
+  #
   # If you simply want to keep the behaviour in < 1.17, which uses the first
   # portal implementation found in lexicographical order, use the following:
   #
@@ -40,5 +46,8 @@
   };
 
   # if you use the NixOS module and have useUserPackages = true, make sure to add:
-  environment.pathsToLink = [ "/share/xdg-desktop-portal" "/share/applications" ];
+  environment.pathsToLink = [
+    "/share/xdg-desktop-portal"
+    "/share/applications"
+  ];
 }

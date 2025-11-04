@@ -1,4 +1,10 @@
-{ config, lib, pkgs, inputs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 
 let
   toolsPath = "${inputs.tools}";
@@ -9,5 +15,5 @@ in
     let
       createLink = src: dest: "L+ ${dest} - - - - ${src}";
     in
-    [(createLink "${toolsPath}" "/usr/share/tools")];
+    [ (createLink "${toolsPath}" "/usr/share/tools") ];
 }

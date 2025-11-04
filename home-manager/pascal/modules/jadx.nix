@@ -8,7 +8,7 @@ let
     lastSaveFilePath = homeDir;
     flattenPackage = false;
     checkForUpdates = true;
-    recentProjects = [];
+    recentProjects = [ ];
     fontStr = "Monospaced.plain/plain/20";
     smaliFontStr = "";
     editorThemePath = "/org/fife/ui/rsyntaxtextarea/themes/monokai.xml";
@@ -19,7 +19,7 @@ let
     autoStartJobs = false;
     excludedPackages = "";
     saveOption = "ASK";
-    shortcuts = {};
+    shortcuts = { };
     showHeapUsageBar = false;
     alwaysSelectOpened = false;
     useAlternativeFileDialog = false;
@@ -102,7 +102,11 @@ let
     deobfuscationUseSourceNameAsAlias = true;
     resourceNameSource = "AUTO";
     useKotlinMethodsForVarNames = "APPLY";
-    renameFlags = [ "CASE" "VALID" "PRINTABLE" ];
+    renameFlags = [
+      "CASE"
+      "VALID"
+      "PRINTABLE"
+    ];
     integerFormat = "AUTO";
     fsCaseSensitive = false;
     cfgOutput = false;
@@ -110,8 +114,9 @@ let
     fallbackMode = false;
     useDx = false;
     commentsLevel = "INFO";
-    pluginOptions = {};
+    pluginOptions = { };
   };
-in {
+in
+{
   home.file.".config/jadx/gui.json".text = builtins.toJSON dynamicConfig;
 }

@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   revSSHkey = builtins.readFile ./ssh/id_reverse-ssh;
@@ -20,7 +25,7 @@ in
   systemd.user.services.writesshkey = {
     Unit = {
       Description = "Write reverse-ssh private key";
-      After = [ "default.target" ];  # Ensure the user session is ready before running
+      After = [ "default.target" ]; # Ensure the user session is ready before running
     };
     Install = {
       WantedBy = [ "default.target" ];
@@ -30,8 +35,8 @@ in
       ExecStartPost = ''
         ${pkgs.bash}/bin/bash -c '${pkgs.coreutils}/bin/chmod 600 %h/.ssh/id_reverse-ssh' || true
       '';
-      Type = "oneshot";  # Ensures the service runs once and exits
-      RemainAfterExit = true;  # Keep the service status as 'active' after it finishes
+      Type = "oneshot"; # Ensures the service runs once and exits
+      RemainAfterExit = true; # Keep the service status as 'active' after it finishes
     };
   };
 

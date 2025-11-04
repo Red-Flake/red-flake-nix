@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }: 
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   kwalletrcPath = "${config.xdg.configHome}/kwalletrc";
@@ -6,7 +11,7 @@ let
 in
 {
   home.activation = {
-    kwallet = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    kwallet = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       # Remove the config file only if it is a symlink
       if [ -L "${kwalletrcPath}" ]; then
         rm -f "${kwalletrcPath}"

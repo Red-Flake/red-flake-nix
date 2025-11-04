@@ -1,10 +1,11 @@
-{ 
+{
   config,
   lib,
   pkgs,
   inputs,
-  ... 
-}: {
+  ...
+}:
+{
 
   custom = {
     # disable ZFS encryption

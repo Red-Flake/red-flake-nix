@@ -1,4 +1,10 @@
-{ config, lib, pkgs, inputs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 
 let
   webshellsPath = "${inputs.webshells}";
@@ -9,5 +15,5 @@ in
     let
       createLink = src: dest: "L+ ${dest} - - - - ${src}";
     in
-    [(createLink "${webshellsPath}" "/usr/share/webshells")];
+    [ (createLink "${webshellsPath}" "/usr/share/webshells") ];
 }

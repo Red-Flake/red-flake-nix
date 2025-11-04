@@ -44,7 +44,7 @@
     claude-code
   ];
 
-  # VPN and networking tools  
+  # VPN and networking tools
   networking = with pkgs; [
     eduvpn-client
   ];

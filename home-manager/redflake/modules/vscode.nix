@@ -58,6 +58,7 @@
 
           # --- AI ---
           github.copilot # GitHub Copilot AI pair programmer
+          anthropic.claude-code # Claude Code AI integration
         ];
 
         # set user settings
@@ -68,6 +69,8 @@
           "[nix]"."editor.tabSize" = 2;
           "editor.formatOnSave" = true;
           "workbench.colorTheme" = "Catppuccin Mocha";
+          "powershell.powerShellAdditionalExePaths"."Downloaded PowerShell" = lib.getExe pkgs.powershell;
+          "powershell.powerShellAdditionalExePaths"."Built PowerShell" = lib.getExe pkgs.powershell;
         };
 
         # set keybindings

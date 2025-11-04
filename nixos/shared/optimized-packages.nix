@@ -1,5 +1,10 @@
 # Highly optimized package loading with lazy evaluation
-{ lib, hostType ? "security", useTags ? [], ... }:
+{
+  lib,
+  hostType ? "security",
+  useTags ? [ ],
+  ...
+}:
 let
   # Core packages needed by all systems
   corePackages = [
@@ -81,29 +86,56 @@ let
   ];
 
   # Conditional package loading based on tags
-  conditionalPackages = tags:
-    lib.optionals (builtins.elem "basic-security" tags) basicSecurityPackages ++
-    lib.optionals (builtins.elem "web-security" tags) webSecurityPackages ++
-    lib.optionals (builtins.elem "ad-security" tags) adSecurityPackages ++
-    lib.optionals (builtins.elem "advanced-security" tags) advancedSecurityPackages ++
-    lib.optionals (builtins.elem "exploit" tags) exploitPackages ++
-    lib.optionals (builtins.elem "networking" tags) networkingPackages ++
-    lib.optionals (builtins.elem "specialty" tags) specialtyPackages ++
-    lib.optionals (builtins.elem "light-desktop" tags) lightDesktopPackages ++
-    lib.optionals (builtins.elem "heavy-desktop" tags) heavyDesktopPackages;
+  conditionalPackages =
+    tags:
+    lib.optionals (builtins.elem "basic-security" tags) basicSecurityPackages
+    ++ lib.optionals (builtins.elem "web-security" tags) webSecurityPackages
+    ++ lib.optionals (builtins.elem "ad-security" tags) adSecurityPackages
+    ++ lib.optionals (builtins.elem "advanced-security" tags) advancedSecurityPackages
+    ++ lib.optionals (builtins.elem "exploit" tags) exploitPackages
+    ++ lib.optionals (builtins.elem "networking" tags) networkingPackages
+    ++ lib.optionals (builtins.elem "specialty" tags) specialtyPackages
+    ++ lib.optionals (builtins.elem "light-desktop" tags) lightDesktopPackages
+    ++ lib.optionals (builtins.elem "heavy-desktop" tags) heavyDesktopPackages;
 in
 {
-  imports = corePackages ++ 
-    (lib.optionals (hostType != "server") devPackages) ++
-    (conditionalPackages useTags);
+  imports =
+    corePackages ++ (lib.optionals (hostType != "server") devPackages) ++ (conditionalPackages useTags);
 
   # Pre-defined package sets for common configurations
   packageSets = {
-    full-security = [ "basic-security" "web-security" "ad-security" "advanced-security" "exploit" "networking" "specialty" "light-desktop" "heavy-desktop" ];
-    web-pentest = [ "basic-security" "web-security" "exploit" "light-desktop" ];
-    ad-pentest = [ "basic-security" "ad-security" "exploit" "light-desktop" ];
-    forensics = [ "basic-security" "advanced-security" "light-desktop" ];
-    desktop-dev = [ "light-desktop" "heavy-desktop" ];
-    minimal-server = [];
+    full-security = [
+      "basic-security"
+      "web-security"
+      "ad-security"
+      "advanced-security"
+      "exploit"
+      "networking"
+      "specialty"
+      "light-desktop"
+      "heavy-desktop"
+    ];
+    web-pentest = [
+      "basic-security"
+      "web-security"
+      "exploit"
+      "light-desktop"
+    ];
+    ad-pentest = [
+      "basic-security"
+      "ad-security"
+      "exploit"
+      "light-desktop"
+    ];
+    forensics = [
+      "basic-security"
+      "advanced-security"
+      "light-desktop"
+    ];
+    desktop-dev = [
+      "light-desktop"
+      "heavy-desktop"
+    ];
+    minimal-server = [ ];
   };
 }

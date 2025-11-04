@@ -33,7 +33,10 @@
       "thunderbolt"
     ];
     initrd.kernelModules = [ "amdgpu" ];
-    kernelModules = [ "kvm-intel" "intel_rapl" ];
+    kernelModules = [
+      "kvm-intel"
+      "intel_rapl"
+    ];
     extraModulePackages = [ ];
 
     kernelParams = [
@@ -70,7 +73,7 @@
   services.fstrim.enable = true;
 
   # Recommended to explicitly declare video driver for Xorg and fallback support
-  services.xserver.videoDrivers = ["amdgpu"];
+  services.xserver.videoDrivers = [ "amdgpu" ];
 
   environment.variables.AMD_VULKAN_ICD = "RADV";
 

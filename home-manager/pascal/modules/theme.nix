@@ -1,6 +1,11 @@
-{ config, lib, pkgs, inputs, ... }:
 {
-
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
+{
   gtk = {
     enable = true;
     theme = {
@@ -51,7 +56,7 @@
         cursor-theme = lib.mkForce "Sweet-cursors";
         cursor-size = lib.mkForce 24;
       };
-      
+
     };
   };
 
@@ -185,5 +190,4 @@
     inactiveBlend=28,32,47
     inactiveForeground=141,147,159
   '';
-
 }

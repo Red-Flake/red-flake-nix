@@ -110,13 +110,17 @@ in
   inherit profiles;
 
   # Helper function to get locale configuration
-  getLocaleConfig = profileName: defaultProfile:
-    if profiles ? ${profileName} 
-    then profiles.${profileName}
-    else profiles.${defaultProfile};
+  getLocaleConfig =
+    profileName: defaultProfile:
+    if profiles ? ${profileName} then profiles.${profileName} else profiles.${defaultProfile};
 
   # Helper to create custom locale config
-  mkCustomLocale = { timezone, defaultLocale, extraLocaleSettings ? {} }:
+  mkCustomLocale =
+    {
+      timezone,
+      defaultLocale,
+      extraLocaleSettings ? { },
+    }:
     {
       time.timeZone = timezone;
       i18n.defaultLocale = defaultLocale;

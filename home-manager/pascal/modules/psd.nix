@@ -1,80 +1,85 @@
-{ config, lib, pkgs, ... }:
 {
-    xdg.configFile."psd/psd.conf".text = ''
-        #
-        # $XDG_CONFIG_HOME/psd/psd.conf
-        #
-        # For documentation, refer man 1 psd or to the wiki page
-        # https://wiki.archlinux.org/index.php/Profile-sync-daemon
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
+  xdg.configFile."psd/psd.conf".text = ''
+    #
+    # $XDG_CONFIG_HOME/psd/psd.conf
+    #
+    # For documentation, refer man 1 psd or to the wiki page
+    # https://wiki.archlinux.org/index.php/Profile-sync-daemon
 
-        ## NOTE the following:
-        ## To protect data from corruption, in the event that you do make an edit while
-        ## psd is active, any changes made will be applied the next time you start psd.
+    ## NOTE the following:
+    ## To protect data from corruption, in the event that you do make an edit while
+    ## psd is active, any changes made will be applied the next time you start psd.
 
-        # Uncomment and set to "yes" to use overlayfs instead of a full copy to reduce
-        # the memory costs and to improve sync/unsync operations. Note that your kernel
-        # MUST have this module available in order to use this mode.
-        #
-        USE_OVERLAYFS="no"
+    # Uncomment and set to "yes" to use overlayfs instead of a full copy to reduce
+    # the memory costs and to improve sync/unsync operations. Note that your kernel
+    # MUST have this module available in order to use this mode.
+    #
+    USE_OVERLAYFS="no"
 
-        # Uncomment and set to "yes" to resync on suspend to reduce potential data loss.
-        # Note that your system MUST have gdbus from glib2 installed to use this mode.
-        #
-        # THIS CANNOT BE ENABLED YET see: https://github.com/NixOS/nixpkgs/pull/149959
-        USE_SUSPSYNC="no"
+    # Uncomment and set to "yes" to resync on suspend to reduce potential data loss.
+    # Note that your system MUST have gdbus from glib2 installed to use this mode.
+    #
+    # THIS CANNOT BE ENABLED YET see: https://github.com/NixOS/nixpkgs/pull/149959
+    USE_SUSPSYNC="no"
 
-        # List any browsers in the array below to have managed by psd. Useful if you do
-        # not wish to have all possible browser profiles managed which is the default if
-        # this array is left commented.
-        #
-        # Possible values:
-        #  chromium
-        #  chromium-dev
-        #  thorium
-        #  conkeror.mozdev.org
-        #  epiphany
-        #  falkon
-        #  firefox
-        #  firefox-trunk
-        #  google-chrome
-        #  google-chrome-beta
-        #  google-chrome-unstable
-        #  heftig-aurora
-        #  icecat
-        #  inox
-        #  luakit
-        #  midori
-        #  opera
-        #  opera-beta
-        #  opera-developer
-        #  opera-legacy
-        #  otter-browser
-        #  qupzilla
-        #  qutebrowser
-        #  palemoon
-        #  rekonq
-        #  seamonkey
-        #  surf
-        #  vivaldi
-        #  vivaldi-snapshot
-        #
-        BROWSERS=(firefox)
+    # List any browsers in the array below to have managed by psd. Useful if you do
+    # not wish to have all possible browser profiles managed which is the default if
+    # this array is left commented.
+    #
+    # Possible values:
+    #  chromium
+    #  chromium-dev
+    #  thorium
+    #  conkeror.mozdev.org
+    #  epiphany
+    #  falkon
+    #  firefox
+    #  firefox-trunk
+    #  google-chrome
+    #  google-chrome-beta
+    #  google-chrome-unstable
+    #  heftig-aurora
+    #  icecat
+    #  inox
+    #  luakit
+    #  midori
+    #  opera
+    #  opera-beta
+    #  opera-developer
+    #  opera-legacy
+    #  otter-browser
+    #  qupzilla
+    #  qutebrowser
+    #  palemoon
+    #  rekonq
+    #  seamonkey
+    #  surf
+    #  vivaldi
+    #  vivaldi-snapshot
+    #
+    BROWSERS=(firefox)
 
-        # Uncomment and set to "no" to completely disable the crash recovery feature.
-        #
-        # The default is to create crash recovery backups if the system is ungracefully
-        # powered-down due to a kernel panic, hitting the reset switch, battery going
-        # dead, etc. Some users keep very diligent backups and don't care to have this
-        # feature enabled.
-        #USE_BACKUPS="yes"
+    # Uncomment and set to "no" to completely disable the crash recovery feature.
+    #
+    # The default is to create crash recovery backups if the system is ungracefully
+    # powered-down due to a kernel panic, hitting the reset switch, battery going
+    # dead, etc. Some users keep very diligent backups and don't care to have this
+    # feature enabled.
+    #USE_BACKUPS="yes"
 
-        # Uncomment and set to an integer that is the maximum number of crash recovery
-        # snapshots to keep (the oldest ones are deleted first).
-        #
-        # The default is to save the most recent 5 crash recovery snapshots.
-        #BACKUP_LIMIT=5
-    '';
+    # Uncomment and set to an integer that is the maximum number of crash recovery
+    # snapshots to keep (the oldest ones are deleted first).
+    #
+    # The default is to save the most recent 5 crash recovery snapshots.
+    #BACKUP_LIMIT=5
+  '';
 
-    # force creation of ~/.config/psd/psd.conf otherwise home-manager will fail
-    xdg.configFile."psd/psd.conf".force = true;
+  # force creation of ~/.config/psd/psd.conf otherwise home-manager will fail
+  xdg.configFile."psd/psd.conf".force = true;
 }

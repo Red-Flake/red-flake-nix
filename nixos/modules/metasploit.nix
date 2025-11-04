@@ -1,4 +1,10 @@
-{ config, lib, pkgs, modulesPath, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  modulesPath,
+  ...
+}:
 
 {
   # symlinks for metasploit-framework
@@ -6,5 +12,5 @@
     let
       createLink = src: dest: "L+ ${dest} - - - - ${src}";
     in
-    [(createLink "${pkgs.metasploit}/share/msf" "/usr/share/metasploit-framework")];
+    [ (createLink "${pkgs.metasploit}/share/msf" "/usr/share/metasploit-framework") ];
 }

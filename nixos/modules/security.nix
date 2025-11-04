@@ -1,4 +1,10 @@
-{ config, lib, pkgs, modulesPath, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  modulesPath,
+  ...
+}:
 
 {
   # TPM2 Settings
@@ -9,5 +15,5 @@
   security.sudo = {
     extraConfig = "Defaults lecture=never\nDefaults passwd_timeout=0\nDefaults insults";
   };
-  
+
 }

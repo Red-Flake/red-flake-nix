@@ -6,5 +6,5 @@
     ./packages.nix
     ./services.nix
   ];
-  
+
 }

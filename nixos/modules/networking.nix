@@ -1,11 +1,17 @@
-{ config, lib, pkgs, modulesPath, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  modulesPath,
+  ...
+}:
 
 {
   networking.networkmanager.enable = true;
   networking.useDHCP = lib.mkDefault true;
   networking.wireless.iwd.enable = true;
   networking.interfaces.wlan0.useDHCP = true;
-  networking.wireless.interfaces = ["wlan0"];
+  networking.wireless.interfaces = [ "wlan0" ];
   networking.wireless.iwd.settings = {
     IPv6 = {
       Enabled = true;
@@ -22,7 +28,7 @@
 
   networking.firewall.enable = false; # This one is necessary to expose ports to the netwok. Usefull for smbserver, responder, http.server, ...
   networking.nftables.enable = false; # This one is necessary to expose ports to the netwok. Usefull for smbserver, responder, http.server, ...
-  
+
   ## To use, put this in your configuration, switch to it, and restart NM:
   ## $ sudo systemctl restart NetworkManager.service
   ## To check if it works, you can do `sudo systemctl status systemd-timesyncd.service`

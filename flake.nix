@@ -226,7 +226,7 @@
 
       # Import shared host helper
       mkHost = import ./nixos/shared/mkHost.nix {
-        config = {};
+        config = { };
         lib = nixpkgs.lib;
         pkgs = commonPkgs;
         chaoticPkgs = commonPkgs;
@@ -297,7 +297,8 @@
             (mkHost.mkHost profile hostConfig {
               inherit hostname localeProfile;
               inherit extraConfig;
-              extraModules = extraModules ++ (if includeSpicetify then [ spicetify-nix.nixosModules.default ] else [ ]);
+              extraModules =
+                extraModules ++ (if includeSpicetify then [ spicetify-nix.nixosModules.default ] else [ ]);
             })
           ];
         };

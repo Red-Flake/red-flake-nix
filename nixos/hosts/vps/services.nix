@@ -1,4 +1,10 @@
-{ config, lib, pkgs, modulesPath, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  modulesPath,
+  ...
+}:
 
 {
   # ZFS services
@@ -15,7 +21,6 @@
     ## Enable TRIM
     trim.enable = true;
   };
-
 
   # https://github.com/openzfs/zfs/issues/10891
   systemd.services.systemd-udev-settle.enable = false;
@@ -41,7 +46,6 @@
 
   # Enable timesyncd
   services.timesyncd.enable = true;
-
 
   # Schedulers from https://wiki.archlinux.org/title/improving_performance
   services.udev.extraRules = ''

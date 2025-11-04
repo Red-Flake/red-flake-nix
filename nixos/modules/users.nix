@@ -72,15 +72,14 @@
     #      up.neededForUsers = true;
     #    };
 
-        # create a password with for root and $user with:
-        # mkpasswd -m sha-512 'PASSWORD' and place in secrets.json under the appropriate key
+    # create a password with for root and $user with:
+    # mkpasswd -m sha-512 'PASSWORD' and place in secrets.json under the appropriate key
     #   users.users = {
     #      root.hashedPasswordFile = lib.mkForce secrets.rp.path;
     #      ${user}.hashedPasswordFile = lib.mkForce secrets.up.path;
     #    };
     #  }
     #))
-  
-  
+
   ];
 }
