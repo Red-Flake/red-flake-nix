@@ -1,6 +1,6 @@
 # Configurable locale and timezone profiles for different regions/users
 { lib, ... }:
-{
+let
   # Pre-defined locale profiles for common regions
   profiles = {
     # German region (Europe/Berlin timezone, German locale)
@@ -105,6 +105,9 @@
       };
     };
   };
+in
+{
+  inherit profiles;
 
   # Helper function to get locale configuration
   getLocaleConfig = profileName: defaultProfile:

@@ -1,13 +1,9 @@
 # Base NixOS configuration shared across all hosts
 { config, lib, pkgs, chaoticPkgs, inputs, isKVM, hostType ? "security", ... }:
-let
-  overlayConfig = import ./overlays.nix { inherit inputs; };
-in
 {
   # Common imports for all hosts
   imports = [
-    # Core system configuration with optimized cache
-    ./cache.nix
+    # Core system configuration  
     ../modules/nixpkgs.nix
     ../modules/hardware.nix
     ../modules/filesystems.nix
@@ -47,9 +43,6 @@ in
     ../modules/security.nix
     ../modules/virtualisation.nix
   ];
-
-  # Set overlays based on host type
-  nixpkgs.overlays = overlayConfig.getOverlaysFor hostType;
 
   # Only truly universal settings here - locale/timezone are host-specific
   system.stateVersion = "23.05";

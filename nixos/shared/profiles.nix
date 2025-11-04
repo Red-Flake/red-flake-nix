@@ -10,7 +10,6 @@
       ../modules/setup-burp.nix
       ../modules/setup-neo4j.nix
       ../modules/wireshark.nix
-      ../modules/bloodhound.nix
       ../modules/proxies.nix
       
       # Red team tools and resources

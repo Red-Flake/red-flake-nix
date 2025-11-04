@@ -224,6 +224,16 @@
         pkgs = commonPkgs;
       };
 
+      # Import shared host helper
+      mkHost = import ./nixos/shared/mkHost.nix {
+        config = {};
+        lib = nixpkgs.lib;
+        pkgs = commonPkgs;
+        chaoticPkgs = commonPkgs;
+        inherit inputs;
+        isKVM = false; # Default value, will be overridden per host
+      };
+
       # Common home-manager configuration generator using shared modules
       mkHomeManagerConfig =
         {
@@ -258,15 +268,19 @@
           );
         };
 
-      # Common NixOS configuration generator
+      # Common NixOS configuration generator using shared modules
       mkNixOSConfig =
         {
-          hostPath,
+          profile,
+          hostname,
           user,
           isKVM,
           system ? "x86_64-linux",
+          hostConfig,
           extraModules ? [ ],
           includeSpicetify ? false,
+          localeProfile ? "german-en",
+          extraConfig ? { },
         }:
         nixpkgs.lib.nixosSystem {
           inherit system;
@@ -280,10 +294,12 @@
             darkmatter-grub-theme.nixosModule
             inputs.impermanence.nixosModules.impermanence
             binaryninja.nixosModules.binaryninja
-          ]
-          ++ (if includeSpicetify then [ spicetify-nix.nixosModules.default ] else [ ])
-          ++ [ hostPath ]
-          ++ extraModules;
+            (mkHost.mkHost profile hostConfig {
+              inherit hostname localeProfile;
+              inherit extraConfig;
+              extraModules = extraModules ++ (if includeSpicetify then [ spicetify-nix.nixosModules.default ] else [ ]);
+            })
+          ];
         };
     in
     {
@@ -291,7 +307,9 @@
 
         # KVM host configuration
         kvm = mkNixOSConfig {
-          hostPath = ./nixos/hosts/kvm;
+          profile = "security";
+          hostname = "redflake-kvm";
+          hostConfig = ./nixos/hosts/kvm/default.nix;
           user = "redflake";
           isKVM = true;
           extraModules = [
@@ -305,7 +323,9 @@
 
         # VMWare host configuration
         vmware = mkNixOSConfig {
-          hostPath = ./nixos/hosts/vmware;
+          profile = "security";
+          hostname = "redflake-vmware";
+          hostConfig = ./nixos/hosts/vmware/default.nix;
           user = "redflake";
           isKVM = false;
           extraModules = [
@@ -319,7 +339,9 @@
 
         # ThinkPad T580 host configuration
         t580 = mkNixOSConfig {
-          hostPath = ./nixos/hosts/t580;
+          profile = "security";
+          hostname = "redflake-t580";
+          hostConfig = ./nixos/hosts/t580/default.nix;
           user = "pascal";
           isKVM = false;
           extraModules = [
@@ -334,7 +356,9 @@
 
         # TUXEDO Stellaris 16 Gen7
         stellaris = mkNixOSConfig {
-          hostPath = ./nixos/hosts/stellaris;
+          profile = "security";
+          hostname = "redflake-stellaris";
+          hostConfig = ./nixos/hosts/stellaris/default.nix;
           user = "pascal";
           isKVM = false;
           system = "x86_64-v3-linux";
@@ -349,19 +373,13 @@
         };
 
         # VPS host configuration (lightweight - no bloodhound-ce)
-        vps = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = {
-            inherit inputs outputs;
-            chaoticPkgs = commonPkgs;
-            user = "redcloud";
-            isKVM = true;
-          };
-          modules = [
-            darkmatter-grub-theme.nixosModule
-            inputs.impermanence.nixosModules.impermanence
-            binaryninja.nixosModules.binaryninja
-            ./nixos/hosts/vps
+        vps = mkNixOSConfig {
+          profile = "server";
+          hostname = "redflake-vps";
+          hostConfig = ./nixos/hosts/vps/default.nix;
+          user = "redcloud";
+          isKVM = true;
+          extraModules = [
             (mkHomeManagerConfig {
               user = "redcloud";
               homeDirectory = "/home/redcloud";
@@ -372,7 +390,9 @@
 
         # Letgamer desktop-pc
         redline = mkNixOSConfig {
-          hostPath = ./nixos/hosts/redline;
+          profile = "security";
+          hostname = "redflake-redline";
+          hostConfig = ./nixos/hosts/redline/default.nix;
           user = "let";
           isKVM = false;
           system = "x86_64-v3-linux";

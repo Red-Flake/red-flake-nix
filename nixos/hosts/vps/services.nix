@@ -42,15 +42,6 @@
   # Enable timesyncd
   services.timesyncd.enable = true;
 
-  # Enable Ananicy-Cpp with CachyOS rulesets
-  services.ananicy = {
-    enable = true;
-    package = pkgs.ananicy-cpp;
-    rulesProvider = pkgs.ananicy-rules-cachyos;
-    settings = {
-      apply_nice = true;
-    };
-  };
 
   # Schedulers from https://wiki.archlinux.org/title/improving_performance
   services.udev.extraRules = ''
