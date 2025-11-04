@@ -13,8 +13,8 @@ in
     {
       imports = profile.modules ++ (extraConfig.extraModules or []);
 
-      # Pass git config to modules that need it
-      _module.args.gitConfig = profile.git;
+      # Pass git config to modules that need it (if it exists)
+      _module.args.gitConfig = profile.git or null;
 
       home = {
         packages = profile.packages ++ (extraConfig.extraPackages or []);

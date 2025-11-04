@@ -217,13 +217,21 @@
         overlays = commonOverlays;
       };
 
-      # Common home-manager configuration generator
+      # Import shared user helper
+      mkUser = import ./home-manager/shared/mkUser.nix {
+        inherit inputs;
+        lib = nixpkgs.lib;
+        pkgs = commonPkgs;
+      };
+
+      # Common home-manager configuration generator using shared modules
       mkHomeManagerConfig =
         {
           user,
           homeDirectory,
           stateVersion ? "23.05",
-          modules,
+          profile,
+          extraConfig ? { },
         }:
         {
           imports = [ inputs.home-manager.nixosModules.home-manager ];
@@ -238,12 +246,16 @@
             pkgs = commonPkgs;
           };
 
-          home-manager.users.${user} = {
-            home.username = user;
-            home.homeDirectory = homeDirectory;
-            home.stateVersion = stateVersion;
-            imports = modules;
-          };
+          home-manager.users.${user} = mkUser.mkUser profile (
+            extraConfig
+            // {
+              homeConfig = {
+                username = user;
+                homeDirectory = homeDirectory;
+                stateVersion = stateVersion;
+              };
+            }
+          );
         };
 
       # Common NixOS configuration generator
@@ -286,7 +298,7 @@
             (mkHomeManagerConfig {
               user = "redflake";
               homeDirectory = "/home/redflake";
-              modules = [ ./home-manager/redflake ];
+              profile = "redflake";
             })
           ];
         };
@@ -300,7 +312,7 @@
             (mkHomeManagerConfig {
               user = "redflake";
               homeDirectory = "/home/redflake";
-              modules = [ ./home-manager/redflake ];
+              profile = "redflake";
             })
           ];
         };
@@ -315,7 +327,7 @@
             (mkHomeManagerConfig {
               user = "pascal";
               homeDirectory = "/home/pascal";
-              modules = [ ./home-manager/pascal ];
+              profile = "pascal";
             })
           ];
         };
@@ -331,7 +343,7 @@
             (mkHomeManagerConfig {
               user = "pascal";
               homeDirectory = "/home/pascal";
-              modules = [ ./home-manager/pascal ];
+              profile = "pascal";
             })
           ];
         };
@@ -353,7 +365,7 @@
             (mkHomeManagerConfig {
               user = "redcloud";
               homeDirectory = "/home/redcloud";
-              modules = [ ./home-manager/redcloud ];
+              profile = "redcloud";
             })
           ];
         };
@@ -369,7 +381,7 @@
             (mkHomeManagerConfig {
               user = "let";
               homeDirectory = "/home/let";
-              modules = [ ./home-manager/redline ];
+              profile = "letgamer";
             })
           ];
         };
