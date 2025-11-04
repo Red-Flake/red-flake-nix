@@ -10,7 +10,7 @@
   options = {
     warnings = lib.mkOption {
       apply = lib.filter (
-        w: !(lib.strings.hasInfix "The options silently discard others by the order of precedence" w)
+        w: !(lib.strings.hasInfix "has multiple of the options" w)
       );
     };
   };
