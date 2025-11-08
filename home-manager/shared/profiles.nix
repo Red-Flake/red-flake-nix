@@ -28,6 +28,9 @@ in
 
       # Set global xcursor size to 24; this matches the default cursor size in KDE Plasma of 24
       XCURSOR_SIZE = "24";
+
+      # Add ~/.local/bin to PATH
+      PATH = "\\\${HOME}/.local/bin:$PATH";
     };
     modules = [
       # Base modules
