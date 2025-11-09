@@ -590,6 +590,12 @@
                     keyword = "wadcoms";
                     url = "https://wadcoms.github.io/";
                   }
+                  {
+                    name = "TLDRBins ";
+                    tags = [ "TLDRBins" ];
+                    keyword = "tldrbins";
+                    url = "https://tldrbins.github.io/";
+                  }
                 ];
               }
               {
