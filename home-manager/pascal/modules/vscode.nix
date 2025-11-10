@@ -7,7 +7,24 @@
 {
   programs.vscode = {
     enable = true;
-    package = pkgs.vscode;
+
+    # fix issue with duplicate vscode icon in task bar due to code-url-handler
+    # see: https://github.com/NixOS/nixpkgs/issues/391341#issuecomment-3016213912
+    package = pkgs.vscode.overrideAttrs (
+      finalAttrs: prevAttrs: {
+        desktopItems = lib.map (
+          item:
+          if item.meta.name == "code-url-handler.desktop" then
+            item.overrideAttrs (
+              final: prev: {
+                text = lib.replaceStrings [ "StartupWMClass=Code\n" ] [ "" ] prev.text;
+              }
+            )
+          else
+            item
+        ) prevAttrs.desktopItems;
+      }
+    );
 
     # disable mutable extensions
     mutableExtensionsDir = false;

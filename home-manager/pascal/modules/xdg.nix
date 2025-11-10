@@ -69,6 +69,9 @@ in
       # set default file manager to dolphin
       "inode/directory" = fileManager;
       "application/x-gnome-saved-search" = fileManager;
+
+      # fix issue with duplicate vscode icon due to url helper
+      "x-scheme-handler/vscode" = editor;
     };
     associations = {
       added = {
