@@ -859,6 +859,28 @@
     };
   };
 
+  # Make the burp suite start screen group with the main burp suite pro application
+  # fix burpsuitepro StartupWMClass so that it groups properly in taskbar
+  xdg.desktopEntries."burpsuitepro" = {
+    name = "BurpSuite Professional";
+    genericName = "An integrated platform for performing security testing of web applications";
+    exec = "burpsuitepro %F"; # keep the actual launcher; add %F for files
+    icon = "burpsuitepro";
+    type = "Application";
+    categories = [
+      "Development"
+      "Security"
+      "System"
+    ];
+    startupNotify = true;
+
+    # Important: make Plasma tie XWayland window to this launcher
+    settings = {
+      StartupWMClass = "burp-StartBurp"; # ← from KWin debug console
+      X-KDE-DesktopFileName = "burpsuitepro"; # forces grouping with the main launcher
+    };
+  };
+
   xdg.desktopEntries.ghidra = {
     name = "ghidra";
     genericName = "";
