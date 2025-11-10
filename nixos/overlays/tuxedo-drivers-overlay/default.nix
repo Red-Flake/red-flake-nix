@@ -1,19 +1,34 @@
-# This overlay updates the tuxedo-drivers package to version 4.15.4
+# This overlay updates the tuxedo-drivers package to version 4.18.0
 (final: prev: {
-  tuxedo-drivers = prev.tuxedo-drivers.overrideAttrs (old: rec {
-    version = "4.15.4";
-    src = prev.fetchFromGitLab {
-      group = "tuxedocomputers";
-      owner = "development/packages";
-      repo = "tuxedo-drivers";
-      rev = "v${version}";
-      sha256 = "sha256-WJeju+czbCw03ALW7yzGAFENCEAvDdKqHvedchd7NVY=";
+  linuxKernel = prev.linuxKernel // {
+    packages = prev.linuxKernel.packages // {
+      linux_xanmod_latest = prev.linuxKernel.packages.linux_xanmod_latest // {
+        tuxedo-drivers = prev.linuxKernel.packages.linux_xanmod_latest.tuxedo-drivers.overrideAttrs (old: rec {
+          version = "4.18.0";
+          src = prev.fetchFromGitLab {
+            group = "tuxedocomputers";
+            owner = "development/packages";
+            repo = "tuxedo-drivers";
+            rev = "v${version}";
+            hash = "sha256-9XtogovzAWaMkJI5CxszY5qO3q6NOACZ7pnejyobJlY=";
+          };
+          # Create the no-cp-usr patch inline
+          patches = [
+            (prev.writeText "no-cp-usr.patch" ''
+              --- a/Makefile
+              +++ b/Makefile
+              @@ -31,7 +31,6 @@ all:
+               
+               install: all
+               	make -C $(KDIR) M=$(PWD) $(MAKEFLAGS) modules_install
+              -	cp -r usr /
+               
+               clean:
+               	make -C $(KDIR) M=$(PWD) $(MAKEFLAGS) clean
+            '')
+          ];
+        });
+      };
     };
-    # Upstream Makefile tries `cp -r etc usr /` in the install target.
-    # Nix sandbox forbids writing to /, so just skip that part.
-    postPatch = (old.postPatch or "") + ''
-      substituteInPlace Makefile \
-        --replace "cp -r etc usr /" "true"
-    '';
-  });
+  };
 })
