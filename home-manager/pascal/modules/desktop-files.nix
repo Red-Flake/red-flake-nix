@@ -826,7 +826,36 @@
     ];
     startupNotify = true;
     settings = {
+      X-KDE-DesktopFileName = "code"; # <-- forces grouping with code.desktop
       StartupWMClass = "code"; # fixes duplicate taskbar entry
+    };
+  };
+
+  # Make the URL handler group with the normal Code entry
+  # fix vscode StartupWMClass so that it groups properly in taskbar
+  # Make the URL handler group with the main Code icon
+  xdg.desktopEntries."code-url-handler" = {
+    name = "Visual Studio Code - URL Handler";
+    exec = "code --open-url %U";
+    # Upstream uses "vscode" as the icon name (see nixpkgs generic.nix)
+    icon = "vscode";
+    type = "Application";
+    startupNotify = true;
+    categories = [
+      "Utility"
+      "TextEditor"
+      "Development"
+      "IDE"
+    ];
+
+    # Register the scheme (optional if already present in the package)
+    mimeType = [ "x-scheme-handler/vscode" ];
+
+    # Important bits:
+    settings = {
+      X-KDE-DesktopFileName = "code"; # <-- forces grouping with code.desktop
+      NoDisplay = "true"; # keep it hidden in menus
+      StartupWMClass = "code"; # harmless; not used for Wayland grouping
     };
   };
 
