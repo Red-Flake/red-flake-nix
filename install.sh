@@ -399,6 +399,13 @@ nixos-install --no-root-password --flake "${FLAKE}/${GIT_REV:-main}#$HOST" --opt
 log "INFO" "Syncing disk writes..."
 sync
 
+log "INFO" "Removing redundant files related to nix channels"
+rm -rf /mnt/nix/var/nix/profiles/per-user/root/channels
+rm -rf /mnt/root/.nix-defexpr/channels
+rm -rf /mnt/root/.local/state/nix/profiles/channels
+rm -rf /mnt/home/$USER/.nix-defexpr/channels
+rm -rf /mnt/home/$USER/.local/state/nix/profiles/channels
+
 log "INFO" "Setting up persistence..."
 
 mkdir -p /mnt/persist/var/lib/
