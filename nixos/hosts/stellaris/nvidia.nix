@@ -52,18 +52,7 @@
 
     # 26 is the GID of the "video" group on NixOS
     extraModprobeConfig = ''
-      options nvidia "NVreg_DynamicPowerManagement=0x02"
-      options nvidia_drm "modeset=1"
-      options nvidia_drm "fbdev=1"
-      options nvidia "NVreg_UsePageAttributeTable=1"
-      options nvidia "NVreg_DeviceFileUID=0"
-      options nvidia "NVreg_DeviceFileGID=26"
-      options nvidia "NVreg_DeviceFileMode=0660"
-      options nvidia "NVreg_PreserveVideoMemoryAllocations=1"
-      options nvidia "NVreg_TemporaryFilePath=/dev/shm"
-      options nvidia "NVreg_EnableS0ixPowerManagement=1"
-      options nvidia "NVreg_DynamicPowerManagementVideoMemoryThreshold=0"
-      options nvidia "NVreg_S0ixPowerManagementVideoMemoryThreshold=16000"
+      options nvidia "NVreg_OpenRmEnableUnsupportedGpus=1"
     '';
     # https://forums.developer.nvidia.com/t/power-mizer-difference-between-powermizerdefault-and-powermizerlevel/46884/3
   };
