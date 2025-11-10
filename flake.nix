@@ -143,9 +143,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # https://github.com/Red-Flake/tuxedo-nixos
+    # https://github.com/sund3RRR/tuxedo-nixos
     tuxedo-nixos = {
-      url = "github:Red-Flake/tuxedo-nixos";
+      url = "github:sund3RRR/tuxedo-nixos";
     };
 
     # Nix Gaming for Steam platformOptimizations
@@ -279,6 +279,7 @@
           hostConfig,
           extraModules ? [ ],
           includeSpicetify ? false,
+          includeTuxedo ? false,
           localeProfile ? "german-en",
           extraConfig ? { },
         }:
@@ -298,7 +299,9 @@
               inherit hostname localeProfile;
               inherit extraConfig;
               extraModules =
-                extraModules ++ (if includeSpicetify then [ spicetify-nix.nixosModules.default ] else [ ]);
+                extraModules
+                ++ (if includeSpicetify then [ spicetify-nix.nixosModules.default ] else [ ])
+                ++ (if includeTuxedo then [ tuxedo-nixos.nixosModules.default ] else [ ]);
             })
           ];
         };
@@ -363,8 +366,8 @@
           user = "pascal";
           isKVM = false;
           system = "x86_64-v3-linux";
+          includeTuxedo = true;
           extraModules = [
-            tuxedo-nixos.nixosModules.default
             (mkHomeManagerConfig {
               user = "pascal";
               homeDirectory = "/home/pascal";

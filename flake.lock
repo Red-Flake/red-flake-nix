@@ -1058,15 +1058,15 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1755038358,
-        "narHash": "sha256-93dqFbY+aSLSQrmPM5Ra47K0EfUZSi+FX+VpbwJrfQ0=",
-        "owner": "Red-Flake",
+        "lastModified": 1759946099,
+        "narHash": "sha256-LiQVovEeds4OvlmSyOls0a3/FgNMCEUFZ2SedOacs4U=",
+        "owner": "sund3RRR",
         "repo": "tuxedo-nixos",
-        "rev": "180356e47744b3fdcc87257e1ed4611bc8422704",
+        "rev": "d197d25d4293306e150c0a421053fea8b2306078",
         "type": "github"
       },
       "original": {
-        "owner": "Red-Flake",
+        "owner": "sund3RRR",
         "repo": "tuxedo-nixos",
         "type": "github"
       }
