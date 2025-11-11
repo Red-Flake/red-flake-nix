@@ -7,16 +7,6 @@
 }:
 
 {
-  powerManagement = {
-    enable = lib.mkForce true;
-    cpuFreqGovernor = lib.mkForce "performance";
-    powertop.enable = lib.mkForce false;
-  };
-
-  services.tlp = {
-    enable = lib.mkForce false;
-  };
-
   # Enable scx_bpfland scheduler
   services.scx = {
     enable = true;
