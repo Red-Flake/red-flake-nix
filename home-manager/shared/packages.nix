@@ -42,6 +42,7 @@
   # AI/Development tools
   development = with pkgs; [
     claude-code
+    opencode
   ];
 
   # VPN and networking tools
