@@ -8,12 +8,20 @@
 }:
 
 let
+  # Map resolution settings to wallpaper filenames
+  wallpaperFile = {
+    "1080p" = "Red-Flake-Wallpaper_1920x1080.png";
+    "1440p" = "Red-Flake-Wallpaper_2560x1440.png"; 
+    "1600p" = "Red-Flake-Wallpaper_2560x1600.png";
+    "2160p" = "Red-Flake-Wallpaper_3840x2160.png";
+  }.${config.custom.display.resolution} or "Red-Flake-Wallpaper_1920x1080.png";
+  
   background-package = pkgs.stdenvNoCC.mkDerivation {
     name = "background-image";
     src = "${inputs.artwork}/wallpapers";
     dontUnpack = true;
     installPhase = ''
-      cp $src/Red-Flake-Wallpaper_1920x1080.png $out
+      cp $src/${wallpaperFile} $out
     '';
   };
   browser = "firefox.desktop";

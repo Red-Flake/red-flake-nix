@@ -1,5 +1,16 @@
-{ pkgs, config, ... }:
+{ pkgs, config, lib, osConfig, ... }:
 
+let
+  # Map resolution settings to wallpaper filenames, using osConfig to access NixOS config
+  wallpaperFile = {
+    "1080p" = "Red-Flake-Wallpaper_1920x1080.png";
+    "1440p" = "Red-Flake-Wallpaper_2560x1440.png"; 
+    "1600p" = "Red-Flake-Wallpaper_2560x1600.png";
+    "2160p" = "Red-Flake-Wallpaper_3840x2160.png";
+  }.${osConfig.custom.display.resolution} or "Red-Flake-Wallpaper_1920x1080.png";
+  
+  wallpaperPath = "${config.home.homeDirectory}/.local/share/wallpapers/red-flake/${wallpaperFile}";
+in
 {
   programs.plasma = {
     enable = true;
@@ -19,7 +30,7 @@
       windowDecorations.library = "org.kde.breeze"; # The library for the window decorations theme. To see available values see the library key in the org.kde.kdecoration2 section of ~/.config/kwinrc after applying the window-decoration via the settings app.
       windowDecorations.theme = "Breeze"; # The window decorations theme. To see available values see the theme key in the org.kde.kdecoration2 section of ~/.config/kwinrc after applying the window-decoration via the settings app.
       iconTheme = "Papirus-Dark"; # The Plasma icon theme.
-      wallpaper = "${config.home.homeDirectory}/.local/share/wallpapers/red-flake/Red-Flake-Wallpaper_2560x1600.png"; # The Plasma wallpaper. Can be either be the path to an image file or a kpackage.
+      wallpaper = wallpaperPath; # The Plasma wallpaper. Can be either be the path to an image file or a kpackage.
     };
 
     kwin = {
@@ -160,7 +171,7 @@
     # Kscreenlocker
     #
     kscreenlocker = {
-      appearance.wallpaper = "${config.home.homeDirectory}/.local/share/wallpapers/red-flake/Red-Flake-Wallpaper_1920x1080.png";
+      appearance.wallpaper = wallpaperPath;
     };
 
     #
