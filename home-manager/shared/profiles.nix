@@ -67,6 +67,9 @@ in
       ../common/modules/bloodhound.nix
       ../common/modules/burpsuite.nix
       ../common/modules/jadx.nix
+
+      # Common p10k module (uses pascal's configs)
+      ../common/modules/p10k.nix
     ];
     packages = packages.base ++ packages.desktop ++ packages.gaming ++ packages.development;
   };
@@ -115,6 +118,9 @@ in
       ../common/modules/bloodhound.nix
       ../common/modules/burpsuite.nix
       ../common/modules/jadx.nix
+
+      # Common p10k module (uses pascal's configs)
+      ../common/modules/p10k.nix
 
       # User-specific modules
       ../let/modules/firefox.nix
@@ -172,6 +178,9 @@ in
       ../common/modules/bloodhound.nix
       ../common/modules/burpsuite.nix
       ../common/modules/jadx.nix
+
+      # Common p10k module (uses pascal's configs)
+      ../common/modules/p10k.nix
     ];
     packages = packages.base ++ packages.desktop ++ packages.gaming ++ packages.development;
   };
@@ -194,6 +203,9 @@ in
       ../common/modules/ssh-agent.nix
       ../common/modules/ssh-config.nix
       ../common/modules/msf.nix
+
+      # Common p10k module (uses pascal's configs)
+      ../common/modules/p10k.nix
     ];
     packages = packages.base;
   };
