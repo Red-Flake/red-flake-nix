@@ -42,7 +42,7 @@
     (import ../overlays/SMB_Killer-overlay)
     (import ../overlays/pyGPOAbuse-overlay)
     (import ../overlays/spose-overlay)
-    (import ../overlays/netexec-overlay)
+    (import ../overlays/netexec-overlay inputs)
     (import ../overlays/nmapAutomator-overlay)
     (import ../overlays/autobloody-overlay)
     (import ../overlays/social-engineer-toolkit)

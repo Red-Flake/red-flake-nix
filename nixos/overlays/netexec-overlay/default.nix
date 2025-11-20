@@ -1,5 +1,5 @@
 # netexec-overlay.nix
-final: prev:
+inputs: final: prev:
 
 {
   python312_nxc = prev.python312.override {
@@ -57,13 +57,24 @@ final: prev:
           maintainers = with final.lib.maintainers; [ charming_yang ];
         };
       };
+
+      # ----- certipy-ad (remove impacket dependency to avoid conflicts) -----
+      certipy-ad = super.certipy-ad.overridePythonAttrs (old: {
+        pythonRelaxDeps = [
+          "cryptography"
+          "pyopenssl"
+          "pycryptodome"
+        ];
+        pythonRemoveDeps = [ "impacket" ];
+      });
+
     };
   };
 
   # ----- NetExec application -----
   netexec = final.python312_nxc.pkgs.buildPythonApplication (
     let
-      v = "1.4.0.dev20251103"; # PEP 440-compliant dev tag
+      v = "1.4.0.dev20251119"; # PEP 440-compliant dev tag
     in
     rec {
       pname = "netexec";
@@ -73,13 +84,17 @@ final: prev:
       pythonRelaxDeps = true;
 
       # Some forks specify "neo4j" as a dev prerelease; we supply a stable nixpkgs neo4j instead.
+      # Remove bloodhound-ce-py impacket dependency to avoid conflicts
       pythonRemoveDeps = [ "neo4j" ];
+
+      # Disable duplicate package detection to allow impacket conflicts
+      pythonCatchConflicts = false;
 
       src = final.fetchFromGitHub {
         owner = "Pennyw0rth";
         repo = "NetExec";
-        rev = "5a5c63f50bce9afd19c19f8683467a30d7d2828b";
-        hash = "sha256-1yNnnPntJ5aceX3Z8yYAMLv5bSFfCFVp0pgxAySlVfE=";
+        rev = "0573fac29e4e58a199785a5865824fddf63351a4";
+        hash = "sha256-/0tDlP2IDpXyMc0yMJ3tGjI0BBHq3Go3IpSULWNWCWs=";
       };
 
       # Make Poetry happy:
@@ -124,7 +139,11 @@ final: prev:
         argcomplete
         asyauth
         beautifulsoup4
-        bloodhound-py
+        (inputs.redflake-packages.packages.x86_64-linux.bloodhound-ce-py.override {
+          python = final.python312_nxc;
+        })
+        certipy-ad
+        pefile
         dploot
         dsinternals
         impacket

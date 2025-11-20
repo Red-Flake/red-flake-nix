@@ -20,7 +20,9 @@
       overlays =
         sharedOverlays.allOverlays
         ++ lib.optionals config.custom.IntelComputeRuntimeLegacy.enable sharedOverlays.intelLegacyOverlay
-        ++ lib.optionals (config.hardware.tuxedo-drivers.enable || config.networking.hostName == "redflake-stellaris") sharedOverlays.tuxedoDriversOverlay;
+        ++ lib.optionals (
+          config.hardware.tuxedo-drivers.enable || config.networking.hostName == "redflake-stellaris"
+        ) sharedOverlays.tuxedoDriversOverlay;
       # Configure your nixpkgs instance
       config = {
         # Disable if you don't want unfree packages
@@ -30,7 +32,17 @@
         permittedInsecurePackages = [
           "openssl-1.1.1w"
           "python-2.7.18.8"
+          "python27Full"
         ];
+
+        # Force allow insecure packages globally
+        allowInsecurePredicate =
+          pkg:
+          builtins.elem (lib.getName pkg) [
+            "openssl-1.1.1w"
+            "python-2.7.18.8"
+            "python27Full"
+          ];
       };
     };
 }

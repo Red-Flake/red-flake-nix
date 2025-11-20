@@ -14,7 +14,6 @@
   imports = [
     # Core system configuration
     ../modules/nix.nix
-    ../modules/nixpkgs.nix
     ../modules/hardware.nix
     ../modules/filesystems.nix
     ../modules/impermanence.nix
@@ -61,5 +60,5 @@
   ];
 
   # Only truly universal settings here - locale/timezone are host-specific
-  system.stateVersion = "23.05";
+  system.stateVersion = "23.05"; # Do not change this value
 }

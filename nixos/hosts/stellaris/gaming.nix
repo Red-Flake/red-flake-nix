@@ -33,7 +33,7 @@ in
 
     extraCompatPackages = with pkgs; [
       proton-ge-bin
-      chaoticPkgs.proton-cachyos_x86_64_v3
+      # chaoticPkgs.proton-cachyos  # TODO: fix package availability
     ];
 
     extest.enable = true;

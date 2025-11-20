@@ -25,6 +25,12 @@
     builders-use-substituters = true;
     max-jobs = "auto";
     cores = 0;
+    allowUnfree = true;
+    permittedInsecurePackages = [
+      "openssl-1.1.1w"
+      "python-2.7.18.8"
+      "python27Full"
+    ];
   };
 
   inputs = {
@@ -204,16 +210,23 @@
       inherit (self) outputs;
       system = "x86_64-linux";
 
+      # Import shared overlays
+      sharedOverlays = import nixos/shared/overlays.nix { inherit inputs; };
+
       # Common overlays used across all configurations
-      commonOverlays = [
-        inputs.chaotic.overlays.default
-        (import nixos/overlays/impacket-overlay)
-      ];
+      commonOverlays = sharedOverlays.allOverlays;
 
       # Common pkgs with overlays applied once
       commonPkgs = import inputs.nixpkgs {
         inherit system;
-        config.allowUnfree = true;
+        config = {
+          allowUnfree = true;
+          permittedInsecurePackages = [
+            "openssl-1.1.1w"
+            "python-2.7.18.8"
+            "python27Full"
+          ];
+        };
         overlays = commonOverlays;
       };
 
@@ -282,12 +295,29 @@
           includeTuxedo ? false,
           localeProfile ? "german-en",
           extraConfig ? { },
+          nixpkgsConfig ? { },
         }:
+        let
+          hostPkgs = import inputs.nixpkgs {
+            inherit system;
+            config = {
+              allowUnfree = true;
+              permittedInsecurePackages = [
+                "openssl-1.1.1w"
+                "python-2.7.18.8"
+                "python27Full"
+              ];
+            }
+            // nixpkgsConfig;
+            overlays = commonOverlays;
+          };
+        in
         nixpkgs.lib.nixosSystem {
           inherit system;
+          pkgs = hostPkgs;
           specialArgs = {
             inherit inputs outputs;
-            chaoticPkgs = commonPkgs;
+            chaoticPkgs = hostPkgs;
             inherit user isKVM;
           };
           modules = [
@@ -365,8 +395,11 @@
           hostConfig = ./nixos/hosts/stellaris/default.nix;
           user = "pascal";
           isKVM = false;
-          system = "x86_64-v3-linux";
           includeTuxedo = true;
+          nixpkgsConfig = {
+            nvidia.acceptLicense = true;
+            cudaSupport = true;
+          };
           extraModules = [
             (mkHomeManagerConfig {
               user = "pascal";
@@ -399,7 +432,6 @@
           hostConfig = ./nixos/hosts/redline/default.nix;
           user = "let";
           isKVM = false;
-          system = "x86_64-v3-linux";
           includeSpicetify = true;
           extraModules = [
             (mkHomeManagerConfig {

@@ -8,11 +8,6 @@
   ...
 }:
 {
-  # Accept the NVIDIA license
-  nixpkgs.config.nvidia.acceptLicense = true;
-
-  # Enable CUDA support
-  nixpkgs.config.cudaSupport = true;
 
   # Enable Nix cache for CUDA packages
   nix.settings = {
