@@ -73,6 +73,7 @@
     (import ../overlays/apachetomcatscanner-overlay)
     (import ../overlays/freerdp3-overlay)
     (import ../overlays/mingwW64-overlay)
+    (import ../overlays/metasploit-overlay)
   ];
 
   # Intel legacy overlay (conditional)

@@ -1,0 +1,33 @@
+source 'https://rubygems.org'
+gemspec name: 'metasploit-framework'
+
+group :coverage do
+  gem 'simplecov', '0.18.2'
+end
+
+group :development do
+  gem 'redcarpet'
+  gem 'yard'
+  gem 'pry-byebug'
+  gem 'debug', '>= 1.0.0'
+  gem 'octokit'
+  gem 'memory_profiler'
+  gem 'ruby-prof'
+  # gem 'metasploit-aggregator'
+end
+
+group :development, :test do
+  gem 'license_finder', '5.11.1'
+  gem 'rake'
+  gem 'rspec-rails'
+  gem 'rspec-rerun'
+  gem 'rubocop', '1.75.7'
+end
+
+group :test do
+  gem 'test-prof'
+  gem 'factory_bot_rails'
+  gem 'fivemat'
+  gem 'allure-rspec'
+  gem 'timecop'
+end
