@@ -67,9 +67,8 @@ in
 
       };
 
-      # define shell aliases which are substituted anywhere on a line
-      # https://home-manager-options.extranix.com/?query=programs.zsh.shellGlobalAliases&release=master
-      shellGlobalAliases = {
+      # https://home-manager-options.extranix.com/?query=programs.zsh.shellAliases&release=master
+      shellAliases = {
         # general
         ls = "lsd";
         ll = "lsd -la";
