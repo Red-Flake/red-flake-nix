@@ -43,6 +43,7 @@
   development = with pkgs; [
     claude-code
     opencode
+    codex
   ];
 
   # VPN and networking tools
