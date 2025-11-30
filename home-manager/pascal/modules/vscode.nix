@@ -57,6 +57,10 @@
           esbenp.prettier-vscode # Prettier code formatter
           ms-vscode.hexeditor # Hex editor for binary files
 
+          # --- Code formating / linting ---
+          ms-python.black-formatter # Black formatter for Python
+          dbaeumer.vscode-eslint # ESLint integration for JS/TS
+
           # --- Markdown / Docs ---
           yzhang.markdown-all-in-one # Markdown shortcuts, TOC, auto formatting
           davidanson.vscode-markdownlint # Linting for Markdown
