@@ -38,7 +38,7 @@
       "nvidia.NVreg_DeviceFileGID=26" # 26 is the GID of the "video" group on NixOS
       "nvidia.NVreg_DeviceFileMode=0660" # Set device file permissions to rw-rw----
       "nvidia.NVreg_EnableS0ixPowerManagement=1" # Enable S0ix support in NVIDIA driver
-      "nvidia.NVreg_DynamicPowerManagement=0x02" # Auto dynamic power management (0x01=disabled, 0x02=auto, 0x03=always on)
+      "nvidia.NVreg_DynamicPowerManagement=0x02" # Enable dynamic power management to let TCC control power limits (0x01=disabled, 0x02=auto, 0x03=always on)
       "nvidia.NVreg_DynamicPowerManagementVideoMemoryThreshold=0"
       "nvidia.NVreg_S0ixPowerManagementVideoMemoryThreshold=16000" # always save VRAM contents on s0ix (0=always save, 1=save if unused, 2=never save)
       "nvidia.NVreg_PreserveVideoMemoryAllocations=1" # Preserve video memory across suspend/resume; required for stable S0ix

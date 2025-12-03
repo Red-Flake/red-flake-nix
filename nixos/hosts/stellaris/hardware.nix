@@ -61,7 +61,6 @@
       "rivafb"
       "i915" # blacklist old i915 driver for Arrow Lake; xe driver handles Intel graphics
       "spd5118" # blacklist to avoid these issues: [  146.522972] spd5118 14-0050: Failed to write b = 0: -6    [  146.522974] spd5118 14-0050: PM: dpm_run_callback(): spd5118_resume [spd5118] returns -6     [  146.522978] spd5118 14-0050: PM: failed to resume async: error -6
-      "tuxedo_nb02_nvidia_power_ctrl" # blacklist to avoid conflict with nvidia module; the tuxedo module cannot control the power state
     ];
     kernelModules = [
       "kvm-intel"
@@ -87,7 +86,7 @@
       "xe.force_probe=7d67" # Force the new xe driver to bind the Meteor Lake device (PCI ID 7d67)
 
       # Intel Hybrid perf
-      "intel_pstate=active"
+      "intel_pstate=passive" # Let userspace (TUXEDO Control Center / TLP) manage P-states for Intel hybrid CPUs
     ];
 
     # --- extra kernel module options (goes into /etc/modprobe.d/nixos.conf) ---#
@@ -169,7 +168,7 @@
 
   services.thermald.enable = lib.mkForce true; # Thermal management
 
-  services.auto-cpufreq.enable = lib.mkForce false; # Disable if using TLP + performance governor
+  #services.auto-cpufreq.enable = lib.mkForce false; # Disable if using TLP + performance governor
 
   # Make sure nothing else fights TLP
   # default is `on` on Gnome / KDE, and prevents using tlp:
@@ -184,117 +183,119 @@
   # IRQ balance for multi-core performance
   services.irqbalance.enable = lib.mkForce true;
 
+  # Let TCC handle CPU power management
   # TLP settings optimized for intel hybrid CPU architecture for max performance
-  services.tlp.enable = true;
-  services.tlp.settings = {
-    ## Intel P-State / HWP
-    CPU_DRIVER_OPMODE_ON_AC = "active";
-    CPU_DRIVER_OPMODE_ON_BAT = "active";
+  #services.tlp.enable = true;
+  #services.tlp.settings = {
+  ## Intel P-State / HWP
+  #CPU_DRIVER_OPMODE_ON_AC = "active";
+  #CPU_DRIVER_OPMODE_ON_BAT = "active";
 
-    # https://discourse.nixos.org/t/how-to-switch-cpu-governor-on-battery-power/8446/4
-    # https://linrunner.de/tlp/settings/processor.html
-    # set CPU governor to performance; for Intel hybrid architecture
-    CPU_SCALING_GOVERNOR_ON_AC = "performance"; # schedutil governor is not exposed if we set intel_pstate=active since P-states are managed by hardware then.
-    CPU_SCALING_GOVERNOR_ON_BAT = "performance"; # schedutil governor is not exposed if we set intel_pstate=active since P-states are managed by hardware then.
+  # https://discourse.nixos.org/t/how-to-switch-cpu-governor-on-battery-power/8446/4
+  # https://linrunner.de/tlp/settings/processor.html
+  # set CPU governor to performance; for Intel hybrid architecture
+  #CPU_SCALING_GOVERNOR_ON_AC = "performance"; # schedutil governor is not exposed if we set intel_pstate=active since P-states are managed by hardware then.
+  #CPU_SCALING_GOVERNOR_ON_BAT = "performance"; # schedutil governor is not exposed if we set intel_pstate=active since P-states are managed by hardware then.
 
-    # HWP dynamic boost + Turbo always ON
-    INTEL_HWP_DYN_BOOST_ON_AC = 1;
-    INTEL_HWP_DYN_BOOST_ON_BAT = 1;
-    CPU_BOOST_ON_AC = 1;
-    CPU_BOOST_ON_BAT = 1;
+  # HWP dynamic boost + Turbo always ON
+  #INTEL_HWP_DYN_BOOST_ON_AC = 1;
+  #INTEL_HWP_DYN_BOOST_ON_BAT = 1;
+  #CPU_BOOST_ON_AC = 1;
+  #CPU_BOOST_ON_BAT = 1;
 
-    # EPP = performance on AC *and* battery
-    CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
-    CPU_ENERGY_PERF_POLICY_ON_BAT = "performance";
+  # EPP = performance on AC *and* battery
+  #CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
+  #CPU_ENERGY_PERF_POLICY_ON_BAT = "performance";
 
-    CPU_HWP_ON_AC = "performance";
-    CPU_HWP_ON_BAT = "performance";
+  #CPU_HWP_ON_AC = "performance";
+  #CPU_HWP_ON_BAT = "performance";
 
-    # Force minimum performance 100% (aggressive)
-    # If temps are too high, drop BAT to 0–30 later.
-    CPU_MIN_PERF_ON_AC = 100;
-    CPU_MAX_PERF_ON_AC = 100;
-    CPU_MIN_PERF_ON_BAT = 100;
-    CPU_MAX_PERF_ON_BAT = 100;
+  # Force minimum performance 100% (aggressive)
+  # If temps are too high, drop BAT to 0–30 later.
+  #CPU_MIN_PERF_ON_AC = 100;
+  #CPU_MAX_PERF_ON_AC = 100;
+  #CPU_MIN_PERF_ON_BAT = 100;
+  #CPU_MAX_PERF_ON_BAT = 100;
 
-    # Ask the platform for performance profile if supported (Plasma/TUXEDO FW honors this)
-    PLATFORM_PROFILE_ON_AC = "performance";
-    PLATFORM_PROFILE_ON_BAT = "performance";
+  # Ask the platform for performance profile if supported (Plasma/TUXEDO FW honors this)
+  #PLATFORM_PROFILE_ON_AC = "performance";
+  #PLATFORM_PROFILE_ON_BAT = "performance";
 
-    ## I/O and bus power features forced to performance everywhere
-    PCIE_ASPM_ON_AC = "performance";
-    PCIE_ASPM_ON_BAT = "performance";
-    SATA_LINKPWR_ON_AC = "max_performance";
-    SATA_LINKPWR_ON_BAT = "max_performance";
+  ## I/O and bus power features forced to performance everywhere
+  #PCIE_ASPM_ON_AC = "performance";
+  #PCIE_ASPM_ON_BAT = "performance";
+  #SATA_LINKPWR_ON_AC = "max_performance";
+  #SATA_LINKPWR_ON_BAT = "max_performance";
 
-    # Don’t autosuspend USB devices (reduces wake latency)
-    USB_AUTOSUSPEND = 0;
+  # Don’t autosuspend USB devices (reduces wake latency)
+  #USB_AUTOSUSPEND = 0;
 
-    # Runtime PM: keep devices ‘on’ (lowest latency)
-    # https://linrunner.de/tlp/settings/runtimepm.html
-    RUNTIME_PM_ON_AC = "on";
-    RUNTIME_PM_ON_BAT = "on";
+  # Runtime PM: keep devices ‘on’ (lowest latency)
+  # https://linrunner.de/tlp/settings/runtimepm.html
+  #RUNTIME_PM_ON_AC = "on";
+  #RUNTIME_PM_ON_BAT = "on";
 
-    # Wi-Fi power saving off (you already set iwlwifi module opts; this reinforces it)
-    # https://github.com/linrunner/TLP/issues/122
-    # https://linrunner.de/tlp/settings/network.html
-    WIFI_PWR_ON_AC = "off";
-    WIFI_PWR_ON_BAT = "off";
+  # Wi-Fi power saving off (you already set iwlwifi module opts; this reinforces it)
+  # https://github.com/linrunner/TLP/issues/122
+  # https://linrunner.de/tlp/settings/network.html
+  #WIFI_PWR_ON_AC = "off";
+  #WIFI_PWR_ON_BAT = "off";
 
-    # Don’t enable scheduler powersave modes
-    SCHED_POWERSAVE_ON_AC = 0;
-    SCHED_POWERSAVE_ON_BAT = 0;
+  # Don’t enable scheduler powersave modes
+  #SCHED_POWERSAVE_ON_AC = 0;
+  #SCHED_POWERSAVE_ON_BAT = 0;
 
-    # (Optional) Tiny jitter reduction
-    NMI_WATCHDOG = 0;
-  };
+  # (Optional) Tiny jitter reduction
+  #NMI_WATCHDOG = 0;
+  #};
 
+  # Let TCC handle HWP Boost
   # Force HWP boost and EPP
-  systemd.services.intel-hwp-boost = {
-    description = "Re-assert Intel HWP boost and EPP after TLP/TUXEDO";
-    wantedBy = [
-      "multi-user.target"
-      "sleep.target"
-    ];
-    after = [
-      "tlp.service"
-      # "tuxedo-control-center.service"     ## Disable "CPU Frequency Control" in TCC
-      "sleep.target"
-      "systemd-logind.service"
-    ];
-    serviceConfig = {
-      Type = "oneshot";
-      ExecStart = pkgs.writeShellScript "intel-hwp-boost.sh" ''
-        #!/run/current-system/sw/bin/bash
-        set -euo pipefail
-        log() { echo "[intel-hwp-boost] $*"; }
+  # systemd.services.intel-hwp-boost = {
+  #   description = "Re-assert Intel HWP boost and EPP after TLP/TUXEDO";
+  #   wantedBy = [
+  #     "multi-user.target"
+  #     "sleep.target"
+  #   ];
+  #   after = [
+  #     "tlp.service"
+  #     # "tuxedo-control-center.service"     ## Disable "CPU Frequency Control" in TCC
+  #     "sleep.target"
+  #     "systemd-logind.service"
+  #   ];
+  #   serviceConfig = {
+  #     Type = "oneshot";
+  #     ExecStart = pkgs.writeShellScript "intel-hwp-boost.sh" ''
+  #       #!/run/current-system/sw/bin/bash
+  #       set -euo pipefail
+  #       log() { echo "[intel-hwp-boost] $*"; }
 
-        # small delay to avoid races
-        sleep 2
+  #       # small delay to avoid races
+  #       sleep 2
 
-        # HWP dynamic boost
-        if [ -w /sys/devices/system/cpu/intel_pstate/hwp_dynamic_boost ]; then
-          for i in {1..5}; do
-            if echo 1 > /sys/devices/system/cpu/intel_pstate/hwp_dynamic_boost 2>/dev/null; then
-              break
-            fi
-            sleep 1
-          done
-        fi
+  #       # HWP dynamic boost
+  #       if [ -w /sys/devices/system/cpu/intel_pstate/hwp_dynamic_boost ]; then
+  #         for i in {1..5}; do
+  #           if echo 1 > /sys/devices/system/cpu/intel_pstate/hwp_dynamic_boost 2>/dev/null; then
+  #             break
+  #           fi
+  #           sleep 1
+  #         done
+  #       fi
 
-        # Prefer policy* nodes (authoritative), also try cpu* aliases
-        for f in /sys/devices/system/cpu/cpufreq/policy*/energy_performance_preference; do
-          [ -w "$f" ] && echo performance > "$f" 2>/dev/null || true
-        done
-        for f in /sys/devices/system/cpu/cpu*/cpufreq/energy_performance_preference; do
-          [ -w "$f" ] && echo performance > "$f" 2>/dev/null || true
-        done
+  #       # Prefer policy* nodes (authoritative), also try cpu* aliases
+  #       for f in /sys/devices/system/cpu/cpufreq/policy*/energy_performance_preference; do
+  #         [ -w "$f" ] && echo performance > "$f" 2>/dev/null || true
+  #       done
+  #       for f in /sys/devices/system/cpu/cpu*/cpufreq/energy_performance_preference; do
+  #         [ -w "$f" ] && echo performance > "$f" 2>/dev/null || true
+  #       done
 
-        log "Done: HWP boost + EPP=performance applied."
-      '';
-      RemainAfterExit = true;
-    };
-  };
+  #       log "Done: HWP boost + EPP=performance applied."
+  #     '';
+  #     RemainAfterExit = true;
+  #   };
+  # };
 
   environment.sessionVariables = {
     LIBVA_DRIVER_NAME = "iHD"; # Force intel-media-driver
