@@ -49,14 +49,10 @@ in
         extraEnv = {
           MANGOHUD = "0";
           OBS_VKCAPTURE = "1";
-          RADV_TEX_ANISO = "16";
           STEAM_EXTRA_COMPAT_TOOLS_PATHS = "/home/${user}/.steam/root/compatibilitytools.d";
           WINENTSYNC = "1";
           WINEESYNC = "0";
           WINEFSYNC = "0";
-          RADV_FORCE_VRS = "1x2";
-          RADV_DEBUG = "novrsflatshading";
-          RADV_PERFTEST = "nggc,sam,gpl";
           DXVK_ASYNC = "1";
           STEAM_FORCE_DESKTOPUI_SCALING = "2";
           XCURSOR_SIZE = "36";
@@ -105,7 +101,7 @@ in
       };
       gpu = {
         apply_gpu_optimisations = "accept-responsibility"; # Allow GPU tweaks
-        gpu_device = 2; # Use discrete GPU (1 = integrated, 2 = discrete); see: => /sys/class/drm/card2/device/
+        gpu_device = 1; # Use discrete GPU (card1 = NVIDIA); see: => /sys/class/drm/card1/device/
       };
       custom = {
         start = "${pkgs.libnotify}/bin/notify-send 'GameMode started'";

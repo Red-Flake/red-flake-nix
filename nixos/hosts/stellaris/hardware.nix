@@ -149,15 +149,23 @@
     };
   };
 
+  # Fix TCC service missing commands
+  systemd.services.tccd = {
+    # Add missing utilities to PATH for TCC to work properly
+    path = with pkgs; [
+      coreutils # provides 'users', 'cat', etc.
+      util-linux # provides additional system utilities
+      procps # provides process utilities
+    ];
+  };
+
   # For Wayland (KDE), prevent kwin_wayland from using NVIDIA by default.
   # This forces it to use Intel instead, which is more stable and power-efficient
   services.xserver.displayManager.sessionCommands = ''
-    export __GLX_VENDOR_LIBRARY_NAME=mesa
-    export __NV_PRIME_RENDER_OFFLOAD=0
-    export __VK_LAYER_NV_optimus=non_NVIDIA_only
     export LIBVA_DRIVER_NAME=iHD
     export VDPAU_DRIVER=va_gl
-    export DRI_PRIME=0!
+    # Don't set PRIME/NVIDIA variables globally - let apps default to Intel
+    # Steam and other apps can override these as needed
   '';
 
   # Enable Intel & NVIDIA driver in XServer
@@ -300,10 +308,8 @@
   environment.sessionVariables = {
     LIBVA_DRIVER_NAME = "iHD"; # Force intel-media-driver
     VDPAU_DRIVER = "va_gl"; # Forces Intel via VAAPI
-    DRI_PRIME = "0"; # Default to Intel
-    __NV_PRIME_RENDER_OFFLOAD = "0"; # Disable offload by default
-    __VK_LAYER_NV_optimus = "non_NVIDIA_only"; # Only report non-NVIDIA GPUs to the Vulkan application
-    __GLX_VENDOR_LIBRARY_NAME = "mesa"; # Default to Mesa (Intel) for OpenGL
+    # Don't set PRIME/NVIDIA variables globally - let apps default to Intel
+    # Steam and other apps can override these as needed
   };
 
   # HiDPI fixes => https://github.com/NixOS/nixos-hardware/blob/3f7d0bca003eac1a1a7f4659bbab9c8f8c2a0958/common/hidpi.nix
