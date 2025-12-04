@@ -47,7 +47,6 @@
       "usbhid"
       "sd_mod"
       "ahci"
-      "msr"
     ];
     initrd.kernelModules = [
       "mei" # Make sure MEI is up before xe tries to talk to GSC
