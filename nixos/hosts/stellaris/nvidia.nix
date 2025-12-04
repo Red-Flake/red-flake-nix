@@ -40,16 +40,10 @@
       "nvidia.NVreg_EnableS0ixPowerManagement=1" # Enable S0ix support in NVIDIA driver
       "nvidia.NVreg_DynamicPowerManagement=0x02" # Enable dynamic power management to let TCC control power limits (0x01=disabled, 0x02=auto, 0x03=always on)
       "nvidia.NVreg_DynamicPowerManagementVideoMemoryThreshold=0"
-      "nvidia.NVreg_S0ixPowerManagementVideoMemoryThreshold=16000" # always save VRAM contents on s0ix (0=always save, 1=save if unused, 2=never save)
+      "nvidia.NVreg_S0ixPowerManagementVideoMemoryThreshold=16384" # 16 GiB; > 12 GiB VRAM, so always copy vram to /dev/shm + power-off
       "nvidia.NVreg_PreserveVideoMemoryAllocations=1" # Preserve video memory across suspend/resume; required for stable S0ix
-      "nvidia.NVreg_TemporaryFilePath=/dev/shm" # Path to save VRAM contents during suspend
+      "nvidia.NVreg_TemporaryFilePath=/dev/shm" # Path to save VRAM contents during suspend; /dev/shm is 47G and VRAM is 12G
     ];
-
-    # 26 is the GID of the "video" group on NixOS
-    extraModprobeConfig = ''
-      options nvidia "NVreg_OpenRmEnableUnsupportedGpus=1"
-    '';
-    # https://forums.developer.nvidia.com/t/power-mizer-difference-between-powermizerdefault-and-powermizerlevel/46884/3
   };
 
   hardware = {
