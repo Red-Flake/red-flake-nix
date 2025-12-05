@@ -9,7 +9,7 @@
 {
   # Host-specific sched_ext configuration for Stellaris (Core Ultra 9 275HX + RTX 5070 Ti)
   services.scx = {
-    enable = true;
+    enable = false; # Disabled for now due to issues with 100% CPU load on the LAVD scheduler
 
     # Workaround for https://github.com/NixOS/nixpkgs/issues/441768
     package = pkgs.scx.full.overrideAttrs (old: {
