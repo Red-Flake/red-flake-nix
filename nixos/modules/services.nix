@@ -3,6 +3,7 @@
   lib,
   pkgs,
   modulesPath,
+  user,
   ...
 }:
 
@@ -233,6 +234,13 @@ in
   services.psd = {
     enable = true;
     resyncTimer = "30min";
+  };
+
+  # Fix race condition between PSD and Home Manager
+  # Ensure Home Manager completes before PSD starts
+  systemd.user.services.psd = {
+    wants = [ "home-manager-${user}.service" ];
+    after = [ "home-manager-${user}.service" ];
   };
 
   # Enable Flatpak support
