@@ -68,7 +68,8 @@
       "tuxedo-io"
     ];
     extraModulePackages = with pkgs; [
-      linuxKernel.packages.linux_xanmod_latest.tuxedo-drivers
+      linuxKernel.packages.linux_xanmod_latest.tuxedo-drivers # TUXEDO-specific drivers
+      linuxKernel.packages.linux_xanmod_latest.r8125 # Realtek 2.5GbE Ethernet driver
     ];
 
     # TUXEDO-specific: kernel parameters
