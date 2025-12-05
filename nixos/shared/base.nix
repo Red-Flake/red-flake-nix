@@ -38,8 +38,7 @@
     ../modules/xdg.nix
     ../modules/theming.nix
 
-    # System optimization and tools
-    ../modules/performance.nix
+    # System optimization and tools (host-specific performance tuning is imported per host)
     ../modules/appimage.nix
     ../modules/tweaks.nix
   ]

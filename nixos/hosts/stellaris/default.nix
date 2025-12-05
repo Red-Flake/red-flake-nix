@@ -7,5 +7,6 @@
     ./nvidia.nix
     ./ollama.nix
     ./packages.nix
+    ./performance.nix
   ];
 }

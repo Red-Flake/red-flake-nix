@@ -132,9 +132,6 @@
     # BBR optimizes for low latency and high throughput.
     "net.ipv4.tcp_congestion_control" = "bbr";
 
-    # Set kernel tick rate to 1000Hz
-    # This increases the frequency at which the kernel's scheduler runs, which can improve system responsiveness.
-    "kernel.hz" = 1000;
 
     # Disable Split Lock Mitigate
     # In some cases, split lock mitigate can slow down performance in some applications and games.
