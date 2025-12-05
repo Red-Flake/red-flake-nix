@@ -246,9 +246,9 @@ in
   # Enable Flatpak support
   services.flatpak.enable = true;
 
-  # Enable Ananicy-Cpp with CachyOS rulesets
+  # Disable Ananicy-Cpp (conflicts with scx schedulers)
   services.ananicy = {
-    enable = true;
+    enable = false;
     package = pkgs.ananicy-cpp;
     rulesProvider = pkgs.ananicy-rules-cachyos;
     settings = {
