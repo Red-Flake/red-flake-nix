@@ -2,6 +2,7 @@
 {
   imports = [
     ./hardware.nix
+    #./xanmod.nix
     ./avatar.nix
     ./gaming.nix
     ./nvidia.nix

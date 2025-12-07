@@ -132,6 +132,9 @@
     # BBR optimizes for low latency and high throughput.
     "net.ipv4.tcp_congestion_control" = "bbr";
 
+    # Use Fair Queueing (FQ) as the default queuing discipline
+    # FQ helps to reduce latency and improve overall network performance.
+    "net.core.default_qdisc" = "fq";
 
     # Disable Split Lock Mitigate
     # In some cases, split lock mitigate can slow down performance in some applications and games.
