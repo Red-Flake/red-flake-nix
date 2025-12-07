@@ -11,7 +11,12 @@
       final: prev:
       let
         makeXanmodKernel =
-          { version, hash, suffix ? "xanmod1", extraConfig ? { } }:
+          {
+            version,
+            hash,
+            suffix ? "xanmod1",
+            extraConfig ? { },
+          }:
           let
             ver = version; # expect a full 3-part version like "6.18.0"
             rev = "${lib.versions.pad 3 ver}-${suffix}";
@@ -21,7 +26,7 @@
             # Override arguments passed into buildLinux (correct place for modDirVersion/src)
             argsOverride = {
               version = ver;
-              modDirVersion = lib.versions.pad 3 "${ver}-${suffix}";
+              modDirVersion = rev; # keep it identical to upstream
               src = prev.fetchFromGitLab {
                 owner = "xanmod";
                 repo = "linux";
@@ -29,35 +34,45 @@
                 hash = hash;
               };
             };
-          }).overrideAttrs (old: {
-            # Speed rebuilds
-            stdenv = final.ccacheStdenv;
+          }).overrideAttrs
+            (old: {
+              # Speed rebuilds
+              stdenv = final.ccacheStdenv;
 
-            # Provide rustfmt to silence optional rustfmt warnings in kernel build
-            nativeBuildInputs = (old.nativeBuildInputs or []) ++ [ final.buildPackages.rustfmt ];
+              # Provide rustfmt to silence optional rustfmt warnings in kernel build
+              nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ final.buildPackages.rustfmt ];
 
-            # Keep xanmod config; add desktop/gaming responsiveness
-            structuredExtraConfig =
-              (old.structuredExtraConfig or { })
-              // (with prev.lib.kernel; {
-                # 1000 Hz
-                HZ = freeform "1000";
-                HZ_1000 = yes;
-                HZ_250 = no;
+              # Keep xanmod config; add desktop/gaming responsiveness
+              structuredExtraConfig =
+                (old.structuredExtraConfig or { })
+                // (with prev.lib.kernel; {
+                  # Explicitly lock in xanmod defaults you like
 
-                # Full preempt; no voluntary
-                PREEMPT = prev.lib.mkOverride 80 yes;
-                PREEMPT_VOLUNTARY = no;
+                  CPU_FREQ_DEFAULT_GOV_PERFORMANCE = lib.mkOverride 80 yes;
+                  CPU_FREQ_DEFAULT_GOV_SCHEDUTIL = lib.mkOverride 80 no;
 
-                # Desktop responsiveness + networking for BBR
-                SCHED_AUTOGROUP = yes;
-                NET_SCH_FQ = yes;
-                DEFAULT_FQ = yes;
-              })
-              // lib.optionalAttrs (lib.versionAtLeast (lib.versions.majorMinor ver) "6.13")
-                   (with prev.lib.kernel; { PREEMPT_LAZY = no; })
-              // extraConfig;
-          });
+                  TCP_CONG_BBR = yes;
+                  DEFAULT_BBR = yes;
+
+                  NO_HZ = no;
+                  NO_HZ_FULL = lib.mkOverride 60 no;
+                  NO_HZ_IDLE = yes;
+
+                  HZ = freeform "1000";
+                  HZ_1000 = yes;
+                  HZ_250 = no;
+
+                  PREEMPT = lib.mkOverride 80 yes;
+                  PREEMPT_DYNAMIC = lib.mkOverride 80 no;
+                  PREEMPT_VOLUNTARY = no;
+                  PREEMPT_LAZY = no;
+
+                  SCHED_AUTOGROUP = yes;
+                  NET_SCH_FQ = yes;
+                  DEFAULT_FQ = yes;
+                })
+                // extraConfig;
+            });
       in
       {
         # Function to build a pinned xanmod
@@ -70,22 +85,37 @@
           in
           base.overrideAttrs (old: {
             stdenv = final.ccacheStdenv;
-            nativeBuildInputs = (old.nativeBuildInputs or []) ++ [ final.buildPackages.rustfmt ];
+            nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ final.buildPackages.rustfmt ];
+            # Keep xanmod config; add desktop/gaming responsiveness
             structuredExtraConfig =
               (old.structuredExtraConfig or { })
               // (with prev.lib.kernel; {
+                # Explicitly lock in xanmod defaults you like
+
+                CPU_FREQ_DEFAULT_GOV_PERFORMANCE = lib.mkOverride 80 yes;
+                CPU_FREQ_DEFAULT_GOV_SCHEDUTIL = lib.mkOverride 80 no;
+
+                TCP_CONG_BBR = yes;
+                DEFAULT_BBR = yes;
+
+                NO_HZ = no;
+                NO_HZ_FULL = lib.mkOverride 60 no;
+                NO_HZ_IDLE = yes;
+
                 HZ = freeform "1000";
                 HZ_1000 = yes;
                 HZ_250 = no;
-                PREEMPT = prev.lib.mkOverride 80 yes;
+
+                PREEMPT = lib.mkOverride 80 yes;
+                PREEMPT_DYNAMIC = lib.mkOverride 80 no;
                 PREEMPT_VOLUNTARY = no;
+                PREEMPT_LAZY = no;
+
                 SCHED_AUTOGROUP = yes;
                 NET_SCH_FQ = yes;
                 DEFAULT_FQ = yes;
               })
-              // lib.optionalAttrs (lib.versionAtLeast (lib.versions.majorMinor old.version) "6.13") (
-                with prev.lib.kernel; { PREEMPT_LAZY = no; }
-              );
+              // extraConfig;
           });
 
         linuxPackages_xanmod_1000hz = prev.linuxPackagesFor final.linux-xanmod-1000hz;
