@@ -191,8 +191,8 @@
     powertop.enable = lib.mkForce false;
   };
 
-  # IRQ balance for multi-core performance
-  services.irqbalance.enable = lib.mkForce true;
+  # Disable irqbalance since it is bad for Gaming, low-latency, discrete GPUs, anything needing stable and predictable IRQ placement
+  services.irqbalance.enable = lib.mkForce false;
 
   environment.sessionVariables = {
     LIBVA_DRIVER_NAME = "iHD"; # Force intel-media-driver
