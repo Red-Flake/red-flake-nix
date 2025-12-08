@@ -28,7 +28,7 @@ in
       "loglevel=0"
       "rd.systemd.show_status=false"
       "nowatchdog"
-      "kernel.nmi_watchdog=0"
+      "nmi_watchdog=0"
       "mitigations=off"
       "libahci.ignore_sss=1"
       "modprobe.blacklist=iTCO_wdt"

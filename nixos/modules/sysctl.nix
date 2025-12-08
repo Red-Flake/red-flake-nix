@@ -30,7 +30,7 @@
     # Contains, as a bytes of total available memory that contains free pages and reclaimable
     # pages, the number of pages at which the background kernel flusher threads will start writing out
     # dirty data.
-    "vm.dirty_background_ratio" = 5;
+    "vm.dirty_background_bytes" = 268435456; # 256M
 
     # The kernel flusher threads will periodically wake up and write old data out to disk.
     # This tunable expresses the interval between those wakeups, in 100'ths of a second (Default is 500).
@@ -68,11 +68,6 @@
     # sched: RT throttling activated
     # Defines the time (in microseconds) that real-time tasks can run without being throttled.
     "kernel.sched_rt_runtime_us" = 980000;
-
-    # This action will speed up your boot and shutdown, because one less module is loaded.
-    # Additionally, disabling watchdog timers increases performance and lowers power consumption.
-    # Disable NMI watchdog
-    "kernel.nmi_watchdog" = 0;
 
     # Enable the sysctl setting kernel.unprivileged_userns_clone to allow normal users to run unprivileged containers.
     "kernel.unprivileged_userns_clone" = 1;
@@ -135,9 +130,5 @@
     # Use Fair Queueing (FQ) as the default queuing discipline
     # FQ helps to reduce latency and improve overall network performance.
     "net.core.default_qdisc" = "fq";
-
-    # Disable Split Lock Mitigate
-    # In some cases, split lock mitigate can slow down performance in some applications and games.
-    "kernel.split_lock_mitigate" = 0;
   };
 }
