@@ -90,6 +90,9 @@
 
       # Select full kernel preemption via PREEMPT_DYNAMIC: lets higher‑prio tasks preempt most kernel code -> lower latency/better interactivity, small throughput/overhead cost.
       "preempt=full"
+
+      # Converts hardware IRQs into schedulable threads for lower latency.
+      "threadirqs"
     ];
 
     # --- extra kernel module options (goes into /etc/modprobe.d/nixos.conf) ---#
