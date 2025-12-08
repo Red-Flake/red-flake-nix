@@ -74,5 +74,8 @@
     restic
     rsync
     lsof
+    alsa-utils
+    usbutils
+    bolt
   ];
 }
