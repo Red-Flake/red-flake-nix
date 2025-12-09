@@ -51,11 +51,7 @@
                   CPU_FREQ_DEFAULT_GOV_PERFORMANCE = lib.mkOverride 80 yes;
                   CPU_FREQ_DEFAULT_GOV_SCHEDUTIL = lib.mkOverride 80 no;
 
-                  TCP_CONG_BBR = yes;
-                  DEFAULT_BBR = yes;
-
-                  NO_HZ = no;
-                  NO_HZ_FULL = lib.mkOverride 60 no;
+                  NO_HZ_FULL = no;
                   NO_HZ_IDLE = yes;
 
                   HZ = freeform "1000";
@@ -67,9 +63,12 @@
                   PREEMPT_VOLUNTARY = no;
                   PREEMPT_LAZY = no;
 
-                  SCHED_AUTOGROUP = yes;
-                  NET_SCH_FQ = yes;
-                  DEFAULT_FQ = yes;
+                  TCP_CONG_BBR = lib.mkOverride 80 yes;
+                  DEFAULT_BBR = lib.mkOverride 80 yes;
+
+                  SCHED_AUTOGROUP = lib.mkOverride 80 yes;
+                  NET_SCH_FQ = lib.mkOverride 80 yes;
+                  DEFAULT_FQ = lib.mkOverride 80 yes;
                 })
                 // extraConfig;
             });
@@ -95,11 +94,7 @@
                 CPU_FREQ_DEFAULT_GOV_PERFORMANCE = lib.mkOverride 80 yes;
                 CPU_FREQ_DEFAULT_GOV_SCHEDUTIL = lib.mkOverride 80 no;
 
-                TCP_CONG_BBR = yes;
-                DEFAULT_BBR = yes;
-
-                NO_HZ = no;
-                NO_HZ_FULL = lib.mkOverride 60 no;
+                NO_HZ_FULL = no;
                 NO_HZ_IDLE = yes;
 
                 HZ = freeform "1000";
@@ -111,9 +106,12 @@
                 PREEMPT_VOLUNTARY = no;
                 PREEMPT_LAZY = no;
 
-                SCHED_AUTOGROUP = yes;
-                NET_SCH_FQ = yes;
-                DEFAULT_FQ = yes;
+                TCP_CONG_BBR = lib.mkOverride 80 yes;
+                DEFAULT_BBR = lib.mkOverride 80 yes;
+
+                SCHED_AUTOGROUP = lib.mkOverride 80 yes;
+                NET_SCH_FQ = lib.mkOverride 80 yes;
+                DEFAULT_FQ = lib.mkOverride 80 yes;
               })
               // extraConfig;
           });
