@@ -68,6 +68,10 @@
     # Adjust the console log level to suppress messages.
     "kernel.printk" = "3 3 3 3";
 
+    # Hide kernel pointers even more
+    # If you sometimes do kernel debugging / ebpf dev, leave it at 1.
+    "kernel.kptr_restrict" = 2;
+
     # Disable Kexec, which allows replacing the current running kernel.
     # Enhances security by preventing kernel replacement.
     "kernel.kexec_load_disabled" = 1;
@@ -122,5 +126,19 @@
     # Use Fair Queueing (FQ) as the default queuing discipline
     # FQ helps to reduce latency and improve overall network performance.
     "net.core.default_qdisc" = "fq";
+
+    # TIME-WAIT assassination protection
+    "net.ipv4.tcp_rfc1337" = 1;
+
+    # Shorter FIN timeout (laptop / workstation)
+    "net.ipv4.tcp_fin_timeout" = 30;
+
+    # Wider ephemeral port range
+    # For a box that might run lots of concurrent outbound connections a wider range gives more breathing room.
+    "net.ipv4.ip_local_port_range" = "15000 65535";
+
+    # Log weird source addresses
+    "net.ipv4.conf.all.log_martians" = 1;
+    "net.ipv4.conf.default.log_martians" = 1;
   };
 }
