@@ -29,7 +29,6 @@
 
     # Core system environment
     ../modules/fhs.nix
-    ../modules/sysctl.nix
     ../modules/users.nix
     ../modules/setup-shell.nix
     ../modules/services.nix

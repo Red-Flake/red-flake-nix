@@ -2,6 +2,7 @@
 {
   imports = [
     ./hardware.nix
+    ./sysctl.nix
     ./networking.nix
     ./packages.nix
     ./services.nix

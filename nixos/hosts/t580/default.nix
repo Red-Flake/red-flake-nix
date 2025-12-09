@@ -2,6 +2,7 @@
 {
   imports = [
     ./hardware.nix
+    ./sysctl.nix
     ./avatar.nix
     ./undervolting.nix
   ];
