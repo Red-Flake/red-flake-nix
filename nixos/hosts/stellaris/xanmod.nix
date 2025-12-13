@@ -48,12 +48,22 @@
                 // (with prev.lib.kernel; {
                   # Explicitly lock in xanmod defaults you like
 
+                  # Set CPU Schedulers
                   CPU_FREQ_DEFAULT_GOV_PERFORMANCE = lib.mkOverride 80 yes;
                   CPU_FREQ_DEFAULT_GOV_SCHEDUTIL = lib.mkOverride 80 no;
+                  # Upstream includes these:
+                  CPU_IDLE_GOV_HALTPOLL = yes;
+                  CPU_IDLE_GOV_LADDER = yes;
+                  CPU_IDLE_GOV_TEO = yes;
 
+                  # Modern x86 features for better performance:
+                  X86_FRED = yes; # Flexible Return and Event Delivery
+                  X86_POSTED_MSI = yes; # Posted MSI support
+
+                  # Preemptive tickless idle kernel
+                  NO_HZ = no;
                   NO_HZ_FULL = no;
                   NO_HZ_IDLE = yes;
-
                   HZ = freeform "1000";
                   HZ_1000 = yes;
                   HZ_250 = no;
@@ -62,6 +72,29 @@
                   PREEMPT_DYNAMIC = lib.mkOverride 80 no;
                   PREEMPT_VOLUNTARY = no;
                   PREEMPT_LAZY = no;
+
+                  # RCU for better preemption
+                  RCU_EXPERT = yes;
+                  RCU_FANOUT = freeform "64";
+                  RCU_FANOUT_LEAF = freeform "16";
+                  RCU_EXP_KTHREAD = yes;
+                  RCU_NOCB_CPU = yes;
+                  RCU_DOUBLE_CHECK_CB_TIME = yes;
+                  RCU_BOOST = lib.mkOverride 80 yes; # Reduces latency spikes
+                  RCU_BOOST_DELAY = freeform "0"; # Quick boost for responsiveness
+
+                  # I/O Schedulers - both available, choose at runtime
+                  IOSCHED_BFQ = yes; # Best for desktop/interactive I/O
+                  MQ_IOSCHED_DEADLINE = yes; # Good for NVMe
+                  MQ_IOSCHED_KYBER = yes; # Low-latency alternative
+
+                  # Memory management
+                  TRANSPARENT_HUGEPAGE = yes; # Helps with large allocations (games, VRAM)
+                  TRANSPARENT_HUGEPAGE_ALWAYS = no;
+                  TRANSPARENT_HUGEPAGE_MADVISE = yes; # App-controlled, safer
+
+                  # High-res timers
+                  HIGH_RES_TIMERS = yes;
 
                   TCP_CONG_BBR = lib.mkOverride 80 yes;
                   DEFAULT_BBR = lib.mkOverride 80 yes;
@@ -91,12 +124,22 @@
               // (with prev.lib.kernel; {
                 # Explicitly lock in xanmod defaults you like
 
+                # Set CPU Schedulers
                 CPU_FREQ_DEFAULT_GOV_PERFORMANCE = lib.mkOverride 80 yes;
                 CPU_FREQ_DEFAULT_GOV_SCHEDUTIL = lib.mkOverride 80 no;
+                # Upstream includes these:
+                CPU_IDLE_GOV_HALTPOLL = yes;
+                CPU_IDLE_GOV_LADDER = yes;
+                CPU_IDLE_GOV_TEO = yes;
 
+                # Modern x86 features for better performance:
+                X86_FRED = yes; # Flexible Return and Event Delivery
+                X86_POSTED_MSI = yes; # Posted MSI support
+
+                # Preemptive tickless idle kernel
+                NO_HZ = no;
                 NO_HZ_FULL = no;
                 NO_HZ_IDLE = yes;
-
                 HZ = freeform "1000";
                 HZ_1000 = yes;
                 HZ_250 = no;
@@ -105,6 +148,29 @@
                 PREEMPT_DYNAMIC = lib.mkOverride 80 no;
                 PREEMPT_VOLUNTARY = no;
                 PREEMPT_LAZY = no;
+
+                # RCU for better preemption
+                RCU_EXPERT = yes;
+                RCU_FANOUT = freeform "64";
+                RCU_FANOUT_LEAF = freeform "16";
+                RCU_EXP_KTHREAD = yes;
+                RCU_NOCB_CPU = yes;
+                RCU_DOUBLE_CHECK_CB_TIME = yes;
+                RCU_BOOST = lib.mkOverride 80 yes; # Reduces latency spikes
+                RCU_BOOST_DELAY = freeform "0"; # Quick boost for responsiveness
+
+                # I/O Schedulers - both available, choose at runtime
+                IOSCHED_BFQ = yes; # Best for desktop/interactive I/O
+                MQ_IOSCHED_DEADLINE = yes; # Good for NVMe
+                MQ_IOSCHED_KYBER = yes; # Low-latency alternative
+
+                # Memory management
+                TRANSPARENT_HUGEPAGE = yes; # Helps with large allocations (games, VRAM)
+                TRANSPARENT_HUGEPAGE_ALWAYS = no;
+                TRANSPARENT_HUGEPAGE_MADVISE = yes; # App-controlled, safer
+
+                # High-res timers
+                HIGH_RES_TIMERS = yes;
 
                 TCP_CONG_BBR = lib.mkOverride 80 yes;
                 DEFAULT_BBR = lib.mkOverride 80 yes;
