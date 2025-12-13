@@ -114,6 +114,14 @@
 
       # TUXEDO keyboard module: set these as module options (NOT kernel cmdline)
       options tuxedo_keyboard kbd_backlight_mode=0
+
+      # ZFS ARC tuning for 32GB+ RAM system
+      options zfs zfs_arc_max=8589934592      # 8GB max ARC (adjust based on your RAM)
+      options zfs zfs_arc_min=2147483648      # 2GB min ARC
+      options zfs zfs_prefetch_disable=0      # Enable prefetch for better desktop performance
+      options zfs l2arc_noprefetch=0          # Enable L2ARC prefetch
+      options zfs zfs_txg_timeout=5           # Commit transactions every 5 seconds (faster than default 30)
+      options zfs zfs_vdev_async_write_active_min_dirty_percent=30  # Start async writes earlier
     '';
   };
 
