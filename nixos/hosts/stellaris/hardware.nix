@@ -188,7 +188,7 @@
     "nvidia"
   ];
 
-  services.thermald.enable = lib.mkForce true; # Thermal management
+  services.thermald.enable = lib.mkForce false; # Thermal management
 
   #services.auto-cpufreq.enable = lib.mkForce false; # Disable if using TLP + performance governor
 
