@@ -140,5 +140,15 @@
     # Log weird source addresses
     "net.ipv4.conf.all.log_martians" = 1;
     "net.ipv4.conf.default.log_martians" = 1;
+
+    # TCP Fast Open (already have BBR/FQ, add this)
+    "net.ipv4.tcp_fastopen" = 3;
+
+    # MTU probing for better network performance
+    "net.ipv4.tcp_mtu_probing" = 1;
+
+    # Disable watchdogs for lower latency (add to boot.kernel.sysctl section)
+    "kernel.nmi_watchdog" = 0;
+    "kernel.watchdog" = 0;
   };
 }
