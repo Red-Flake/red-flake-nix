@@ -39,11 +39,18 @@
 
       scrollback-limit = 4294967296;
 
+      # copy settings
+      copy-on-select = false;
+
+      # right click settings
+      # right-click-action = "context-menu"; # Unknown option in current ghostty version; needs to be updated first.
+
       background-blur = 20;
       background-opacity = 0.5;
       fullscreen = false;
 
       # window settings
+      initial-window = true;
       window-decoration = "auto";
       #window-padding-x = 5;
       #window-padding-y = 5;
