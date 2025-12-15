@@ -49,6 +49,7 @@
       #window-padding-y = 5;
       window-vsync = true;
       # window-show-tab-bar = "always"; # Unknown option in current ghostty version; needs to be updated first.
+      window-theme = "ghostty"; # Use the background and foreground colors specified in the Ghostty configuration.
 
       confirm-close-surface = false;
 
