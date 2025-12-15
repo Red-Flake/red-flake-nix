@@ -44,15 +44,21 @@
       fullscreen = false;
 
       # window settings
-      window-decoration = true;
-      window-padding-x = 5;
-      window-padding-y = 5;
+      window-decoration = "auto";
+      #window-padding-x = 5;
+      #window-padding-y = 5;
+      window-vsync = true;
       # window-show-tab-bar = "always"; # Unknown option in current ghostty version; needs to be updated first.
 
       confirm-close-surface = false;
 
       shell-integration = "zsh";
-      shell-integration-features = "no-cursor,no-sudo,title";
+      shell-integration-features = [
+        "sudo"
+        "title"
+        #"ssh-env"  # Unknown option in current ghostty version; needs to be updated first.
+        #"ssh-terminfo" # Unknown option in current ghostty version; needs to be updated first.
+      ];
 
       gtk-single-instance = "desktop";
       gtk-titlebar = false;
@@ -60,6 +66,18 @@
       gtk-wide-tabs = true;
 
       theme = "tokyonight_night";
+
+      # app notifications
+      app-notifications = "no-clipboard-copy";
+
+      # bell
+      # bell-feature = "system"; # Unknown option in current ghostty version; needs to be updated first.
+
+      # async
+      # async-backend = "auto"; # Unknown option in current ghostty version; needs to be updated first.
+
+      # auto update
+      auto-update = "off";
 
       # custom-shader = "shaders/aurora.glsl";
       # custom-shader = "shaders/cursor_smear.glsl";
