@@ -1,14 +1,22 @@
-{ pkgs, config, lib, osConfig, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  osConfig,
+  ...
+}:
 
 let
   # Map resolution settings to wallpaper filenames, using osConfig to access NixOS config
-  wallpaperFile = {
-    "1080p" = "Red-Flake-Wallpaper_1920x1080.png";
-    "1440p" = "Red-Flake-Wallpaper_2560x1440.png"; 
-    "1600p" = "Red-Flake-Wallpaper_2560x1600.png";
-    "2160p" = "Red-Flake-Wallpaper_3840x2160.png";
-  }.${osConfig.custom.display.resolution} or "Red-Flake-Wallpaper_1920x1080.png";
-  
+  wallpaperFile =
+    {
+      "1080p" = "Red-Flake-Wallpaper_1920x1080.png";
+      "1440p" = "Red-Flake-Wallpaper_2560x1440.png";
+      "1600p" = "Red-Flake-Wallpaper_2560x1600.png";
+      "2160p" = "Red-Flake-Wallpaper_3840x2160.png";
+    }
+    .${osConfig.custom.display.resolution} or "Red-Flake-Wallpaper_1920x1080.png";
+
   wallpaperPath = "${config.home.homeDirectory}/.local/share/wallpapers/red-flake/${wallpaperFile}";
 in
 {
@@ -40,10 +48,10 @@ in
       };
     };
 
-    hotkeys.commands."launch-konsole" = {
-      name = "Launch Konsole";
+    hotkeys.commands."launch-ghostty" = {
+      name = "Launch Ghostty";
       key = "Ctrl+Alt+T";
-      command = "konsole";
+      command = "ghostty";
     };
 
     fonts = {
@@ -82,7 +90,7 @@ in
                 showOnlyCurrentScreen = "true";
                 launchers = [
                   "applications:org.kde.dolphin.desktop"
-                  "applications:org.kde.konsole.desktop"
+                  "applications:ghostty.desktop"
                   "applications:chrome-magicbytes.getoutline.com__-Default.desktop"
                   "applications:firefox.desktop"
                   "applications:org.telegram.desktop.desktop"

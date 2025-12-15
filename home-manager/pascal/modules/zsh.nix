@@ -45,7 +45,7 @@ in
       plugins = [
         {
           # A prompt will appear the first time to configure it properly
-          # make sure to select MesloLGS NF as the font in Konsole
+          # make sure to select MesloLGS NF as the font in Ghostty
           name = "powerlevel10k";
           src = pkgs.zsh-powerlevel10k;
           file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";

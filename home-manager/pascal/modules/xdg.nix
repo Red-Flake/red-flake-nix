@@ -7,7 +7,7 @@
 
 let
   browser = "firefox.desktop";
-  terminal = "org.kde.konsole.desktop";
+  terminal = "ghostty.desktop";
   fileManager = "org.kde.dolphin.desktop";
   editor = "code.desktop";
   imageViewer = "org.kde.gwenview.desktop";
@@ -58,7 +58,7 @@ in
       "x-scheme-handler/unknown" = browser;
       "x-scheme-handler/chrome" = browser;
 
-      # set default terminal to konsole
+      # set default terminal to Ghostty
       "application/x-gnome-terminal" = terminal;
       "application/x-terminal-emulator" = terminal;
       "application/x-terminator" = terminal;

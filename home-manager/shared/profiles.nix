@@ -23,8 +23,8 @@ in
       # Set steam proton path
       STEAM_EXTRA_COMPAT_TOOLS_PATHS = "\\\${HOME}/.steam/root/compatibilitytools.d";
 
-      # Set terminal to konsole
-      TERMINAL = "konsole";
+      # Set terminal to Ghostty
+      TERMINAL = "ghostty";
 
       # Set global xcursor size to 24; this matches the default cursor size in KDE Plasma of 24
       XCURSOR_SIZE = "24";
@@ -50,6 +50,7 @@ in
       ../common/modules/theme.nix
       ../common/modules/kwallet.nix
       ../common/modules/konsole.nix
+      ../common/modules/ghostty.nix
       ../common/modules/firefox.nix
       ../common/modules/psd.nix
       ../common/modules/virtualisation.nix
