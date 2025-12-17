@@ -31,7 +31,7 @@
 
     # Let TCC/tccd own CPU frequency; LAVD handles scheduling and P-core preference
     extraArgs = [
-      "--autopilot" # Keeps compaction; enables EM-based CPU preference (P-cores first)
+      "--performance" # Keeps compaction; enables EM-based CPU preference (P-cores first)
       "--no-freq-scaling" # Avoid conflicts with TCC controlling governors/EPP
       "--slice-min-us"
       "250"
