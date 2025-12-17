@@ -45,8 +45,8 @@
       # right click settings
       # right-click-action = "context-menu"; # Unknown option in current ghostty version; needs to be updated first.
 
-      background-blur = 20;
-      background-opacity = 0.5;
+      background-blur = 8;
+      background-opacity = 0.3;
       fullscreen = false;
 
       # window settings
