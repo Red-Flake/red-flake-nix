@@ -20,8 +20,6 @@ in
   programs.git = {
     enable = true;
     lfs.enable = true;
-    userName = finalConfig.userName;
-    userEmail = finalConfig.userEmail;
 
     # Conditional signing configuration
     signing = lib.mkIf (finalConfig.signing != null) {
@@ -34,7 +32,12 @@ in
       format = finalConfig.signing.format or "ssh";
     };
 
-    extraConfig = {
+    settings = {
+      user = {
+        email = finalConfig.userEmail;
+        name = finalConfig.userName;
+      };
+
       pull.rebase = true;
       push.autoSetupRemote = true;
     }
