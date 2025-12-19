@@ -57,6 +57,7 @@ in
           STEAM_FORCE_DESKTOPUI_SCALING = "2";
           XCURSOR_SIZE = "36";
           DRI_PRIME = "1"; # Force discrete GPU
+          WINE_CPU_TOPOLOGY = "8:0,1,2,3,4,5,6,7"; # Only use P-cores for Wine/Proton
           __NV_PRIME_RENDER_OFFLOAD = "1"; # Offload rendering to discrete NVIDIA GPU
           __GLX_VENDOR_LIBRARY_NAME = "nvidia"; # Use NVIDIA GLX library
           __VK_LAYER_NV_optimus = "NVIDIA_only"; # Use NVIDIA Vulkan layer
@@ -121,5 +122,6 @@ in
     WINEESYNC = "0"; # Disable esync to avoid conflicts
     WINEFSYNC = "0"; # Disable fsync to avoid conflicts
     DXVK_ASYNC = "1"; # Display frames even if they are not completely rendered. This will reduce stuttering a lot, but it could theoretically trigger anti cheat, even though this never actually happened. Your DXVK version needs to be compatible or patched to use it. Proton-GE, until version 7-44, is compatible. For Non-Steam games you can't use Proton, and need a patched DXVK-Version. For Lutris you need to copy it to ~/.local/share/lutris/runtime/dxvk/, and manually select the version inside Lutris (if you named the folder dxvk-async-1.3, you also need to manually type dxvk-async-1.3 in the field).
+    WINE_CPU_TOPOLOGY = "8:0,1,2,3,4,5,6,7"; # Only use P-cores for Wine/Proton
   };
 }
