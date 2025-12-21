@@ -14,6 +14,6 @@
     nix-prefetch-svn
     nix-prefetch-hg
     nixpkgs-fmt
-    devshell
+    pkgs.devshell
   ];
 }
