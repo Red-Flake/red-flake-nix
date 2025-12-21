@@ -195,6 +195,7 @@
     , poetry2nix
     , nixos-hardware
     , pwndbg
+    , burpsuitepro
     , tuxedo-nixos
     , nix-gaming
     , spicetify-nix

@@ -1,8 +1,5 @@
 # https://wiki.nixos.org/wiki/Ollama
-{ config
-, lib
-, pkgs
-, inputs
+{ lib
 , user
 , ...
 }:

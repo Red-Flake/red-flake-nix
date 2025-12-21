@@ -1,10 +1,5 @@
 # Base NixOS configuration shared across all hosts
-{ config
-, lib
-, pkgs
-, chaoticPkgs
-, inputs
-, isKVM
+{ lib
 , hostType ? "security"
 , ...
 }:

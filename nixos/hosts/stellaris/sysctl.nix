@@ -1,9 +1,4 @@
-{ config
-, lib
-, pkgs
-, modulesPath
-, ...
-}:
+{ ... }:
 
 {
   boot.kernel.sysctl = {

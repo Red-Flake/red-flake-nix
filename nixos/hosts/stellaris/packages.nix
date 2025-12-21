@@ -1,9 +1,4 @@
-{ config
-, lib
-, pkgs
-, inputs
-, ...
-}:
+{ pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
     linuxKernel.packages.linux_xanmod_latest.turbostat

@@ -1,5 +1,5 @@
 # Configurable locale and timezone profiles for different regions/users
-{ lib, ... }:
+{ ... }:
 let
   # Pre-defined locale profiles for common regions
   profiles = {

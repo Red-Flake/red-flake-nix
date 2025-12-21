@@ -1,0 +1,4 @@
+ignore = [
+  "nixos/overlays/**/*",
+  "nixos/hosts/**/*"
+]

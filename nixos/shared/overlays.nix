@@ -5,7 +5,7 @@
   # (except intel-legacy which is conditional)
   allOverlays = [
     # Lix overlay
-    (final: prev: {
+    (_: prev: {
       inherit (prev.lixPackageSets.stable)
         nixpkgs-review
         nix-eval-jobs
@@ -15,7 +15,7 @@
     })
 
     # Chaotic-Nyx overlay
-    (final: prev: {
+    (_: prev: {
       chaoticPkgs = import inputs.chaotic { inherit (prev) system; };
     })
 
@@ -29,7 +29,7 @@
     inputs.redflake-packages.overlays.default
 
     # fix issues with samba4Full
-    (final: prev: {
+    (_: prev: {
       samba4Full = prev.samba4Full.override { enableCephFS = false; }; # disable cephfs in order to get around issues with => fatal error: tommath.h: No such file or directory
     })
 
