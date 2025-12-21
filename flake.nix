@@ -178,31 +178,30 @@
   };
 
   outputs =
-    inputs@{
-      self,
-      nixpkgs,
-      nixpkgs-neo4j-4-4-11,
-      impermanence,
-      chaotic,
-      pre-commit-hooks,
-      home-manager,
-      plasma-manager,
-      binaryninja,
-      artwork,
-      webshells,
-      tools,
-      redflake-packages,
-      darkmatter-grub-theme,
-      poetry2nix,
-      nixos-hardware,
-      pwndbg,
-      tuxedo-nixos,
-      nix-gaming,
-      spicetify-nix,
-      nixcord,
-      claude-code,
-      nur,
-      ...
+    inputs@{ self
+    , nixpkgs
+    , nixpkgs-neo4j-4-4-11
+    , impermanence
+    , chaotic
+    , pre-commit-hooks
+    , home-manager
+    , plasma-manager
+    , binaryninja
+    , artwork
+    , webshells
+    , tools
+    , redflake-packages
+    , darkmatter-grub-theme
+    , poetry2nix
+    , nixos-hardware
+    , pwndbg
+    , tuxedo-nixos
+    , nix-gaming
+    , spicetify-nix
+    , nixcord
+    , claude-code
+    , nur
+    , ...
     }:
     let
       inherit (self) outputs;
