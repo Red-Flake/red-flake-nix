@@ -7,6 +7,9 @@
     nix-index
     home-manager
     inputs.nix-alien.packages.${system}.nix-alien
+    treefmt
+    deadnix
+    statix
     nix-prefetch-github
     nix-prefetch-git
     nix-prefetch-docker

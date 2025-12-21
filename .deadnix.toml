@@ -1,6 +1,1 @@
-ignore = [
-  "nixos/overlays/**/*",
-  "nixos/hosts/**/*",
-  "nixos/modules/**/*",
-  "home-manager/**/*"
-]
+ignore = []
