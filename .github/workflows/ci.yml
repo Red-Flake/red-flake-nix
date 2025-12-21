@@ -30,5 +30,5 @@ jobs:
           extra_nix_config: |
             experimental-features = nix-command flakes
             accept-flake-config = true
-      - name: nix build pre-commit checks (x86_64-linux)
-        run: nix build --no-link .#checks.x86_64-linux.pre-commit
+      - name: Evaluate stellaris system derivation
+        run: nix eval --show-trace .#nixosConfigurations.stellaris.config.system.build.toplevel.drvPath
