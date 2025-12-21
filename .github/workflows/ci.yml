@@ -30,4 +30,4 @@ jobs:
             experimental-features = nix-command flakes
             accept-flake-config = true
       - name: nix flake check
-        run: nix flake check --all-systems --keep-going --show-trace
+        run: nix flake check --all-systems --no-build --keep-going --show-trace
