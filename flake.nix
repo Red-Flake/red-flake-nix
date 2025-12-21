@@ -455,7 +455,7 @@
       # Add flake checks for validation
       checks.${system} = {
         flake-check = nixpkgs.legacyPackages.${system}.writeShellScriptBin "flake-check" ''
-          ${nixpkgs.legacyPackages.${system}.nixVersions.stable}/bin/nix flake check --no-build
+          ${nixpkgs.legacyPackages.${system}.nixVersions.stable}/bin/nix flake check --all-systems --no-build
         '';
         pre-commit = pre-commit-hooks.lib.${system}.run {
           src = ./.;
