@@ -1,6 +1,6 @@
 # ldapdomaindump-overlay.nix
 
-final: prev:
+_final: prev:
 {
   ldapdomaindump-patched = prev.ldapdomaindump.overrideAttrs (oldAttrs: rec {
     nativeBuildInputs = oldAttrs.nativeBuildInputs or [ ] ++ [ prev.makeWrapper ];

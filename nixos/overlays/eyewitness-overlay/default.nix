@@ -1,9 +1,9 @@
 # eyewitness-overlay.nix
-self: super: {
+_self: super: {
 
   python3Packages = super.python3Packages.override {
-    overrides = pself: psuper: {
-      pyvirtualdisplay = psuper.pyvirtualdisplay.overrideAttrs (old: {
+    overrides = _pself: psuper: {
+      pyvirtualdisplay = psuper.pyvirtualdisplay.overrideAttrs (_old: {
         postPatch = ''
           substituteInPlace pyvirtualdisplay/xvfb.py \
             --replace '"Xvfb"' '"${super.xorg.xorgserver}/bin/Xvfb"'

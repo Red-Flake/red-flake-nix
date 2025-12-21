@@ -1,7 +1,4 @@
-{ config
-, lib
-, pkgs
-, ...
+{ ...
 }:
 let
   # Pure Nix approach: Define p10k configuration as Nix strings

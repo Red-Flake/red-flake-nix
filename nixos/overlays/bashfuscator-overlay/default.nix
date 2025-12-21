@@ -1,8 +1,7 @@
-self: super:
+_self: super:
 
 let
   lib = super.lib;
-  python313 = super.python313;
   python313Packages = super.python313Packages;
   fetchFromGitHub = super.fetchFromGitHub;
 in

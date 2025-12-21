@@ -1,5 +1,5 @@
 # DNSenum-overlay.nix
-self: super:
+_self: super:
 
 let
   # Fetch an older Nixpkgs revision with Perl 5.34
@@ -28,7 +28,7 @@ let
 
 in
 {
-  dnsenum = super.dnsenum.overrideAttrs (oldAttrs: {
+  dnsenum = super.dnsenum.overrideAttrs (_oldAttrs: {
     buildInputs = with super.perlPackages // oldPkgs.perlPackages; [
       perl-5_34
       (oldPkgs.perlPackages.NetWhoisIP)

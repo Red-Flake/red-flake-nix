@@ -1,7 +1,4 @@
-{ config
-, lib
-, pkgs
-, ...
+{ ...
 }:
 {
   home.file.".config/libvirt/qemu.conf".text = ''

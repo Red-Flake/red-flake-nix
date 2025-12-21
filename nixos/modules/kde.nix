@@ -1,7 +1,6 @@
 { config
 , lib
 , pkgs
-, modulesPath
 , inputs
 , ...
 }:
@@ -23,7 +22,6 @@ let
       cp $src/${wallpaperFile} $out
     '';
   };
-  browser = "firefox.desktop";
 in
 {
   # KDE related packages

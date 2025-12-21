@@ -4,10 +4,10 @@ inputs: final: prev:
 {
   python312_nxc = prev.python312.override {
     self = final.python312;
-    packageOverrides = self: super: {
+    packageOverrides = _self: super: {
       # ----- impacket (pin at a commit but force a PEP 440 version) -----
       impacket = super.impacket.overridePythonAttrs (
-        old:
+        _old:
         let
           v = "0.12.0.dev20251107"; # PEP 440-compliant dev tag
         in
@@ -59,7 +59,7 @@ inputs: final: prev:
       };
 
       # ----- certipy-ad (remove impacket dependency to avoid conflicts) -----
-      certipy-ad = super.certipy-ad.overridePythonAttrs (old: {
+      certipy-ad = super.certipy-ad.overridePythonAttrs (_old: {
         pythonRelaxDeps = [
           "cryptography"
           "pyopenssl"

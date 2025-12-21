@@ -1,7 +1,7 @@
 # bloodhound-quickwin-overlay.nix
 # https://github.com/Red-Flake/bloodhound-quickwin
 
-self: super:
+_self: super:
 
 let
   lib = super.lib;

@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 
 let
   bloodhoundPath = "${config.xdg.configHome}/bloodhound";

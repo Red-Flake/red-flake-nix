@@ -36,7 +36,7 @@ self: super: {
       mkdir -p $out/bin $out/share/joomlascan
       install -m755 joomlascan.py $out/share/joomlascan/joomlascan.py
       install -m644 comptotestdb.txt $out/share/joomlascan/comptotestdb.txt
-      makeWrapper ${self.python312.withPackages (ps: propagatedBuildInputs)}/bin/python $out/bin/joomlascan \
+      makeWrapper ${self.python312.withPackages (_ps: propagatedBuildInputs)}/bin/python $out/bin/joomlascan \
         --add-flags $out/share/joomlascan/joomlascan.py
     '';
 

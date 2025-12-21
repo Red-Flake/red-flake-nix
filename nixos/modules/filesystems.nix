@@ -1,12 +1,6 @@
-{ config
-, isKVM
-, lib
-, pkgs
+{ lib
 , ...
 }:
-let
-  cfg = config.custom.zfs;
-in
 {
 
   swapDevices = [

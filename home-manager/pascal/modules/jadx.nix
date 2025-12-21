@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, ... }:
 
 let
   homeDir = config.home.homeDirectory; # Dynamically get the home directory

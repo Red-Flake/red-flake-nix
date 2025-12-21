@@ -1,9 +1,9 @@
 # This overlay updates the tuxedo-drivers package to version 4.18.0
-(final: prev: {
+(_final: prev: {
   linuxKernel = prev.linuxKernel // {
     packages = prev.linuxKernel.packages // {
       linux_xanmod_latest = prev.linuxKernel.packages.linux_xanmod_latest // {
-        tuxedo-drivers = prev.linuxKernel.packages.linux_xanmod_latest.tuxedo-drivers.overrideAttrs (old: rec {
+        tuxedo-drivers = prev.linuxKernel.packages.linux_xanmod_latest.tuxedo-drivers.overrideAttrs (_old: rec {
           version = "4.18.0";
           src = prev.fetchFromGitLab {
             group = "tuxedocomputers";

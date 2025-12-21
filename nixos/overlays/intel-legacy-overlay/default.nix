@@ -1,4 +1,4 @@
-self: super: {
+_self: super: {
   # replace intel-compute-runtime with intel-compute-runtime-legacy1 for legacy Gen8, Gen9 and Gen11 Intel GPUs
   intel-compute-runtime = super.intel-compute-runtime-legacy1;
 

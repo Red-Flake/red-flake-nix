@@ -6,12 +6,12 @@ let
 
   # Override python313 to disable tests for pytest-mock
   python313 = super.python313.override {
-    packageOverrides = pySelf: pySuper: {
-      pytest-mock = pySuper.pytest-mock.overrideAttrs (old: {
+    packageOverrides = _pySelf: pySuper: {
+      pytest-mock = pySuper.pytest-mock.overrideAttrs (_old: {
         doCheck = false;
       });
 
-      ldap3 = pySuper.ldap3.overrideAttrs (old: {
+      ldap3 = pySuper.ldap3.overrideAttrs (_old: {
         version = "2.9.1";
         src = super.fetchPypi {
           pname = "ldap3";

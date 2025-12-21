@@ -2,7 +2,7 @@
 self: super: {
 
   python313Packages = super.python313Packages.override {
-    overrides = pySelf: pySuper: {
+    overrides = _pySelf: pySuper: {
       cement = pySuper.cement.overrideAttrs (old: rec {
         version = "2.10.14";
         format = "setuptools";

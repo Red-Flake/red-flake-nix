@@ -1,5 +1,5 @@
 # nmapAutomator-overlay.nix
-self: super:
+_self: super:
 {
   nmapAutomator = super.stdenv.mkDerivation rec {
     pname = "nmapAutomator";

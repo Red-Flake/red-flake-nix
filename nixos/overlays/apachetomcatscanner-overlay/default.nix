@@ -1,11 +1,11 @@
 # apachetomcatscanner-overlay.nix
-self: super: {
+_self: super: {
 
   apachetomcatscanner =
     let
       python = super.python313;
       # Pin urllib3 to 1.26.18 ( <2 )
-      urllib3 = python.pkgs.urllib3.overrideAttrs (old: {
+      urllib3 = python.pkgs.urllib3.overrideAttrs (_old: {
         version = "1.26.18";
         pyproject = false;
         src = python.pkgs.fetchPypi {
@@ -23,7 +23,7 @@ self: super: {
         '';
       });
       # Pin requests to 2.29.0
-      requests = python.pkgs.requests.overrideAttrs (old: {
+      requests = python.pkgs.requests.overrideAttrs (_old: {
         version = "2.29.0";
         src = python.pkgs.fetchPypi {
           pname = "requests";
@@ -40,7 +40,7 @@ self: super: {
         patches = [ ]; # Disable all patches to avoid failure on older version
       });
       # Pin sectools to 1.3.9
-      sectools = python.pkgs.sectools.overrideAttrs (old: {
+      sectools = python.pkgs.sectools.overrideAttrs (_old: {
         version = "1.3.9";
         src = python.pkgs.fetchPypi {
           pname = "sectools";

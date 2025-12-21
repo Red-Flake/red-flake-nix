@@ -1,9 +1,6 @@
 { config
 , isKVM
-, lib
 , pkgs
-, chaoticPkgs
-, modulesPath
 , ...
 }:
 let

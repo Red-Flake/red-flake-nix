@@ -1,7 +1,7 @@
 # SMB_Killer-overlay.nix
 # https://github.com/Red-Flake/SMB_Killer
 
-self: super:
+_self: super:
 
 let
   lib = super.lib;

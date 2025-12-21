@@ -1,7 +1,7 @@
 # impacket-overlay.nix
 final: prev: {
   python312 = prev.python312.override {
-    packageOverrides = pyfinal: pyprev: {
+    packageOverrides = _pyfinal: pyprev: {
       impacket-patched = pyprev.impacket.overrideAttrs (oldAttrs: rec {
         dacleditSrc = final.fetchurl {
           url = "https://raw.githubusercontent.com/ShutdownRepo/impacket/04518279ef663e80195b61d4d864d6e9e8ac5d9f/examples/dacledit.py";

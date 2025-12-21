@@ -2,7 +2,7 @@ self: super: {
   pkgsCross = super.pkgsCross // {
     mingwW64 = super.pkgsCross.mingwW64 // {
       windows = super.pkgsCross.mingwW64.windows // {
-        mcfgthreads = super.pkgsCross.mingwW64.windows.mcfgthreads.overrideAttrs (old: {
+        mcfgthreads = super.pkgsCross.mingwW64.windows.mcfgthreads.overrideAttrs (_old: {
           dontDisableStatic = true;
         });
       };

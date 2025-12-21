@@ -1,6 +1,4 @@
-{ pkgs
-, config
-, lib
+{ config
 , osConfig
 , ...
 }:

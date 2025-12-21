@@ -1,7 +1,4 @@
-{ config
-, lib
-, pkgs
-, ...
+{ ...
 }:
 {
   home.file.".config/kwinoutputconfig.json".text = ''

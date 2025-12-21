@@ -1,5 +1,5 @@
 # XXEinjector-overlay.nix
-self: super: {
+_self: super: {
 
   xxeinjector = super.stdenv.mkDerivation rec {
     pname = "XXEinjector";

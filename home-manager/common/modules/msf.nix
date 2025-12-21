@@ -1,7 +1,4 @@
-{ config
-, lib
-, pkgs
-, ...
+{ ...
 }:
 {
   home.file.".msf4/database.yml".text = ''

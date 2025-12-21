@@ -1,5 +1,5 @@
 # responder-overlay.nix
-final: prev:
+_final: prev:
 {
   # FIX for responder: see https://github.com/NixOS/nixpkgs/issues/255281#issuecomment-2244250577
   responder-patched = prev.responder.overrideAttrs (oldAttrs: rec {

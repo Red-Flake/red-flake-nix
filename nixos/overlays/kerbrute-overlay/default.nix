@@ -1,5 +1,5 @@
 # kerbrute-overlay.nix
-self: super:
+_self: super:
 
 {
   kerbrute = super.stdenv.mkDerivation rec {

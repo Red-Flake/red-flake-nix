@@ -1,7 +1,6 @@
 # User profiles with specific configurations
 { inputs
 , pkgs
-, lib
 , ...
 }:
 let

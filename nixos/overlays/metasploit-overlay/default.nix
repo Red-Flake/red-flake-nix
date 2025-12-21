@@ -1,4 +1,4 @@
-final: prev: {
+_final: prev: {
   metasploit = prev.metasploit.overrideAttrs (oldAttrs: rec {
     version = "6.4.99";
 

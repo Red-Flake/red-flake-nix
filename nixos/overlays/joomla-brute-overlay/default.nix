@@ -31,9 +31,9 @@ self: super: {
     installPhase = ''
       mkdir -p $out/bin $out/share/joomla-brute
       install -m755 joomla-brute.py $out/share/joomla-brute/joomla-brute.py
-      makeWrapper ${self.python312.withPackages (ps: propagatedBuildInputs)}/bin/python3 $out/bin/joomla-brute \
+      makeWrapper ${self.python312.withPackages (_ps: propagatedBuildInputs)}/bin/python3 $out/bin/joomla-brute \
         --add-flags $out/share/joomla-brute/joomla-brute.py
-      makeWrapper ${self.python312.withPackages (ps: propagatedBuildInputs)}/bin/python3 $out/bin/joomla-brute.py \
+      makeWrapper ${self.python312.withPackages (_ps: propagatedBuildInputs)}/bin/python3 $out/bin/joomla-brute.py \
         --add-flags $out/share/joomla-brute/joomla-brute.py
     '';
 

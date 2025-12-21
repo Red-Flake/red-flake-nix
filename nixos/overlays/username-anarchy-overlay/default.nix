@@ -1,9 +1,6 @@
 # username-anarchy-overlay.nix
-self: super:
+_self: super:
 
-let
-  lib = super.lib;
-in
 {
   username-anarchy = super.username-anarchy.overrideAttrs (oldAttrs: rec {
     version = "0.6";

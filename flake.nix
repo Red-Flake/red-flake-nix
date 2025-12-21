@@ -180,28 +180,13 @@
   outputs =
     inputs@{ self
     , nixpkgs
-    , nixpkgs-neo4j-4-4-11
-    , impermanence
-    , chaotic
     , pre-commit-hooks
-    , home-manager
-    , plasma-manager
     , binaryninja
-    , artwork
-    , webshells
-    , tools
     , redflake-packages
     , darkmatter-grub-theme
-    , poetry2nix
     , nixos-hardware
-    , pwndbg
-    , burpsuitepro
     , tuxedo-nixos
-    , nix-gaming
     , spicetify-nix
-    , nixcord
-    , claude-code
-    , nur
     , ...
     }:
     let
@@ -478,14 +463,12 @@
             treefmt = {
               enable = true;
               package = commonPkgs.treefmt;
+              extraPackages = [ commonPkgs.nixpkgs-fmt ];
             };
             nixpkgs-fmt.enable = true;
             statix.enable = false;
             deadnix = {
               enable = true;
-              settings = {
-                configFile = ./.deadnix.toml;
-              };
             };
           };
         };

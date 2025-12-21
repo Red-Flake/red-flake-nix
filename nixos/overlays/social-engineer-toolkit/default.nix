@@ -1,5 +1,5 @@
 # social-engineer-toolkit-overlay.nix
-final: prev:
+final: _prev:
 
 {
   social-engineer-toolkit = final.python312Packages.buildPythonApplication rec {

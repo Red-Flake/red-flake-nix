@@ -1,6 +1,6 @@
 # smtp-user-enum-overlay.nix
 
-self: super:
+_self: super:
 
 let
   lib = super.lib;

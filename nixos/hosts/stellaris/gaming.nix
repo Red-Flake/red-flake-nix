@@ -1,10 +1,6 @@
-{ config
-, inputs
+{ inputs
 , pkgs
 , lib
-, chaotic
-, chaoticPkgs
-, modulesPath
 , user
 , ...
 }:

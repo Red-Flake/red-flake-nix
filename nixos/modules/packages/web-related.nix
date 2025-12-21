@@ -1,4 +1,4 @@
-{ inputs, config, lib, pkgs, modulesPath, ... }:
+{ inputs, pkgs, ... }:
 
 {
   # List packages installed in system profile. To search, run:

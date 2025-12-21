@@ -1,4 +1,4 @@
-self: super: {
+_self: super: {
   wordlists = super.stdenv.mkDerivation {
     pname = "wordlists";
     version = "1.0";

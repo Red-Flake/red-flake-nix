@@ -1,4 +1,4 @@
-self: super:
+_self: super:
 
 let
   pkgs = super;

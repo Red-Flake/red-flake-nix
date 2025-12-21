@@ -1,5 +1,4 @@
-{ config
-, lib
+{ lib
 , pkgs
 , ...
 }:
@@ -10,14 +9,14 @@
     # fix issue with duplicate vscode icon in task bar due to code-url-handler
     # see: https://github.com/NixOS/nixpkgs/issues/391341#issuecomment-3016213912
     package = pkgs.vscode.overrideAttrs (
-      finalAttrs: prevAttrs: {
+      _finalAttrs: prevAttrs: {
         desktopItems = lib.map
           (
             item:
             if item.meta.name == "code-url-handler.desktop" then
               item.overrideAttrs
                 (
-                  final: prev: {
+                  _final: prev: {
                     text = lib.replaceStrings [ "StartupWMClass=Code\n" ] [ "" ] prev.text;
                   }
                 )

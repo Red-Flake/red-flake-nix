@@ -1,7 +1,6 @@
 # Parameterized git configuration
 { config
 , lib
-, pkgs
 , gitConfig ? null
 , ...
 }:

@@ -6,7 +6,6 @@
 }:
 let
   profiles = import ./profiles.nix { inherit inputs pkgs lib; };
-  packages = import ./packages.nix { inherit pkgs; };
 in
 {
   # Create a user configuration from a profile

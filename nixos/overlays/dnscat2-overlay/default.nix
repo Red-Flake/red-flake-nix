@@ -1,5 +1,5 @@
 # dnscat2-overlay.nix
-self: super: {
+_self: super: {
   dnscat2 = super.stdenv.mkDerivation rec {
     pname = "dnscat2";
     version = "0.07";

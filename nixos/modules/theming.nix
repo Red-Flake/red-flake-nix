@@ -1,15 +1,9 @@
 { inputs
-, config
-, lib
-, pkgs
-, modulesPath
 , ...
 }:
 
 let
   logoPath = "${inputs.artwork}/logos";
-  iconPath = "${inputs.artwork}/icons";
-  wallpaperPath = "${inputs.artwork}/wallpapers";
 in
 {
   environment.etc = {

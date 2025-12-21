@@ -1,5 +1,5 @@
 # aquatone-overlay.nix
-self: super: {
+_self: super: {
 
   aquatone = super.buildGoModule rec {
     pname = "aquatone";

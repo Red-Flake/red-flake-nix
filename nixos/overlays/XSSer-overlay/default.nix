@@ -1,5 +1,5 @@
 # overlays/xsser-overlay.nix
-final: prev:
+final: _prev:
 
 let
   python = final.python3;

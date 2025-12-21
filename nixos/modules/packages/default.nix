@@ -1,6 +1,6 @@
 # packages
 
-{ inputs, config, lib, pkgs, modulesPath, ... }:
+{ ... }:
 
 {
   # disable default packages

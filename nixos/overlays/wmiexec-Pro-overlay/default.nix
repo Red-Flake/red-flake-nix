@@ -1,4 +1,4 @@
-self: super:
+_self: super:
 
 {
   wmiexec-Pro = super.stdenv.mkDerivation rec {

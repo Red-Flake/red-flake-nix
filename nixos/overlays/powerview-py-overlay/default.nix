@@ -1,5 +1,5 @@
 # powerview-py-overlay.nix
-self: super: {
+_self: super: {
   powerview-py = super.python312Packages.buildPythonPackage rec {
     pname = "powerview-py";
     version = "2025.0.4";
