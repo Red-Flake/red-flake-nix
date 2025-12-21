@@ -4,26 +4,14 @@
   pkgs,
   modulesPath,
   user,
+  inputs,
   ...
 }:
 
 let
   # We need to use the Neo4j LTS version 4.4.11 because In Neo4j 5.x the legacy procedure CALL db.indexes() was removed (replaced by SHOW INDEXES). BloodHound CE 8 still calls db.indexes, so it expects Neo4j 4.4.x.
   # See: https://github.com/SpecterOps/BloodHound/blob/03454913830fec12eebc4451dca8af8b3b3c44d7/tools/docker-compose/neo4j.Dockerfile#L17
-  # Neo4j 4.4.11 is the latest Neo4j build available through https://lazamar.co.uk/nix-versions/
-  # get sha256 from rev using: `nix-prefetch-git https://github.com/NixOS/nixpkgs/ 7a339d87931bba829f68e94621536cad9132971a`
-  # https://lazamar.co.uk/nix-versions/?package=neo4j&version=4.4.11&fullName=neo4j-4.4.11&keyName=neo4j&revision=7a339d87931bba829f68e94621536cad9132971a&channel=nixpkgs-unstable#instructions
-  revpkgs =
-    import
-      (builtins.fetchTarball {
-        url = "https://github.com/NixOS/nixpkgs/archive/7a339d87931bba829f68e94621536cad9132971a.tar.gz";
-        sha256 = "1w4zyrdq7zjrq2g3m7bhnf80ma988g87m7912n956md8fn3ybhr4";
-      })
-      {
-        system = "x86_64-linux"; # Set your system explicitly
-      };
-
-  neo4j_4_4_11 = revpkgs.neo4j;
+  neo4j_4_4_11 = inputs.nixpkgs-neo4j-4-4-11.legacyPackages.${pkgs.stdenv.hostPlatform.system}.neo4j;
 
   # also add neo4j settings from https://github.com/SpecterOps/BloodHound/blob/03454913830fec12eebc4451dca8af8b3b3c44d7/tools/docker-compose/neo4j.Dockerfile#L17
   neo4j44Conf = pkgs.writeText "neo4j-4.4.conf" ''

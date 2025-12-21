@@ -16,6 +16,7 @@ let
 
   # Security-specific package modules
   securityModules = [
+    ../modules/packages/python2.nix
     ../modules/packages/recon.nix
     ../modules/packages/smb.nix
     ../modules/packages/database.nix

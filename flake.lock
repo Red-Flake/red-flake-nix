@@ -638,6 +638,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-neo4j-4-4-11": {
+      "locked": {
+        "lastModified": 1706220439,
+        "narHash": "sha256-JMPlh3WoVVOSFSGdetBDKKkKkLNwnTqewFn+g1v2n/A=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "7a339d87931bba829f68e94621536cad9132971a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "7a339d87931bba829f68e94621536cad9132971a",
+        "type": "github"
+      }
+    },
     "nixpkgs_2": {
       "locked": {
         "lastModified": 1757487488,
@@ -887,6 +903,7 @@
         "nixcord": "nixcord",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",
+        "nixpkgs-neo4j-4-4-11": "nixpkgs-neo4j-4-4-11",
         "nur": "nur",
         "plasma-manager": "plasma-manager",
         "poetry2nix": "poetry2nix",

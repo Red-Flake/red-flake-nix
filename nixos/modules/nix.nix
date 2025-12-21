@@ -7,6 +7,22 @@
   ...
 }:
 
+let
+  nixCaches =
+    let
+      flakeConfig = inputs.self.nixConfig or { };
+    in
+    {
+      substituters =
+        lib.unique (
+          [
+            "https://cache.nixos.org/"
+          ]
+          ++ (flakeConfig."extra-substituters" or [ ])
+        );
+      trustedPublicKeys = lib.unique (flakeConfig."extra-trusted-public-keys" or [ ]);
+    };
+in
 {
   nix =
     let
@@ -77,24 +93,10 @@
         fallback = true; # Fall back to building if substitution fails
 
         # Substituters
-        substituters = [
-          "https://nix-community.cachix.org"
-          "https://cache.nixos.org/"
-        ];
+        substituters = nixCaches.substituters;
 
         # Trusted public keys
-        trusted-public-keys = [
-          "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-        ];
-
-        # A few extra binary caches and their public keys
-        # Enable Cachix Binary Cache for Chaotic-Nyx
-        extra-substituters = [
-          "https://chaotic-nyx.cachix.org"
-        ];
-        extra-trusted-public-keys = [
-          "chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
-        ];
+        trusted-public-keys = nixCaches.trustedPublicKeys;
       };
 
       # Opinionated: disable channels

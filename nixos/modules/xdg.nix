@@ -27,21 +27,17 @@
   xdg.terminal-exec.enable = true;
 
   # XDG portal settings
-  # TODO: fix this!
-  #  evaluation warning: xdg-desktop-portal 1.17 reworked how portal implementations are loaded, you
-  #  should either set `xdg.portal.config` or `xdg.portal.configPackages`
-  #  to specify which portal backend to use for the requested interface.
-  #
-  #  https://github.com/flatpak/xdg-desktop-portal/blob/1.18.1/doc/portals.conf.rst.in
-  #
-  # If you simply want to keep the behaviour in < 1.17, which uses the first
-  # portal implementation found in lexicographical order, use the following:
-  #
-  #  xdg.portal.config.common.default = "*";
   xdg.portal = {
     enable = true;
+    # Prefer KDE portal (matches Plasma on these hosts); gtk fallback keeps
+    # flatpak/other apps working if KDE portal is unavailable.
+    config.common.default = "*";
+    configPackages = [
+      pkgs.kdePackages.xdg-desktop-portal-kde
+    ];
     extraPortals = [
-      pkgs.xdg-desktop-portal
+      pkgs.kdePackages.xdg-desktop-portal-kde
+      pkgs.xdg-desktop-portal-gtk
     ];
   };
 

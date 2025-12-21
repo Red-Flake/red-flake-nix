@@ -25,7 +25,6 @@
     python313
     python313Packages.pip
     python313Packages.pipx
-    python27Full
     python313Packages.bpython
     pkgs.pkgsCross.mingwW64.buildPackages.gcc # x86_64-w64-mingw32-gcc & g++
     pkgs.pkgsCross.mingw32.buildPackages.gcc # i686-w64-mingw32-gcc & g++

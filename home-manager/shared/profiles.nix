@@ -112,7 +112,6 @@ in
       ../common/modules/bat.nix
       ../common/modules/services.nix
       ../common/modules/direnv.nix
-      ../common/modules/ssh-config.nix
 
       # Security modules
       ../common/modules/msf.nix
