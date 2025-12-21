@@ -5,6 +5,8 @@
 [![Home-Manager Master](https://img.shields.io/badge/home_manager-master-blue?style=flat-square)](#)
 &ensp;
 [![KDE Plasma 6](https://img.shields.io/badge/KDE_Plasma-6-blue?style=flat-square)](#)
+&ensp;
+[![CI](https://github.com/Red-Flake/red-flake-nix/actions/workflows/ci.yml/badge.svg)](https://github.com/Red-Flake/red-flake-nix/actions/workflows/ci.yml)
 
 <br><br>
 
