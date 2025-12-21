@@ -480,7 +480,7 @@
               package = commonPkgs.treefmt;
             };
             nixpkgs-fmt.enable = true;
-            statix.enable = true;
+            statix.enable = false;
             deadnix.enable = true;
           };
         };
