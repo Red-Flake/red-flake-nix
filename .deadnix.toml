@@ -1,4 +1,6 @@
 ignore = [
   "nixos/overlays/**/*",
-  "nixos/hosts/**/*"
+  "nixos/hosts/**/*",
+  "nixos/modules/**/*",
+  "home-manager/**/*"
 ]

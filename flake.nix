@@ -481,7 +481,12 @@
             };
             nixpkgs-fmt.enable = true;
             statix.enable = false;
-            deadnix.enable = true;
+            deadnix = {
+              enable = true;
+              settings = {
+                configFile = ./.deadnix.toml;
+              };
+            };
           };
         };
       };
