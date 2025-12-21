@@ -12,7 +12,7 @@ in
       owner = "s0md3v";
       repo = "XSStrike";
       rev = "3.1.6";
-      sha256 = "1fx5x9r0mnq5z7kzl0f15mqf3vrllj7hfypn01z8nq0qk7s1wkg9";  # nix-prefetch-url --unpack https://github.com/s0md3v/XSStrike/archive/refs/tags/3.1.6.tar.gz
+      sha256 = "1fx5x9r0mnq5z7kzl0f15mqf3vrllj7hfypn01z8nq0qk7s1wkg9"; # nix-prefetch-url --unpack https://github.com/s0md3v/XSStrike/archive/refs/tags/3.1.6.tar.gz
     };
 
     # We just copy a script; no build needed
@@ -44,8 +44,8 @@ in
 
     meta = with lib; {
       description = "Most advanced XSS scanner";
-      homepage    = "https://github.com/s0md3v/XSStrike";
-      license     = licenses.gpl3;
+      homepage = "https://github.com/s0md3v/XSStrike";
+      license = licenses.gpl3;
       maintainers = with maintainers; [ maintainers.Mag1cByt3s ];
     };
   };

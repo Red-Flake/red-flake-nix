@@ -1,8 +1,7 @@
-{
-  pkgs,
-  lib,
-  config,
-  ...
+{ pkgs
+, lib
+, config
+, ...
 }:
 {
   # Access the configured hostname and define an activation script to create `/etc/hosts`.

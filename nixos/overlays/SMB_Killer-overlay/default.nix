@@ -10,7 +10,7 @@ in
   SMB_Killer = super.stdenv.mkDerivation rec {
     pname = "SMB_Killer";
     version = "unstable-2024-10-24"; # Use the date as version
-    
+
     src = super.fetchFromGitHub {
       owner = "Red-Flake";
       repo = "SMB_Killer";

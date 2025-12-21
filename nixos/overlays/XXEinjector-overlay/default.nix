@@ -3,7 +3,7 @@ self: super: {
 
   xxeinjector = super.stdenv.mkDerivation rec {
     pname = "XXEinjector";
-    version = "unstable-2020-08-27";  # Based on the last commit date; the repo hasn't been updated since
+    version = "unstable-2020-08-27"; # Based on the last commit date; the repo hasn't been updated since
 
     src = super.fetchFromGitHub {
       owner = "enjoiz";

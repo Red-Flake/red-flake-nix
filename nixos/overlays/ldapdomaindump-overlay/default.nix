@@ -3,7 +3,7 @@
 final: prev:
 {
   ldapdomaindump-patched = prev.ldapdomaindump.overrideAttrs (oldAttrs: rec {
-    nativeBuildInputs = oldAttrs.nativeBuildInputs or [] ++ [ prev.makeWrapper ];
+    nativeBuildInputs = oldAttrs.nativeBuildInputs or [ ] ++ [ prev.makeWrapper ];
 
     openssl_conf = prev.writeText "openssl.conf" ''
       openssl_conf = openssl_init

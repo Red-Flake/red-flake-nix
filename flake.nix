@@ -178,32 +178,31 @@
   };
 
   outputs =
-    {
-      self,
-      nixpkgs,
-      nixpkgs-neo4j-4-4-11,
-      impermanence,
-      chaotic,
-      flake-parts,
-      pre-commit-hooks,
-      home-manager,
-      plasma-manager,
-      binaryninja,
-      artwork,
-      webshells,
-      tools,
-      redflake-packages,
-      darkmatter-grub-theme,
-      poetry2nix,
-      nixos-hardware,
-      pwndbg,
-      burpsuitepro,
-      tuxedo-nixos,
-      nix-gaming,
-      spicetify-nix,
-      nixcord,
-      claude-code,
-      ...
+    { self
+    , nixpkgs
+    , nixpkgs-neo4j-4-4-11
+    , impermanence
+    , chaotic
+    , flake-parts
+    , pre-commit-hooks
+    , home-manager
+    , plasma-manager
+    , binaryninja
+    , artwork
+    , webshells
+    , tools
+    , redflake-packages
+    , darkmatter-grub-theme
+    , poetry2nix
+    , nixos-hardware
+    , pwndbg
+    , burpsuitepro
+    , tuxedo-nixos
+    , nix-gaming
+    , spicetify-nix
+    , nixcord
+    , claude-code
+    , ...
     }@inputs:
     let
       inherit (self) outputs;
@@ -252,13 +251,13 @@
 
       # Common home-manager configuration generator using shared modules
       mkHomeManagerConfig =
-        {
-          user,
-          homeDirectory,
-          stateVersion ? "23.05",
-          profile,
-          extraConfig ? { },
-          pkgs ? commonPkgs,
+        { user
+        , homeDirectory
+        , stateVersion ? "23.05"
+        , profile
+        , extraConfig ? { }
+        , pkgs ? commonPkgs
+        ,
         }:
         {
           imports = [ inputs.home-manager.nixosModules.home-manager ];
@@ -288,20 +287,20 @@
 
       # Common NixOS configuration generator using shared modules
       mkNixOSConfig =
-        {
-          profile,
-          hostname,
-          user,
-          isKVM,
-          system ? "x86_64-linux",
-          hostConfig,
-          extraModules ? [ ],
-          homeManagerConfigs ? [ ],
-          includeSpicetify ? false,
-          includeTuxedo ? false,
-          localeProfile ? "german-en",
-          extraConfig ? { },
-          nixpkgsConfig ? { },
+        { profile
+        , hostname
+        , user
+        , isKVM
+        , system ? "x86_64-linux"
+        , hostConfig
+        , extraModules ? [ ]
+        , homeManagerConfigs ? [ ]
+        , includeSpicetify ? false
+        , includeTuxedo ? false
+        , localeProfile ? "german-en"
+        , extraConfig ? { }
+        , nixpkgsConfig ? { }
+        ,
         }:
         let
           hostPkgs = import inputs.nixpkgs {
@@ -318,11 +317,11 @@
             overlays = commonOverlays;
           };
         in
-          nixpkgs.lib.nixosSystem {
-            inherit system;
-            pkgs = hostPkgs;
-            specialArgs = {
-              inherit inputs outputs;
+        nixpkgs.lib.nixosSystem {
+          inherit system;
+          pkgs = hostPkgs;
+          specialArgs = {
+            inherit inputs outputs;
             chaoticPkgs = hostPkgs.chaoticPkgs or hostPkgs;
             inherit user isKVM;
           };
@@ -476,7 +475,10 @@
         pre-commit = pre-commit-hooks.lib.${system}.run {
           src = ./.;
           hooks = {
-            treefmt.enable = false; # temporarily skip until repo is fully formatted
+            treefmt = {
+              enable = true;
+              package = commonPkgs.treefmt;
+            };
             nixpkgs-fmt.enable = true;
             statix.enable = true;
             deadnix.enable = true;

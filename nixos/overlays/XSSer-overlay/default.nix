@@ -6,13 +6,13 @@ let
 in
 {
   xsser = final.stdenv.mkDerivation rec {
-    pname    = "XSSer";
-    version  = "unstable-2024-09-17";
+    pname = "XSSer";
+    version = "unstable-2024-09-17";
 
     src = final.fetchFromGitHub {
-      owner  = "epsylon";
-      repo   = "xsser";
-      rev    = "d849e340fd5b31bb11a7deae9dcee6281768660c";
+      owner = "epsylon";
+      repo = "xsser";
+      rev = "d849e340fd5b31bb11a7deae9dcee6281768660c";
       sha256 = "0q6wn156y14bmn11gv4wpmxq309j3fl88paq3riilz3rg7rvag0x";
     };
 
@@ -65,8 +65,8 @@ in
 
     meta = with final.lib; {
       description = "XSSer automatic framework to detect, exploit & report XSS vulnerabilities";
-      homepage    = "https://github.com/epsylon/xsser";
-      license     = licenses.gpl3;
+      homepage = "https://github.com/epsylon/xsser";
+      license = licenses.gpl3;
       maintainers = with final.maintainers; [ final.maintainers.Mag1cByt3s ];
     };
   };

@@ -1,9 +1,8 @@
-{
-  config,
-  isKVM,
-  lib,
-  pkgs,
-  ...
+{ config
+, isKVM
+, lib
+, pkgs
+, ...
 }:
 let
   cfg = config.custom.zfs;

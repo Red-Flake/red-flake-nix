@@ -1,12 +1,11 @@
 # NixOS configuration profiles for different host types
-{
-  config,
-  lib,
-  pkgs,
-  chaoticPkgs,
-  inputs,
-  isKVM,
-  ...
+{ config
+, lib
+, pkgs
+, chaoticPkgs
+, inputs
+, isKVM
+, ...
 }:
 {
   # Full security/penetration testing configuration

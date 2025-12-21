@@ -1,9 +1,8 @@
 # User profiles with specific configurations
-{
-  inputs,
-  pkgs,
-  lib,
-  ...
+{ inputs
+, pkgs
+, lib
+, ...
 }:
 let
   packages = import ./packages.nix { inherit pkgs; };

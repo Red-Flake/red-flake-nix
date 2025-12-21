@@ -7,25 +7,25 @@ final: prev:
 
 let
   newVersion = "3.7";
-  rev        = "c22b7c287f94cdac5777661e06cf5910e2e7aadd";  # your commit
+  rev = "c22b7c287f94cdac5777661e06cf5910e2e7aadd"; # your commit
   src37 = final.fetchFromGitHub {
-    owner  = "Hackplayers";
-    repo   = "evil-winrm";
-    rev     = rev;
-    hash    = "sha256-fL4QAB4utf+Ar2LfswD4MKgfmzVLwWwwahfPI3o0Bk4=";
+    owner = "Hackplayers";
+    repo = "evil-winrm";
+    rev = rev;
+    hash = "sha256-fL4QAB4utf+Ar2LfswD4MKgfmzVLwWwwahfPI3o0Bk4=";
   };
 in
 {
   evil-winrm-patched = prev.evil-winrm.overrideAttrs (oldAttrs: rec {
     # bump version & source
     version = newVersion;
-    src     = src37;
+    src = src37;
 
     # keep the existing wrapper & makeWrapper
-    nativeBuildInputs = (oldAttrs.nativeBuildInputs or []) ++ [ prev.makeWrapper ];
+    nativeBuildInputs = (oldAttrs.nativeBuildInputs or [ ]) ++ [ prev.makeWrapper ];
 
     # bring in MIT Kerberos so we get libgssapi_krb5.so.2
-    buildInputs = (oldAttrs.buildInputs or []) ++ [ prev.krb5.lib ];
+    buildInputs = (oldAttrs.buildInputs or [ ]) ++ [ prev.krb5.lib ];
 
     # OpenSSL‑legacy hack
     openssl_conf = prev.writeText "openssl.conf" ''

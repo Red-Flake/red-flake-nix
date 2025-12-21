@@ -1,9 +1,8 @@
 # Function to create standardized home-manager configurations
-{
-  inputs,
-  lib,
-  pkgs,
-  ...
+{ inputs
+, lib
+, pkgs
+, ...
 }:
 let
   profiles = import ./profiles.nix { inherit inputs pkgs lib; };

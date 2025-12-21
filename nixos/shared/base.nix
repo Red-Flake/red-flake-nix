@@ -1,13 +1,12 @@
 # Base NixOS configuration shared across all hosts
-{
-  config,
-  lib,
-  pkgs,
-  chaoticPkgs,
-  inputs,
-  isKVM,
-  hostType ? "security",
-  ...
+{ config
+, lib
+, pkgs
+, chaoticPkgs
+, inputs
+, isKVM
+, hostType ? "security"
+, ...
 }:
 {
   # Common imports for all hosts
@@ -43,14 +42,14 @@
   ]
   # Conditionally import desktop modules
   ++
-    lib.optionals
-      (builtins.elem hostType [
-        "security"
-        "desktop"
-      ])
-      [
-        ../modules/kde.nix
-      ]
+  lib.optionals
+    (builtins.elem hostType [
+      "security"
+      "desktop"
+    ])
+    [
+      ../modules/kde.nix
+    ]
   # Conditionally import security modules
   ++ lib.optionals (hostType == "security") [
     ../modules/security.nix

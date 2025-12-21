@@ -9,7 +9,7 @@ in
 mkHost "desktop" {
   hardwareConfig = ../t580/hardware.nix;
   hostname = "custom-workstation";
-  
+
   # Custom locale configuration for a specific use case
   customLocale = localeProfiles.mkCustomLocale {
     timezone = "Australia/Sydney";
@@ -26,7 +26,7 @@ mkHost "desktop" {
       LC_TIME = "en_AU.UTF-8";
     };
   };
-  
+
   extraModules = [
     nixos-hardware.nixosModules.lenovo-thinkpad-t590
   ];

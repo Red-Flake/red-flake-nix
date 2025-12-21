@@ -1,8 +1,7 @@
-{
-  config,
-  lib,
-  user,
-  ...
+{ config
+, lib
+, user
+, ...
 }:
 {
   # silence warning about setting multiple user password options

@@ -10,12 +10,13 @@ let
     url = "https://github.com/BishopFox/sliver/releases/download/v${version}/sliver-client_linux";
     sha256 = "sha256-30m/U3RyU8OC3lRP308v0XtYaswXy4HPTEFoxTUyJgk=";
   };
-in {
+in
+{
   sliver = final.stdenv.mkDerivation {
     pname = "sliver";
     inherit version;
     nativeBuildInputs = [ final.autoPatchelfHook ];
-    buildInputs = [ ];  # Add dependencies if needed
+    buildInputs = [ ]; # Add dependencies if needed
     dontUnpack = true;
     installPhase = ''
       mkdir -p $out/bin

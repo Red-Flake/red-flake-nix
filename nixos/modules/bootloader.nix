@@ -1,11 +1,10 @@
-{
-  config,
-  isKVM,
-  lib,
-  pkgs,
-  chaoticPkgs,
-  modulesPath,
-  ...
+{ config
+, isKVM
+, lib
+, pkgs
+, chaoticPkgs
+, modulesPath
+, ...
 }:
 let
   cfg = config.custom;

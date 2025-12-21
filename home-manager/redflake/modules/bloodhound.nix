@@ -7,7 +7,7 @@ let
 in
 {
   home.activation = {
-    bloodhound = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    bloodhound = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       # Check if bloodhound folder exists
       if [ ! -d "${bloodhoundPath}" ]; then
         # If not, create bloodhound folderbloodhound

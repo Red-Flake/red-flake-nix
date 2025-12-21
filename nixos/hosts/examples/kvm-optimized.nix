@@ -8,14 +8,14 @@ in
 mkHost "security" {
   hardwareConfig = ../kvm/hardware.nix;
   hostname = "redflake-kvm";
-  
+
   # Use German region with English interface (default for Red-Flake)
   localeProfile = "german-en";
-  
+
   extraModules = [
     # KVM host might need these specific modules
   ];
-  
+
   extraConfig = {
     # Any KVM-specific configuration
   };

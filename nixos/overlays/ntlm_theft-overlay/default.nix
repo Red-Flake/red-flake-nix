@@ -3,7 +3,8 @@ self: super:
 
 let
   lib = super.lib;
-in {
+in
+{
   ntlm_theft = super.stdenv.mkDerivation rec {
     pname = "ntlm_theft";
     version = "1.0.0";

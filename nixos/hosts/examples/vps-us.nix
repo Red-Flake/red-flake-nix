@@ -9,13 +9,13 @@ mkHost "server" {
   hardwareConfig = ../vps/hardware.nix;
   hostname = "redflake-vps-us";
   hostId = "c0e3611d";
-  
+
   # US server with US locale and timezone
   localeProfile = "us";
-  
+
   extraModules = [
     ../vps/networking.nix
-    ../vps/packages.nix  
+    ../vps/packages.nix
     ../vps/services.nix
   ];
 }

@@ -1,10 +1,9 @@
-{
-  config,
-  lib,
-  pkgs,
-  modulesPath,
-  inputs,
-  ...
+{ config
+, lib
+, pkgs
+, modulesPath
+, inputs
+, ...
 }:
 {
   nixpkgs =
@@ -20,9 +19,11 @@
       overlays =
         sharedOverlays.allOverlays
         ++ lib.optionals config.custom.IntelComputeRuntimeLegacy.enable sharedOverlays.intelLegacyOverlay
-        ++ lib.optionals (
-          config.hardware.tuxedo-drivers.enable || config.networking.hostName == "redflake-stellaris"
-        ) sharedOverlays.tuxedoDriversOverlay;
+        ++ lib.optionals
+          (
+            config.hardware.tuxedo-drivers.enable || config.networking.hostName == "redflake-stellaris"
+          )
+          sharedOverlays.tuxedoDriversOverlay;
       # Configure your nixpkgs instance
       config = {
         # Disable if you don't want unfree packages

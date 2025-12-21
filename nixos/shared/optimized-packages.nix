@@ -1,9 +1,8 @@
 # Highly optimized package loading with lazy evaluation
-{
-  lib,
-  hostType ? "security",
-  useTags ? [ ],
-  ...
+{ lib
+, hostType ? "security"
+, useTags ? [ ]
+, ...
 }:
 let
   # Core packages needed by all systems

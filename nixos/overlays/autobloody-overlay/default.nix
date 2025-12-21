@@ -18,15 +18,15 @@ let
           version = "2.9.1";
           sha256 = "sha256-8+f8Rxjj8J3aVotXEACV4M5YYzvKu+2GZ84/j7qkIp8=";
         };
-        doCheck = false;  # Disable the check phase
-        doInstallCheck = false;  # Disable the install check phase
-        nativeCheckInputs = [];   # Remove all test hooks, including unittestCheckHook
-        pytestFlagsArray = [];
+        doCheck = false; # Disable the check phase
+        doInstallCheck = false; # Disable the install check phase
+        nativeCheckInputs = [ ]; # Remove all test hooks, including unittestCheckHook
+        pytestFlagsArray = [ ];
         preCheck = "";
-        checkPhase = "";          # Empty check phase
+        checkPhase = ""; # Empty check phase
         pythonImportsCheckPhase = "";
         unittestCheckPhase = "";
-        
+
         # Completely override patchPhase to prevent substituteStream from running
         patchPhase = ''
           # Only run dos2unix (optional) and nothing else
@@ -64,9 +64,9 @@ let
       winacl
     ];
 
-    pythonImportsCheck = [];  # Disable import checks
-    doCheck = false;          # Disable tests
-    checkPhase = "";          # Empty check phase
+    pythonImportsCheck = [ ]; # Disable import checks
+    doCheck = false; # Disable tests
+    checkPhase = ""; # Empty check phase
     pythonImportsCheckPhase = "";
     unittestCheckPhase = "";
 
@@ -106,9 +106,9 @@ in
       neo4j
     ];
 
-    doCheck = false;          # Disable tests
-    checkPhase = "";          # Empty check phase
-    pythonImportsCheck = [];  # Disable import checks
+    doCheck = false; # Disable tests
+    checkPhase = ""; # Empty check phase
+    pythonImportsCheck = [ ]; # Disable import checks
 
     # Remove the tests/ directory after unpacking the source
     postPatch = ''

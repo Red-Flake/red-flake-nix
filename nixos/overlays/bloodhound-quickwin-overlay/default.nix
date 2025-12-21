@@ -11,7 +11,7 @@ let
 
   pansi = super.python313Packages.buildPythonPackage rec {
     pname = "pansi";
-    version = "2024.11.0";  # Use the appropriate version
+    version = "2024.11.0"; # Use the appropriate version
 
     pyproject = true;
     build-system = with python313Packages; [
@@ -30,7 +30,7 @@ let
 
   interchange = super.python313Packages.buildPythonPackage rec {
     pname = "interchange";
-    version = "2021.0.4";  # Use the appropriate version
+    version = "2021.0.4"; # Use the appropriate version
 
     pyproject = true;
     build-system = with python313Packages; [
@@ -50,7 +50,7 @@ let
 
   py2neo = super.python313Packages.buildPythonPackage rec {
     pname = "py2neo";
-    version = "2021.2.4";  # Correct version
+    version = "2021.2.4"; # Correct version
 
     pyproject = true;
     build-system = with python313Packages; [
@@ -85,7 +85,7 @@ in
   bloodhound-quickwin = super.stdenv.mkDerivation rec {
     pname = "bloodhound-quickwin";
     version = "unstable-2024-11-12"; # Use the date as version
-    
+
     pyproject = true;
     build-system = with python313Packages; [
       setuptools # Required for setup.py

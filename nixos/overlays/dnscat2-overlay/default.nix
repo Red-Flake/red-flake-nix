@@ -25,21 +25,21 @@ self: super: {
     '';
 
     installPhase = ''
-      # Copy the entire source tree to the output.
-      mkdir -p $out/app
-      cp -r . $out/app
+        # Copy the entire source tree to the output.
+        mkdir -p $out/app
+        cp -r . $out/app
 
-      # Create a wrapper script with the appropriate shebang and env variables.
-      mkdir -p $out/bin
-      cat > $out/bin/dnscat2 <<EOF
-    #!/bin/sh
-    export GEM_HOME=$out/app/vendor/bundle
-    export GEM_PATH=$out/app/vendor/bundle
-    export BUNDLE_GEMFILE=$out/app/server/Gemfile
-    export BUNDLE_PATH=$out/app/vendor/bundle
-    exec ${super.ruby}/bin/ruby -rbundler/setup $out/app/server/dnscat2.rb "\$@"
-    EOF
-      chmod +x $out/bin/dnscat2
+        # Create a wrapper script with the appropriate shebang and env variables.
+        mkdir -p $out/bin
+        cat > $out/bin/dnscat2 <<EOF
+      #!/bin/sh
+      export GEM_HOME=$out/app/vendor/bundle
+      export GEM_PATH=$out/app/vendor/bundle
+      export BUNDLE_GEMFILE=$out/app/server/Gemfile
+      export BUNDLE_PATH=$out/app/vendor/bundle
+      exec ${super.ruby}/bin/ruby -rbundler/setup $out/app/server/dnscat2.rb "\$@"
+      EOF
+        chmod +x $out/bin/dnscat2
     '';
 
     meta = with super.lib; {

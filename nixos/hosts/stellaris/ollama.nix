@@ -1,11 +1,10 @@
 # https://wiki.nixos.org/wiki/Ollama
-{
-  config,
-  lib,
-  pkgs,
-  inputs,
-  user,
-  ...
+{ config
+, lib
+, pkgs
+, inputs
+, user
+, ...
 }:
 {
   # Enable Ollama with CUDA acceleration

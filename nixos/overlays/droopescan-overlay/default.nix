@@ -6,10 +6,10 @@ self: super: {
       cement = pySuper.cement.overrideAttrs (old: rec {
         version = "2.10.14";
         format = "setuptools";
-        nativeBuildInputs = (old.nativeBuildInputs or []) ++ [ pySuper.setuptools ];
-        doCheck = false;  # Disable tests to avoid failure on missing test files
+        nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pySuper.setuptools ];
+        doCheck = false; # Disable tests to avoid failure on missing test files
         doInstallCheck = false;
-        pythonImportsCheck = [];
+        pythonImportsCheck = [ ];
         checkPhase = "true";
         installCheckPhase = "true";
         pytestCheckPhase = "true";
@@ -25,7 +25,7 @@ self: super: {
 
   droopescan = self.python313Packages.buildPythonApplication rec {
     pname = "droopescan";
-    version = "unstable-2025-07-07";  # Adjust to a tag or date if preferred
+    version = "unstable-2025-07-07"; # Adjust to a tag or date if preferred
 
     src = super.fetchFromGitHub {
       owner = "Red-Flake";
@@ -48,7 +48,7 @@ self: super: {
       pystache
     ];
 
-    doCheck = false;  # Disable tests to avoid failure on missing test files
+    doCheck = false; # Disable tests to avoid failure on missing test files
     doInstallCheck = false;
     checkPhase = "true";
     installCheckPhase = "true";

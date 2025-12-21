@@ -1,12 +1,11 @@
 # Optimized VPS configuration using shared profiles
-{
-  config,
-  lib,
-  pkgs,
-  chaoticPkgs,
-  inputs,
-  isKVM,
-  ...
+{ config
+, lib
+, pkgs
+, chaoticPkgs
+, inputs
+, isKVM
+, ...
 }:
 let
   mkHost =

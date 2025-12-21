@@ -16,7 +16,7 @@ self: super: {
 
     nativeBuildInputs = [ super.makeWrapper ];
 
-    buildInputs = [ super.chromium ];  # Runtime dependency for headless screenshots
+    buildInputs = [ super.chromium ]; # Runtime dependency for headless screenshots
 
     postPatch = ''
       sed -i '/import (/a\ \ "os/user"' core/session.go

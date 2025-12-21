@@ -1,11 +1,10 @@
 # Shared base home-manager configuration
-{
-  inputs,
-  lib,
-  config,
-  pkgs,
-  user,
-  ...
+{ inputs
+, lib
+, config
+, pkgs
+, user
+, ...
 }:
 {
   # Common imports for all users

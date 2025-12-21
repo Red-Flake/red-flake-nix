@@ -1,10 +1,9 @@
 # Parameterized git configuration
-{
-  config,
-  lib,
-  pkgs,
-  gitConfig ? null,
-  ...
+{ config
+, lib
+, pkgs
+, gitConfig ? null
+, ...
 }:
 let
   # Default git config if none provided

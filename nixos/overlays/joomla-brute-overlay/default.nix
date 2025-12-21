@@ -3,13 +3,13 @@ self: super: {
 
   joomla-brute = self.python312Packages.buildPythonApplication rec {
     pname = "joomla-brute";
-    version = "unstable-2020-01-07";  # Based on last commit date; adjust if needed
+    version = "unstable-2020-01-07"; # Based on last commit date; adjust if needed
 
     src = super.fetchFromGitHub {
       owner = "ajnik";
       repo = "joomla-bruteforce";
       rev = "f2f347d5e9f84fc4ec7d5bfc82fc6e4cd63a2057";
-      hash = "sha256-RFXd2kLLOTKN93EdqsCgtUqkdkbjcR1K9u8oYdNCrZE=";  # Replace with actual hash from `nix-prefetch-github ajnik joomla-bruteforce --rev master`
+      hash = "sha256-RFXd2kLLOTKN93EdqsCgtUqkdkbjcR1K9u8oYdNCrZE="; # Replace with actual hash from `nix-prefetch-github ajnik joomla-bruteforce --rev master`
     };
 
     # No standard build system (single script), so use "other"
@@ -43,7 +43,7 @@ self: super: {
     meta = with super.lib; {
       description = "A Joomla login bruteforce tool";
       homepage = "https://github.com/ajnik/joomla-bruteforce";
-      license = licenses.mit;  # Assume MIT based on typical repos; repo does not contain any license
+      license = licenses.mit; # Assume MIT based on typical repos; repo does not contain any license
       maintainers = with lib.maintainers; [ lib.maintainers.Mag1cByt3s ];
     };
   };

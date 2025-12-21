@@ -6,13 +6,13 @@ in
 {
   cupp = super.stdenv.mkDerivation rec {
     pname = "cupp";
-    version = "3.3.0";  # matches __version__ in cupp.py
+    version = "3.3.0"; # matches __version__ in cupp.py
 
     src = super.fetchFromGitHub {
       owner = "Mebus";
       repo = "cupp";
       rev = "56547fd09b87613cb2614feb5b7688907277a65a";
-      sha256 = "1np468jlabc6xkffbp2hdbmkhc8ln4nhfdqlh7h1c9pv1a4i8h4y";  # nix-prefetch-url --unpack https://github.com/Mebus/cupp/archive/56547fd09b87613cb2614feb5b7688907277a65a.tar.gz
+      sha256 = "1np468jlabc6xkffbp2hdbmkhc8ln4nhfdqlh7h1c9pv1a4i8h4y"; # nix-prefetch-url --unpack https://github.com/Mebus/cupp/archive/56547fd09b87613cb2614feb5b7688907277a65a.tar.gz
     };
 
     # We just copy a script; no build needed
@@ -38,8 +38,8 @@ in
 
     meta = with lib; {
       description = "Common User Passwords Profiler (CUPP)";
-      homepage    = "https://github.com/Mebus/cupp";
-      license     = licenses.gpl3;
+      homepage = "https://github.com/Mebus/cupp";
+      license = licenses.gpl3;
       maintainers = with maintainers; [ maintainers.Mag1cByt3s ];
     };
   };

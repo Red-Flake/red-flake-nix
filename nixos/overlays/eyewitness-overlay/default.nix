@@ -15,7 +15,7 @@ self: super: {
   };
 
   eyewitness = super.eyewitness.overrideAttrs (old: {
-    dependencies = old.dependencies or [] ++ [ super.xorg.xorgserver ];
+    dependencies = old.dependencies or [ ] ++ [ super.xorg.xorgserver ];
 
     postPatch = ''
       substituteInPlace Python/modules/selenium_module.py \

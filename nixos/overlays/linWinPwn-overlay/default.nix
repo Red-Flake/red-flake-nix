@@ -21,10 +21,12 @@ let
   ];
 
   # Pre-fetch the tools
-  fetchTools = builtins.map (tool: super.fetchurl {
-    url = tool.url;
-    sha256 = tool.sha256;
-  }) tools;
+  fetchTools = builtins.map
+    (tool: super.fetchurl {
+      url = tool.url;
+      sha256 = tool.sha256;
+    })
+    tools;
 
   # Define Python packages
   # Define textract manually

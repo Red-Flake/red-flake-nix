@@ -1,13 +1,12 @@
-{
-  config,
-  inputs,
-  pkgs,
-  lib,
-  chaotic,
-  chaoticPkgs,
-  modulesPath,
-  user,
-  ...
+{ config
+, inputs
+, pkgs
+, lib
+, chaotic
+, chaoticPkgs
+, modulesPath
+, user
+, ...
 }:
 let
   gaming = inputs.nix-gaming;

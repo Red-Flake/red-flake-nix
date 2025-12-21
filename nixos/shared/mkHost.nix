@@ -1,12 +1,11 @@
 # Function to create standardized NixOS host configurations
-{
-  config,
-  lib,
-  pkgs,
-  chaoticPkgs,
-  inputs,
-  isKVM,
-  ...
+{ config
+, lib
+, pkgs
+, chaoticPkgs
+, inputs
+, isKVM
+, ...
 }:
 let
   profiles = import ./profiles.nix {

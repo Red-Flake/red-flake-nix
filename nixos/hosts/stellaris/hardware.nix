@@ -1,10 +1,9 @@
-{
-  config,
-  lib,
-  pkgs,
-  inputs,
-  tuxedo-nixos,
-  ...
+{ config
+, lib
+, pkgs
+, inputs
+, tuxedo-nixos
+, ...
 }:
 {
 

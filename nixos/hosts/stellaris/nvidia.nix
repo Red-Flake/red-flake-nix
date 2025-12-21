@@ -1,11 +1,10 @@
 # https://markwatkinson.com/knowledge/linux/nvidia-dgpu-power/
 
-{
-  config,
-  lib,
-  pkgs,
-  inputs,
-  ...
+{ config
+, lib
+, pkgs
+, inputs
+, ...
 }:
 {
 

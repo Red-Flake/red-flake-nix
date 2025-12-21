@@ -1,8 +1,7 @@
 # Conditional package loading based on host type
-{
-  lib,
-  hostType ? "security",
-  ...
+{ lib
+, hostType ? "security"
+, ...
 }:
 let
   # Base packages needed by all hosts
@@ -69,9 +68,11 @@ in
   imports =
     baseModules
     ++ (lib.optionals (hostType == "security") securityModules)
-    ++ (lib.optionals (builtins.elem hostType [
-      "security"
-      "desktop"
-    ]) desktopModules)
+    ++ (lib.optionals
+      (builtins.elem hostType [
+        "security"
+        "desktop"
+      ])
+      desktopModules)
     ++ (lib.optionals (hostType == "server") serverModules);
 }

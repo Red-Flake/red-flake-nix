@@ -4,7 +4,7 @@
 
 {
   # disable default packages
-  environment.defaultPackages = [];
+  environment.defaultPackages = [ ];
 
   imports = [
     # General programs

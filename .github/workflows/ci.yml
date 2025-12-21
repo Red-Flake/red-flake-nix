@@ -16,7 +16,7 @@ jobs:
             experimental-features = nix-command flakes
             accept-flake-config = true
       - name: Treefmt
-        run: nix develop .#devShells.x86_64-linux.default -c treefmt
+        run: nix develop .#devShells.x86_64-linux.default -c treefmt --fail-on-change
       - name: Statix
         run: nix develop .#devShells.x86_64-linux.default -c statix check .
       - name: Deadnix

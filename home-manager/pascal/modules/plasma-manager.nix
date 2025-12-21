@@ -1,9 +1,8 @@
-{
-  pkgs,
-  config,
-  lib,
-  osConfig,
-  ...
+{ pkgs
+, config
+, lib
+, osConfig
+, ...
 }:
 
 let
@@ -14,8 +13,7 @@ let
       "1440p" = "Red-Flake-Wallpaper_2560x1440.png";
       "1600p" = "Red-Flake-Wallpaper_2560x1600.png";
       "2160p" = "Red-Flake-Wallpaper_3840x2160.png";
-    }
-    .${osConfig.custom.display.resolution} or "Red-Flake-Wallpaper_1920x1080.png";
+    }.${osConfig.custom.display.resolution} or "Red-Flake-Wallpaper_1920x1080.png";
 
   wallpaperPath = "${config.home.homeDirectory}/.local/share/wallpapers/red-flake/${wallpaperFile}";
 in

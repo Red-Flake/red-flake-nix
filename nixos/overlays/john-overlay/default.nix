@@ -4,7 +4,8 @@ self: super:
 let
   lib = super.lib;
   fetchFromGitHub = super.fetchFromGitHub;
-in {
+in
+{
   john = super.john.overrideAttrs (old: {
     version = "unstable-2025-06-15";
 
@@ -20,7 +21,7 @@ in {
     ];
 
     # Remove the opencl.patch
-    patches = [];
+    patches = [ ];
 
     # Optional: override patches or additional preConfigure logic
     #preConfigure = old.preConfigure + lib.optionalString old.withOpenCL ''

@@ -1,12 +1,14 @@
 # PKINITtools-overlay.nix
 
-self: super: let
+self: super:
+let
   lib = super.lib;
   stdenv = super.stdenv;
   fetchFromGitHub = super.fetchFromGitHub;
   python312 = super.python312;
   python312Packages = super.python312Packages;
-in {
+in
+{
   pkinittools = stdenv.mkDerivation rec {
     pname = "pkinittools";
     version = "1.0.0";

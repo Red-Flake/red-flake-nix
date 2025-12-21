@@ -116,10 +116,10 @@ in
 
   # Helper to create custom locale config
   mkCustomLocale =
-    {
-      timezone,
-      defaultLocale,
-      extraLocaleSettings ? { },
+    { timezone
+    , defaultLocale
+    , extraLocaleSettings ? { }
+    ,
     }:
     {
       time.timeZone = timezone;

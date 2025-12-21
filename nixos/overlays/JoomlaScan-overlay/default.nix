@@ -3,13 +3,13 @@ self: super: {
 
   JoomlaScan = self.python312Packages.buildPythonApplication rec {
     pname = "JoomlaScan";
-    version = "unstable-2022-09-23";  # Adjust to a tag or date if preferred
+    version = "unstable-2022-09-23"; # Adjust to a tag or date if preferred
 
     src = super.fetchFromGitHub {
       owner = "drego85";
       repo = "JoomlaScan";
       rev = "9f7650fa3007cd1d6631ab53edb647b4b5ef5724";
-      hash = "sha256-hOuXTywixFybF2KrdiAiuD82pyJTEEM7KdqsMcR4vVs=";  # Replace with actual hash from `nix-prefetch-github drego85 JoomlaScan --rev 9f7650fa3007cd1d6631ab53edb647b4b5ef5724`
+      hash = "sha256-hOuXTywixFybF2KrdiAiuD82pyJTEEM7KdqsMcR4vVs="; # Replace with actual hash from `nix-prefetch-github drego85 JoomlaScan --rev 9f7650fa3007cd1d6631ab53edb647b4b5ef5724`
     };
 
     # No standard build system (single script), so use "other"

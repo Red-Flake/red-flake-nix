@@ -1,7 +1,7 @@
-{ config, lib, pkgs, ... }: 
+{ config, lib, pkgs, ... }:
 
 {
-# enable xdg desktop portal
+  # enable xdg desktop portal
   xdg.portal = {
     enable = true;
     extraPortals = with pkgs; [

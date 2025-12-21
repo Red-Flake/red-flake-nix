@@ -7,15 +7,16 @@ let
 
   certipySrc = pkgs.fetchFromGitHub {
     owner = "ly4k";
-    repo  = "Certipy";
-    rev   = version;
-    hash  = "sha256-riFhpB8AMDewz7s4d7jKwmezTHFHJrenC3pWKzfAk6Q=";
+    repo = "Certipy";
+    rev = version;
+    hash = "sha256-riFhpB8AMDewz7s4d7jKwmezTHFHJrenC3pWKzfAk6Q=";
   };
-in {
+in
+{
   python314Packages = pkgs.python314Packages // {
     certipy-ad = pkgs.python314Packages.certipy-ad.overrideAttrs (old: rec {
       version = version;
-      src     = certipySrc;
+      src = certipySrc;
 
       postPatch = ''
         # Loosen strict version pins and fix the bs4 dependency
@@ -34,7 +35,7 @@ in {
       ];
 
       # Disable checks
-      doCheck    = false;
+      doCheck = false;
       checkPhase = "true";
     });
   };
