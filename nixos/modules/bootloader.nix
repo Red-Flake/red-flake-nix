@@ -5,11 +5,9 @@
 }:
 let
   cfg = config.custom;
-  redflake-plymouth-src = pkgs.fetchFromGitHub {
-    owner = "Red-Flake";
-    repo = "redflake-plymouth";
-    rev = "cad99c2de44912689d7d7deed3eb0543fcb6a300";
-    hash = "sha256-1Ffm32nVOgPw8LeJVwTZ3Ef2y9zIZAkud5oLr9znNj4=";
+  redflake-plymouth-src = builtins.fetchTarball {
+    url = "https://github.com/Red-Flake/redflake-plymouth/archive/cad99c2de44912689d7d7deed3eb0543fcb6a300.tar.gz";
+    sha256 = "sha256-1Ffm32nVOgPw8LeJVwTZ3Ef2y9zIZAkud5oLr9znNj4=";
   };
   redflake-plymouth = pkgs.callPackage (redflake-plymouth-src + "/default.nix") { };
 in
