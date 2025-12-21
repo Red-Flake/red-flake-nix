@@ -1,9 +1,4 @@
-{ config
-, lib
-, pkgs
-, inputs
-, ...
-}:
+{ lib, ... }:
 {
 
   custom = {
