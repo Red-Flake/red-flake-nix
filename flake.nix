@@ -345,6 +345,19 @@
         };
     in
     {
+      formatter.${system} = commonPkgs.treefmt;
+
+      devShells.${system}.default = commonPkgs.mkShell {
+        packages = with commonPkgs; [
+          nixpkgs-fmt
+          treefmt
+          statix
+          deadnix
+          pre-commit
+          nh
+        ];
+      };
+
       nixosConfigurations = {
 
         # KVM host configuration
@@ -460,6 +473,18 @@
         flake-check = nixpkgs.legacyPackages.${system}.writeShellScriptBin "flake-check" ''
           ${nixpkgs.legacyPackages.${system}.nixVersions.stable}/bin/nix flake check --no-build
         '';
+        pre-commit = pre-commit-hooks.lib.${system}.run {
+          src = ./.;
+          hooks = {
+            treefmt = {
+              enable = true;
+              package = commonPkgs.treefmt;
+            };
+            nixpkgs-fmt.enable = true;
+            statix.enable = true;
+            deadnix.enable = true;
+          };
+        };
       };
     };
 }

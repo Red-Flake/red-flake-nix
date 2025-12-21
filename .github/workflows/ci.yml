@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: cachix/install-nix-action@v26
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+      - name: Treefmt
+        run: nix develop .#devShells.x86_64-linux.default -c treefmt --fail-on-change
+      - name: Statix
+        run: nix develop .#devShells.x86_64-linux.default -c statix check .
+      - name: Deadnix
+        run: nix develop .#devShells.x86_64-linux.default -c deadnix .
+
+  flake-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: cachix/install-nix-action@v26
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+      - name: nix flake check
+        run: nix flake check --keep-going --show-trace
