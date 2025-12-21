@@ -1,6 +1,7 @@
-{ config
-, osConfig
-, ...
+{
+  config,
+  osConfig,
+  ...
 }:
 
 let
@@ -11,7 +12,8 @@ let
       "1440p" = "Red-Flake-Wallpaper_2560x1440.png";
       "1600p" = "Red-Flake-Wallpaper_2560x1600.png";
       "2160p" = "Red-Flake-Wallpaper_3840x2160.png";
-    }.${osConfig.custom.display.resolution} or "Red-Flake-Wallpaper_1920x1080.png";
+    }
+    .${osConfig.custom.display.resolution} or "Red-Flake-Wallpaper_1920x1080.png";
 
   wallpaperPath = "${config.home.homeDirectory}/.local/share/wallpapers/red-flake/${wallpaperFile}";
 in
@@ -86,7 +88,7 @@ in
                 showOnlyCurrentScreen = "true";
                 launchers = [
                   "applications:org.kde.dolphin.desktop"
-                  "applications:ghostty.desktop"
+                  "applications:com.mitchellh.ghostty.desktop"
                   "applications:chrome-magicbytes.getoutline.com__-Default.desktop"
                   "applications:firefox.desktop"
                   "applications:org.telegram.desktop.desktop"

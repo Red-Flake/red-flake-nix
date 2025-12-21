@@ -1,12 +1,13 @@
-{ config
-, lib
-, pkgs
-, ...
+{
+  config,
+  lib,
+  pkgs,
+  ...
 }:
 
 let
   browser = "firefox.desktop";
-  terminal = "ghostty.desktop";
+  terminal = "com.mitchellh.ghostty.desktop";
   fileManager = "org.kde.dolphin.desktop";
   editor = "code.desktop";
   imageViewer = "org.kde.gwenview.desktop";
