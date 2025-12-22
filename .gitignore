@@ -2,3 +2,4 @@ result
 .vscode
 .venv
 .claude
+.pre-commit-config.yaml
