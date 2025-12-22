@@ -1,8 +1,9 @@
-{ lib
-, pkgs
-, user
-, inputs
-, ...
+{
+  lib,
+  pkgs,
+  user,
+  inputs,
+  ...
 }:
 
 let
@@ -78,7 +79,7 @@ in
     settings = {
       port = 5432;
     };
-    authentication = pkgs.lib.mkOverride 10 ''
+    authentication = lib.mkOverride 10 ''
       #type database  DBuser  auth-method
       local all       all     trust
       host all all      ::1/128      trust
