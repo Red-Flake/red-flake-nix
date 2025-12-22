@@ -46,6 +46,9 @@ in
         # this also allows us to use remote builders to reduce build times and batter usage
         builders-use-substitutes = true;
 
+        # Trust wheel group users for using extra substituters
+        trusted-users = [ "root" "@wheel" ];
+
         # Enable flakes and new 'nix' command
         experimental-features = [
           "nix-command"

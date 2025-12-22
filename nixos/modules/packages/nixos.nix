@@ -8,6 +8,7 @@
     home-manager
     inputs.nix-alien.packages.${pkgs.stdenv.hostPlatform.system}.nix-alien
     treefmt
+    nixpkgs-fmt
     deadnix
     statix
     nixfmt
