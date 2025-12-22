@@ -2,9 +2,9 @@
 
 _self: super:
 let
-  lib = super.lib;
-  stdenv = super.stdenv;
-  fetchFromGitHub = super.fetchFromGitHub;
+  inherit (super) lib;
+  inherit (super) stdenv;
+  inherit (super) fetchFromGitHub;
 in
 {
   pkinittools = stdenv.mkDerivation rec {

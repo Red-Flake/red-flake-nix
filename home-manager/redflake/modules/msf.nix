@@ -1,5 +1,4 @@
-{ ...
-}:
+_:
 {
   home.file.".msf4/database.yml".text = ''
     # To set up a metasploit database, follow the directions hosted at:

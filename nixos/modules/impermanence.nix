@@ -1,5 +1,4 @@
-{ ...
-}:
+_:
 {
   # setup persistence
   environment.persistence = {
@@ -12,10 +11,6 @@
         "/etc/ssh/ssh_host_ed25519_key.pub"
         "/etc/ssh/ssh_host_rsa_key"
         "/etc/ssh/ssh_host_rsa_key.pub"
-      ]
-      ++ [
-        # YOUR FILES
-        #"/etc/responder/Responder.conf"
       ];
       directories = [
         "/var/log" # systemd journal is stored in /var/log/journal

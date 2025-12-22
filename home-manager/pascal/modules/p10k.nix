@@ -1,5 +1,4 @@
-{ ...
-}:
+_:
 let
   # Pure Nix approach: Define p10k configuration as Nix strings
   # This recreates your custom p10k styling without external .zsh files

@@ -4,10 +4,10 @@
 _self: super:
 
 let
-  lib = super.lib;
-  python313 = super.python313;
-  python313Packages = super.python313Packages;
-  fetchFromGitHub = super.fetchFromGitHub;
+  inherit (super) lib;
+  inherit (super) python313;
+  inherit (super) python313Packages;
+  inherit (super) fetchFromGitHub;
 
   pansi = super.python313Packages.buildPythonPackage rec {
     pname = "pansi";

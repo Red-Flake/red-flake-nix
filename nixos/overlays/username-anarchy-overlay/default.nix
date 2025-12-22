@@ -13,7 +13,7 @@ _self: super:
     };
 
     # Optional: Add ruby dependencies if needed
-    buildInputs = oldAttrs.buildInputs;
+    inherit (oldAttrs) buildInputs;
 
     preInstall = ''
       mkdir -p $out/bin

@@ -220,14 +220,14 @@
         pkgs:
         import ./home-manager/shared/mkUser.nix {
           inherit inputs;
-          lib = nixpkgs.lib;
+          inherit (nixpkgs) lib;
           inherit pkgs;
         };
 
       # Import shared host helper
       mkHost = import ./nixos/shared/mkHost.nix {
         config = { };
-        lib = nixpkgs.lib;
+        inherit (nixpkgs) lib;
         pkgs = commonPkgs;
         chaoticPkgs = commonPkgs;
         inherit inputs;
@@ -263,8 +263,8 @@
             // {
               homeConfig = {
                 username = user;
-                homeDirectory = homeDirectory;
-                stateVersion = stateVersion;
+                inherit homeDirectory;
+                inherit stateVersion;
               };
             }
           );
@@ -332,6 +332,7 @@
       formatter.${system} = commonPkgs.treefmt;
 
       devShells.${system}.default = commonPkgs.mkShell {
+        inherit (self.checks.${system}.pre-commit) shellHook;
         packages = with commonPkgs; [
           nixpkgs-fmt
           treefmt
@@ -466,7 +467,7 @@
               extraPackages = [ commonPkgs.nixpkgs-fmt ];
             };
             nixpkgs-fmt.enable = true;
-            statix.enable = false;
+            statix.enable = true;
             deadnix = {
               enable = true;
             };

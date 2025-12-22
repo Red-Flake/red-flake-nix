@@ -2,7 +2,7 @@
 _self: super:
 
 let
-  lib = super.lib;
+  inherit (super) lib;
 in
 {
   ntlm_theft = super.stdenv.mkDerivation rec {

@@ -1,9 +1,9 @@
 # Example: Host with completely custom locale configuration
 { config, lib, pkgs, chaoticPkgs, inputs, isKVM, ... }:
 let
-  mkHost = (import ../../shared/mkHost.nix {
+  inherit ((import ../../shared/mkHost.nix {
     inherit config lib pkgs chaoticPkgs inputs isKVM;
-  }).mkHost;
+  })) mkHost;
   localeProfiles = import ../../shared/locale-profiles.nix { inherit lib; };
 in
 mkHost "desktop" {

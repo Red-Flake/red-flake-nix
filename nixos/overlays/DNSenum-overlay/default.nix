@@ -31,14 +31,14 @@ in
   dnsenum = super.dnsenum.overrideAttrs (_oldAttrs: {
     buildInputs = with super.perlPackages // oldPkgs.perlPackages; [
       perl-5_34
-      (oldPkgs.perlPackages.NetWhoisIP)
-      (oldPkgs.perlPackages.WWWMechanize)
-      (oldPkgs.perlPackages.NetDNS)
-      (oldPkgs.perlPackages.NetIP)
-      (oldPkgs.perlPackages.NetNetmask)
-      (oldPkgs.perlPackages.StringRandom)
-      (oldPkgs.perlPackages.XMLWriter)
-      (oldPkgs.perlPackages.RegexpIPv6)
+      oldPkgs.perlPackages.NetWhoisIP
+      oldPkgs.perlPackages.WWWMechanize
+      oldPkgs.perlPackages.NetDNS
+      oldPkgs.perlPackages.NetIP
+      oldPkgs.perlPackages.NetNetmask
+      oldPkgs.perlPackages.StringRandom
+      oldPkgs.perlPackages.XMLWriter
+      oldPkgs.perlPackages.RegexpIPv6
     ];
 
     installPhase = ''

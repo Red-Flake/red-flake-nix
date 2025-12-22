@@ -1,5 +1,4 @@
-{ ...
-}:
+_:
 
 {
   # enable SSH agent

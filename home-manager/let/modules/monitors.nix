@@ -1,5 +1,4 @@
-{ ...
-}:
+_:
 {
   home.file.".config/kwinoutputconfig.json".text = ''
     [

@@ -1,5 +1,4 @@
-{ ...
-}:
+_:
 
 {
   # See: https://ghostty.org/docs/config/reference

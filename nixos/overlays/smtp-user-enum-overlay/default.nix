@@ -3,7 +3,7 @@
 _self: super:
 
 let
-  lib = super.lib;
+  inherit (super) lib;
 in
 {
   smtp-user-enum = super.stdenv.mkDerivation rec {

@@ -1,9 +1,9 @@
 _self: super:
 
 let
-  lib = super.lib;
-  python313Packages = super.python313Packages;
-  fetchFromGitHub = super.fetchFromGitHub;
+  inherit (super) lib;
+  inherit (super) python313Packages;
+  inherit (super) fetchFromGitHub;
 in
 {
   bashfuscator = python313Packages.buildPythonApplication rec {

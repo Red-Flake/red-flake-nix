@@ -102,7 +102,7 @@ in
           enable = true;
           style = "nixos";
           icon = "color";
-          resolution = cfg.bootloader.resolution;
+          inherit (cfg.bootloader) resolution;
         };
       };
     };

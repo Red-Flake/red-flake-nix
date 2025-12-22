@@ -28,8 +28,8 @@
                 src = prev.fetchFromGitLab {
                   owner = "xanmod";
                   repo = "linux";
-                  rev = rev;
-                  hash = hash;
+                  inherit rev;
+                  inherit hash;
                 };
               };
             }).overrideAttrs

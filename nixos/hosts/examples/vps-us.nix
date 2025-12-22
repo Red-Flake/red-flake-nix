@@ -1,9 +1,9 @@
 # Example: VPS located in US with US locale
 { config, lib, pkgs, chaoticPkgs, inputs, isKVM, ... }:
 let
-  mkHost = (import ../../shared/mkHost.nix {
+  inherit ((import ../../shared/mkHost.nix {
     inherit config lib pkgs chaoticPkgs inputs isKVM;
-  }).mkHost;
+  })) mkHost;
 in
 mkHost "server" {
   hardwareConfig = ../vps/hardware.nix;

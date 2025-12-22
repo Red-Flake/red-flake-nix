@@ -23,8 +23,8 @@ let
   # Pre-fetch the tools
   fetchTools = builtins.map
     (tool: super.fetchurl {
-      url = tool.url;
-      sha256 = tool.sha256;
+      inherit (tool) url;
+      inherit (tool) sha256;
     })
     tools;
 

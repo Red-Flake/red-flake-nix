@@ -1,7 +1,7 @@
 _self: super:
 
 let
-  lib = super.lib;
+  inherit (super) lib;
 in
 {
   pyGPOAbuse = super.stdenv.mkDerivation rec {

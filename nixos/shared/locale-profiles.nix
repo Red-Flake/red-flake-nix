@@ -1,5 +1,5 @@
 # Configurable locale and timezone profiles for different regions/users
-{ ... }:
+_:
 let
   # Pre-defined locale profiles for common regions
   profiles = {
@@ -112,7 +112,7 @@ in
   # Helper function to get locale configuration
   getLocaleConfig =
     profileName: defaultProfile:
-    if profiles ? ${profileName} then profiles.${profileName} else profiles.${defaultProfile};
+    profiles.${profileName} or profiles.${defaultProfile};
 
   # Helper to create custom locale config
   mkCustomLocale =

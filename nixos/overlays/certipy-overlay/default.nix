@@ -15,7 +15,7 @@ in
 {
   python314Packages = pkgs.python314Packages // {
     certipy-ad = pkgs.python314Packages.certipy-ad.overrideAttrs (old: rec {
-      version = version;
+      inherit version;
       src = certipySrc;
 
       postPatch = ''

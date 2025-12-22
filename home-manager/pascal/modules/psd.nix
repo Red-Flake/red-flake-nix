@@ -1,5 +1,4 @@
-{ ...
-}:
+_:
 {
   xdg.configFile."psd/psd.conf".text = ''
     #

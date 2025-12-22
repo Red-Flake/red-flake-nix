@@ -93,7 +93,7 @@ in
         fallback = true; # Fall back to building if substitution fails
 
         # Substituters
-        substituters = nixCaches.substituters;
+        inherit (nixCaches) substituters;
 
         # Trusted public keys
         trusted-public-keys = nixCaches.trustedPublicKeys;

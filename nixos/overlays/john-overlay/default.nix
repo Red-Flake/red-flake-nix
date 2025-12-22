@@ -2,7 +2,7 @@
 _self: super:
 
 let
-  fetchFromGitHub = super.fetchFromGitHub;
+  inherit (super) fetchFromGitHub;
 in
 {
   john = super.john.overrideAttrs (old: {

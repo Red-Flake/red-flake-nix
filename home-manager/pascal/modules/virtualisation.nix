@@ -1,5 +1,4 @@
-{ ...
-}:
+_:
 {
   home.file.".config/libvirt/qemu.conf".text = ''
     # Adapted from /var/lib/libvirt/qemu.conf

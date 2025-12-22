@@ -8,8 +8,7 @@
 , ...
 }:
 let
-  mkHost =
-    (import ../../shared/mkHost.nix {
+  inherit ((import ../../shared/mkHost.nix {
       inherit
         config
         lib
@@ -18,7 +17,7 @@ let
         inputs
         isKVM
         ;
-    }).mkHost;
+    })) mkHost;
 in
 mkHost "server" {
   hardwareConfig = ./hardware.nix;

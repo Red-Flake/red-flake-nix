@@ -1,7 +1,7 @@
 _self: super:
 
 let
-  lib = super.lib;
+  inherit (super) lib;
 in
 {
   cupp = super.stdenv.mkDerivation rec {

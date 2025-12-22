@@ -1,9 +1,9 @@
 # Example: Optimized KVM configuration with configurable locale
 { config, lib, pkgs, chaoticPkgs, inputs, isKVM, ... }:
 let
-  mkHost = (import ../../shared/mkHost.nix {
+  inherit ((import ../../shared/mkHost.nix {
     inherit config lib pkgs chaoticPkgs inputs isKVM;
-  }).mkHost;
+  })) mkHost;
 in
 mkHost "security" {
   hardwareConfig = ../kvm/hardware.nix;

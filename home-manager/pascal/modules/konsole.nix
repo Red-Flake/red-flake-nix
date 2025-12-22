@@ -1,5 +1,4 @@
-{ ...
-}:
+_:
 {
   # deploy konsole profile
   home.file.".local/share/konsole/red-flake.profile" = {

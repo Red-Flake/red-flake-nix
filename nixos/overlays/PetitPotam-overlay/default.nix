@@ -2,10 +2,10 @@
 
 _self: super:
 let
-  lib = super.lib;
-  stdenv = super.stdenv;
-  fetchFromGitHub = super.fetchFromGitHub;
-  python312 = super.python312;
+  inherit (super) lib;
+  inherit (super) stdenv;
+  inherit (super) fetchFromGitHub;
+  inherit (super) python312;
 in
 {
   petitpotam = stdenv.mkDerivation rec {

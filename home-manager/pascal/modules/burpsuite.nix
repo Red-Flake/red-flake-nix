@@ -1,5 +1,4 @@
-{ ...
-}:
+_:
 {
   # deploy UserConfigCommunity.json
   home.file.".BurpSuite/UserConfigCommunity.json" = {

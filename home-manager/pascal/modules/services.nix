@@ -1,5 +1,4 @@
-{ ...
-}:
+_:
 {
   services = {
     kdeconnect.enable = true; # enable KDE Connect

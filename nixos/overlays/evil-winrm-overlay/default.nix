@@ -11,7 +11,7 @@ let
   src37 = final.fetchFromGitHub {
     owner = "Hackplayers";
     repo = "evil-winrm";
-    rev = rev;
+    inherit rev;
     hash = "sha256-fL4QAB4utf+Ar2LfswD4MKgfmzVLwWwwahfPI3o0Bk4=";
   };
 in

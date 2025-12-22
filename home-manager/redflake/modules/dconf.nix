@@ -1,4 +1,4 @@
-{ ... }:
+_:
 {
   # dconf user settings
   dconf = {

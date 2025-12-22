@@ -12,7 +12,7 @@ let
 
   # Fetch the avatar image into the Nix store
   avatar = pkgs.fetchurl {
-    url = url;
+    inherit url;
     sha256 = "sha256-r8Fb/otwo6I+9oOhKTC71r32gC9d1cH90/aH1sW1GPE="; # See instructions below to get the hash
   };
 in

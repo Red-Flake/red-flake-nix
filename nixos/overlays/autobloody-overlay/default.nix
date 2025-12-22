@@ -2,7 +2,7 @@
 self: super:
 
 let
-  lib = super.lib;
+  inherit (super) lib;
 
   # Override python313 to disable tests for pytest-mock
   python313 = super.python313.override {
@@ -36,7 +36,7 @@ let
     };
   };
 
-  fetchFromGitHub = super.fetchFromGitHub;
+  inherit (super) fetchFromGitHub;
 
   # Define the custom bloodyad version 1.0.5
   bloodyad_1_0_5 = self.python313.pkgs.buildPythonApplication rec {
