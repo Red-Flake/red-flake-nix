@@ -288,6 +288,10 @@
         ,
         }:
         let
+          hostOverlays =
+            commonOverlays
+            ++ nixpkgs.lib.optionals includeTuxedo sharedOverlays.tuxedoDriversOverlay;
+
           hostPkgs = import inputs.nixpkgs {
             inherit system;
             config = {
@@ -299,7 +303,7 @@
                 );
             }
             // nixpkgsConfig;
-            overlays = commonOverlays;
+            overlays = hostOverlays;
           };
         in
         nixpkgs.lib.nixosSystem {
