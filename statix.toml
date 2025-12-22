@@ -1,0 +1,7 @@
+# Statix configuration
+# See: https://github.com/nerdypepper/statix
+
+# W20 (repeated_keys): Both `foo.bar = 1; foo.baz = 2;` and `foo = { bar = 1; baz = 2; }`
+# are valid Nix. We prefer the flat style for readability in NixOS configs.
+disabled = ["repeated_keys"]
+nix_version = "2.4"
