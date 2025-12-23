@@ -340,6 +340,7 @@
         packages = with commonPkgs; [
           nixpkgs-fmt
           treefmt
+          shfmt
           statix
           deadnix
           pre-commit
@@ -468,9 +469,8 @@
             treefmt = {
               enable = true;
               package = commonPkgs.treefmt;
-              extraPackages = [ commonPkgs.nixpkgs-fmt ];
+              extraPackages = [ commonPkgs.nixpkgs-fmt commonPkgs.shfmt ];
             };
-            nixpkgs-fmt.enable = true;
             statix.enable = true;
             deadnix = {
               enable = true;

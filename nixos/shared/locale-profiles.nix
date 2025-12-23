@@ -112,7 +112,7 @@ in
   # Helper function to get locale configuration
   getLocaleConfig =
     profileName: defaultProfile:
-    profiles.${profileName} or profiles.${defaultProfile};
+      profiles.${profileName} or profiles.${defaultProfile};
 
   # Helper to create custom locale config
   mkCustomLocale =

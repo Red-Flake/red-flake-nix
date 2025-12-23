@@ -9,15 +9,15 @@
 }:
 let
   inherit ((import ../../shared/mkHost.nix {
-      inherit
-        config
-        lib
-        pkgs
-        chaoticPkgs
-        inputs
-        isKVM
-        ;
-    })) mkHost;
+    inherit
+      config
+      lib
+      pkgs
+      chaoticPkgs
+      inputs
+      isKVM
+      ;
+  })) mkHost;
 in
 mkHost "server" {
   hardwareConfig = ./hardware.nix;

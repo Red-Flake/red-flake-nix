@@ -30,5 +30,6 @@
     pkgs.zig
     nasm
     ruby
+    shfmt
   ];
 }
