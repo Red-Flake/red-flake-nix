@@ -32,5 +32,6 @@
     ruby
     shfmt
     shellcheck
+    prettier
   ];
 }

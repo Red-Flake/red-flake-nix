@@ -7,12 +7,16 @@ let
   packages = import ./packages.nix { inherit pkgs; };
 in
 {
-  # Profile for pascal (security researcher)
+  # Profile for pascal
   pascal = {
     git = {
       userName = "Mag1cByt3s";
       userEmail = "ppeinecke@protonmail.com";
-      signing = null; # No signing
+      signing = {
+        key = "~/.ssh/id_ed25519.pub";
+        signByDefault = true;
+        format = "ssh";
+      };
     };
     sessionVariables = {
       # Enalbe Wayland for Firefox
@@ -73,7 +77,7 @@ in
     packages = packages.base ++ packages.desktop ++ packages.gaming ++ packages.development;
   };
 
-  # Profile for Letgamer (gaming/desktop user)
+  # Profile for Letgamer
   letgamer = {
     git = {
       userName = "Letgamer";
