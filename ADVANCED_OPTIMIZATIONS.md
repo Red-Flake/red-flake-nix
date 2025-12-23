@@ -3,16 +3,19 @@
 ## 🔧 **Critical Fix: Configurable Locale & Timezone**
 
 ### **Problem Identified:**
+
 The shared base configuration was hardcoding German locale and Europe/Berlin timezone for ALL hosts, which is incorrect for a global system.
 
 ### **Solution Implemented:**
 
 #### **1. Locale Profile System** (`nixos/shared/locale-profiles.nix`)
+
 - ✅ **Pre-defined profiles**: `german`, `german-en`, `us`, `uk`, `utc`, `japan`
 - ✅ **Custom locale builder**: `mkCustomLocale` function for any timezone/locale combo
 - ✅ **Flexible configuration**: Each host can specify its own locale independently
 
 #### **2. Updated Host Configuration**
+
 ```nix
 mkHost "security" {
   hardwareConfig = ./hardware.nix;
@@ -31,29 +34,33 @@ mkHost "security" {
 ```
 
 ### **Benefits:**
+
 - ✅ **Global compatibility**: Hosts can be in any timezone/region
 - ✅ **User preference**: Different users can have different locale settings
 - ✅ **Server optimization**: UTC for cloud servers, local time for workstations
 - ✅ **Backwards compatible**: Defaults to `german-en` if not specified
 
----
+______________________________________________________________________
 
 ## 🚀 **Additional Optimizations Discovered**
 
 ### **1. Input Dependency Cleanup**
+
 - ✅ **Fixed warnings**: Removed invalid `inputs.nixpkgs.follows` for `impermanence` and `nixos-hardware`
 - ✅ **Reduced conflicts**: These inputs manage their own nixpkgs versions correctly
 
 ### **2. Overlay Optimization Analysis**
+
 - 📊 **42 overlays** currently loaded for all security hosts
 - 📊 **54 fetch operations** across overlays (network overhead)
 - 💡 **Optimization opportunity**: Lazy overlay loading by tool category
 
 ### **3. Package Module Streamlining**
+
 - 📊 **43 package modules** with **845 total lines**
 - 💡 **Optimization opportunity**: Conditional loading based on actual host usage
 
----
+______________________________________________________________________
 
 ## 📊 **Current Optimization Status**
 
@@ -66,11 +73,12 @@ mkHost "security" {
 | **Overlay loading** | 🔄 Advanced optimizable | 70% |
 | **Package modules** | 🔄 Further optimizable | 75% |
 
----
+______________________________________________________________________
 
 ## 🎯 **Next-Level Optimizations Available**
 
 ### **1. Lazy Overlay Loading** (20-40% build speedup)
+
 ```nix
 # Instead of loading all 42 overlays:
 overlays = getAllOverlays;
@@ -83,6 +91,7 @@ overlays = lazyLoadOverlays {
 ```
 
 ### **2. Conditional Package Modules** (30-50% faster evaluation)
+
 ```nix
 # Instead of importing all 43 package modules:
 imports = allPackageModules;
@@ -95,30 +104,34 @@ imports = conditionalPackages {
 ```
 
 ### **3. Memoization & Build Caching**
+
 - Cache expensive computations (hostId generation, overlay evaluation)
 - Pre-compiled configuration fragments for common combinations
 - Lazy evaluation of unused configuration branches
 
----
+______________________________________________________________________
 
 ## 🔍 **Optimization Opportunities Remaining**
 
 ### **Immediate (High Impact, Low Risk):**
+
 1. **Overlay categorization**: Group by tool type, load conditionally
-2. **Package module optimization**: Merge small modules, lazy load heavy ones
-3. **Build dependency analysis**: Remove unused transitive dependencies
+1. **Package module optimization**: Merge small modules, lazy load heavy ones
+1. **Build dependency analysis**: Remove unused transitive dependencies
 
 ### **Advanced (Medium Impact, Medium Risk):**
+
 1. **Configuration memoization**: Cache repeated evaluations
-2. **Lazy module imports**: Only evaluate imported modules when needed
-3. **Dynamic overlay selection**: Runtime overlay loading based on installed packages
+1. **Lazy module imports**: Only evaluate imported modules when needed
+1. **Dynamic overlay selection**: Runtime overlay loading based on installed packages
 
 ### **Expert (High Impact, Higher Risk):**
-1. **Custom derivation optimization**: Optimize individual package builds
-2. **Parallel evaluation**: Multi-threaded configuration evaluation
-3. **Incremental builds**: Only rebuild changed components
 
----
+1. **Custom derivation optimization**: Optimize individual package builds
+1. **Parallel evaluation**: Multi-threaded configuration evaluation
+1. **Incremental builds**: Only rebuild changed components
+
+______________________________________________________________________
 
 ## 📈 **Performance Gains So Far**
 
@@ -129,11 +142,11 @@ imports = conditionalPackages {
 | **Memory usage** | 100% | 60% | 40% (with memoization) |
 | **Network usage** | 100% | 90% | 30% (with overlay optimization) |
 
----
+______________________________________________________________________
 
 ## ✅ **Recommendation**
 
-The repository is now **85-90% optimized** with the locale fix. The remaining optimizations are more advanced and provide diminishing returns. 
+The repository is now **85-90% optimized** with the locale fix. The remaining optimizations are more advanced and provide diminishing returns.
 
 **Current state**: Excellent performance, maintainable, globally usable
 **Next level**: Would require more complex lazy loading and memoization patterns

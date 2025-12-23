@@ -341,6 +341,7 @@
           nixpkgs-fmt
           treefmt
           shfmt
+          prettier
           shellcheck
           statix
           deadnix
@@ -470,7 +471,7 @@
             treefmt = {
               enable = true;
               package = commonPkgs.treefmt;
-              extraPackages = [ commonPkgs.nixpkgs-fmt commonPkgs.shfmt ];
+              extraPackages = [ commonPkgs.nixpkgs-fmt commonPkgs.shfmt commonPkgs.prettier ];
             };
             shellcheck.enable = true;
             statix.enable = true;

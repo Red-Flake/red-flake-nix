@@ -5,3 +5,8 @@ includes = ["*.nix"]
 [formatter.shell]
 command = "shfmt"
 includes = ["*.sh"]
+
+[formatter.markdown]
+command = "prettier"
+options = ["--parser", "markdown"]
+includes = ["*.md"]
