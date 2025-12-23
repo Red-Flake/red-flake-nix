@@ -341,6 +341,7 @@
           nixpkgs-fmt
           treefmt
           shfmt
+          shellcheck
           statix
           deadnix
           pre-commit
@@ -471,6 +472,7 @@
               package = commonPkgs.treefmt;
               extraPackages = [ commonPkgs.nixpkgs-fmt commonPkgs.shfmt ];
             };
+            shellcheck.enable = true;
             statix.enable = true;
             deadnix = {
               enable = true;

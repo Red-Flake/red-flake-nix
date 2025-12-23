@@ -15,19 +15,14 @@ GIT_REV="main"
 
 # define colors
 RED="\e[31m"
-GREEN="\e[32m"
 YELLOW="\e[33m"
 BLUE="\e[34m"
-MAGENTA="\e[35m"
-CYAN="\e[36m"
-WHITE="\e[37m"
 ENDCOLOR="\e[0m"
 
 function colorprint() {
     local color="$1"
     local text="$2"
-    local endcolor="\e[0m"
-    echo -e "${color}${text}${endcolor}"
+    echo -e "${color}${text}${ENDCOLOR}"
 }
 
 function log() {
@@ -59,9 +54,7 @@ function check_command() {
 }
 
 # Check for required commands
-for cmd in nixos-rebuild; do
-    check_command "$cmd"
-done
+check_command "nixos-rebuild"
 
 # Network connectivity check
 if ! ping -c 1 github.com &> /dev/null; then

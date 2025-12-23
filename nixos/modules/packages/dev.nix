@@ -31,5 +31,6 @@
     nasm
     ruby
     shfmt
+    shellcheck
   ];
 }

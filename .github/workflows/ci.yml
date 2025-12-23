@@ -15,12 +15,8 @@ jobs:
           extra_nix_config: |
             experimental-features = nix-command flakes
             accept-flake-config = true
-      - name: Treefmt
-        run: nix develop .#devShells.x86_64-linux.default -c treefmt
-      - name: Deadnix
-        run: nix develop .#devShells.x86_64-linux.default -c deadnix .
-      - name: Statix
-        run: nix develop .#devShells.x86_64-linux.default -c statix check .
+      - name: Pre-commit (treefmt, shellcheck, statix, deadnix)
+        run: nix develop .#devShells.x86_64-linux.default -c pre-commit run --all-files
 
   flake-check:
     runs-on: ubuntu-latest

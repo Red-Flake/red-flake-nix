@@ -25,19 +25,14 @@ GIT_REV="main"
 
 # define colors
 RED="\e[31m"
-GREEN="\e[32m"
 YELLOW="\e[33m"
 BLUE="\e[34m"
-MAGENTA="\e[35m"
-CYAN="\e[36m"
-WHITE="\e[37m"
 ENDCOLOR="\e[0m"
 
 function colorprint() {
     local color="$1"
     local text="$2"
-    local endcolor="\e[0m"
-    echo -e "${color}${text}${endcolor}"
+    echo -e "${color}${text}${ENDCOLOR}"
 }
 
 function log() {
@@ -155,7 +150,7 @@ if is_vm; then
     ZFSDISK="${DISK}1"
 else
     log "INFO" "No VM detected. Your attached storage devices will now be listed."
-    read -p "Press enter to continue." NULL
+    read -rp "Press enter to continue."
 
     printf "\n"
 
@@ -164,7 +159,7 @@ else
 
     printf "\n"
 
-    read -p "Which device do you wish to install on? " DISKINPUT
+    read -rp "Which device do you wish to install on? " DISKINPUT
     DISK="/dev/${DISKINPUT}"
 
     if [ ! -b "$DISK" ]; then
@@ -188,7 +183,7 @@ else
 fi
 
 log "INFO" "SWAP size selection"
-read -p "How much Swap Size do you want? Enter in GB: " SWAPSIZE
+read -rp "How much Swap Size do you want? Enter in GB: " SWAPSIZE
 
 if ! [[ "$SWAPSIZE" =~ ^[0-9]+$ ]] || [[ "$SWAPSIZE" -eq 0 ]]; then
     log "ERROR" "Invalid SWAPSIZE: $SWAPSIZE. Please enter a positive numeric value."
@@ -212,7 +207,7 @@ log "INFO" "Creating partitions on disk ${DISK} ..."
 sgdisk -n3:1M:+1G -t3:EF00 "$DISK" # boot
 
 log "INFO" "Creating Swap partition with ${SWAPSIZE}GB ..."
-sgdisk -n2:0:+${SWAPSIZE}G -t2:8200 "$DISK" # swap
+sgdisk -n2:0:+"${SWAPSIZE}"G -t2:8200 "$DISK" # swap
 
 sgdisk -n1:0:0 -t1:BF01 "$DISK" # root(zfs)
 
@@ -280,7 +275,7 @@ mount --mkdir -t zfs zroot/home /mnt/home
 
 restore_snapshot=$(yesno "Do you want to restore from a persist snapshot?")
 if [[ $restore_snapshot == "y" ]]; then
-    read -p "Enter full path to snapshot: " snapshot_file_path
+    read -rp "Enter full path to snapshot: " snapshot_file_path
     log "INFO" "Creating /persist"
     zfs receive -o mountpoint=legacy zroot/persist < "$snapshot_file_path"
 else
@@ -314,14 +309,14 @@ while true; do
     # Prompt for the password
     echo -n "Enter password for user root: "
     stty -echo        # Disable echoing
-    read root_password
+    read -r root_password
     stty echo         # Re-enable echoing
     echo              # Move to a new line
 
     # Prompt for the password confirmation
     echo -n "Confirm password: "
     stty -echo
-    read root_password_confirm
+    read -r root_password_confirm
     stty echo
     echo              # Move to a new line
 
@@ -367,20 +362,20 @@ while true; do
     # Prompt for the password
     echo -n "Enter password for user $USER: "
     stty -echo        # Disable echoing
-    read user_password
+    read -r user_password
     stty echo         # Re-enable echoing
     echo              # Move to a new line
 
     # Prompt for the password confirmation
     echo -n "Confirm password: "
     stty -echo
-    read user_password_confirm
+    read -r user_password_confirm
     stty echo
     echo              # Move to a new line
 
     # Check if passwords match
     if [ "$user_password" = "$user_password_confirm" ]; then
-        echo "$user_password" | mkpasswd -m sha-512 --stdin | tee -a /mnt/persist/etc/shadow.d/$USER > /dev/null
+        echo "$user_password" | mkpasswd -m sha-512 --stdin | tee -a /mnt/persist/etc/shadow.d/"$USER" > /dev/null
         unset user_password user_password_confirm
         echo "Password set successfully."
         break
@@ -403,8 +398,8 @@ log "INFO" "Removing redundant files related to nix channels"
 rm -rf /mnt/nix/var/nix/profiles/per-user/root/channels
 rm -rf /mnt/root/.nix-defexpr/channels
 rm -rf /mnt/root/.local/state/nix/profiles/channels
-rm -rf /mnt/home/$USER/.nix-defexpr/channels
-rm -rf /mnt/home/$USER/.local/state/nix/profiles/channels
+rm -rf /mnt/home/"$USER"/.nix-defexpr/channels
+rm -rf /mnt/home/"$USER"/.local/state/nix/profiles/channels
 
 log "INFO" "Setting up persistence..."
 
@@ -441,9 +436,9 @@ if [ -d /var/lib/NetworkManager ]; then
     
     # Loop through each file and copy only if it exists
     for file in "${files[@]}"; do
-        if [ -f /var/lib/NetworkManager/$file ]; then
+        if [ -f /var/lib/NetworkManager/"$file" ]; then
             # Copy the file while preserving attributes
-            cp -p /var/lib/NetworkManager/$file /mnt/persist/var/lib/NetworkManager/
+            cp -p /var/lib/NetworkManager/"$file" /mnt/persist/var/lib/NetworkManager/
         fi
     done
 fi
