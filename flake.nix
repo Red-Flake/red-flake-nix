@@ -91,10 +91,10 @@
 
     # disable for now due to hash mismatch issues
     # https://github.com/jchv/nix-binary-ninja
-    binaryninja = {
-      url = "github:jchv/nix-binary-ninja";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    #binaryninja = {
+    #  url = "github:jchv/nix-binary-ninja";
+    #  inputs.nixpkgs.follows = "nixpkgs";
+    #};
 
     # https://github.com/nix-community/poetry2nix
     poetry2nix = {
@@ -181,8 +181,8 @@
     inputs@{ self
     , nixpkgs
     , pre-commit-hooks
-    , binaryninja
-    , redflake-packages
+    , #binaryninja,
+      redflake-packages
     , darkmatter-grub-theme
     , nixos-hardware
     , tuxedo-nixos
@@ -195,6 +195,7 @@
       insecurePackages = [
         "openssl-1.1.1w"
         "python-2.7.18.8"
+        "python-2.7.18.12"
         "python27Full"
       ];
 
@@ -205,15 +206,14 @@
       commonOverlays = sharedOverlays.allOverlays;
 
       # Common pkgs with overlays applied once (used for general utilities)
-      commonPkgs =
-        import inputs.nixpkgs {
-          inherit system;
-          config = {
-            allowUnfree = true;
-            permittedInsecurePackages = insecurePackages;
-          };
-          overlays = commonOverlays;
+      commonPkgs = import inputs.nixpkgs {
+        inherit system;
+        config = {
+          allowUnfree = true;
+          permittedInsecurePackages = insecurePackages;
         };
+        overlays = commonOverlays;
+      };
 
       # Import shared user helper (parametrized by pkgs to match host config)
       mkUserFor =
@@ -289,18 +289,14 @@
         }:
         let
           hostOverlays =
-            commonOverlays
-            ++ nixpkgs.lib.optionals includeTuxedo sharedOverlays.tuxedoDriversOverlay;
+            commonOverlays ++ nixpkgs.lib.optionals includeTuxedo sharedOverlays.tuxedoDriversOverlay;
 
           hostPkgs = import inputs.nixpkgs {
             inherit system;
             config = {
               allowUnfree = true;
               permittedInsecurePackages =
-                nixpkgsConfig.permittedInsecurePackages
-                  or (
-                  if profile == "server" then [ ] else insecurePackages
-                );
+                nixpkgsConfig.permittedInsecurePackages or (if profile == "server" then [ ] else insecurePackages);
             }
             // nixpkgsConfig;
             overlays = hostOverlays;
@@ -314,22 +310,21 @@
             chaoticPkgs = hostPkgs.chaoticPkgs or hostPkgs;
             inherit user isKVM;
           };
-          modules =
-            [
-              redflake-packages.nixosModules.bloodhound-ce
-              darkmatter-grub-theme.nixosModule
-              inputs.impermanence.nixosModules.impermanence
-              binaryninja.nixosModules.binaryninja
-              (mkHost.mkHost profile hostConfig {
-                inherit hostname localeProfile;
-                inherit extraConfig;
-                extraModules =
-                  extraModules
+          modules = [
+            redflake-packages.nixosModules.bloodhound-ce
+            darkmatter-grub-theme.nixosModule
+            inputs.impermanence.nixosModules.impermanence
+            #binaryninja.nixosModules.binaryninja
+            (mkHost.mkHost profile hostConfig {
+              inherit hostname localeProfile;
+              inherit extraConfig;
+              extraModules =
+                extraModules
                   ++ (if includeSpicetify then [ spicetify-nix.nixosModules.default ] else [ ])
                   ++ (if includeTuxedo then [ tuxedo-nixos.nixosModules.default ] else [ ]);
-              })
-            ]
-            ++ (map (cfg: mkHomeManagerConfig (cfg // { pkgs = hostPkgs; })) homeManagerConfigs);
+            })
+          ]
+          ++ (map (cfg: mkHomeManagerConfig (cfg // { pkgs = hostPkgs; })) homeManagerConfigs);
         };
     in
     {
@@ -471,7 +466,11 @@
             treefmt = {
               enable = true;
               package = commonPkgs.treefmt;
-              extraPackages = [ commonPkgs.nixpkgs-fmt commonPkgs.shfmt commonPkgs.prettier ];
+              extraPackages = [
+                commonPkgs.nixpkgs-fmt
+                commonPkgs.shfmt
+                commonPkgs.prettier
+              ];
             };
             shellcheck.enable = true;
             statix.enable = true;

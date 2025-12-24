@@ -15,7 +15,7 @@
     dotnet-runtime_8
     dotnet-aspnetcore_8
     mono
-    jdk
+    javaPackages.compiler.openjdk25
     maven
     python313
     python313Packages.pip

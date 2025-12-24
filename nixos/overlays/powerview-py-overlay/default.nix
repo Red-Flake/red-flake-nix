@@ -28,7 +28,7 @@ _self: super: {
       dsinternals
       chardet
       tabulate
-      requests_ntlm
+      requests-ntlm
       python-dateutil
       flask
     ];

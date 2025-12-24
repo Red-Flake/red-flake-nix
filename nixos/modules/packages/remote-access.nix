@@ -10,7 +10,7 @@
     evil-winrm-patched
     inputs.redflake-packages.packages.x86_64-linux.evil-winrm-py
     openssh
-    freerdp3
+    freerdp
     rdesktop
     remmina
     moonlight-qt

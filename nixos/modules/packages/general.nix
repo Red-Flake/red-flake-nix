@@ -49,7 +49,7 @@
     aha
     pciutils
     clinfo
-    glxinfo
+    mesa-demos
     vulkan-tools
     wayland-utils
     acpi

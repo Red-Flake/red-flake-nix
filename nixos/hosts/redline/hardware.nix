@@ -74,7 +74,7 @@
   environment.systemPackages = with pkgs; [
     clinfo
     vulkan-tools
-    glxinfo
+    mesa-demos
     radeontop # AMD GPU utilization monitor
     lm_sensors # For temperature sensors
     pciutils

@@ -1,5 +1,5 @@
 _self: super: {
-  freerdp3 = super.freerdp3.overrideAttrs (old: rec {
+  freerdp = super.freerdp.overrideAttrs (old: rec {
     # Keep the same version, but ensure the channel flag is enabled
     cmakeFlags = (old.cmakeFlags or [ ]) ++ [
       "-DWITH_RDP2TCP=ON"

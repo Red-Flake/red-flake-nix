@@ -7,7 +7,7 @@
   # Enable Ollama with CUDA acceleration
   services.ollama = {
     enable = true;
-    acceleration = "cuda";
+    #acceleration = "cuda";
     # Optional: preload models
     # loadModels = [ "llama3.2:3b" ];
   };

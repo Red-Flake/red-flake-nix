@@ -96,10 +96,10 @@
     # Enable Nvidia graphics acceleration
     graphics = {
       extraPackages = with pkgs; [
-        vaapiVdpau # For Nvidia VDPAU backend
+        libva-vdpau-driver # For Nvidia VDPAU backend
       ];
       extraPackages32 = with pkgs.pkgsi686Linux; [
-        vaapiVdpau # For Nvidia VDPAU backend
+        libva-vdpau-driver # For Nvidia VDPAU backend
       ];
     };
   };

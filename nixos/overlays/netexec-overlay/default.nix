@@ -41,7 +41,7 @@ inputs: final: prev:
         version = "1.0.0";
 
         pyproject = true;
-        build-system = with final.python312Packages; [ setuptools ];
+        build-system = with final.python312_nxc.pkgs; [ setuptools ];
 
         src = final.fetchFromGitHub {
           owner = "Pennyw0rth";
@@ -64,6 +64,7 @@ inputs: final: prev:
           "cryptography"
           "pyopenssl"
           "pycryptodome"
+          "dnspython"
         ];
         pythonRemoveDeps = [ "impacket" ];
       });

@@ -6,8 +6,8 @@
   environment.systemPackages = with pkgs; [
     httrack
     updog
-    burpsuite
-    inputs.burpsuitepro.packages.${system}.default
+    (burpsuite.override { jdk = javaPackages.compiler.openjdk25; })
+    (inputs.burpsuitepro.packages.${system}.default.override { jdk = javaPackages.compiler.openjdk25; })
     zap
     xssstrike
     xsser

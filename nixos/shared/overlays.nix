@@ -59,7 +59,7 @@
     (import ../overlays/PetitPotam-overlay)
     (import ../overlays/cupp-overlay)
     (import ../overlays/john-overlay)
-    (import ../overlays/certipy-overlay)
+    #(import ../overlays/certipy-overlay)
     (import ../overlays/XSStrike-overlay)
     (import ../overlays/XSSer-overlay)
     (import ../overlays/bashfuscator-overlay)
@@ -71,7 +71,7 @@
     (import ../overlays/JoomlaScan-overlay)
     (import ../overlays/joomla-brute-overlay)
     (import ../overlays/apachetomcatscanner-overlay)
-    (import ../overlays/freerdp3-overlay)
+    (import ../overlays/freerdp-overlay)
     (import ../overlays/mingwW64-overlay)
     (import ../overlays/metasploit-overlay)
   ];

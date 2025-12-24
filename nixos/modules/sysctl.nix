@@ -1,6 +1,19 @@
 _:
 
 {
+  # Increase systemd limits
+  systemd.settings.Manager = {
+    DefaultLimitNOFILE = 1048576;
+    DefaultLimitNPROC = 1048576;
+  };
+
+  # Set user limits
+  security.pam.loginLimits = [
+    { domain = "*"; type = "soft"; item = "nofile"; value = "1048576"; }
+    { domain = "*"; type = "hard"; item = "nofile"; value = "1048576"; }
+    { domain = "*"; type = "soft"; item = "nproc"; value = "1048576"; }
+    { domain = "*"; type = "hard"; item = "nproc"; value = "1048576"; }
+  ];
   boot.kernel.sysctl = {
     # Set sysctl parameters
 

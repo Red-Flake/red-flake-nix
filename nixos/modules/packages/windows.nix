@@ -13,12 +13,12 @@
     python312Packages.impacket-patched
     openldap
     ldapdomaindump-patched
-    python312Packages.certipy-ad
+    certipy
     netexec
     powershell
     python313Packages.bloodyad
-    krb5Full
-    krb5Full.dev
+    krb5
+    krb5.dev
     samba4Full
     autobloody
     python312Packages.lsassy
