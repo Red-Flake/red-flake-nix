@@ -38,10 +38,10 @@ _:
       copy-on-select = false;
 
       # right click settings
-      right-click-action = "context-menu"; # Unknown option in current ghostty version; needs to be updated first.
+      right-click-action = "context-menu";
 
       background-blur = 8;
-      background-opacity = 0.3;
+      background-opacity = 0.05;
       fullscreen = false;
 
       # window settings
@@ -50,7 +50,7 @@ _:
       #window-padding-x = 5;
       #window-padding-y = 5;
       window-vsync = true;
-      window-show-tab-bar = "always"; # Unknown option in current ghostty version; needs to be updated first.
+      window-show-tab-bar = "always";
       window-theme = "ghostty"; # Use the background and foreground colors specified in the Ghostty configuration.
 
       confirm-close-surface = false;
@@ -59,25 +59,25 @@ _:
       shell-integration-features = [
         "sudo"
         "title"
-        "ssh-env" # Unknown option in current ghostty version; needs to be updated first.
-        "ssh-terminfo" # Unknown option in current ghostty version; needs to be updated first.
+        "ssh-env"
+        "ssh-terminfo"
       ];
 
       gtk-single-instance = "desktop";
       gtk-titlebar = false;
-      gtk-tabs-location = "top";
+      gtk-tabs-location = "bottom";
       gtk-wide-tabs = true;
 
-      theme = "GitHub Dark Default";
+      theme = "Dracula+";
 
       # app notifications
       app-notifications = "no-clipboard-copy";
 
       # bell
-      #bell-feature = "system"; # Unknown option in current ghostty version; needs to be updated first.
+      #bell-feature = "system"; # Unknown option in current ghostty version
 
       # async
-      async-backend = "auto"; # Unknown option in current ghostty version; needs to be updated first.
+      async-backend = "auto";
 
       # auto update
       auto-update = "off";
