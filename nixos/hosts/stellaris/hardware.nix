@@ -62,7 +62,8 @@
       "kvm-intel"
       "msr" # /dev/cpu/CPUNUM/msr provides an interface to read and write the model-specific registers (MSRs) of an x86 CPU
       "tuxedo_keyboard"
-      "tuxedo-io"
+      "tuxedo_io"
+      "uniwill_wmi"
     ];
     extraModulePackages = with pkgs; [
       linuxKernel.packages.linux_xanmod_latest.tuxedo-drivers # TUXEDO-specific drivers
