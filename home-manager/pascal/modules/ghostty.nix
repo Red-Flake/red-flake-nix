@@ -68,13 +68,13 @@ _:
       gtk-tabs-location = "top";
       gtk-wide-tabs = true;
 
-      theme = "tokyonight_night";
+      theme = "GitHub Dark Default";
 
       # app notifications
       app-notifications = "no-clipboard-copy";
 
       # bell
-      bell-feature = "system"; # Unknown option in current ghostty version; needs to be updated first.
+      #bell-feature = "system"; # Unknown option in current ghostty version; needs to be updated first.
 
       # async
       async-backend = "auto"; # Unknown option in current ghostty version; needs to be updated first.
