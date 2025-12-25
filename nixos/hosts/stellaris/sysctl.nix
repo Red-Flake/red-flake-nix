@@ -43,6 +43,9 @@ _:
     # This tunable expresses the interval between those wakeups, in 100'ths of a second (Default is 500).
     "vm.dirty_writeback_centisecs" = 1000; # 10 seconds
 
+    # Enable Multi-Gen LRU for better reclaim behavior under mixed workloads.
+    "vm.lru_gen_enabled" = 1;
+
     # page-cluster controls the number of pages up to which consecutive pages are read in from swap in a single attempt.
     # This is the swap counterpart to page cache readahead. The mentioned consecutivity is not in terms of virtual/physical addresses,
     # but consecutive on swap space - that means they were swapped out together. (Default is 3)
@@ -67,6 +70,9 @@ _:
     # sched: RT throttling activated
     # Defines the time (in microseconds) that real-time tasks can run without being throttled.
     "kernel.sched_rt_runtime_us" = 980000;
+
+    # Improve interactive responsiveness by grouping tasks per TTY/session.
+    "kernel.sched_autogroup_enabled" = 1;
 
     # Enable the sysctl setting kernel.unprivileged_userns_clone to allow normal users to run unprivileged containers.
     "kernel.unprivileged_userns_clone" = 1;
