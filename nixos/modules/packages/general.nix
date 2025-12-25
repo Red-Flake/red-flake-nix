@@ -72,5 +72,6 @@
     alsa-utils
     usbutils
     bolt
+    ripgrep
   ];
 }
