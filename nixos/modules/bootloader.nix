@@ -34,8 +34,8 @@ in
       "biosdevname=0"
     ];
 
-    # Switch to latest XanMod kernel
-    kernelPackages = pkgs.linuxPackages_xanmod_latest;
+    # Switch to latest Linux CachyOS Kernel (BORE) compiled with Clang+ThinLTO
+    kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-bore-lto;
 
     # Initramfs settings
     initrd = {
@@ -60,6 +60,8 @@ in
         else
           "/dev/disk/by-path";
 
+      # Use ZFS 2.4.0 userspace package (Linux 6.18 requires ZFS 2.4.0+)
+      # boot.zfs.package expects the userspace package, not the kernel module
       package = pkgs.zfs_unstable;
       requestEncryptionCredentials = cfg.zfs.encryption;
     };

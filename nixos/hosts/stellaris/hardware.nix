@@ -1,4 +1,5 @@
-{ lib
+{ config
+, lib
 , pkgs
 , inputs
 , ...
@@ -65,9 +66,9 @@
       "tuxedo_io"
       "uniwill_wmi"
     ];
-    extraModulePackages = with pkgs; [
-      linuxKernel.packages.linux_xanmod_latest.tuxedo-drivers # TUXEDO-specific drivers
-      linuxKernel.packages.linux_xanmod_latest.r8125 # Realtek 2.5GbE Ethernet driver
+    extraModulePackages = with config.boot.kernelPackages; [
+      tuxedo-drivers # TUXEDO-specific drivers
+      r8125 # Realtek 2.5GbE Ethernet driver
     ];
 
     # TUXEDO-specific: kernel parameters

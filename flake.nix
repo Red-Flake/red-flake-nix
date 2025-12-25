@@ -11,6 +11,8 @@
       "https://nix-community.cachix.org/"
       "https://nyx.chaotic.cx"
       "https://claude-code.cachix.org"
+      "https://cache.garnix.io"
+      "https://attic.xuyh0120.win/lantian"
     ];
     extra-trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
@@ -18,6 +20,8 @@
       "chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
       "nyx.chaotic.cx-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
       "claude-code.cachix.org-1:YeXf2aNu7UTX8Vwrze0za1WEDS+4DuI2kVeWEE4fsRk="
+      "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
+      "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
     ];
     extra-deprecated-features = [
       "url-literals"
@@ -113,6 +117,38 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # https://github.com/sund3RRR/tuxedo-nixos
+    tuxedo-nixos = {
+      url = "github:sund3RRR/tuxedo-nixos";
+    };
+
+    # Nix Gaming for Steam platformOptimizations
+    # https://github.com/fufexan/nix-gaming
+    nix-gaming = {
+      url = "github:fufexan/nix-gaming";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    #Modded Spotify
+    spicetify-nix = {
+      url = "github:Gerg-L/spicetify-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nixcord = {
+      url = "github:kaylorben/nixcord";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # https://github.com/sadjow/claude-code-nix/
+    claude-code = {
+      url = "github:sadjow/claude-code-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # https://github.com/xddxdd/nix-cachyos-kernel
+    nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
+
     # https://github.com/Red-Flake/Burpsuite-Professional
     burpsuitepro = {
       type = "github";
@@ -144,35 +180,6 @@
       type = "github";
       owner = "Red-Flake";
       repo = "packages";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # https://github.com/sund3RRR/tuxedo-nixos
-    tuxedo-nixos = {
-      url = "github:sund3RRR/tuxedo-nixos";
-    };
-
-    # Nix Gaming for Steam platformOptimizations
-    # https://github.com/fufexan/nix-gaming
-    nix-gaming = {
-      url = "github:fufexan/nix-gaming";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    #Modded Spotify
-    spicetify-nix = {
-      url = "github:Gerg-L/spicetify-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nixcord = {
-      url = "github:kaylorben/nixcord";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # https://github.com/sadjow/claude-code-nix/
-    claude-code = {
-      url = "github:sadjow/claude-code-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
