@@ -89,6 +89,9 @@
 
       # Select full kernel preemption via PREEMPT_DYNAMIC: lets higher‑prio tasks preempt most kernel code -> lower latency/better interactivity, small throughput/overhead cost.
       "preempt=full"
+
+      # Prefer THP madvise for desktop/gaming workloads.
+      "transparent_hugepage=madvise"
     ];
 
     # --- extra kernel module options (goes into /etc/modprobe.d/nixos.conf) ---#
