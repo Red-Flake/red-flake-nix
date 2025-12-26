@@ -149,10 +149,10 @@
     # https://github.com/xddxdd/nix-cachyos-kernel
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
 
-    # https://github.com/Red-Flake/Burpsuite-Professional
+    # https://github.com/xiv3r/Burpsuite-Professional
     burpsuitepro = {
       type = "github";
-      owner = "Red-Flake";
+      owner = "xiv3r";
       repo = "Burpsuite-Professional";
       inputs.nixpkgs.follows = "nixpkgs";
     };
