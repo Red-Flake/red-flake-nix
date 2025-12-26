@@ -208,7 +208,7 @@
     LIBVA_DRIVER_NAME = "iHD"; # Force intel-media-driver
     VDPAU_DRIVER = "va_gl"; # Forces Intel via VAAPI
     ANV_ENABLE_PIPELINE_CACHE = "1"; # Enable Vulkan pipeline caching
-    mesa_glthread = "true"; # Enable GL threading for better performance
+    # mesa_glthread = "true"; # Disabled: causes KWin CPU spikes with Intel Xe driver
     # Don't set PRIME/NVIDIA variables globally - let apps default to Intel
     # Steam and other apps can override these as needed
   };
