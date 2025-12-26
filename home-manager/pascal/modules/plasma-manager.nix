@@ -17,7 +17,14 @@ let
 in
 {
   programs.plasma = {
+    # enable plasma-manager
     enable = true;
+
+    # always override existing configs
+    overrideConfig = true;
+
+    # plasma configs should be immutable by default
+    immutableByDefault = true;
 
     #
     # Some high-level settings:
@@ -231,9 +238,9 @@ in
     #
     configFile = {
       "kdeglobals"."General"."AccentColor" = "160,31,52";
+      "kdeglobals"."KDE"."AnimationDurationFactor" = 0.7071067811865475;
       "baloofilerc"."Basic Settings"."Indexing-Enabled" = false;
       "kwinrc" = {
-        "KDE"."AnimationDurationFactor" = 0.8;
         "org.kde.kdecoration2"."ButtonsOnLeft" = "SF";
         "Desktops"."Number" = {
           value = 8;
