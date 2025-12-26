@@ -102,7 +102,7 @@ in
                   "applications:burpsuitepro.desktop"
                   "applications:bloodhound.desktop"
                   "applications:ghidra.desktop"
-                  #"applications:re.rizin.cutter.desktop"
+                  "applications:re.rizin.cutter.desktop"
                   "applications:org.wireshark.Wireshark.desktop"
                 ];
               };
