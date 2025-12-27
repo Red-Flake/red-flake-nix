@@ -40,8 +40,8 @@ _:
       # right click settings
       right-click-action = "context-menu";
 
-      background-blur = 8;
-      background-opacity = 0.05;
+      # background-blur = 8; # Disabled: KWin blur causes high CPU on Intel Xe
+      background-opacity = 0.98; # Increased from 0.05 for readability without blur
       fullscreen = false;
 
       # window settings

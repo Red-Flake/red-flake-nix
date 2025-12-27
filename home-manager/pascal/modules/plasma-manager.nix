@@ -255,6 +255,8 @@ in
           "dimscreenEnabled" = true;
           "hidecursorEnabled" = true;
           "zoomEnabled" = false;
+          # Disable blur effect - causes high CPU usage on Intel Xe (Arrow Lake)
+          "blurEnabled" = false;
         };
       };
       #"kscreenlockerrc" = {

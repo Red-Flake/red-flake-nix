@@ -172,6 +172,14 @@
     ];
   };
 
+  # Fix tccd-sleep.service: upstream has broken ExecStart/ExecStop with quoted commands
+  systemd.services.tccd-sleep = {
+    serviceConfig = {
+      ExecStart = lib.mkForce "${pkgs.systemd}/bin/systemctl stop tccd";
+      ExecStop = lib.mkForce "${pkgs.systemd}/bin/systemctl start tccd";
+    };
+  };
+
   # For Wayland (KDE), prevent kwin_wayland from using NVIDIA by default.
   # This forces it to use Intel instead, which is more stable and power-efficient
   services.xserver.displayManager.sessionCommands = ''
@@ -211,6 +219,10 @@
     # mesa_glthread = "true"; # Disabled: causes KWin CPU spikes with Intel Xe driver
     # Don't set PRIME/NVIDIA variables globally - let apps default to Intel
     # Steam and other apps can override these as needed
+
+    # KWin Wayland fixes for Intel Xe (Arrow Lake)
+    KWIN_DRM_NO_AMS = "1"; # Disable Atomic Mode Setting to reduce CPU usage during animations
+    KWIN_FORCE_SW_CURSOR = "0"; # Use hardware cursor (Intel Xe defaults to software cursor)
   };
 
   # HiDPI fixes => https://github.com/NixOS/nixos-hardware/blob/3f7d0bca003eac1a1a7f4659bbab9c8f8c2a0958/common/hidpi.nix
