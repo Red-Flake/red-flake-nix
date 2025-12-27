@@ -34,8 +34,8 @@ in
       "biosdevname=0"
     ];
 
-    # Switch to latest Linux CachyOS Kernel (BORE) compiled with Clang+ThinLTO
-    kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-bore-lto;
+    # Switch to latest Linux CachyOS Kernel
+    kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest;
 
     # Initramfs settings
     initrd = {
