@@ -258,6 +258,7 @@ in
           # Disable blur effect - causes high CPU usage on Intel Xe (Arrow Lake)
           "blurEnabled" = false;
         };
+        "Compositing"."TripleBuffering" = true;
       };
       #"kscreenlockerrc" = {
       #  "Greeter"."WallpaperPlugin" = "org.kde.potd";
