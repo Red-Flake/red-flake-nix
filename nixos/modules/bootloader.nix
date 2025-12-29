@@ -106,29 +106,22 @@ in
           icon = "color";
           inherit (cfg.bootloader) resolution;
         };
+
+        # Fix GRUB menu entry name (NixOS -> Red Flake)
+        # Note: remounting /boot read-only is handled by boot-readonly.nix
+        extraInstallCommands = ''
+          echo "Updating GRUB menu entry name..."
+          GRUB_CFG="/boot/grub/grub.cfg"
+          if [ -f "$GRUB_CFG" ]; then
+            ${pkgs.coreutils}/bin/cp "$GRUB_CFG" "$GRUB_CFG.bak"
+            ${pkgs.gnused}/bin/sed -i 's/"NixOS/"Red Flake/g' "$GRUB_CFG"
+          else
+            echo "Warning: GRUB configuration file not found."
+          fi
+        '';
       };
     };
 
-  };
-
-  # fix bug that bootloader entry name cannot be set via boot.loader.grub.configurationName
-  # see: https://github.com/NixOS/nixpkgs/issues/15416
-  system.activationScripts.update-grub-menu = {
-    text = ''
-      echo "Updating GRUB menu entry name..."
-
-      GRUB_CFG="/boot/grub/grub.cfg"
-      BACKUP_GRUB_CFG="/boot/grub/grub.cfg.bak"
-      SEARCH_STR="\"NixOS"
-      REPLACE_STR="\"Red Flake"
-
-      if [ -f "$GRUB_CFG" ]; then
-          cp "$GRUB_CFG" "$BACKUP_GRUB_CFG"
-          ${pkgs.gnused}/bin/sed -i "s/$SEARCH_STR/$REPLACE_STR/g" "$GRUB_CFG"
-      else
-          echo "Error: GRUB configuration file not found."
-      fi
-    '';
   };
 
 }

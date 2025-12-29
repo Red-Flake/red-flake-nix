@@ -25,9 +25,13 @@
       ];
     };
 
+    # /boot is mounted read-write initially, then remounted read-only after boot
+    # by the boot-readonly systemd service. This prevents corruption during forced shutdowns.
+    # Use `nixos-rebuild-safe` wrapper script for rebuilds (handles remounting).
     "/boot" = {
       device = "/dev/disk/by-label/NIXBOOT";
       fsType = "vfat";
+      options = [ "umask=0077" ];
     };
 
     "/home" = {

@@ -12,6 +12,7 @@
     ../modules/filesystems.nix
     ../modules/impermanence.nix
     ../modules/bootloader.nix
+    ../modules/boot-readonly.nix
 
     # Network and connectivity
     ../modules/networking.nix
