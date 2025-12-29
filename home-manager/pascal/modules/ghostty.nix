@@ -41,7 +41,7 @@ _:
       right-click-action = "context-menu";
 
       # background-blur = 8; # Disabled: KWin blur causes high CPU on Intel Xe
-      background-opacity = 0.98; # Increased from 0.05 for readability without blur
+      #background-opacity = 0.98; # Increased from 0.05 for readability without blur
       fullscreen = false;
 
       # window settings
@@ -68,7 +68,7 @@ _:
       gtk-tabs-location = "bottom";
       gtk-wide-tabs = true;
 
-      theme = "Dracula+";
+      theme = "Raycast Dark";
 
       # app notifications
       app-notifications = "no-clipboard-copy";
