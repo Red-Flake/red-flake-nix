@@ -94,7 +94,7 @@ in
                 launchers = [
                   "applications:org.kde.dolphin.desktop"
                   "applications:com.mitchellh.ghostty.desktop"
-                  "applications:chrome-magicbytes.getoutline.com__-Default.desktop"
+                  "applications:outline-electron.desktop"
                   "applications:firefox.desktop"
                   "applications:org.telegram.desktop.desktop"
                   "applications:vesktop.desktop"

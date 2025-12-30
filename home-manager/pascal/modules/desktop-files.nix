@@ -797,18 +797,6 @@
   };
 
   ## .desktop application entries
-  xdg.desktopEntries."chrome-magicbytes.getoutline.com__-Default" = {
-    name = "Outline";
-    genericName = "MagicBytes' Outline";
-    exec = "${pkgs.ungoogled-chromium}/bin/chromium --app=https://magicbytes.getoutline.com --disable-extensions --disable-background-networking --disable-sync --disable-translate --disable-default-apps --disable-popup-blocking --disable-background-timer-throttling --disable-client-side-phishing-detection --disable-hang-monitor --disable-breakpad --disable-component-update --no-first-run --no-default-browser-check --disable-features=TranslateUI,BackForwardCache,AutofillServerCommunication --enable-features=WaylandWindowDecorations,OverlayScrollbar,OverlayScrollbarFlashAfterAnyScroll --ozone-platform=wayland --ozone-platform-hint=auto %U";
-    icon = "${pkgs.outline}/share/outline/public/images/icon-192.png";
-    type = "Application";
-    categories = [ "X-Usual-Applications" ];
-    settings = {
-      StartupWMClass = "chrome-magicbytes.getoutline.com__-Default";
-    };
-  };
-
   # Make the burp suite start screen group with the main burp suite pro application
   # fix burpsuitepro StartupWMClass so that it groups properly in taskbar
   xdg.desktopEntries."burpsuitepro" = {
