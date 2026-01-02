@@ -219,6 +219,7 @@
     # Steam and other apps can override these as needed
 
     # KWin Wayland fixes for Intel Xe (Arrow Lake)
+    KWIN_DRM_OVERRIDE_SAFETY_MARGIN = "1000"; # Lower latency (try 2000-3000 if frame drops occur)
     #KWIN_DRM_NO_AMS = "1"; # Disable Atomic Mode Setting to reduce CPU usage during animations; DISABLED: causes slow kwin rendering
     #KWIN_FORCE_SW_CURSOR = "0"; # Use hardware cursor (Intel Xe defaults to software cursor); DISABLED: causes slow kwin rendering
   };
