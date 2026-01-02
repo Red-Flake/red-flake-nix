@@ -56,7 +56,7 @@
       "nouveau"
       "nvidiafb"
       "rivafb"
-      "i915" # blacklist old i915 driver for Arrow Lake; xe driver handles Intel graphics
+      #"i915" # don't blacklist i915. i915.force_probe=!7d67 already prevents i915 from binding to the iGPU
       "spd5118" # blacklist to avoid these issues: [  146.522972] spd5118 14-0050: Failed to write b = 0: -6    [  146.522974] spd5118 14-0050: PM: dpm_run_callback(): spd5118_resume [spd5118] returns -6     [  146.522978] spd5118 14-0050: PM: failed to resume async: error -6
     ];
     kernelModules = [
