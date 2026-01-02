@@ -13,7 +13,7 @@
     python312Packages.impacket-patched
     openldap
     ldapdomaindump-patched
-    certipy
+    #certipy      # certipy fails to build...
     netexec
     powershell
     python313Packages.bloodyad

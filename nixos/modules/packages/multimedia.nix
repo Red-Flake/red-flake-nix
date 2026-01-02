@@ -5,7 +5,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     audacity
-    sonic-visualiser
+    # sonic-visualiser    # sonic-visualiser fails to build...
     mpv
     vlc
   ];

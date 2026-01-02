@@ -56,7 +56,7 @@
     inetutils
     libfaketime
     wireguard-tools
-    wol
+    # wol # wol fails to build...
     e2fsprogs
     tldr
     sshpass

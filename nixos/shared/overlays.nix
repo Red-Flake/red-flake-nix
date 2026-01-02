@@ -40,14 +40,14 @@
 
     # Security tool overlays
     (import ../overlays/impacket-overlay)
-    (import ../overlays/responder-overlay)
+    #(import ../overlays/responder-overlay)           # tests fail...
     (import ../overlays/evil-winrm-overlay)
     (import ../overlays/bloodhound-quickwin-overlay)
     (import ../overlays/ldapdomaindump-overlay)
     (import ../overlays/SMB_Killer-overlay)
     (import ../overlays/pyGPOAbuse-overlay)
     (import ../overlays/spose-overlay)
-    (import ../overlays/netexec-overlay inputs)
+    #(import ../overlays/netexec-overlay inputs)      # certipy_ad fails to build...
     (import ../overlays/nmapAutomator-overlay)
     (import ../overlays/autobloody-overlay)
     (import ../overlays/social-engineer-toolkit)
