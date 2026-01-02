@@ -19,8 +19,6 @@ in
     kernelParams = [
       "quiet"
       "splash"
-      "loglevel=0"
-      "rd.systemd.show_status=false"
       "nowatchdog"
       "nmi_watchdog=0"
       "mitigations=off"

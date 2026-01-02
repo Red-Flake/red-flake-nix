@@ -106,9 +106,8 @@
       # Make sure MEI is up before xe tries to talk to GSC
       softdep xe pre: mei_gsc_proxy mei_me mei
 
-      # Quiet the FBC/PSR noise / flicker
-      options xe enable_fbc=0
-      options xe enable_psr=0
+      # Quiet the FBC/PSR noise / flicker; Disable xe DC states
+      options xe enable_fbc=0 enable_psr=0 enable_dc=0
 
       # Virtualization
       options kvm_intel nested=1
