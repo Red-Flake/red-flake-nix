@@ -9,10 +9,30 @@ _:
 
   # Set user limits
   security.pam.loginLimits = [
-    { domain = "*"; type = "soft"; item = "nofile"; value = "1048576"; }
-    { domain = "*"; type = "hard"; item = "nofile"; value = "1048576"; }
-    { domain = "*"; type = "soft"; item = "nproc"; value = "1048576"; }
-    { domain = "*"; type = "hard"; item = "nproc"; value = "1048576"; }
+    {
+      domain = "*";
+      type = "soft";
+      item = "nofile";
+      value = "1048576";
+    }
+    {
+      domain = "*";
+      type = "hard";
+      item = "nofile";
+      value = "1048576";
+    }
+    {
+      domain = "*";
+      type = "soft";
+      item = "nproc";
+      value = "1048576";
+    }
+    {
+      domain = "*";
+      type = "hard";
+      item = "nproc";
+      value = "1048576";
+    }
   ];
   boot.kernel.sysctl = {
     # Set sysctl parameters
@@ -171,6 +191,11 @@ _:
     "kernel.sched_wakeup_granularity_ns" = 500000; # 0.5ms (default ~4ms)
     # Reduce migration cost to improve load balancing on hybrid CPUs
     "kernel.sched_migration_cost_ns" = 250000; # 0.25ms
+    # EEVDF/CFS: Lower latency nice for interactive priority
+    "kernel.sched_latency_ns" = 4000000; # 4ms (default 24ms)
+
+    # Reduce timer slack for more precise wakeups (helps frame timing)
+    "kernel.timer_migration" = 0;
 
     # Increase max memory map areas - required by many games and Electron apps
     # Steam Deck uses this value; fixes crashes in some games

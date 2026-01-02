@@ -258,7 +258,13 @@ in
           # Disable blur effect - causes high CPU usage on Intel Xe (Arrow Lake)
           "blurEnabled" = false;
         };
-        "Compositing"."TripleBuffering" = true;
+        "Compositing" = {
+          "TripleBuffering" = true; # Enable Kwin triple buffering
+          "LatencyPolicy" = "Low"; # Force low latency
+          "GLPlatformInterface" = "egl"; # EGL is better for Wayland
+          "MaxFPS" = 300; # Match display refresh rate
+          "RefreshRate" = 300; # Match display refresh rate
+        };
       };
       #"kscreenlockerrc" = {
       #  "Greeter"."WallpaperPlugin" = "org.kde.potd";
