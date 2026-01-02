@@ -8,6 +8,68 @@
     (
       final: prev:
         let
+          # Custom kernel config - applied directly via buildLinux to bypass xanmod's override issue
+          customKernelConfig = with prev.lib.kernel; {
+            # Set CPU Schedulers
+            CPU_FREQ_DEFAULT_GOV_PERFORMANCE = lib.mkForce yes;
+            CPU_FREQ_DEFAULT_GOV_SCHEDUTIL = lib.mkForce no;
+            CPU_IDLE_GOV_HALTPOLL = yes;
+            CPU_IDLE_GOV_LADDER = yes;
+            CPU_IDLE_GOV_TEO = yes;
+
+            # Modern x86 features for better performance
+            X86_FRED = yes;
+            X86_POSTED_MSI = yes;
+
+            # 1000Hz tickless idle kernel
+            NO_HZ = no;
+            NO_HZ_FULL = lib.mkForce no;
+            NO_HZ_IDLE = yes;
+            HZ = freeform "1000";
+            HZ_1000 = yes;
+            HZ_250 = no;
+            HZ_100 = no;
+            HZ_300 = no;
+
+            # Full preemption (not lazy, not voluntary)
+            PREEMPT = lib.mkForce yes;
+            PREEMPT_DYNAMIC = lib.mkForce no;
+            PREEMPT_VOLUNTARY = lib.mkForce no;
+            PREEMPT_LAZY = lib.mkForce no;
+
+            # RCU tuning for low latency
+            RCU_EXPERT = yes;
+            RCU_FANOUT = freeform "64";
+            RCU_FANOUT_LEAF = freeform "16";
+            RCU_EXP_KTHREAD = yes;
+            RCU_NOCB_CPU = yes;
+            RCU_DOUBLE_CHECK_CB_TIME = yes;
+            RCU_BOOST = yes;
+            RCU_BOOST_DELAY = freeform "0";
+
+            # I/O Schedulers (use mkForce to override common-config.nix defaults)
+            IOSCHED_BFQ = lib.mkForce yes;
+            MQ_IOSCHED_DEADLINE = lib.mkForce yes;
+            MQ_IOSCHED_KYBER = lib.mkForce yes;
+
+            # Memory management
+            TRANSPARENT_HUGEPAGE = yes;
+            TRANSPARENT_HUGEPAGE_ALWAYS = no;
+            TRANSPARENT_HUGEPAGE_MADVISE = yes;
+
+            # High-res timers
+            HIGH_RES_TIMERS = yes;
+
+            # Networking
+            TCP_CONG_BBR = yes;
+            DEFAULT_BBR = yes;
+            NET_SCH_FQ = yes;
+
+            # Scheduler
+            SCHED_AUTOGROUP = yes;
+          };
+
+          # Build xanmod kernel from source with our config (bypasses nixpkgs xanmod structuredExtraConfig)
           makeXanmodKernel =
             { version
             , hash
@@ -16,182 +78,38 @@
             ,
             }:
             let
-              ver = version; # expect a full 3-part version like "6.18.0"
-              rev = "${lib.versions.pad 3 ver}-${suffix}";
-              base = (prev.linuxPackages_xanmod_latest or prev.linuxPackages_xanmod).kernel;
+              modDirVersion = "${lib.versions.pad 3 version}-${suffix}";
             in
-            (base.override {
-              # Override arguments passed into buildLinux (correct place for modDirVersion/src)
-              argsOverride = {
-                version = ver;
-                modDirVersion = rev; # keep it identical to upstream
-                src = prev.fetchFromGitLab {
-                  owner = "xanmod";
-                  repo = "linux";
-                  inherit rev;
-                  inherit hash;
-                };
+            (prev.buildLinux {
+              inherit version modDirVersion;
+              pname = "linux-xanmod-custom";
+
+              src = prev.fetchFromGitLab {
+                owner = "xanmod";
+                repo = "linux";
+                rev = modDirVersion;
+                inherit hash;
               };
-            }).overrideAttrs
-              (old: {
-                # Speed rebuilds
-                stdenv = final.ccacheStdenv;
 
-                # Provide rustfmt to silence optional rustfmt warnings in kernel build
-                nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ final.buildPackages.rustfmt ];
-
-                # Keep xanmod config; add desktop/gaming responsiveness
-                structuredExtraConfig =
-                  (old.structuredExtraConfig or { })
-                  // (with prev.lib.kernel; {
-                    # Explicitly lock in xanmod defaults you like
-
-                    # Set CPU Schedulers
-                    CPU_FREQ_DEFAULT_GOV_PERFORMANCE = lib.mkOverride 80 yes;
-                    CPU_FREQ_DEFAULT_GOV_SCHEDUTIL = lib.mkOverride 80 no;
-                    # Upstream includes these:
-                    CPU_IDLE_GOV_HALTPOLL = yes;
-                    CPU_IDLE_GOV_LADDER = yes;
-                    CPU_IDLE_GOV_TEO = yes;
-
-                    # Modern x86 features for better performance:
-                    X86_FRED = yes; # Flexible Return and Event Delivery
-                    X86_POSTED_MSI = yes; # Posted MSI support
-
-                    # Preemptive tickless idle kernel
-                    NO_HZ = no;
-                    NO_HZ_FULL = no;
-                    NO_HZ_IDLE = yes;
-                    HZ = freeform "1000";
-                    HZ_1000 = yes;
-                    HZ_250 = no;
-
-                    PREEMPT = lib.mkOverride 80 yes;
-                    PREEMPT_DYNAMIC = lib.mkOverride 80 no;
-                    PREEMPT_VOLUNTARY = no;
-                    PREEMPT_LAZY = no;
-
-                    # RCU for better preemption
-                    RCU_EXPERT = yes;
-                    RCU_FANOUT = freeform "64";
-                    RCU_FANOUT_LEAF = freeform "16";
-                    RCU_EXP_KTHREAD = yes;
-                    RCU_NOCB_CPU = yes;
-                    RCU_DOUBLE_CHECK_CB_TIME = yes;
-                    RCU_BOOST = lib.mkOverride 80 yes; # Reduces latency spikes
-                    RCU_BOOST_DELAY = freeform "0"; # Quick boost for responsiveness
-
-                    # I/O Schedulers - both available, choose at runtime
-                    IOSCHED_BFQ = yes; # Best for desktop/interactive I/O
-                    MQ_IOSCHED_DEADLINE = yes; # Good for NVMe
-                    MQ_IOSCHED_KYBER = yes; # Low-latency alternative
-
-                    # Memory management
-                    TRANSPARENT_HUGEPAGE = yes; # Helps with large allocations (games, VRAM)
-                    TRANSPARENT_HUGEPAGE_ALWAYS = no;
-                    TRANSPARENT_HUGEPAGE_MADVISE = yes; # App-controlled, safer
-
-                    # High-res timers
-                    HIGH_RES_TIMERS = yes;
-
-                    TCP_CONG_BBR = lib.mkOverride 80 yes;
-                    DEFAULT_BBR = lib.mkOverride 80 yes;
-
-                    SCHED_AUTOGROUP = lib.mkOverride 80 yes;
-                    NET_SCH_FQ = lib.mkOverride 80 yes;
-                    DEFAULT_FQ = lib.mkOverride 80 yes;
-                  })
-                  // extraConfig;
-              });
-        in
-        {
-          # Function to build a pinned xanmod
-          linux-xanmod-custom = makeXanmodKernel;
-
-          # Convenience: latest xanmod with 1000Hz + ccache
-          linux-xanmod-1000hz =
-            let
-              base = (prev.linuxPackages_xanmod_latest or prev.linuxPackages_xanmod).kernel;
-            in
-            base.overrideAttrs (old: {
+              structuredExtraConfig = customKernelConfig // extraConfig;
+            }).overrideAttrs (old: {
               stdenv = final.ccacheStdenv;
               nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ final.buildPackages.rustfmt ];
-              # Keep xanmod config; add desktop/gaming responsiveness
-              structuredExtraConfig =
-                (old.structuredExtraConfig or { })
-                // (with prev.lib.kernel; {
-                  # Explicitly lock in xanmod defaults you like
-
-                  # Set CPU Schedulers
-                  CPU_FREQ_DEFAULT_GOV_PERFORMANCE = lib.mkOverride 80 yes;
-                  CPU_FREQ_DEFAULT_GOV_SCHEDUTIL = lib.mkOverride 80 no;
-                  # Upstream includes these:
-                  CPU_IDLE_GOV_HALTPOLL = yes;
-                  CPU_IDLE_GOV_LADDER = yes;
-                  CPU_IDLE_GOV_TEO = yes;
-
-                  # Modern x86 features for better performance:
-                  X86_FRED = yes; # Flexible Return and Event Delivery
-                  X86_POSTED_MSI = yes; # Posted MSI support
-
-                  # Preemptive tickless idle kernel
-                  NO_HZ = no;
-                  NO_HZ_FULL = no;
-                  NO_HZ_IDLE = yes;
-                  HZ = freeform "1000";
-                  HZ_1000 = yes;
-                  HZ_250 = no;
-
-                  PREEMPT = lib.mkOverride 80 yes;
-                  PREEMPT_DYNAMIC = lib.mkOverride 80 no;
-                  PREEMPT_VOLUNTARY = no;
-                  PREEMPT_LAZY = no;
-
-                  # RCU for better preemption
-                  RCU_EXPERT = yes;
-                  RCU_FANOUT = freeform "64";
-                  RCU_FANOUT_LEAF = freeform "16";
-                  RCU_EXP_KTHREAD = yes;
-                  RCU_NOCB_CPU = yes;
-                  RCU_DOUBLE_CHECK_CB_TIME = yes;
-                  RCU_BOOST = lib.mkOverride 80 yes; # Reduces latency spikes
-                  RCU_BOOST_DELAY = freeform "0"; # Quick boost for responsiveness
-
-                  # I/O Schedulers - both available, choose at runtime
-                  IOSCHED_BFQ = yes; # Best for desktop/interactive I/O
-                  MQ_IOSCHED_DEADLINE = yes; # Good for NVMe
-                  MQ_IOSCHED_KYBER = yes; # Low-latency alternative
-
-                  # Memory management
-                  TRANSPARENT_HUGEPAGE = yes; # Helps with large allocations (games, VRAM)
-                  TRANSPARENT_HUGEPAGE_ALWAYS = no;
-                  TRANSPARENT_HUGEPAGE_MADVISE = yes; # App-controlled, safer
-
-                  # High-res timers
-                  HIGH_RES_TIMERS = yes;
-
-                  TCP_CONG_BBR = lib.mkOverride 80 yes;
-                  DEFAULT_BBR = lib.mkOverride 80 yes;
-
-                  SCHED_AUTOGROUP = lib.mkOverride 80 yes;
-                  NET_SCH_FQ = lib.mkOverride 80 yes;
-                  DEFAULT_FQ = lib.mkOverride 80 yes;
-                })
-                // extraConfig;
             });
-
-          linuxPackages_xanmod_1000hz = prev.linuxPackagesFor final.linux-xanmod-1000hz;
+        in
+        {
+          linux-xanmod-custom = makeXanmodKernel;
         }
     )
   ];
 
-  # Pin to 6.18.0-xanmod1 (replace fakeHash after first build)
+  # Pin to 6.18.2-xanmod1 (replace fakeHash after first build)
   boot.kernelPackages = lib.mkForce (
     pkgs.linuxPackagesFor (
       pkgs.linux-xanmod-custom {
-        version = "6.18.0";
+        version = "6.18.2";
         suffix = "xanmod1";
-        hash = "sha256-voGRfxlZuejQvalSj/teB8XMvnzE3VG15kCtsNTCFFo=";
+        hash = "sha256-LSzoUpQiqVAeboKKyRzKyiYpuUbueJvHTtN5mm8EHL8=";
       }
     )
   );
