@@ -147,7 +147,7 @@
     };
 
     # https://github.com/xddxdd/nix-cachyos-kernel
-    nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
+    #nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
 
     # https://github.com/xiv3r/Burpsuite-Professional
     burpsuitepro = {

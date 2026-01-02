@@ -28,7 +28,7 @@
     # https://github.com/xddxdd/nix-cachyos-kernel
     # use the exact kernel versions as defined in this repo.
     # Guarantees you have binary cache.
-    inputs.nix-cachyos-kernel.overlays.pinned
+    #inputs.nix-cachyos-kernel.overlays.pinned
 
     # redflake-packages overlay
     inputs.redflake-packages.overlays.default

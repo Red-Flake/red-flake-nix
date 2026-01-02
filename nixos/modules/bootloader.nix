@@ -34,8 +34,8 @@ in
       "biosdevname=0"
     ];
 
-    # Switch to latest Linux CachyOS Kernel
-    kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest;
+    # Switch to latest Xanmod Kernel
+    kernelPackages = pkgs.linuxPackages_xanmod_latest;
 
     # Initramfs settings
     initrd = {
