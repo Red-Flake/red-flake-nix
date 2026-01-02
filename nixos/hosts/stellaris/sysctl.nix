@@ -163,5 +163,20 @@ _:
     # Disable watchdogs for lower latency (add to boot.kernel.sysctl section)
     "kernel.nmi_watchdog" = 0;
     "kernel.watchdog" = 0;
+
+    # CFS scheduler tuning for smoother desktop/KDE animations
+    # Reduce minimum timeslice granularity for finer task switching
+    "kernel.sched_min_granularity_ns" = 500000; # 0.5ms (default ~3ms)
+    # Reduce wakeup granularity for faster response to interactive tasks
+    "kernel.sched_wakeup_granularity_ns" = 500000; # 0.5ms (default ~4ms)
+    # Reduce migration cost to improve load balancing on hybrid CPUs
+    "kernel.sched_migration_cost_ns" = 250000; # 0.25ms
+
+    # Increase max memory map areas - required by many games and Electron apps
+    # Steam Deck uses this value; fixes crashes in some games
+    "vm.max_map_count" = 2147483642;
+
+    # Disable proactive memory compaction to avoid latency spikes
+    "vm.compaction_proactiveness" = 0;
   };
 }

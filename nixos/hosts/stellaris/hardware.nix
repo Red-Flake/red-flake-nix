@@ -95,6 +95,9 @@
 
       # Prefer THP madvise for desktop/gaming workloads.
       "transparent_hugepage=madvise"
+
+      # Disable split lock detection - some games/apps trigger split locks causing micro-stutter
+      "split_lock_detect=off"
     ];
 
     # --- extra kernel module options (goes into /etc/modprobe.d/nixos.conf) ---#
