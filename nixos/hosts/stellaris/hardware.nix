@@ -90,6 +90,9 @@
       # Select full kernel preemption via PREEMPT_DYNAMIC: lets higher‑prio tasks preempt most kernel code -> lower latency/better interactivity, small throughput/overhead cost.
       "preempt=full"
 
+      # Offload RCU callbacks to dedicated kernel threads for lower latency
+      "rcu_nocbs=all"
+
       # Prefer THP madvise for desktop/gaming workloads.
       "transparent_hugepage=madvise"
     ];
