@@ -209,6 +209,11 @@
   # Disable irqbalance since it is bad for Gaming, low-latency, discrete GPUs, anything needing stable and predictable IRQ placement
   services.irqbalance.enable = lib.mkForce false;
 
+  environment.variables = {
+    # Make sure Kwin binds to the Intel iGPU first
+    KWIN_DRM_DEVICES = "/dev/dri/card0:/dev/dri/card1";
+  };
+
   environment.sessionVariables = {
     LIBVA_DRIVER_NAME = "iHD"; # Force intel-media-driver
     VDPAU_DRIVER = "va_gl"; # Forces Intel via VAAPI
