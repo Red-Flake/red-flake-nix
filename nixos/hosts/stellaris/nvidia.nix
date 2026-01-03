@@ -27,21 +27,27 @@
       # "nvidia_uvm" # Don't load it early as it causes power-management issues
     ];
 
-    kernelParams = [
-      # NVIDIA PRIME Offloading / suspend helpers
-      "nvidia-drm.modeset=1" # Required for PRIME render offload and proper Wayland/XWayland integration
-      "nvidia.NVreg_UsePageAttributeTable=1" # nvidia assume that by default your CPU does not support PAT; why this isn't default is beyond me.
-      "nvidia.NVreg_InitializeSystemMemoryAllocations=0" # Disable pre-allocation of system memory for pinned allocations; helps with memory fragmentation
-      "nvidia.NVreg_DeviceFileUID=0" # Set device file ownership to root
-      "nvidia.NVreg_DeviceFileGID=26" # 26 is the GID of the "video" group on NixOS
-      "nvidia.NVreg_DeviceFileMode=0660" # Set device file permissions to rw-rw----
-      "nvidia.NVreg_EnableS0ixPowerManagement=1" # Enable S0ix support in NVIDIA driver
-      "nvidia.NVreg_DynamicPowerManagement=0x02" # Enable dynamic power management to let TCC control power limits (0x01=disabled, 0x02=auto, 0x03=always on)
-      "nvidia.NVreg_DynamicPowerManagementVideoMemoryThreshold=0"
-      "nvidia.NVreg_S0ixPowerManagementVideoMemoryThreshold=16384" # 16 GiB; > 12 GiB VRAM, so always copy vram to /dev/shm + power-off
-      "nvidia.NVreg_PreserveVideoMemoryAllocations=1" # Preserve video memory across suspend/resume; required for stable S0ix
-      "nvidia.NVreg_TemporaryFilePath=/dev/shm" # Path to save VRAM contents during suspend; /dev/shm is 47G and VRAM is 12G
+    kernelParams = lib.mkMerge [
+      [
+        # NVIDIA PRIME Offloading / suspend helpers
+        "nvidia-drm.modeset=1" # Required for PRIME render offload and proper Wayland/XWayland integration
+        "nvidia.NVreg_UsePageAttributeTable=1" # nvidia assume that by default your CPU does not support PAT; why this isn't default is beyond me.
+        "nvidia.NVreg_InitializeSystemMemoryAllocations=0" # Disable pre-allocation of system memory for pinned allocations; helps with memory fragmentation
+        "nvidia.NVreg_DeviceFileUID=0" # Set device file ownership to root
+        "nvidia.NVreg_DeviceFileGID=26" # 26 is the GID of the "video" group on NixOS
+        "nvidia.NVreg_DeviceFileMode=0660" # Set device file permissions to rw-rw----
+        "nvidia.NVreg_EnableS0ixPowerManagement=1" # Enable S0ix support in NVIDIA driver
+        "nvidia.NVreg_DynamicPowerManagement=0x02" # Enable dynamic power management to let TCC control power limits (0x01=disabled, 0x02=auto, 0x03=always on)
+        "nvidia.NVreg_DynamicPowerManagementVideoMemoryThreshold=0"
+        "nvidia.NVreg_S0ixPowerManagementVideoMemoryThreshold=16384" # 16 GiB; > 12 GiB VRAM, so always copy vram to /dev/shm + power-off
+        "nvidia.NVreg_PreserveVideoMemoryAllocations=1" # Preserve video memory across suspend/resume; required for stable S0ix
+        "nvidia.NVreg_TemporaryFilePath=/dev/shm" # Path to save VRAM contents during suspend; /dev/shm is 47G and VRAM is 12G
+      ]
+      # Override NixOS auto-added nvidia-drm.fbdev=1 - not needed since display goes through Intel iGPU
+      # Having fbdev enabled prevents the GPU from entering runtime suspend
+      (lib.mkAfter [ "nvidia-drm.fbdev=0" ])
     ];
+
   };
 
   hardware = {
@@ -161,4 +167,5 @@
       "hibernate.target"
     ];
   };
+
 }
