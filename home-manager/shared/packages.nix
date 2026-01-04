@@ -44,6 +44,7 @@
     claude-code
     opencode
     codex
+    gemini-cli-bin
   ];
 
   # VPN and networking tools
