@@ -5,7 +5,11 @@
 {
   programs.vscode = {
     enable = true;
-    package = pkgs.vscode;
+    # Disable buggy Wayland color management that causes bright/oversaturated
+    # colors on wide-gamut displays with Intel Mesa Xe driver
+    package = pkgs.vscode.override {
+      commandLineArgs = "--disable-features=WaylandWpColorManagerV1";
+    };
 
     # disable mutable extensions
     mutableExtensionsDir = false;

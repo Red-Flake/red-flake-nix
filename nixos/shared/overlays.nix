@@ -79,6 +79,9 @@
     (import ../overlays/freerdp-overlay)
     (import ../overlays/mingwW64-overlay)
     (import ../overlays/metasploit-overlay)
+
+    # Fix Electron color issues on Wayland with wide-gamut displays
+    (import ../overlays/electron-color-fix-overlay)
   ];
 
   # Intel legacy overlay (conditional)
