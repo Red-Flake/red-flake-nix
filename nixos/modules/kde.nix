@@ -126,6 +126,12 @@ in
     # this env is useful for electron wayland
     ELECTRON_OZONE_PLATFORM_HINT = "auto";
 
+    # Fix bright/oversaturated colors on Wayland with wide-gamut displays
+    # Disables buggy Wayland color management protocol implementation in Chromium/Electron
+    # See: https://community.brave.app/t/washed-out-colors-when-hardware-acceleration-is-enabled/643668
+    CHROMIUM_FLAGS = "--disable-features=WaylandWpColorManagerV1";
+    ELECTRON_FLAGS = "--disable-features=WaylandWpColorManagerV1";
+
     # variable for qt (wayland with fallback to x11)
     QT_QPA_PLATFORM = "wayland;xcb";
 

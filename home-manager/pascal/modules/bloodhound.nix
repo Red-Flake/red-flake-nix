@@ -38,7 +38,7 @@ in
     name = "BloodHound";
     genericName = "Six Degrees of Domain Admin";
     exec = ''
-      env XCURSOR_SIZE=36 BloodHound --no-sandbox --ozone-platform=wayland --ozone-platform-hint=auto --enable-features=WaylandWindowDecorations %U
+      env XCURSOR_SIZE=36 BloodHound --no-sandbox --ozone-platform=wayland --ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --disable-features=WaylandWpColorManagerV1 %U
     '';
     icon = "${config.home.homeDirectory}/.local/share/icons/red-flake/bloodhound.svg";
     terminal = false;
