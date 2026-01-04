@@ -228,6 +228,10 @@ in
     after = [ "home-manager-${user}.service" ];
   };
 
+  # Disable speech-dispatcher socket (TTS accessibility service not needed)
+  # Prevents failed service errors from socket activation
+  systemd.user.sockets.speech-dispatcher.enable = false;
+
   # Enable Flatpak support
   services.flatpak.enable = true;
 
