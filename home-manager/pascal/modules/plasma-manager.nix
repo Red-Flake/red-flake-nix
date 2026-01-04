@@ -260,10 +260,6 @@ in
         };
         "Compositing" = {
           "TripleBuffering" = true; # Enable Kwin triple buffering
-          "LatencyPolicy" = "Low"; # Force low latency
-          "GLPlatformInterface" = "egl"; # EGL is better for Wayland
-          "MaxFPS" = 300; # Match display refresh rate
-          "RefreshRate" = 300; # Match display refresh rate
         };
       };
       #"kscreenlockerrc" = {
