@@ -167,10 +167,16 @@ else
         exit 1
     fi
 
-    # Partitions in non-VM scheme
-    BOOTDISK="${DISK}p3"
-    SWAPDISK="${DISK}p2"
-    ZFSDISK="${DISK}p1"
+    # Partitions in non-VM scheme - handle both /dev/nvme0n1p1 and /dev/sda1
+    if [[ "$DISK" =~ "nvme" || "$DISK" =~ "mmcblk" ]]; then
+        BOOTDISK="${DISK}p3"
+        SWAPDISK="${DISK}p2"
+        ZFSDISK="${DISK}p1"
+    else
+        BOOTDISK="${DISK}3"
+        SWAPDISK="${DISK}2"
+        ZFSDISK="${DISK}1"
+    fi
 
     log "INFO" "Boot Partition: $BOOTDISK"
     log "INFO" "SWAP Partition: $SWAPDISK"

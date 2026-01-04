@@ -56,6 +56,9 @@
             TRANSPARENT_HUGEPAGE = yes;
             TRANSPARENT_HUGEPAGE_ALWAYS = no;
             TRANSPARENT_HUGEPAGE_MADVISE = yes;
+            # Enable Multi-Gen LRU (MGLRU) - drastically improves responsiveness under memory pressure
+            LRU_GEN = yes;
+            LRU_GEN_ENABLED = yes;
 
             # High-res timers
             HIGH_RES_TIMERS = yes;
@@ -67,6 +70,22 @@
 
             # Scheduler
             SCHED_AUTOGROUP = yes;
+
+            # Disable NUMA balancing: adds overhead on single-socket consumer CPUs; only useful for multi-socket servers
+            NUMA_BALANCING = lib.mkForce no;
+
+            # Enable Cluster Scheduling: Optimizes task placement for Hybrid CPUs (Intel Core Ultra/Alder/Raptor Lake)
+            # by keeping related tasks within the same E-core cluster (shared L2 cache)
+            SCHED_CLUSTER = lib.mkForce yes;
+
+            # Scheduler Extensions (sched_ext)
+            # Required for running BPF schedulers like LAVD/Rusty (defined in performance.nix services.scx)
+            SCHED_CLASS_EXT = lib.mkForce yes;
+
+            # Gaming & Windows Compatibility
+            # Standard XanMod patches (Clear Linux, Futex2, PCIeACS, BBRv3) are already included in the source.
+            # We explicitly enable NT Sync for modern Proton performance (WINENTSYNC="1").
+            NTSYNC = lib.mkForce module; # Modern driver (Linux 6.10+)
           };
 
           # Build xanmod kernel from source with our config (bypasses nixpkgs xanmod structuredExtraConfig)
@@ -92,10 +111,11 @@
               };
 
               structuredExtraConfig = customKernelConfig // extraConfig;
-            }).overrideAttrs (old: {
-              stdenv = final.ccacheStdenv;
-              nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ final.buildPackages.rustfmt ];
-            });
+            }).overrideAttrs
+              (old: {
+                stdenv = final.ccacheStdenv;
+                nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ final.buildPackages.rustfmt ];
+              });
         in
         {
           linux-xanmod-custom = makeXanmodKernel;
@@ -103,13 +123,13 @@
     )
   ];
 
-  # Pin to 6.18.2-xanmod1 (replace fakeHash after first build)
+  # Pin to 6.18.3-xanmod1 (replace fakeHash after first build)
   boot.kernelPackages = lib.mkForce (
     pkgs.linuxPackagesFor (
       pkgs.linux-xanmod-custom {
-        version = "6.18.2";
+        version = "6.18.3";
         suffix = "xanmod1";
-        hash = "sha256-LSzoUpQiqVAeboKKyRzKyiYpuUbueJvHTtN5mm8EHL8=";
+        hash = "sha256-Vi3fb9uX9siJS0dwzVkN8lWvJD1xhtuEkI2zcougIFE=";
       }
     )
   );

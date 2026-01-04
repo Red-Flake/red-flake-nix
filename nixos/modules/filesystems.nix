@@ -6,6 +6,7 @@
   swapDevices = [
     {
       device = "/dev/disk/by-label/SWAP";
+      priority = 1; # Ensure ZRAM (priority 100) is used first
     }
   ];
 

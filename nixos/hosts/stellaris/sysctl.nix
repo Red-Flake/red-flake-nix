@@ -41,7 +41,10 @@ _:
     # The sysctl swappiness parameter determines the kernel's preference for pushing anonymous pages or page cache to disk in memory-starved situations.
     # A low value causes the kernel to prefer freeing up open files (page cache), a high value causes the kernel to try to use swap space,
     # and a value of 100 means IO cost is assumed to be equal.
-    "vm.swappiness" = 1;
+    # OPTIMIZATION: With ZRAM enabled, we want a high swappiness (100).
+    # Rationale: It is much faster to compress idle "dirty" memory (ZRAM) than it is to discard active file cache
+    # (which would cause stutter when those files are needed again).
+    "vm.swappiness" = 100;
 
     # Adjust cache pressure
     # The value controls the tendency of the kernel to reclaim the memory which is used for caching of directory and inode objects (VFS cache).
@@ -183,16 +186,6 @@ _:
     # Disable watchdogs for lower latency (add to boot.kernel.sysctl section)
     "kernel.nmi_watchdog" = 0;
     "kernel.watchdog" = 0;
-
-    # CFS scheduler tuning for smoother desktop/KDE animations
-    # Reduce minimum timeslice granularity for finer task switching
-    "kernel.sched_min_granularity_ns" = 500000; # 0.5ms (default ~3ms)
-    # Reduce wakeup granularity for faster response to interactive tasks
-    "kernel.sched_wakeup_granularity_ns" = 500000; # 0.5ms (default ~4ms)
-    # Reduce migration cost to improve load balancing on hybrid CPUs
-    "kernel.sched_migration_cost_ns" = 250000; # 0.25ms
-    # EEVDF/CFS: Lower latency nice for interactive priority
-    "kernel.sched_latency_ns" = 4000000; # 4ms (default 24ms)
 
     # Reduce timer slack for more precise wakeups (helps frame timing)
     "kernel.timer_migration" = 0;

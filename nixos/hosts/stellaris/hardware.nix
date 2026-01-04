@@ -218,6 +218,7 @@
     LIBVA_DRIVER_NAME = "iHD"; # Force intel-media-driver
     VDPAU_DRIVER = "va_gl"; # Forces Intel via VAAPI
     ANV_ENABLE_PIPELINE_CACHE = "1"; # Enable Vulkan pipeline caching
+    NIXOS_OZONE_WL = "1"; # Hint Electron/Chromium apps to use Wayland natively
     # mesa_glthread = "true"; # Disabled: causes KWin CPU spikes with Intel Xe driver
     # Don't set PRIME/NVIDIA variables globally - let apps default to Intel
     # Steam and other apps can override these as needed
@@ -231,4 +232,12 @@
   # HiDPI fixes => https://github.com/NixOS/nixos-hardware/blob/3f7d0bca003eac1a1a7f4659bbab9c8f8c2a0958/common/hidpi.nix
   console.font = lib.mkDefault "${pkgs.terminus_font}/share/consolefonts/ter-v32n.psf.gz";
   console.earlySetup = lib.mkDefault true;
+
+  # Host-specific udev rules for NVMe optimization
+  services.udev.extraRules = ''
+    # NVMe SSD: Use kyber scheduler (optimized for high-end NVMe devices)
+    ACTION=="add|change", KERNEL=="nvme[0-9]*", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="kyber"
+    # Set queue depth for NVMe (helps with ZFS performance)
+    ACTION=="add|change", KERNEL=="nvme[0-9]n[0-9]", ATTR{queue/nr_requests}="256"
+  '';
 }

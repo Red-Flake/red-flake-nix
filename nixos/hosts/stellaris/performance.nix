@@ -4,6 +4,22 @@
 }:
 
 {
+  # Enable ZRAM swap for better responsiveness
+  zramSwap = {
+    enable = true;
+    algorithm = "zstd";
+    memoryPercent = 100; # Use up to 100% of RAM size for ZRAM (compressed)
+    priority = 100; # Higher priority than disk swap
+  };
+
+  # Enable earlyoom as a safety net to kill processes before the system hangs
+  services.earlyoom = {
+    enable = true;
+    enableNotifications = true; # Notify the user when a process is killed
+    freeMemThreshold = 5; # Kill processes if free memory drops below 5%
+    freeSwapThreshold = 5; # Kill processes if free swap (ZRAM) drops below 5%
+  };
+
   # Host-specific sched_ext configuration for Stellaris (Core Ultra 9 275HX + RTX 5070 Ti)
   services.scx = {
     enable = false; # Disabled for now due to issues with 100% CPU load on the LAVD scheduler
