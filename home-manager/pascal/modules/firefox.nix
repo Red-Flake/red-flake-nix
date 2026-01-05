@@ -709,6 +709,14 @@
           installation_mode = "force_installed";
           default_area = "navbar";
         };
+        "firefox@betterttv.net" = {
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/betterttv/latest.xpi";
+          installation_mode = "force_installed";
+        };
+        "frankerfacez@frankerfacez.com" = {
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/frankerfacez/latest.xpi";
+          installation_mode = "force_installed";
+        };
         "default-compact-dark-theme@glitchii.github.io" = {
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/default-compact-dark-theme/latest.xpi";
           installation_mode = "force_installed";
