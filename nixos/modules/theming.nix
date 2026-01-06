@@ -21,13 +21,13 @@ in
       # Standard Fonts
       noto-fonts
       noto-fonts-cjk-sans
-      noto-fonts-emoji
+      noto-fonts-color-emoji
       liberation_ttf
       dejavu_fonts
 
       # Microsoft replacement fonts
       corefonts
-      vistafonts
+      vista-fonts
     ];
 
     # Font rendering configuration
@@ -46,9 +46,18 @@ in
 
       # Default font sets
       defaultFonts = {
-        serif = [ "Noto Serif" "Liberation Serif" ];
-        sansSerif = [ "Noto Sans" "Liberation Sans" ];
-        monospace = [ "JetBrainsMono Nerd Font" "FiraCode Nerd Font" ];
+        serif = [
+          "Noto Serif"
+          "Liberation Serif"
+        ];
+        sansSerif = [
+          "Noto Sans"
+          "Liberation Sans"
+        ];
+        monospace = [
+          "JetBrainsMono Nerd Font"
+          "FiraCode Nerd Font"
+        ];
         emoji = [ "Noto Color Emoji" ];
       };
     };
