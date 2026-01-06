@@ -192,7 +192,6 @@
     , #binaryninja,
       redflake-packages
     , darkmatter-grub-theme
-    , nixos-hardware
     , tuxedo-nixos
     , spicetify-nix
     , ...
@@ -449,25 +448,6 @@
                   user = "redflake";
                   homeDirectory = "/home/redflake";
                   profile = "redflake";
-                }
-              ];
-            };
-
-            # ThinkPad T580 host configuration
-            t580 = mkNixOSConfig {
-              profile = "security";
-              hostname = "redflake-t580";
-              hostConfig = ./nixos/hosts/t580/default.nix;
-              user = "pascal";
-              isKVM = false;
-              extraModules = [
-                nixos-hardware.nixosModules.lenovo-thinkpad-t590
-              ];
-              homeManagerConfigs = [
-                {
-                  user = "pascal";
-                  homeDirectory = "/home/pascal";
-                  profile = "pascal";
                 }
               ];
             };
