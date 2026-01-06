@@ -1,9 +1,8 @@
 # Shared overlay configuration for all Red-Flake hosts
 { inputs, ... }:
-{
-  # All overlays that should be available to all hosts
-  # (except intel-legacy which is conditional)
-  allOverlays = [
+let
+  # Base overlays available to all hosts
+  baseOverlays = [
     # Lix overlay
     (_: prev: {
       inherit (prev.lixPackageSets.stable)
@@ -25,11 +24,6 @@
     # poetry2nix overlay
     inputs.poetry2nix.overlays.default
 
-    # https://github.com/xddxdd/nix-cachyos-kernel
-    # use the exact kernel versions as defined in this repo.
-    # Guarantees you have binary cache.
-    #inputs.nix-cachyos-kernel.overlays.pinned
-
     # redflake-packages overlay
     inputs.redflake-packages.overlays.default
 
@@ -37,8 +31,10 @@
     (_: prev: {
       samba4Full = prev.samba4Full.override { enableCephFS = false; }; # disable cephfs in order to get around issues with => fatal error: tommath.h: No such file or directory
     })
+  ];
 
-    # Security tool overlays
+  # Security tool overlays
+  securityOverlays = [
     (import ../overlays/impacket-overlay)
     #(import ../overlays/responder-overlay)           # tests fail...
     (import ../overlays/evil-winrm-overlay)
@@ -79,10 +75,19 @@
     (import ../overlays/freerdp-overlay)
     (import ../overlays/mingwW64-overlay)
     (import ../overlays/metasploit-overlay)
+  ];
 
+  # Desktop specific overlays
+  desktopOverlays = [
     # Fix Electron color issues on Wayland with wide-gamut displays
     (import ../overlays/electron-color-fix-overlay)
   ];
+in
+{
+  inherit baseOverlays securityOverlays desktopOverlays;
+
+  # Combined list for backward compatibility or full hosts
+  allOverlays = baseOverlays ++ securityOverlays ++ desktopOverlays;
 
   # Intel legacy overlay (conditional)
   intelLegacyOverlay = [
