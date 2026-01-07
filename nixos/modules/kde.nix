@@ -127,10 +127,10 @@ in
     NIXOS_OZONE_WL = "1";
 
     # this env is useful for electron wayland
-    ELECTRON_OZONE_PLATFORM_HINT = "auto";
+    ELECTRON_OZONE_PLATFORM_HINT = "wayland";
 
-    # variable for qt (wayland with fallback to x11)
-    QT_QPA_PLATFORM = "wayland;xcb";
+    # variable for qt
+    QT_QPA_PLATFORM = "wayland";
 
     # set sessiontype
     XDG_SESSION_TYPE = "wayland";
@@ -141,9 +141,6 @@ in
 
     # Set X11 cursor size to 24
     XCURSOR_SIZE = "24";
-
-    # Try to fix cursor size inconsistency
-    WLR_NO_HARDWARE_CURSORS = "1";
 
     # Set GTK Theme to Breeze
     GTK_THEME = "Breeze";
