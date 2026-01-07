@@ -3,3 +3,4 @@ result
 .venv
 .claude
 .pre-commit-config.yaml
+.cache
