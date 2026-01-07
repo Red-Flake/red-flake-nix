@@ -6,22 +6,26 @@
 }:
 
 let
+  resolution = lib.attrByPath [ "custom" "display" "resolution" ] "1080p" config;
+
   # Map resolution settings to wallpaper filenames
-  wallpaperFile = {
+  wallpaperFile = lib.attrByPath [ resolution ] "Red-Flake-Wallpaper_1920x1080.png" {
     "1080p" = "Red-Flake-Wallpaper_1920x1080.png";
     "1440p" = "Red-Flake-Wallpaper_2560x1440.png";
     "1600p" = "Red-Flake-Wallpaper_2560x1600.png";
     "2160p" = "Red-Flake-Wallpaper_3840x2160.png";
-  }.${config.custom.display.resolution} or "Red-Flake-Wallpaper_1920x1080.png";
+  };
 
   background-package = pkgs.stdenvNoCC.mkDerivation {
     name = "background-image";
     src = "${inputs.artwork}/wallpapers";
     dontUnpack = true;
     installPhase = ''
-      cp $src/${wallpaperFile} $out
+      install -Dm644 "$src/${wallpaperFile}" "$out/${wallpaperFile}"
     '';
   };
+
+  backgroundPath = "${background-package}/${wallpaperFile}";
 in
 {
   # KDE related packages
@@ -38,7 +42,7 @@ in
     # Install custom sddm theme.conf.user
     (writeTextDir "share/sddm/themes/breeze/theme.conf.user" ''
       [General]
-      background = ${background-package}
+      background = ${backgroundPath}
     '')
   ];
 
@@ -91,19 +95,6 @@ in
   # Enable KDE Connect
   programs.kdeconnect.enable = true;
 
-  # Add ~/.config/kdedefaults to XDG_CONFIG_DIRS for shells, since Plasma sets that.
-  # FIXME: maybe we should append to XDG_CONFIG_DIRS in /etc/set-environment instead?
-  environment.sessionVariables.XDG_CONFIG_DIRS = [ "$HOME/.config/kdedefaults" ];
-
-  # Needed for things that depend on other store.kde.org packages to install correctly,
-  # notably Plasma look-and-feel packages (a.k.a. Global Themes)
-  #
-  # FIXME: this is annoyingly impure and should really be fixed at source level somehow,
-  # but kpackage is a library so we can't just wrap the one thing invoking it and be done.
-  # This also means things won't work for people not on Plasma, but at least this way it
-  # works for SOME people.
-  environment.sessionVariables.KPACKAGE_DEP_RESOLVERS_PATH = "${pkgs.kdePackages.frameworkintegration.out}/libexec/kf6/kpackagehandlers";
-
   # Enable GTK applications to load SVG icons
   programs.gdk-pixbuf.modulePackages = [ pkgs.librsvg ];
 
@@ -118,6 +109,18 @@ in
 
   # Env Variables
   environment.sessionVariables = {
+    # Append the default config dir so Plasma's kdedefaults doesn't replace it.
+    # FIXME: maybe we should append to XDG_CONFIG_DIRS in /etc/set-environment instead?
+    XDG_CONFIG_DIRS = lib.mkAfter [ "/etc/xdg" ];
+
+    # Needed for things that depend on other store.kde.org packages to install correctly,
+    # notably Plasma look-and-feel packages (a.k.a. Global Themes)
+    #
+    # FIXME: this is annoyingly impure and should really be fixed at source level somehow,
+    # but kpackage is a library so we can't just wrap the one thing invoking it and be done.
+    # This also means things won't work for people not on Plasma, but at least this way it
+    # works for SOME people.
+    KPACKAGE_DEP_RESOLVERS_PATH = "${pkgs.kdePackages.frameworkintegration.out}/libexec/kf6/kpackagehandlers";
 
     # Electron and Chromium
     ## As of NixOS 22.05 ("Quokka"), you can enable Ozone Wayland support in Chromium and Electron based applications by setting the environment variable NIXOS_OZONE_WL=1. For example, in a configuration.nix:
@@ -146,7 +149,7 @@ in
     GTK_THEME = "Breeze";
 
     # Set default browser to firefox
-    DEFAULT_BROWSER = "${pkgs.firefox-bin}/bin/firefox";
+    DEFAULT_BROWSER = lib.getExe pkgs.firefox-bin;
 
     # Performance: Enable Triple Buffering for KWin (smoother, slightly higher latency)
     KWIN_TRIPLE_BUFFER = "1";
@@ -161,7 +164,7 @@ in
   # Disable Baloo content indexing to prevent micro-stutters
   environment.etc."xdg/baloofilerc".text = ''
     [Basic Settings]
-    Indexing-Enabled=true
+    Indexing-Enabled=false
     
     [General]
     dbVersion=2
