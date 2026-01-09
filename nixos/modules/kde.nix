@@ -153,16 +153,13 @@ in
 
     # Performance: Disable server-side decorations for Qt apps (KWin handles it faster)
     QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
-
-    # Performance: Ensure efficient buffer sharing with modifiers
-    KWIN_DRM_USE_MODIFIERS = "1";
   };
 
   # Disable Baloo content indexing to prevent micro-stutters
   environment.etc."xdg/baloofilerc".text = ''
     [Basic Settings]
     Indexing-Enabled=false
-    
+
     [General]
     dbVersion=2
     exclude filters=*.iso,*.mkv,*.mp4,*.avi,*.pyc,*.class,*.o,*.obj,*.tmp,*.bak,*.swp,node_modules,target,build,dist,.git,.svn
