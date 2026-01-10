@@ -31,7 +31,7 @@ in
       # chaoticPkgs.proton-cachyos  # TODO: fix package availability
     ];
 
-    extest.enable = true;
+    extest.enable = false;
 
     protontricks = {
       enable = true;
