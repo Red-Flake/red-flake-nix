@@ -36,7 +36,7 @@ let
   # Security tool overlays
   securityOverlays = [
     (import ../overlays/impacket-overlay)
-    #(import ../overlays/responder-overlay)           # tests fail...
+    (import ../overlays/responder-overlay) # tests fail...
     (import ../overlays/evil-winrm-overlay)
     (import ../overlays/bloodhound-quickwin-overlay)
     (import ../overlays/ldapdomaindump-overlay)
