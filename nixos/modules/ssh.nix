@@ -10,6 +10,9 @@ _:
     settings = {
       PermitRootLogin = "yes";
       PasswordAuthentication = true;
+      KerberosAuthentication = "yes";
+      GSSAPIAuthentication = "yes";
+      GSSAPICleanupCredentials = "yes";
     };
   };
 }
