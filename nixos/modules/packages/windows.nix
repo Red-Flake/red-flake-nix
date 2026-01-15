@@ -37,5 +37,6 @@
     adenum
     wimlib
     shortscan
+    pywhisker
   ];
 }
