@@ -60,7 +60,6 @@ let
     (import ../overlays/PetitPotam-overlay)
     (import ../overlays/cupp-overlay)
     (import ../overlays/john-overlay)
-    #(import ../overlays/certipy-overlay)
     (import ../overlays/XSStrike-overlay)
     (import ../overlays/XSSer-overlay)
     (import ../overlays/bashfuscator-overlay)
@@ -75,6 +74,7 @@ let
     (import ../overlays/freerdp-overlay)
     (import ../overlays/mingwW64-overlay)
     (import ../overlays/metasploit-overlay)
+    (import ../overlays/certipy-overlay)
   ];
 
   # Desktop specific overlays
