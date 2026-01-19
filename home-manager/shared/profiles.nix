@@ -64,6 +64,7 @@ in
       ../common/modules/vesktop.nix
       ../common/modules/vscode.nix
       ../common/modules/plasma-manager.nix
+      ../common/modules/filezilla.nix
 
       # Security modules
       ../common/modules/msf.nix
