@@ -20,6 +20,8 @@
             # Modern x86 features for better performance
             X86_FRED = yes;
             X86_POSTED_MSI = yes;
+            # Require x86-64-v3 ISA baseline (AVX2/BMI/FMA, etc.)
+            X86_64_VERSION = lib.mkForce (freeform "3");
 
             # 1000Hz tickless idle kernel
             NO_HZ = no;
@@ -123,13 +125,13 @@
     )
   ];
 
-  # Pin to 6.18.3-xanmod1 (replace fakeHash after first build)
+  # Pin to 6.18.7-xanmod1 (replace fakeHash after first build)
   boot.kernelPackages = lib.mkForce (
     pkgs.linuxPackagesFor (
       pkgs.linux-xanmod-custom {
-        version = "6.18.3";
+        version = "6.18.7";
         suffix = "xanmod1";
-        hash = "sha256-Vi3fb9uX9siJS0dwzVkN8lWvJD1xhtuEkI2zcougIFE=";
+        hash = "sha256-kMnJGI0GJ6Cgi5jqrLHRzHI2yE/KEOtBtvgevKnSDO8=";
       }
     )
   );
