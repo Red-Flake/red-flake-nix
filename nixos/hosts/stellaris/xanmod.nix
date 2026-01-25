@@ -13,9 +13,9 @@
             # Set CPU Schedulers
             CPU_FREQ_DEFAULT_GOV_PERFORMANCE = lib.mkForce yes;
             CPU_FREQ_DEFAULT_GOV_SCHEDUTIL = lib.mkForce no;
-            CPU_IDLE_GOV_HALTPOLL = yes;
             CPU_IDLE_GOV_LADDER = yes;
             CPU_IDLE_GOV_TEO = yes;
+            CPU_IDLE_GOV_MENU = yes;
 
             # Modern x86 features for better performance
             X86_FRED = yes;
@@ -23,10 +23,13 @@
             # Require x86-64-v3 ISA baseline (AVX2/BMI/FMA, etc.)
             X86_64_VERSION = lib.mkForce (freeform "3");
 
-            # 1000Hz tickless idle kernel
-            NO_HZ = no;
+            # Timer tick handling: tickless idle
+            HZ_PERIODIC = lib.mkForce no;
+            NO_HZ_IDLE = lib.mkForce yes;
             NO_HZ_FULL = lib.mkForce no;
-            NO_HZ_IDLE = yes;
+            # (NO_HZ / NO_HZ_COMMON: don’t force unless you know the exact symbols in this kernel)
+
+            # 1000Hz tickless idle kernel
             HZ = freeform "1000";
             HZ_1000 = yes;
             HZ_250 = no;
@@ -44,10 +47,10 @@
             RCU_FANOUT = freeform "64";
             RCU_FANOUT_LEAF = freeform "16";
             RCU_EXP_KTHREAD = yes;
-            RCU_NOCB_CPU = yes;
+            #RCU_NOCB_CPU = yes;
             RCU_DOUBLE_CHECK_CB_TIME = yes;
             RCU_BOOST = yes;
-            RCU_BOOST_DELAY = freeform "0";
+            RCU_BOOST_DELAY = freeform "300";
 
             # I/O Schedulers (use mkForce to override common-config.nix defaults)
             IOSCHED_BFQ = lib.mkForce yes;

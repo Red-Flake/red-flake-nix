@@ -98,6 +98,9 @@
 
       # Disable split lock detection - some games/apps trigger split locks causing micro-stutter
       "split_lock_detect=off"
+
+      # Set TEO as runtime governor for modern tickless system
+      "cpuidle.governor=teo"
     ];
 
     # --- extra kernel module options (goes into /etc/modprobe.d/nixos.conf) ---#
