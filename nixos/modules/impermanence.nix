@@ -1,5 +1,4 @@
-_:
-{
+_: {
   # setup persistence
   environment.persistence = {
 
@@ -43,6 +42,7 @@ _:
         "/var/lib/libvirt" # persist libvirt data
         "/var/lib/lxd" # persist LXC data
         "/var/cache/fwupd" # persist fwupd cache
+        "/var/cache/ccache" # persist ccache
       ];
     };
 

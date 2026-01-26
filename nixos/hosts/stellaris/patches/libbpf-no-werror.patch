@@ -1,0 +1,17 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+Subject: libbpf: do not treat warnings as errors
+
+Disable -Werror in tools/lib/bpf to avoid GCC 15 format-truncation
+warnings breaking the kernel build.
+
+diff --git a/tools/lib/bpf/Makefile b/tools/lib/bpf/Makefile
+index 2af92b4b5b56..4b2c70bf4d43 100644
+--- a/tools/lib/bpf/Makefile
++++ b/tools/lib/bpf/Makefile
+@@ -80,7 +80,7 @@ override CFLAGS += -std=gnu89
+ override CFLAGS += $(EXTRA_WARNINGS) -Wno-switch-enum
+-override CFLAGS += -Werror -Wall
++override CFLAGS += -Wall
+ override CFLAGS += $(INCLUDES)
+ override CFLAGS += -fvisibility=hidden
+ override CFLAGS += -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
