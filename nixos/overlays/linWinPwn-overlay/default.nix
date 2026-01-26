@@ -4,28 +4,87 @@ self: super:
 let
   # Fetch tools using URLs
   tools = [
-    { name = "windapsearch"; url = "https://github.com/ropnop/go-windapsearch/releases/download/v0.3.0/windapsearch-linux-amd64"; sha256 = "sha256-Fau8XiQiFY1ktPYEQklyMJ+3m7U7Wb9aUnsWZi2GNsE="; }
-    { name = "kerbrute"; url = "https://github.com/ropnop/kerbrute/releases/download/v1.0.3/kerbrute_linux_amd64"; sha256 = "sha256-cQqdJlPIvTaJ5FF3jaudrsDeTEx1+QB4jM8j7yVLEio="; }
-    { name = "enum4linux-ng.py"; url = "https://raw.githubusercontent.com/cddmp/enum4linux-ng/70c6ea121e0d7cab3ff24513ff76d457a5c3537b/enum4linux-ng.py"; sha256 = "sha256-l9QpgaEbqa723N1Pe+yAQX2ID46gzU9oySErAr1ZDmU="; }
-    { name = "CVE-2022-33679.py"; url = "https://raw.githubusercontent.com/Bdenneu/CVE-2022-33679/f7c4361a283bdb2aaccbff9ef7930b12d493fe18/CVE-2022-33679.py"; sha256 = "sha256-WH/MfVMU3c6jQuq+izdQC/WKBF2eb60V8lz7kZIc4Hw="; }
-    { name = "silenthound.py"; url = "https://raw.githubusercontent.com/layer8secure/SilentHound/f04746aaca29e377c8badcbd6d8f6584deb9e919/silenthound.py"; sha256 = "sha256-n4PRgsLwFEEOHs7e4GaawPIJpRWgudKQED4SO0Z6FnE="; }
-    { name = "targetedKerberoast.py"; url = "https://raw.githubusercontent.com/ShutdownRepo/targetedKerberoast/ebed0790002dfae503eb5e5525a0630f131fa117/targetedKerberoast.py"; sha256 = "sha256-pCuW9R783/ejjtCV3SaZhBIga17RQdpUjr6NBSbSKbI="; }
-    { name = "FindUncommonShares.py"; url = "https://raw.githubusercontent.com/p0dalirius/pyFindUncommonShares/408454c2e98c515259c547e69c105292aea30c12/FindUncommonShares.py"; sha256 = "sha256-TnXiduIUDU//oXo2E5+Mm+pf2uPE92yY/FwXVcQU5l4="; }
-    { name = "ExtractBitlockerKeys.py"; url = "https://raw.githubusercontent.com/p0dalirius/ExtractBitlockerKeys/ce6167c198ccf9ea72f24b74f9afffd35b3f688c/python/ExtractBitlockerKeys.py"; sha256 = "sha256-DJtZgKTuC9JpHKi2nAPHDF1f7YlWWPd+drCiPLQA2eI="; }
-    { name = "ldapconsole.py"; url = "https://raw.githubusercontent.com/p0dalirius/ldapconsole/3a558228ff594211aa62eca28010568850b01053/ldapconsole.py"; sha256 = "sha256-B32JcGm8PCfR7oCly0O/lZ/3KAJkBWnsPngAcijuKjM="; }
-    { name = "pyLDAPmonitor.py"; url = "https://raw.githubusercontent.com/p0dalirius/LDAPmonitor/498e048b8a16cecdc19cb7b302b97d3e27d1579c/python/pyLDAPmonitor.py"; sha256 = "sha256-FXrCmju4FEYMfqiUms/oILPZIjtn0/vlEWGlXtlpZmk="; }
-    { name = "LDAPWordlistHarvester.py"; url = "https://raw.githubusercontent.com/p0dalirius/pyLDAPWordlistHarvester/49ce8b2f7f51a11b6d28c26fca83cf51eb179ca0/LDAPWordlistHarvester.py"; sha256 = "sha256-CfMpSOjfKaAXabIUa56+pkOfXXmu+YWm4Esw6+h97qA="; }
-    { name = "adalanche"; url = "https://github.com/lkarlslund/Adalanche/releases/download/v2024.1.11/adalanche-linux-x64-v2024.1.11"; sha256 = "sha256-8A3psJPspjVBSa01KvCu4S5VmS/iluVFsvdKXStZF2c="; }
-    { name = "ldapnomnom"; url = "https://github.com/lkarlslund/ldapnomnom/releases/download/v1.5.1/ldapnomnom-linux-x64"; sha256 = "sha256-UoJmmCzT7v1LqEumN3r5rB92wFeKp6zpeKNyDRPnXlA="; }
-    { name = "aesKrbKeyGen.py"; url = "https://raw.githubusercontent.com/Tw1sm/aesKrbKeyGen/77d1c861b463a97dcfbeb878e1982ae3f07cfda3/aesKrbKeyGen.py"; sha256 = "sha256-0FBenVXbfdQUbz0zPabApE4aqCzOz5OCPqlbocnPVM8="; }
+    {
+      name = "windapsearch";
+      url = "https://github.com/ropnop/go-windapsearch/releases/download/v0.3.0/windapsearch-linux-amd64";
+      sha256 = "sha256-Fau8XiQiFY1ktPYEQklyMJ+3m7U7Wb9aUnsWZi2GNsE=";
+    }
+    {
+      name = "kerbrute";
+      url = "https://github.com/ropnop/kerbrute/releases/download/v1.0.3/kerbrute_linux_amd64";
+      sha256 = "sha256-cQqdJlPIvTaJ5FF3jaudrsDeTEx1+QB4jM8j7yVLEio=";
+    }
+    {
+      name = "enum4linux-ng.py";
+      url = "https://raw.githubusercontent.com/cddmp/enum4linux-ng/70c6ea121e0d7cab3ff24513ff76d457a5c3537b/enum4linux-ng.py";
+      sha256 = "sha256-l9QpgaEbqa723N1Pe+yAQX2ID46gzU9oySErAr1ZDmU=";
+    }
+    {
+      name = "CVE-2022-33679.py";
+      url = "https://raw.githubusercontent.com/Bdenneu/CVE-2022-33679/f7c4361a283bdb2aaccbff9ef7930b12d493fe18/CVE-2022-33679.py";
+      sha256 = "sha256-WH/MfVMU3c6jQuq+izdQC/WKBF2eb60V8lz7kZIc4Hw=";
+    }
+    {
+      name = "silenthound.py";
+      url = "https://raw.githubusercontent.com/layer8secure/SilentHound/f04746aaca29e377c8badcbd6d8f6584deb9e919/silenthound.py";
+      sha256 = "sha256-n4PRgsLwFEEOHs7e4GaawPIJpRWgudKQED4SO0Z6FnE=";
+    }
+    {
+      name = "targetedKerberoast.py";
+      url = "https://raw.githubusercontent.com/ShutdownRepo/targetedKerberoast/ebed0790002dfae503eb5e5525a0630f131fa117/targetedKerberoast.py";
+      sha256 = "sha256-pCuW9R783/ejjtCV3SaZhBIga17RQdpUjr6NBSbSKbI=";
+    }
+    {
+      name = "FindUncommonShares.py";
+      url = "https://raw.githubusercontent.com/p0dalirius/pyFindUncommonShares/408454c2e98c515259c547e69c105292aea30c12/FindUncommonShares.py";
+      sha256 = "sha256-TnXiduIUDU//oXo2E5+Mm+pf2uPE92yY/FwXVcQU5l4=";
+    }
+    {
+      name = "ExtractBitlockerKeys.py";
+      url = "https://raw.githubusercontent.com/p0dalirius/ExtractBitlockerKeys/ce6167c198ccf9ea72f24b74f9afffd35b3f688c/python/ExtractBitlockerKeys.py";
+      sha256 = "sha256-DJtZgKTuC9JpHKi2nAPHDF1f7YlWWPd+drCiPLQA2eI=";
+    }
+    {
+      name = "ldapconsole.py";
+      url = "https://raw.githubusercontent.com/p0dalirius/ldapconsole/3a558228ff594211aa62eca28010568850b01053/ldapconsole.py";
+      sha256 = "sha256-B32JcGm8PCfR7oCly0O/lZ/3KAJkBWnsPngAcijuKjM=";
+    }
+    {
+      name = "pyLDAPmonitor.py";
+      url = "https://raw.githubusercontent.com/p0dalirius/LDAPmonitor/498e048b8a16cecdc19cb7b302b97d3e27d1579c/python/pyLDAPmonitor.py";
+      sha256 = "sha256-FXrCmju4FEYMfqiUms/oILPZIjtn0/vlEWGlXtlpZmk=";
+    }
+    {
+      name = "LDAPWordlistHarvester.py";
+      url = "https://raw.githubusercontent.com/p0dalirius/pyLDAPWordlistHarvester/49ce8b2f7f51a11b6d28c26fca83cf51eb179ca0/LDAPWordlistHarvester.py";
+      sha256 = "sha256-CfMpSOjfKaAXabIUa56+pkOfXXmu+YWm4Esw6+h97qA=";
+    }
+    {
+      name = "adalanche";
+      url = "https://github.com/lkarlslund/Adalanche/releases/download/v2024.1.11/adalanche-linux-x64-v2024.1.11";
+      sha256 = "sha256-8A3psJPspjVBSa01KvCu4S5VmS/iluVFsvdKXStZF2c=";
+    }
+    {
+      name = "ldapnomnom";
+      url = "https://github.com/lkarlslund/ldapnomnom/releases/download/v1.5.1/ldapnomnom-linux-x64";
+      sha256 = "sha256-UoJmmCzT7v1LqEumN3r5rB92wFeKp6zpeKNyDRPnXlA=";
+    }
+    {
+      name = "aesKrbKeyGen.py";
+      url = "https://raw.githubusercontent.com/Tw1sm/aesKrbKeyGen/77d1c861b463a97dcfbeb878e1982ae3f07cfda3/aesKrbKeyGen.py";
+      sha256 = "sha256-0FBenVXbfdQUbz0zPabApE4aqCzOz5OCPqlbocnPVM8=";
+    }
   ];
 
   # Pre-fetch the tools
   fetchTools = builtins.map
-    (tool: super.fetchurl {
-      inherit (tool) url;
-      inherit (tool) sha256;
-    })
+    (
+      tool:
+      super.fetchurl {
+        inherit (tool) url;
+        inherit (tool) sha256;
+      }
+    )
     tools;
 
   # Define Python packages
@@ -65,7 +124,6 @@ let
       license = super.lib.licenses.mit;
     };
   };
-
 
   # Define manspider with textract as a built input
   manspider = self.stdenv.mkDerivation rec {
@@ -127,7 +185,10 @@ let
       rev = "bd764b9ba2be25374f26d277bebae54eb1be00b2";
       sha256 = "sha256-nNLtaD/CC3Fyk+VMOFmUyJdyP5jxBMcqChF3Zsm6vhI="; # Replace with the SHA-256 hash of the new source; nix-prefetch-url --unpack "https://github.com/CompassSecurity/mssqlrelay/archive/bd764b9ba2be25374f26d277bebae54eb1be00b2.tar.gz"
     };
-    propagatedBuildInputs = with python3Packages; [ requests impacket ];
+    propagatedBuildInputs = with python3Packages; [
+      requests
+      impacket
+    ];
     meta = {
       description = "MS SQL relay utility for pentesting.";
       homepage = "https://github.com/CompassSecurity/mssqlrelay";
@@ -148,7 +209,10 @@ let
 
     format = "other";
 
-    propagatedBuildInputs = with python3Packages; [ requests ldap3 ];
+    propagatedBuildInputs = with python3Packages; [
+      requests
+      ldap3
+    ];
 
     installPhase = ''
       mkdir -p $out/bin
@@ -178,7 +242,10 @@ let
       rev = "bda3e0c01b61320e51d592e04fa01e82c0c2d440";
       sha256 = "sha256-GfEgYadvj0p3nTvOyELiNn5lYE+4sLoLojTSQcxUARo=";
     };
-    propagatedBuildInputs = with python3Packages; [ ldap3 pandas ];
+    propagatedBuildInputs = with python3Packages; [
+      ldap3
+      pandas
+    ];
     meta = {
       description = "Active Directory post-exploitation enumeration tool.";
       homepage = "https://github.com/ajm4n/adPEAS";
@@ -268,20 +335,22 @@ in
     ];
 
     buildInputs = [
-      (python3.withPackages (ps: with ps; [
-        mssqlrelay
-        ldapdomaindump
-        pycryptodome
-        impacket
-        pandas
-        requests
-        xlsxwriter
-        colorama
-        typer
-        bloodhound-py
-        bloodyad
-        ps.ldap3
-      ]))
+      (python3.withPackages (
+        ps: with ps; [
+          mssqlrelay
+          ldapdomaindump
+          pycryptodome
+          impacket
+          pandas
+          requests
+          xlsxwriter
+          colorama
+          typer
+          bloodhound-py
+          bloodyad
+          ps.ldap3
+        ]
+      ))
       adpeas
       adcheck
       mssqlpwner
@@ -308,7 +377,7 @@ in
       self.smbclient-ng
       self.hekatomb
       self.enum4linux-ng
-      self.evil-winrm-patched
+      self.evil-winrm
       self.util-linux
     ];
 
@@ -325,10 +394,12 @@ in
       chmod +x $out/bin/linWinPwn
 
       # Copy tools to the scripts directory
-      ${self.lib.concatStringsSep "\n" (map (tool: ''
-        cp ${tool} $out/bin/${tool.name}
-        chmod +x $out/bin/${tool.name}
-      '') fetchTools)}
+      ${self.lib.concatStringsSep "\n" (
+        map (tool: ''
+          cp ${tool} $out/bin/${tool.name}
+          chmod +x $out/bin/${tool.name}
+        '') fetchTools
+      )}
 
       runHook postInstall
     '';
@@ -336,54 +407,59 @@ in
     postInstall = ''
       # Wrap the main linWinPwn script
       wrapProgram $out/bin/linWinPwn \
-        --set PATH "${self.lib.makeBinPath ([
-          self.coreutils
-          self.which
-          self.iproute2
-          self.gnused
-          python3
-          self.gnugrep
-          self.gawk
-          self.util-linux
-          self.sudo
-          self.findutils
-          mssqlrelay
-          adcheck
-          adpeas
-          mssqlpwner
-          bloodhound-python_ce
-          manspider
-          python3Packages.impacket
-          python3Packages.ldapdomaindump
-          python3Packages.pycryptodome
-          python3Packages.pandas
-          python3Packages.requests
-          python3Packages.bloodhound-py
-          python3Packages.bloodyad
-          self.nmap
-          self.smbmap
-          self.john
-          self.swig
-          self.openssl
-          self.curl
-          self.jq
-          self.netexec
-          self.adidnsdump
-          self.certipy
-          self.ldeep
-          self.pre2k
-          self.certsync
-          self.coercer
-          self.donpapi
-          self.rdwatool
-          self.krbjack
-          self.breads-ad
-          self.smbclient-ng
-          self.hekatomb
-          self.enum4linux-ng
-          self.certi
-          self.evil-winrm-patched
-        ] ++ fetchTools)}:$out/bin:$out/usr/bin"
+        --set PATH "${
+          self.lib.makeBinPath (
+            [
+              self.coreutils
+              self.which
+              self.iproute2
+              self.gnused
+              python3
+              self.gnugrep
+              self.gawk
+              self.util-linux
+              self.sudo
+              self.findutils
+              mssqlrelay
+              adcheck
+              adpeas
+              mssqlpwner
+              bloodhound-python_ce
+              manspider
+              python3Packages.impacket
+              python3Packages.ldapdomaindump
+              python3Packages.pycryptodome
+              python3Packages.pandas
+              python3Packages.requests
+              python3Packages.bloodhound-py
+              python3Packages.bloodyad
+              self.nmap
+              self.smbmap
+              self.john
+              self.swig
+              self.openssl
+              self.curl
+              self.jq
+              self.netexec
+              self.adidnsdump
+              self.certipy
+              self.ldeep
+              self.pre2k
+              self.certsync
+              self.coercer
+              self.donpapi
+              self.rdwatool
+              self.krbjack
+              self.breads-ad
+              self.smbclient-ng
+              self.hekatomb
+              self.enum4linux-ng
+              self.certi
+              self.evil-winrm
+            ]
+            ++ fetchTools
+          )
+        }:$out/bin:$out/usr/bin"
 
       # Ensure all binaries in $out/bin are executable
       chmod +x $out/bin/*

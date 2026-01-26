@@ -1,5 +1,4 @@
-{ inputs
-, pkgs
+{ pkgs
 , ...
 }:
 
@@ -7,8 +6,8 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    evil-winrm-patched
-    inputs.redflake-packages.packages.x86_64-linux.evil-winrm-py
+    evil-winrm
+    evil-winrm-py
     openssh
     freerdp
     rdesktop

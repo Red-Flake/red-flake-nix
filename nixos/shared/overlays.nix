@@ -36,7 +36,6 @@ let
   # Security tool overlays
   securityOverlays = [
     (import ../overlays/responder-overlay)
-    (import ../overlays/evil-winrm-overlay)
     (import ../overlays/bloodhound-quickwin-overlay)
     (import ../overlays/ldapdomaindump-overlay)
     (import ../overlays/SMB_Killer-overlay)
