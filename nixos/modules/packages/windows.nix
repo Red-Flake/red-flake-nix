@@ -10,7 +10,7 @@
     bloodhound
     inputs.redflake-packages.packages.x86_64-linux.bloodhound-ce-py
     bloodhound-quickwin
-    python312Packages.impacket-patched
+    python314Packages.impacket
     openldap
     ldapdomaindump-patched
     certipy # certipy fails to build...
