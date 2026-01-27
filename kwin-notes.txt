@@ -1,6 +1,0 @@
-- Intel = /dev/dri/card0 (8086:7d67), NVIDIA = /dev/dri/card1 (10de:2f18).
-- Goal: default to Intel, keep external displays on NVIDIA working.
-- Try setting KWIN_DRM_DEVICES="/dev/dri/card0:/dev/dri/card1" (Intel first), KWIN_FORCE_SW_CURSOR=0, leave AMS on.
-- If “Permission denied /dev/dri/card1” persists, test with hardware.nvidia.powerManagement.finegrained = false (keep dGPU awake) to see if atomic spam
-  stops.
-- Avoid KWIN_DRM_NO_AMS unless diagnosing (causes sluggishness).
