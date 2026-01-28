@@ -1022,11 +1022,11 @@
     "tools": {
       "flake": false,
       "locked": {
-        "lastModified": 1769237553,
-        "narHash": "sha256-m7lwB4njRCEb9v92BncncLrrNoHo1hZbd4E++uKWHqs=",
+        "lastModified": 1769569185,
+        "narHash": "sha256-RxNb/eACM3ADyXRTAkItBK4fpgCUsXFNdeMwrgPjuQE=",
         "owner": "Red-Flake",
         "repo": "tools",
-        "rev": "a0b221370d0bfea81daa07a4ce68a99d8a061fb0",
+        "rev": "ea7114a5d486ac233701f81fa9e69528959d1051",
         "type": "github"
       },
       "original": {
