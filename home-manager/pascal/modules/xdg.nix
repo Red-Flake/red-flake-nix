@@ -21,6 +21,11 @@ in
         rm -f "${config.xdg.configHome}/mimeapps.list"
       fi
     '';
+
+    remminaAutostart = lib.hm.dag.entryBefore [ "writeBoundary" ] ''
+      # Remmina sometimes creates an autostart entry for the tray applet; remove it.
+      rm -f "${config.xdg.configHome}/autostart/remmina-applet.desktop"
+    '';
   };
 
   # enable xdg desktop portal
@@ -165,4 +170,5 @@ in
       };
     };
   };
+
 }
