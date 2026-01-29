@@ -16,6 +16,7 @@ let
   wallpaperPath = "${config.home.homeDirectory}/.local/share/wallpapers/red-flake/${wallpaperFile}";
 in
 {
+
   programs.plasma = {
     # enable plasma-manager
     enable = true;
@@ -131,6 +132,9 @@ in
               # And explicitly hide networkmanagement and volume
               hidden = [
                 "org.kde.plasma.brightness"
+                # Hides the "install Plasma Browser Integration" tray reminder.
+                "org.kde.plasma.browser_integration"
+                "org.kde.plasma.browserintegration"
               ];
               configs.battery.showPercentage = true;
             };
