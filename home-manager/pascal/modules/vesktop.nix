@@ -10,6 +10,18 @@ let
     base00 = "1e1e2e"; # background
     base05 = "cdd6f4"; # default fg
   };
+  initialVesktopSettingsJson = builtins.toJSON {
+    minimizeToTray = "on";
+    discordBranch = "stable";
+    arRPC = "on";
+    splashColor = "#${myColors.base05}";
+    splashBackground = "#${myColors.base00}";
+    splashTheming = true;
+    checkUpdates = false;
+    disableMinSize = true;
+    tray = true;
+    hardwareAcceleration = true;
+  };
 in
 {
   programs.nixcord = {
@@ -26,19 +38,6 @@ in
       enable = lib.mkDefault true;
       package = lib.mkDefault pkgs.vesktop;
       autoscroll.enable = true;
-      settings = {
-        minimizeToTray = "on";
-        discordBranch = "stable";
-        arRPC = "on";
-        splashColor = "#${myColors.base05}";
-        splashBackground = "#${myColors.base00}";
-        splashTheming = true;
-        checkUpdates = false;
-        disableMinSize = true;
-        tray = true;
-        hardwareAcceleration = true;
-        firstLaunch = false;
-      };
     };
 
     config = {
@@ -71,16 +70,35 @@ in
     };
   };
 
-  # INFO: Create vesktop initial state to ignore "firstLaunch" configuration.
-  # After that let vesktop manage its own state.
+  # INFO: Vesktop writes its config at runtime. Home Manager/Nixcord may create
+  # the settings file as a /nix/store symlink (read-only), which breaks Vesktop.
+  # Keep HM-managed defaults, but replace the symlink with a mutable copy after
+  # link generation.
+  #
+  # Also create vesktop initial state to ignore "firstLaunch".
   home.activation.create-vesktop-initial-state = lib.mkIf vesktopEnabled (
     let
       vesktopConfigDir = config.xdg.configHome + "/vesktop";
       vesktopStateDir = config.xdg.stateHome + "/vesktop";
       vesktopStateFile = vesktopStateDir + "/state.json";
+      vesktopSettingsDir = vesktopConfigDir + "/settings";
+      vesktopSettingsFile = vesktopSettingsDir + "/settings.json";
     in
-    lib.hm.dag.entryBefore [ "writeBoundary" ] ''
+    lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       set -eu
+      install -d -m 700 "${vesktopSettingsDir}"
+      if [ -L "${vesktopSettingsFile}" ]; then
+        cp "${vesktopSettingsFile}" "${vesktopSettingsFile}.tmp" || true
+        rm -f "${vesktopSettingsFile}"
+        if [ -f "${vesktopSettingsFile}.tmp" ]; then
+          mv -f "${vesktopSettingsFile}.tmp" "${vesktopSettingsFile}"
+        fi
+      fi
+      if [ ! -e "${vesktopSettingsFile}" ]; then
+        printf '%s\n' '${initialVesktopSettingsJson}' > "${vesktopSettingsFile}.tmp"
+        mv -f "${vesktopSettingsFile}.tmp" "${vesktopSettingsFile}"
+      fi
+      chmod 600 "${vesktopSettingsFile}" 2>/dev/null || true
       if [ ! -f "${vesktopStateFile}" ]; then
         # Ensure both dirs exist
         install -d -m 700 "${vesktopConfigDir}" "${vesktopStateDir}"
