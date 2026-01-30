@@ -337,6 +337,7 @@
               home-manager.useGlobalPkgs = false;
               home-manager.useUserPackages = true;
               home-manager.backupFileExtension = "bak";
+              home-manager.overwriteBackup = true;
 
               # Keep HM pkgs aligned with the host package set (important for per-host nixpkgs config)
               home-manager.extraSpecialArgs = {

@@ -11,12 +11,18 @@ _final: prev: {
       # Nixpkgs' Electron wrapper may enable speech-dispatcher by default via
       # $NIXOS_SPEECH which can lead to SIGTRAP coredumps in Electron's speech
       # path on some setups. Force-disable it for Vesktop.
+      #
+      # Vesktop + Electron 38 on Wayland has been triggering SIGILL coredumps
+      # on this host; forcing X11 mode stops the crash. Keep this scoped to
+      # Vesktop only so other Electron apps can still use Wayland.
       if [ -f "$out/bin/.vesktop-wrapped" ]; then
         substituteInPlace "$out/bin/.vesktop-wrapped" \
           --replace-fail "--enable-speech-dispatcher" ""
       fi
       wrapProgram $out/bin/vesktop \
         --set NIXOS_SPEECH False \
+        --set NIXOS_OZONE_WL 0 \
+        --set ELECTRON_OZONE_PLATFORM_HINT x11 \
         --add-flags "--disable-features=WaylandWpColorManagerV1 --disable-speech-api --disable-speech-synthesis-api"
     '';
   });

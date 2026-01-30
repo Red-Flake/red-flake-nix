@@ -87,6 +87,7 @@ in
     lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       set -eu
       install -d -m 700 "${vesktopSettingsDir}"
+      rm -f "${vesktopSettingsFile}.bak"
       if [ -L "${vesktopSettingsFile}" ]; then
         cp "${vesktopSettingsFile}" "${vesktopSettingsFile}.tmp" || true
         rm -f "${vesktopSettingsFile}"
