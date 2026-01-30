@@ -131,6 +131,11 @@
     # enable all firmware regardless of license
     enableAllFirmware = lib.mkForce true;
 
+    # load firmware packages
+    firmware = with pkgs; [
+      linux-firmware
+    ];
+
     # enable CPU microcode updates
     cpu.intel.updateMicrocode = lib.mkForce true;
 
