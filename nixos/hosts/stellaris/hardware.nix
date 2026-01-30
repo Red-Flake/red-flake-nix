@@ -84,6 +84,24 @@
       "i915.force_probe=!7d67" # Prevent old i915 driver from binding this GPU
       "xe.force_probe=7d67" # Force the new xe driver to bind the Meteor Lake device (PCI ID 7d67)
 
+      # Intel i915: Disable Display Power Savings
+      "i915.enable_fbc=0"
+      "i915.enable_psr=0"
+      "i915.enable_dc=0"
+      "i915.disable_dsb=1"
+
+      # Intel Xe: Quiet the FBC/PSR noise / flicker; Disable xe DC states
+      "xe.enable_fbc=0"
+      "xe.enable_psr=0"
+      "xe.enable_dc=0"
+      "xe.disable_dsb=1"
+
+      # Intel Xe: Relax GuC to avoid TLB/PHY issues with MTL firmware on ARL
+      "xe.enable_guc=2"
+
+      # Quiet Intel Xe DRM debug kernel log spam (TLB/PHY refclk issues...)
+      "drm.debug=0x0"
+
       # Intel Hybrid perf
       "intel_pstate=passive" # Let userspace (TUXEDO Control Center / TLP) manage P-states for Intel hybrid CPUs
 
@@ -109,8 +127,9 @@
       # Make sure MEI is up before xe tries to talk to GSC
       softdep xe pre: mei_gsc_proxy mei_me mei
 
-      # Quiet the FBC/PSR noise / flicker; Disable xe DC states
-      options xe enable_fbc=0 enable_psr=0 enable_dc=0
+      # Disable GuC submission for Xe (equivalent to i915.enable_guc=2)
+      # No GuC/HuC load (safest)
+      options xe guc_load=0
 
       # Virtualization
       options kvm_intel nested=1
