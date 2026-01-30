@@ -575,19 +575,19 @@
                     url = "https://gtfobins.github.io/";
                   }
                   {
-                    name = "LOLBAS ";
+                    name = "LOLBAS";
                     tags = [ "lolbas" ];
                     keyword = "lolbas";
                     url = "https://lolbas-project.github.io/";
                   }
                   {
-                    name = "WADComs ";
+                    name = "WADComs";
                     tags = [ "wadcoms" ];
                     keyword = "wadcoms";
                     url = "https://wadcoms.github.io/";
                   }
                   {
-                    name = "TLDRBins ";
+                    name = "TLDRBins";
                     tags = [ "TLDRBins" ];
                     keyword = "tldrbins";
                     url = "https://tldrbins.github.io/";
@@ -604,10 +604,27 @@
                     url = "https://oscp.sysreptor.com/";
                   }
                   {
-                    name = "HTB Sysreptor ";
+                    name = "HTB Sysreptor";
                     tags = [ "sysreptor" ];
                     keyword = "sysreptor";
                     url = "https://htb.sysreptor.com/";
+                  }
+                ];
+              }
+              {
+                name = "Cracking";
+                bookmarks = [
+                  {
+                    name = "CrackStation";
+                    tags = [ "crackstation" ];
+                    keyword = "crackstation";
+                    url = "https://crackstation.net/";
+                  }
+                  {
+                    name = "Hashes.com";
+                    tags = [ "hashes" ];
+                    keyword = "hashes";
+                    url = "https://hashes.com/en/decrypt/hash/";
                   }
                 ];
               }
@@ -620,12 +637,6 @@
                 ];
                 keyword = "bloodhound";
                 url = "http://127.0.0.1:9090/";
-              }
-              {
-                name = "Crackstation";
-                tags = [ "crackstation" ];
-                keyword = "crackstation";
-                url = "https://crackstation.net";
               }
               {
                 name = "CyberChef";

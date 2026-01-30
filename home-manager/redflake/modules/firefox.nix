@@ -598,6 +598,23 @@
                 ];
               }
               {
+                name = "Cracking";
+                bookmarks = [
+                  {
+                    name = "CrackStation";
+                    tags = [ "crackstation" ];
+                    keyword = "crackstation";
+                    url = "https://crackstation.net/";
+                  }
+                  {
+                    name = "Hashes.com";
+                    tags = [ "hashes" ];
+                    keyword = "hashes";
+                    url = "https://hashes.com/en/decrypt/hash/";
+                  }
+                ];
+              }
+              {
                 name = "BloodHound-CE";
                 tags = [
                   "bh"
@@ -606,12 +623,6 @@
                 ];
                 keyword = "bloodhound";
                 url = "http://127.0.0.1:9090/";
-              }
-              {
-                name = "Crackstation";
-                tags = [ "crackstation" ];
-                keyword = "crackstation";
-                url = "https://crackstation.net";
               }
               {
                 name = "CyberChef";
