@@ -8,8 +8,16 @@
 _final: prev: {
   vesktop = prev.vesktop.overrideAttrs (oldAttrs: {
     postFixup = (oldAttrs.postFixup or "") + ''
+      # Nixpkgs' Electron wrapper may enable speech-dispatcher by default via
+      # $NIXOS_SPEECH which can lead to SIGTRAP coredumps in Electron's speech
+      # path on some setups. Force-disable it for Vesktop.
+      if [ -f "$out/bin/.vesktop-wrapped" ]; then
+        substituteInPlace "$out/bin/.vesktop-wrapped" \
+          --replace-fail "--enable-speech-dispatcher" ""
+      fi
       wrapProgram $out/bin/vesktop \
-        --add-flags "--disable-features=WaylandWpColorManagerV1"
+        --set NIXOS_SPEECH False \
+        --add-flags "--disable-features=WaylandWpColorManagerV1 --disable-speech-api --disable-speech-synthesis-api"
     '';
   });
 }
