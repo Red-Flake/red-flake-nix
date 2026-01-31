@@ -34,6 +34,7 @@ _:
       value = "1048576";
     }
   ];
+
   boot.kernel.sysctl = {
     # Set sysctl parameters
 
@@ -51,20 +52,20 @@ _:
     # Lowering it from the default value of 100 makes the kernel less inclined to reclaim VFS cache (do not set it to 0, this may produce out-of-memory conditions)
     "vm.vfs_cache_pressure" = 10;
 
-    # Contains, as a bytes of total available memory that contains free pages and reclaimable
-    # pages, the number of pages at which a process which is generating disk writes will itself start
-    # writing out dirty data.
-    "vm.dirty_ratio" = 15; # 15% of RAM
+    # Use byte-based limits for 96 GB RAM (avoids huge % thresholds)
+    # Background flusher starts at ~1.5 GiB dirty (smooth, low-burst on ZFS/NVMe).
+    # Foreground throttle at ~4 GiB (prevents stalls without aggressive writes).
+    # Disable ratios when using bytes.
+    "vm.dirty_background_bytes" = 1610612736; # 1.5 GiB
+    "vm.dirty_bytes" = 4294967296; # 4 GiB
+    "vm.dirty_background_ratio" = 0;
+    "vm.dirty_ratio" = 0;
 
-    # Optimize storage related settings
-    # Contains, as a bytes of total available memory that contains free pages and reclaimable
-    # pages, the number of pages at which the background kernel flusher threads will start writing out
-    # dirty data.
-    "vm.dirty_background_ratio" = 5; # 5% of RAM
+    # More frequent writeback (2.5s vs 10s) eliminates bursty flushes/stutters.
+    "vm.dirty_writeback_centisecs" = 250; # 2.5 seconds
 
-    # The kernel flusher threads will periodically wake up and write old data out to disk.
-    # This tunable expresses the interval between those wakeups, in 100'ths of a second (Default is 500).
-    "vm.dirty_writeback_centisecs" = 1000; # 10 seconds
+    # Reasonable expire time (default-ish, pages sit dirty up to 30s before forced).
+    "vm.dirty_expire_centisecs" = 3000;
 
     # Enable Multi-Gen LRU for better reclaim behavior under mixed workloads.
     "vm.lru_gen_enabled" = 1;

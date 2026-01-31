@@ -88,16 +88,11 @@
       "i915.enable_fbc=0"
       "i915.enable_psr=0"
       "i915.enable_dc=0"
-      "i915.disable_dsb=1"
 
       # Intel Xe: Quiet the FBC/PSR noise / flicker; Disable xe DC states
       "xe.enable_fbc=0"
       "xe.enable_psr=0"
       "xe.enable_dc=0"
-      "xe.disable_dsb=1"
-
-      # Intel Xe: Relax GuC to avoid TLB/PHY issues with MTL firmware on ARL
-      "xe.enable_guc=2"
 
       # Quiet Intel Xe DRM debug kernel log spam (TLB/PHY refclk issues...)
       "drm.debug=0x0"
@@ -119,6 +114,12 @@
 
       # Set TEO as runtime governor for modern tickless system
       "cpuidle.governor=teo"
+
+      # NVMe: Force PS0-only (disable APST sleep states) for zero-latency IO
+      # Eliminates 10-100ms runtime stalls from NVMe power wakeup → fixes IO PSI spikes & desktop "stickiness"
+      # Power cost: ~0.5-1W idle
+      # Does not affect suspend/lid-close (S0ix/S3 uses separate shutdown sequence)
+      "nvme_core.default_ps_max_latency_us=0"
     ];
 
     # --- extra kernel module options (goes into /etc/modprobe.d/nixos.conf) ---#
@@ -238,6 +239,11 @@
 
   # Disable irqbalance since it is bad for Gaming, low-latency, discrete GPUs, anything needing stable and predictable IRQ placement
   services.irqbalance.enable = lib.mkForce false;
+
+  # Disable earlyoom on this machine. earlyoom kills at 5% RAM/ZRAM—too aggressive for 96GB + zram100%.
+  services.earlyoom = {
+    enable = lib.mkForce false;
+  };
 
   # Enable the usbmuxd ("USB multiplexing daemon") service. This daemon is in charge of multiplexing connections over USB to an iOS device.
   services.usbmuxd.enable = true;
