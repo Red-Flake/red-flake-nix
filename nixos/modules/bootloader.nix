@@ -90,6 +90,8 @@ in
       grub = {
         enable = true;
 
+        # always boot the newest kernel by default
+        default = 0;
         copyKernels = true;
 
         efiSupport = true;

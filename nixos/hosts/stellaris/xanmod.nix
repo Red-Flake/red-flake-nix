@@ -99,9 +99,11 @@
             NTSYNC = lib.mkForce module; # Modern driver (Linux 6.10+)
           };
 
-          xanmodVersion = "6.18.7";
+          xanmodVersion = "6.18.8";
           xanmodSuffix = "xanmod1";
-          xanmodHash = "sha256-kMnJGI0GJ6Cgi5jqrLHRzHI2yE/KEOtBtvgevKnSDO8=";
+          # Fetch hash with:
+          # nix store prefetch-file --hash-type sha256 --unpack "https://gitlab.com/xanmod/linux/-/archive/6.18.8-xanmod1/linux-6.18.8-xanmod1.tar.gz"
+          xanmodHash = "sha256-BagAixl3Eo9vX6F/vpQv8OCw5vm8l7JtZBqvE0m5gAs=";
 
           xanmodBase = prev.linux_xanmod_latest;
           linux-xanmod-custom =
@@ -109,6 +111,8 @@
               argsOverride = {
                 version = xanmodVersion;
                 suffix = xanmodSuffix;
+                # Make the running kernel version unmistakable in uname -r.
+                localVersion = "-redflake";
                 hash = xanmodHash;
                 kernelPatches = xanmodBase.kernelPatches ++ [
                   {
@@ -136,6 +140,6 @@
     )
   ];
 
-  # Pin to 6.18.7-xanmod1 (replace fakeHash after first build)
+  # Pin to 6.18.8-xanmod1-redflake (uname -r includes -redflake)
   boot.kernelPackages = lib.mkForce (pkgs.linuxPackagesFor pkgs.linux-xanmod-custom);
 }
