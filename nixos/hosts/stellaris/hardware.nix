@@ -171,6 +171,9 @@
       ];
     };
 
+    # Enable Bluetooth
+    bluetooth.enable = true;
+
     # TUXEDO-specific: drivers, Keyboard lighting and fan control (from nixpkgs)
     # Force disable to avoid conflict with extraModulePackages overlay version
     # (tuxedo-control-center automatically enables this, so we need to override it)
