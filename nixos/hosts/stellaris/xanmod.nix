@@ -106,6 +106,7 @@
           xanmodHash = "sha256-BagAixl3Eo9vX6F/vpQv8OCw5vm8l7JtZBqvE0m5gAs=";
 
           xanmodBase = prev.linux_xanmod_latest;
+          xanmodModDirVersion = prev.lib.versions.pad 3 "${xanmodVersion}-${xanmodSuffix}";
           linux-xanmod-custom =
             (xanmodBase.override {
               argsOverride = {
@@ -113,6 +114,14 @@
                 suffix = xanmodSuffix;
                 # Make the running kernel version unmistakable in uname -r.
                 localVersion = "-redflake";
+                modDirVersion = xanmodModDirVersion;
+                # Force exact source; otherwise linux_xanmod_latest may still fetch an older tarball.
+                src = prev.fetchFromGitLab {
+                  owner = "xanmod";
+                  repo = "linux";
+                  rev = xanmodModDirVersion;
+                  hash = xanmodHash;
+                };
                 hash = xanmodHash;
                 kernelPatches = xanmodBase.kernelPatches ++ [
                   {
