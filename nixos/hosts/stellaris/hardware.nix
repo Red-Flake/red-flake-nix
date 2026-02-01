@@ -213,6 +213,11 @@
   services.xserver.displayManager.sessionCommands = ''
     export LIBVA_DRIVER_NAME=iHD
     export VDPAU_DRIVER=va_gl
+    export MESA_LOADER_DRIVER_OVERRIDE=iris
+    export __GLX_VENDOR_LIBRARY_NAME=mesa
+    ANV_ENABLE_PIPELINE_CACHE=1
+    NIXOS_OZONE_WL=1
+
     # Don't set PRIME/NVIDIA variables globally - let apps default to Intel
     # Steam and other apps can override these as needed
   '';
@@ -251,6 +256,8 @@
   environment.sessionVariables = {
     LIBVA_DRIVER_NAME = "iHD"; # Force intel-media-driver
     VDPAU_DRIVER = "va_gl"; # Forces Intel via VAAPI
+    MESA_LOADER_DRIVER_OVERRIDE = "iris";
+    __GLX_VENDOR_LIBRARY_NAME = "mesa";
     ANV_ENABLE_PIPELINE_CACHE = "1"; # Enable Vulkan pipeline caching
     NIXOS_OZONE_WL = "1"; # Hint Electron/Chromium apps to use Wayland natively
     # mesa_glthread = "true"; # Disabled: causes KWin CPU spikes with Intel Xe driver

@@ -51,6 +51,7 @@ in
           STEAM_FORCE_DESKTOPUI_SCALING = "2";
           XCURSOR_SIZE = "36";
           DRI_PRIME = "1"; # Force discrete GPU
+          MESA_LOADER_DRIVER_OVERRIDE = "nvidia"; # Force Nvidia driver for steam
           WINE_CPU_TOPOLOGY = "8:0,1,2,3,4,5,6,7"; # Only use P-cores for Wine/Proton
           __NV_PRIME_RENDER_OFFLOAD = "1"; # Offload rendering to discrete NVIDIA GPU
           __GLX_VENDOR_LIBRARY_NAME = "nvidia"; # Use NVIDIA GLX library
