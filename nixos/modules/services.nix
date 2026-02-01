@@ -58,6 +58,12 @@ in
     trim.enable = true;
   };
 
+  # Only run daily ZFS snapshots (disable other intervals)
+  systemd.timers."zfs-snapshot-frequent".enable = false;
+  systemd.timers."zfs-snapshot-hourly".enable = false;
+  systemd.timers."zfs-snapshot-weekly".enable = false;
+  systemd.timers."zfs-snapshot-monthly".enable = false;
+
   # https://github.com/openzfs/zfs/issues/10891
   systemd.services.systemd-udev-settle.enable = false;
   # snapshot dirs sometimes not accessible

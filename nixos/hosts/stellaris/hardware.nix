@@ -58,13 +58,13 @@
       "rivafb"
       #"i915" # don't blacklist i915. i915.force_probe=!7d67 already prevents i915 from binding to the iGPU
       "spd5118" # blacklist to avoid these issues: [  146.522972] spd5118 14-0050: Failed to write b = 0: -6    [  146.522974] spd5118 14-0050: PM: dpm_run_callback(): spd5118_resume [spd5118] returns -6     [  146.522978] spd5118 14-0050: PM: failed to resume async: error -6
+      "uniwill_wmi" # EC timeouts (0x0727/0x0744); tuxedo_drivers replaces it
     ];
     kernelModules = [
       "kvm-intel"
       "msr" # /dev/cpu/CPUNUM/msr provides an interface to read and write the model-specific registers (MSRs) of an x86 CPU
       "tuxedo_keyboard"
       "tuxedo_io"
-      "uniwill_wmi"
     ];
     extraModulePackages = with config.boot.kernelPackages; [
       tuxedo-drivers # TUXEDO-specific drivers
@@ -141,6 +141,10 @@
 
       # TUXEDO keyboard module: set these as module options (NOT kernel cmdline)
       options tuxedo_keyboard kbd_backlight_mode=0
+
+      # Ensure TUXEDO modules own EC/WMI
+      softdep tuxedo_keyboard pre: tuxedo_io mei_gsc_proxy
+      blacklist uniwill_wmi
     '';
   };
 
@@ -208,25 +212,30 @@
     };
   };
 
-  # For Wayland (KDE), prevent kwin_wayland from using NVIDIA by default.
-  # This forces it to use Intel instead, which is more stable and power-efficient
-  services.xserver.displayManager.sessionCommands = ''
-    export LIBVA_DRIVER_NAME=iHD
-    export VDPAU_DRIVER=va_gl
-    export MESA_LOADER_DRIVER_OVERRIDE=iris
-    export __GLX_VENDOR_LIBRARY_NAME=mesa
-    ANV_ENABLE_PIPELINE_CACHE=1
-    NIXOS_OZONE_WL=1
+  services.xserver = {
+    # For Wayland (KDE), prevent kwin_wayland from using NVIDIA by default.
+    # This forces it to use Intel instead, which is more stable and power-efficient
+    displayManager.sessionCommands = ''
+      export LIBVA_DRIVER_NAME=iHD
+      export VDPAU_DRIVER=va_gl
+      export MESA_LOADER_DRIVER_OVERRIDE=iris
+      export __GLX_VENDOR_LIBRARY_NAME=mesa
+      export ANV_ENABLE_PIPELINE_CACHE=1
+      export NIXOS_OZONE_WL=1
 
-    # Don't set PRIME/NVIDIA variables globally - let apps default to Intel
-    # Steam and other apps can override these as needed
-  '';
+      # Don't set PRIME/NVIDIA variables globally - let apps default to Intel
+      # Steam and other apps can override these as needed
+    '';
 
-  # Enable Intel & NVIDIA driver in XServer
-  services.xserver.videoDrivers = [
-    "modesetting"
-    "nvidia"
-  ];
+    # Enable Intel & NVIDIA driver in XServer
+    videoDrivers = [
+      "modesetting"
+      "nvidia"
+    ];
+
+    # Set DPI to 147
+    dpi = 147; # Stellaris 16 2560x1600 ~188PPI logical 147 @150%
+  };
 
   services.thermald.enable = lib.mkForce false; # Thermal management
 

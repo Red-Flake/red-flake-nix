@@ -63,7 +63,7 @@ _:
         "ssh-terminfo"
       ];
 
-      gtk-single-instance = "desktop";
+      gtk-single-instance = true;
       gtk-titlebar = false;
       gtk-tabs-location = "bottom";
       gtk-wide-tabs = true;

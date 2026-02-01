@@ -23,10 +23,59 @@
       configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
     };
     gtk3 = {
-      extraConfig.gtk-application-prefer-dark-theme = true;
+      extraConfig = {
+        gtk-application-prefer-dark-theme = true;
+        gtk-button-images = 1;
+        gtk-cursor-theme-name = "Sweet-cursors";
+        gtk-cursor-theme-size = 24;
+        gtk-decoration-layout = "icon:minimize,maximize,close";
+        gtk-enable-animations = true;
+        gtk-enable-event-sounds = 1;
+        gtk-enable-input-feedback-sounds = 1;
+        gtk-fallback-icon-theme = "gnome";
+        gtk-font-name = "MesloLGS NF Regular 14"; # Match Ghostty
+        gtk-icon-theme-name = "Papirus-Dark";
+        gtk-key-theme-name = "Emacs";
+        gtk-menu-images = 1;
+        gtk-modules = "colorreload-gtk-module";
+        gtk-primary-button-warps-slider = false;
+        gtk-theme-name = "Breeze-Dark";
+        gtk-toolbar-icon-size = "GTK_ICON_SIZE_LARGE_TOOLBAR";
+        gtk-toolbar-style = "GTK_TOOLBAR_BOTH_HORIZ";
+        gtk-xft-antialias = 1;
+        gtk-xft-dpi = 147456; # 150% scaling (96*1.5*1024)
+        gtk-xft-hinting = 1;
+        gtk-xft-hintstyle = "hintslight";
+        gtk-xft-rgba = "rgb";
+      };
     };
+    # mirror gtk3 settings for gtk4
     gtk4 = {
-      extraConfig.gtk-application-prefer-dark-theme = true;
+      extraConfig = {
+        gtk-application-prefer-dark-theme = true;
+        gtk-button-images = 1;
+        gtk-cursor-theme-name = "Sweet-cursors";
+        gtk-cursor-theme-size = 24;
+        gtk-decoration-layout = "icon:minimize,maximize,close";
+        gtk-enable-animations = true;
+        gtk-enable-event-sounds = 1;
+        gtk-enable-input-feedback-sounds = 1;
+        gtk-fallback-icon-theme = "gnome";
+        gtk-font-name = "MesloLGS NF Regular 14"; # Match Ghostty
+        gtk-icon-theme-name = "Papirus-Dark";
+        gtk-key-theme-name = "Emacs";
+        gtk-menu-images = 1;
+        gtk-modules = "colorreload-gtk-module";
+        gtk-primary-button-warps-slider = false;
+        gtk-theme-name = "Breeze-Dark";
+        gtk-toolbar-icon-size = "GTK_ICON_SIZE_LARGE_TOOLBAR";
+        gtk-toolbar-style = "GTK_TOOLBAR_BOTH_HORIZ";
+        gtk-xft-antialias = 1;
+        gtk-xft-dpi = 147456; # 150% scaling (96*1.5*1024)
+        gtk-xft-hinting = 1;
+        gtk-xft-hintstyle = "hintslight";
+        gtk-xft-rgba = "rgb";
+      };
     };
   };
 
@@ -188,4 +237,17 @@
     inactiveBlend=28,32,47
     inactiveForeground=141,147,159
   '';
+
+  # set ~/.Xresources
+  xresources.properties = {
+    "Xft.dpi" = 147456;
+    "Xft.autohint" = 1;
+    "Xft.hinting" = 1;
+    "Xft.hintstyle" = "hintslight";
+    "Xft.rgba" = "rgb";
+    "Xft.antialias" = 1;
+    "Xcursor.size" = 24;
+    "Xcursor.theme" = "Sweet-cursors";
+  };
+
 }
