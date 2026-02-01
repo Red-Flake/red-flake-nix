@@ -50,31 +50,6 @@ in
     '')
   ];
 
-  # make sure the plasma-powerdevil service runs
-  systemd.user.services.plasma-powerdevil = {
-    enable = true;
-    description = "KDE Powerdevil power-management daemon";
-
-    # [Unit] first
-    unitConfig = {
-      After = [ "plasma-core.target" ];
-      PartOf = [ "graphical-session.target" ];
-    };
-
-    # [Service] second
-    serviceConfig = {
-      Type = "dbus";
-      BusName = "org.kde.Solid.PowerManagement";
-      Environment = "QT_QPA_PLATFORM=wayland;xcb";
-      ExecStart = "${pkgs.kdePackages.powerdevil}/libexec/org_kde_powerdevil";
-      Restart = "on-failure";
-      RestartSec = "5s";
-    };
-
-    # [Install] last
-    wantedBy = [ "plasma-core.target" ];
-  };
-
   # Display-Manager settings
   services.displayManager = {
     # Enable SDDM

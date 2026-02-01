@@ -36,14 +36,10 @@ in
   systemd.user.services.plasma-powerdevil = {
     Unit = {
       Description = "KDE Powerdevil power-management daemon";
-      After = [
-        "plasma-core.target"
-        "graphical-session.target"
-      ];
       PartOf = [ "graphical-session.target" ];
     };
     Install = {
-      WantedBy = [ "plasma-core.target" ];
+      WantedBy = [ "plasma-workspace.target" ];
     };
     Service = {
       ExecStart = "${pkgs.kdePackages.powerdevil}/libexec/org_kde_powerdevil";
