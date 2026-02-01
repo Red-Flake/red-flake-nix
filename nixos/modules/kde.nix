@@ -38,6 +38,10 @@ in
     kdePackages.kwallet-pam
     kdePackages.kwalletmanager
     kdePackages.ksshaskpass
+    # Qt 6 XCB platform plugin runtime dependency (prevents Qt abort on fallback)
+    xcb-util-cursor
+    # Portal fix
+    kdePackages.appstream-qt
 
     # Install custom sddm theme.conf.user
     (writeTextDir "share/sddm/themes/breeze/theme.conf.user" ''
@@ -51,20 +55,23 @@ in
     enable = true;
     description = "KDE Powerdevil power-management daemon";
 
+    # [Unit] first
     unitConfig = {
-      # Match upstream: start after plasma-core, stop with graphical session
       After = [ "plasma-core.target" ];
       PartOf = [ "graphical-session.target" ];
     };
 
+    # [Service] second
     serviceConfig = {
-      ExecStart = "${pkgs.kdePackages.powerdevil}/libexec/org_kde_powerdevil";
       Type = "dbus";
       BusName = "org.kde.Solid.PowerManagement";
+      Environment = "QT_QPA_PLATFORM=wayland;xcb";
+      ExecStart = "${pkgs.kdePackages.powerdevil}/libexec/org_kde_powerdevil";
       Restart = "on-failure";
       RestartSec = "5s";
     };
 
+    # [Install] last
     wantedBy = [ "plasma-core.target" ];
   };
 
@@ -130,7 +137,8 @@ in
     ELECTRON_OZONE_PLATFORM_HINT = "wayland";
 
     # variable for qt
-    QT_QPA_PLATFORM = "wayland";
+    # Prefer Wayland but allow XCB fallback to avoid Qt abort if Wayland isn't ready yet
+    QT_QPA_PLATFORM = "wayland;xcb";
 
     # set sessiontype
     XDG_SESSION_TYPE = "wayland";

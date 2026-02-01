@@ -1,5 +1,6 @@
 { config
 , osConfig
+, pkgs
 , ...
 }:
 
@@ -14,8 +15,48 @@ let
     }.${osConfig.custom.display.resolution} or "Red-Flake-Wallpaper_1920x1080.png";
 
   wallpaperPath = "${config.home.homeDirectory}/.local/share/wallpapers/red-flake/${wallpaperFile}";
+
+  waitForWaylandScript = pkgs.writeShellScript "wait-for-wayland" ''
+    set -euo pipefail
+    runtime="''${XDG_RUNTIME_DIR:-}"
+    display="''${WAYLAND_DISPLAY:-wayland-0}"
+    if [ -z "$runtime" ]; then
+      exit 1
+    fi
+    for _ in {1..50}; do
+      if [ -S "$runtime/$display" ]; then
+        exit 0
+      fi
+      sleep 0.2
+    done
+    exit 1
+  '';
 in
 {
+  systemd.user.services.plasma-powerdevil = {
+    Unit = {
+      Description = "KDE Powerdevil power-management daemon";
+      After = [
+        "plasma-core.target"
+        "graphical-session.target"
+      ];
+      PartOf = [ "graphical-session.target" ];
+    };
+    Install = {
+      WantedBy = [ "plasma-core.target" ];
+    };
+    Service = {
+      ExecStart = "${pkgs.kdePackages.powerdevil}/libexec/org_kde_powerdevil";
+      ExecStartPre = "${waitForWaylandScript}";
+      Type = "dbus";
+      BusName = "org.kde.Solid.PowerManagement";
+      Restart = "on-failure";
+      RestartSec = "5s";
+      Environment = [
+        "QT_QPA_PLATFORM=wayland;xcb"
+      ];
+    };
+  };
 
   programs.plasma = {
     # enable plasma-manager
