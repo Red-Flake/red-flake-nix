@@ -255,8 +255,13 @@ zfs create -o mountpoint=none zroot/root
 zfs create -o mountpoint=legacy zroot/root/nixos
 zfs snapshot zroot/root/nixos@blank
 
-log "INFO" "Enabling automatic snapshots for ZFS pool zroot"
+log "INFO" "Enabling automatic snapshots for ZFS pool zroot (daily only)"
 zfs set com.sun:auto-snapshot=true zroot
+zfs set com.sun:auto-snapshot:daily=true zroot
+zfs set com.sun:auto-snapshot:frequent=false zroot
+zfs set com.sun:auto-snapshot:hourly=false zroot
+zfs set com.sun:auto-snapshot:weekly=false zroot
+zfs set com.sun:auto-snapshot:monthly=false zroot
 
 mount -t zfs zroot/root/nixos /mnt
 
