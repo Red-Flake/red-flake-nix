@@ -1,5 +1,4 @@
-_:
-{
+_: {
   programs.nixcord = {
     enable = true;
     discord.enable = false;
@@ -10,10 +9,7 @@ _:
       ];
       plugins = {
         # Spotify Tweaks
-        spotifyControls = {
-          enable = true;
-          useSpotifyUris = true;
-        };
+        spotifyControls.enable = true;
         spotifyCrack.enable = true;
         spotifyShareCommands.enable = true;
         fixSpotifyEmbeds.enable = true;
@@ -26,7 +22,8 @@ _:
         biggerStreamPreview.enable = true; # Allows enlarging stream previews
         copyFileContents.enable = true; # Adds a button to text file attachments to copy their contents
         fixYoutubeEmbeds.enable = true; # Bypasses youtube videos being blocked from display on Discord
-        nsfwGateBypass.enable = true; # Allows you to access NSFW channels without setting/verifying your age
+        # NOTE: nixcord removed the nsfwGateBypass plugin option in the pinned revision.
+        #nsfwGateBypass.enable = true; # Allows you to access NSFW channels without setting/verifying your age
 
         # Image Tweaks
         #fixImagesQuality.enable = true; # Improves quality of images in chat by forcing png format.
@@ -39,7 +36,6 @@ _:
         volumeBooster.enable = true; # Allows you to set the user and stream volume above the default maximum
         webScreenShareFixes.enable = true; # Removes 2500kbps bitrate cap on chromium and vesktop clients
         youtubeAdblock.enable = true; # Block ads in YouTube embeds and the WatchTogether activity via AdGuard
-
       };
     };
   };

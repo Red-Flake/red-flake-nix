@@ -52,8 +52,9 @@ in
         biggerStreamPreview.enable = true; # Allows enlarging stream previews
         copyFileContents.enable = true; # Adds a button to text file attachments to copy their contents
         fixYoutubeEmbeds.enable = true; # Bypasses youtube videos being blocked from display on Discord
-        nsfwGateBypass.enable = true; # Allows you to access NSFW channels without setting/verifying your age
-        pinDMs.enable = true; # Allows you to pin DMs, making them appear at the top of your DMs/ServerList
+        # NOTE: nixcord removed the nsfwGateBypass plugin option in the pinned revision.
+        #nsfwGateBypass.enable = true; # Allows you to access NSFW channels without setting/verifying your age
+        PinDMs.enable = true; # Allows you to pin DMs, making them appear at the top of your DMs/ServerList
 
         # Image Tweaks
         #fixImagesQuality.enable = true; # Improves quality of images in chat by forcing png format.

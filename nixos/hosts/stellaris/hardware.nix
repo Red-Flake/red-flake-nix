@@ -130,9 +130,8 @@
       # Make sure MEI is up before xe tries to talk to GSC
       softdep xe pre: mei_gsc_proxy mei_me mei
 
-      # Disable GuC submission for Xe (equivalent to i915.enable_guc=2)
-      # No GuC/HuC load (safest)
-      options xe guc_load=0
+      # NOTE: xe does not support i915-style guc_load/enable_guc toggles.
+      # Keeping driver defaults; see `modinfo -p xe` for available parameters.
 
       # Virtualization
       options kvm_intel nested=1
