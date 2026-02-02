@@ -1,6 +1,20 @@
 _:
 
 {
+  # Enforce a few runtime knobs that are *not* sysctls (sysfs), so they actually
+  # apply consistently at boot.
+  #
+  # Note: MGLRU is controlled via /sys/kernel/mm/lru_gen/* on this kernel; the
+  # vm.lru_gen_enabled sysctl does not exist here.
+  systemd.tmpfiles.rules = [
+    # Transparent Huge Pages: prefer explicit madvise() (low-latency default).
+    "w /sys/kernel/mm/transparent_hugepage/enabled - - - - madvise"
+    "w /sys/kernel/mm/transparent_hugepage/defrag - - - - madvise"
+
+    # Multi-Gen LRU: keep it enabled (0x0007 == enabled with the common feature set).
+    "w /sys/kernel/mm/lru_gen/enabled - - - - 0x0007"
+  ];
+
   # Increase systemd limits
   systemd.settings.Manager = {
     DefaultLimitNOFILE = 1048576;
@@ -68,7 +82,8 @@ _:
     "vm.dirty_expire_centisecs" = 3000;
 
     # Enable Multi-Gen LRU for better reclaim behavior under mixed workloads.
-    "vm.lru_gen_enabled" = 1;
+    # NOTE: this kernel exposes MGLRU controls via /sys/kernel/mm/lru_gen/* (sysfs),
+    # not via a vm.lru_gen_enabled sysctl. See systemd.tmpfiles.rules above.
 
     # page-cluster controls the number of pages up to which consecutive pages are read in from swap in a single attempt.
     # This is the swap counterpart to page cache readahead. The mentioned consecutivity is not in terms of virtual/physical addresses,
@@ -142,7 +157,8 @@ _:
     "net.core.wmem_max" = 134217728; # 128 MB
 
     # Reduce the chances of fragmentation. Adjusted for SSD.
-    "net.ipv4.ipfrag_high_threshold" = 5242880; # 5 MB
+    # NOTE: correct key name is *_thresh (not *_threshold).
+    "net.ipv4.ipfrag_high_thresh" = 5242880; # 5 MB
 
     # Enable TCP window scaling
     # Allows the TCP window size to grow beyond its default maximum value.
@@ -161,8 +177,9 @@ _:
     "net.ipv4.tcp_congestion_control" = "bbr";
 
     # Use Fair Queueing (FQ) as the default queuing discipline
-    # FQ helps to reduce latency and improve overall network performance.
-    "net.core.default_qdisc" = "fq";
+    # For this host we intentionally default to CAKE (compiled in via the custom XanMod config)
+    # to keep queueing latency down system-wide.
+    "net.core.default_qdisc" = "cake";
 
     # TIME-WAIT assassination protection
     "net.ipv4.tcp_rfc1337" = 1;

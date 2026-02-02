@@ -116,7 +116,8 @@ _:
     "net.core.wmem_max" = 67108864; # 64 MB
 
     # Reduce the chances of fragmentation. Adjusted for SSD.
-    "net.ipv4.ipfrag_high_threshold" = 5242880; # 5 MB
+    # NOTE: correct key name is *_thresh (not *_threshold).
+    "net.ipv4.ipfrag_high_thresh" = 5242880; # 5 MB
 
     # Enable TCP window scaling
     # Allows the TCP window size to grow beyond its default maximum value.
