@@ -58,7 +58,6 @@
       "rivafb"
       #"i915" # don't blacklist i915. i915.force_probe=!7d67 already prevents i915 from binding to the iGPU
       "spd5118" # blacklist to avoid these issues: [  146.522972] spd5118 14-0050: Failed to write b = 0: -6    [  146.522974] spd5118 14-0050: PM: dpm_run_callback(): spd5118_resume [spd5118] returns -6     [  146.522978] spd5118 14-0050: PM: failed to resume async: error -6
-      "uniwill_wmi" # EC timeouts (0x0727/0x0744); tuxedo_drivers replaces it
     ];
     kernelModules = [
       "kvm-intel"
@@ -120,6 +119,9 @@
       # Power cost: ~0.5-1W idle
       # Does not affect suspend/lid-close (S0ix/S3 uses separate shutdown sequence)
       "nvme_core.default_ps_max_latency_us=0"
+
+      # Set CAKE network scheduler as default
+      "net.core.default_qdisc=cake"
     ];
 
     # --- extra kernel module options (goes into /etc/modprobe.d/nixos.conf) ---#
@@ -141,10 +143,6 @@
 
       # TUXEDO keyboard module: set these as module options (NOT kernel cmdline)
       options tuxedo_keyboard kbd_backlight_mode=0
-
-      # Ensure TUXEDO modules own EC/WMI
-      softdep tuxedo_keyboard pre: tuxedo_io mei_gsc_proxy
-      blacklist uniwill_wmi
     '';
   };
 
