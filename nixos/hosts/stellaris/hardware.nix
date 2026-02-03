@@ -282,10 +282,27 @@
   console.earlySetup = lib.mkDefault true;
 
   # Host-specific udev rules for NVMe optimization
-  services.udev.extraRules = ''
-    # NVMe SSD: Use kyber scheduler (optimized for high-end NVMe devices)
-    ACTION=="add|change", KERNEL=="nvme[0-9]*", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="kyber"
-    # Set queue depth for NVMe (helps with ZFS performance)
-    ACTION=="add|change", KERNEL=="nvme[0-9]n[0-9]", ATTR{queue/nr_requests}="256"
+  services.udev.extraRules = lib.mkAfter ''
+    # All NVMe SSDs: Kyber + low-latency for smooth UI/gaming (9100 Pro optimized)
+    ACTION=="add|change", SUBSYSTEM=="block", KERNEL=="nvme*n*", ENV{DEVTYPE}=="disk", \
+      ATTR{queue/scheduler}="kyber", \
+      ATTR{queue/nr_requests}="32", \
+      ATTR{queue/rq_affinity}="2", \
+      ATTR{queue/iosched/read_lat_nsec}="2000000", \
+      ATTR{queue/iosched/write_lat_nsec}="10000000", \
+      ATTR{queue/read_ahead_kb}="128"
+
+    # ZFS partitions on NVMe: Re-apply parent settings (handles pool changes)
+    ACTION=="add|change", SUBSYSTEM=="block", KERNEL=="nvme*n*p*", ENV{ID_FS_TYPE}=="zfs_member", \
+      ATTR{../queue/scheduler}="kyber", \
+      ATTR{../queue/nr_requests}="32", \
+      ATTR{../queue/rq_affinity}="2", \
+      ATTR{../queue/iosched/read_lat_nsec}="2000000", \
+      ATTR{../queue/iosched/write_lat_nsec}="10000000", \
+      ATTR{../queue/read_ahead_kb}="128"
+
+    # Samsung NVMe: Extra iomem relaxation (Gen5 perf boost)
+    ACTION=="add|change", SUBSYSTEM=="nvme", ATTR{vendor}=="0x144d", ATTR{model}=="Samsung SSD 9100 PRO*", \
+      ATTR{device/iomem_policy}="relaxed"
   '';
 }

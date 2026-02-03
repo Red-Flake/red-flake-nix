@@ -58,8 +58,9 @@
   # Default NVMe optimizations for all hosts (can be overridden per-host)
   services.udev.extraRules = ''
     # NVMe SSD: Use none scheduler (default for NVMe)
-    ACTION=="add|change", KERNEL=="nvme[0-9]*", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="none"
-    # Set queue depth for NVMe (helps with ZFS performance)
-    ACTION=="add|change", KERNEL=="nvme[0-9]n[0-9]", ATTR{queue/nr_requests}="256"
+    ACTION=="add|change", SUBSYSTEM=="block", KERNEL=="nvme*n*", ENV{DEVTYPE}=="disk", ATTR{queue/scheduler}="none"
+
+    # Set request queue size for NVMe (can help with highly parallel IO / ZFS)
+    ACTION=="add|change", SUBSYSTEM=="block", KERNEL=="nvme*n*", ENV{DEVTYPE}=="disk", ATTR{queue/nr_requests}="256"
   '';
 }
