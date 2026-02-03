@@ -135,7 +135,7 @@ in
                   "applications:outline-electron.desktop"
                   "applications:firefox.desktop"
                   "applications:org.telegram.desktop.desktop"
-                  "applications:vesktop.desktop"
+                  "applications:equibop.desktop"
                   "applications:code.desktop"
                   "applications:burpsuitepro.desktop"
                   "applications:bloodhound.desktop"

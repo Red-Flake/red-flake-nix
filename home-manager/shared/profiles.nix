@@ -61,7 +61,8 @@ in
       ../common/modules/bat.nix
       ../common/modules/services.nix
       ../common/modules/direnv.nix
-      ../common/modules/vesktop.nix
+      ../common/modules/equibop.nix
+      #../common/modules/vesktop.nix
       ../common/modules/vscode.nix
       ../common/modules/plasma-manager.nix
       ../common/modules/filezilla.nix
