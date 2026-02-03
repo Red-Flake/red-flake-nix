@@ -7,7 +7,7 @@
   # Enable ZRAM swap for better responsiveness
   zramSwap = {
     enable = true;
-    algorithm = "zstd";
+    algorithm = "lz4";
     memoryPercent = 100; # Use up to 100% of RAM size for ZRAM (compressed)
     priority = 100; # Higher priority than disk swap
   };
