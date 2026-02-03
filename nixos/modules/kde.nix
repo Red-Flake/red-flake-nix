@@ -109,7 +109,7 @@ in
     NIXOS_OZONE_WL = "1";
 
     # this env is useful for electron wayland
-    ELECTRON_OZONE_PLATFORM_HINT = "wayland";
+    ELECTRON_OZONE_PLATFORM_HINT = "auto";
 
     # variable for qt
     # Prefer Wayland but allow XCB fallback to avoid Qt abort if Wayland isn't ready yet
