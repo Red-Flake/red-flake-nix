@@ -241,6 +241,7 @@ zpool create -f \
     -o ashift=12 \
     -o autotrim=on \
     -O compression=zstd \
+    -O recordsize=1M \
     -O acltype=posixacl \
     -O atime=off \
     -O xattr=sa \
