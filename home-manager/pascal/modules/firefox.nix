@@ -94,6 +94,25 @@
         # fix issue with dropped frames
         "widget.wayland.opaque-region.enabled" = false;
 
+        # changes touchpad gesture scrolling from page/line-based (0 or 1) to pixel-based mode (2), resulting in smoother, less jumpy scrolling
+        # https://jfkimmes.eu/posts/firefox-trackpad-on-wayland/
+        "apz.gtk.kinetic_scroll.delta_mode" = 2;
+        "apz.gtk.pangesture.delta_mode" = 2;
+
+        # lower scrolling speed for smoother / slower scrolling
+        # https://jfkimmes.eu/posts/firefox-trackpad-on-wayland/
+        "apz.gtk.kinetic_scroll.pixel_delta_mode_multiplier" = 15;
+        "apz.gtk.pangesture.pixel_delta_mode_multiplier" = 15;
+
+        # for smoother scrolling
+        "general.smoothScroll.msdPhysics.enabled" = true;
+
+        # increase scrolling friction for 'heavier' scroll feel
+        "apz.fling_friction" = 0.005;
+
+        # add overscroll
+        "apz.overscroll.enabled" = true;
+
         "browser.aboutConfig.showWarning" = false;
         "toolkit.telemetry.enabled" = false;
         "browser.startup.page" = 3; # Open windows and tabs from the last session
@@ -186,7 +205,7 @@
         "network.dns.echconfig.enabled" = true;
         "network.dns.http3_echconfig.enabled" = true;
         "network.prefetch-next" = false;
-        "network.dns.disablePrefetch" = true;
+        "network.dns.disablePrefetch" = false;
         "media.peerconnection.ice.default_address_only" = true;
         "geo.provider.network.url" =
           "https://location.services.mozilla.com/v1/geolocate?key=%MOZILLA_API_KEY%";
@@ -204,6 +223,24 @@
         "network.http.speculative-parallel-limit" = 0;
 
         "widget.use-xdg-desktop-portal.file-picker" = 1;
+
+        # improve network performance
+        "network.http.pipelining" = true;
+        "network.http.proxy.pipelining" = true;
+        "network.http.pipelining.maxrequests" = 32;
+        "network.http.max-connections" = 900;
+        "network.http.max-persistent-connections-per-server" = 10;
+        "network.http.max-persistent-connections-per-proxy" = 10;
+
+        # improve parsing / rendering speed
+        "content.notify.interval" = 50; # ms between paints
+        "content.notify.ontimer" = true;
+        "content.interrupt.parsing" = true;
+        "content.max.tokenizing.time" = 3000;
+        "content.switch.threshold" = 250000;
+
+        # immediately start rendering (no delay)
+        "nglayout.initialpaint.delay" = 0;
       };
 
       extraConfig = ''
