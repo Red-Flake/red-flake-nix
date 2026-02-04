@@ -11,7 +11,7 @@
       "https://nix-community.cachix.org/"
       "https://nyx.chaotic.cx"
       "https://claude-code.cachix.org"
-      "https://cache.garnix.io"
+      #"https://cache.garnix.io"
       "https://attic.xuyh0120.win/lantian"
     ];
     extra-trusted-public-keys = [
@@ -20,7 +20,7 @@
       "chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
       "nyx.chaotic.cx-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
       "claude-code.cachix.org-1:YeXf2aNu7UTX8Vwrze0za1WEDS+4DuI2kVeWEE4fsRk="
-      "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
+      #"cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
       "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
     ];
     extra-deprecated-features = [
@@ -200,7 +200,8 @@
       systems = [ "x86_64-linux" ];
 
       # Per-system outputs
-      perSystem = { system, ... }:
+      perSystem =
+        { system, ... }:
         let
           # Import shared overlays
           sharedOverlays = import nixos/shared/overlays.nix { inherit inputs; };
@@ -379,7 +380,12 @@
               hostOverlays =
                 commonOverlays
                 ++ nixpkgs.lib.optionals (profile == "security") sharedOverlays.securityOverlays
-                ++ nixpkgs.lib.optionals (builtins.elem profile [ "security" "desktop" ]) sharedOverlays.desktopOverlays
+                ++ nixpkgs.lib.optionals
+                  (builtins.elem profile [
+                    "security"
+                    "desktop"
+                  ])
+                  sharedOverlays.desktopOverlays
                 ++ nixpkgs.lib.optionals includeTuxedo sharedOverlays.tuxedoDriversOverlay;
 
               hostPkgs = import inputs.nixpkgs {

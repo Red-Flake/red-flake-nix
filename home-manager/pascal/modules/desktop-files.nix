@@ -819,6 +819,24 @@
     };
   };
 
+  xdg.desktopEntries."equibop" = {
+    name = "Equibop";
+    genericName = "Equibop is a custom Discord App aiming to give you better performance and improve linux support";
+    exec = "equibop %U";
+    icon = "${pkgs.equibop}/share/icons/hicolor/scalable/apps/equibop.svg";
+    type = "Application";
+    categories = [
+      "Network"
+      "InstantMessaging"
+      "Chat"
+    ];
+    startupNotify = true;
+    settings = {
+      StartupWMClass = "Equibop";
+      Keywords = "discord;equibop;electron;chat";
+    };
+  };
+
   xdg.desktopEntries.ghidra = {
     name = "ghidra";
     genericName = "";
