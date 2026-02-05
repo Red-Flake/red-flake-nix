@@ -16,6 +16,8 @@ in
         # Ensure runtime tools are available and fix EROFS settings.json writes.
         wrapProgram "$out/bin/equibop" \
           --unset NIXOS_SPEECH \
+          --unset NIXOS_OZONE_WL \
+          --set ELECTRON_OZONE_PLATFORM_HINT x11 \
           --prefix PATH : ${lib.makeBinPath [ prev.coreutils prev.speechd ]} \
           --run '
             # Hard-disable Chromium speech APIs by default to avoid Electron
@@ -23,6 +25,12 @@ in
             #
             # Note: we use a custom env var (not NIXOS_SPEECH) because some
             # desktops export NIXOS_SPEECH globally.
+            #
+            # Force X11/Xwayland mode. Native Wayland Electron has been causing
+            # SIGILL/SIGTRAP coredumps on some setups; unsetting NIXOS_OZONE_WL
+            # prevents Nixpkgs wrappers from injecting Wayland Ozone flags.
+            unset NIXOS_OZONE_WL
+            export ELECTRON_OZONE_PLATFORM_HINT=x11
             case "''${EQUIBOP_SPEECH:-}" in
               1|true|TRUE|True|yes|YES|on|ON)
                 export NIXOS_SPEECH=True

@@ -32,6 +32,7 @@ in
       # Common overlays
       nixpkgs.overlays = [
         inputs.claude-code.overlays.default
+        (import ../../nixos/overlays/equibop-overlay)
       ]
       ++ (extraConfig.extraOverlays or [ ]);
     }
