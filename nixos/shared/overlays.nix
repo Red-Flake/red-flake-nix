@@ -81,6 +81,9 @@ let
 
     # Equibop: writable settings.json + opt-in speech-dispatcher
     (import ../overlays/equibop-overlay)
+
+    # Ghostty: suppress noisy warnings in journald
+    (import ../overlays/ghostty-overlay)
   ];
 in
 {
