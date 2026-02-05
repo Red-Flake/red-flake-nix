@@ -84,6 +84,11 @@ let
 
     # Ghostty: suppress noisy warnings in journald
     (import ../overlays/ghostty-overlay)
+
+    # Ghostty tip package
+    (final: _prev: {
+      ghostty = inputs.ghostty.packages.${final.system}.default;
+    })
   ];
 in
 {

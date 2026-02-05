@@ -157,6 +157,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # https://github.com/ghostty-org/ghostty
+    ghostty.url = "github:ghostty-org/ghostty/main";
+
     # Red-Flake artwork
     artwork = {
       url = "github:Red-Flake/artwork";

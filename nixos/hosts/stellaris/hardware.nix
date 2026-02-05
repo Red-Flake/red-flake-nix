@@ -258,11 +258,11 @@
   services.usbmuxd.enable = true;
 
   environment.sessionVariables = {
-    LIBVA_DRIVER_NAME = "iHD"; # Force intel-media-driver
-    VDPAU_DRIVER = "va_gl"; # Forces Intel via VAAPI
-    MESA_LOADER_DRIVER_OVERRIDE = "iris";
-    __GLX_VENDOR_LIBRARY_NAME = "mesa";
-    ANV_ENABLE_PIPELINE_CACHE = "1"; # Enable Vulkan pipeline caching
+    LIBVA_DRIVER_NAME = "iHD"; # Force intel-media-driver; Quick Sync decode/encode
+    VDPAU_DRIVER = "va_gl"; # Forces Intel via VAAPI; VDPAU → VAAPI fallback
+    MESA_LOADER_DRIVER_OVERRIDE = "iris"; # Xe OpenGL/Vulkan (not anv; iris=Gen12+)
+    __GLX_VENDOR_LIBRARY_NAME = "mesa"; # Mesa GLX (avoid Nouveau/NVIDIA proprietary)
+    ANV_ENABLE_PIPELINE_CACHE = "1"; # Enable Vulkan pipeline caching; Vulkan cache speedup
     NIXOS_OZONE_WL = "1"; # Hint Electron/Chromium apps to use Wayland natively
     # mesa_glthread = "true"; # Disabled: causes KWin CPU spikes with Intel Xe driver
     # Don't set PRIME/NVIDIA variables globally - let apps default to Intel
@@ -271,7 +271,7 @@
     # KWin Wayland fixes for Intel Xe (Arrow Lake)
     #KWIN_DRM_OVERRIDE_SAFETY_MARGIN = "1500"; # ~45% of frame time (3333µs @ 300Hz); default is 1500µs
     #KWIN_DRM_NO_AMS = "1"; # Disable Atomic Mode Setting to reduce CPU usage during animations; DISABLED: causes slow kwin rendering
-    KWIN_FORCE_SW_CURSOR = "0"; # Use hardware cursor (Intel Xe defaults to software cursor);
+    #KWIN_FORCE_SW_CURSOR = "0"; # Use hardware cursor (Intel Xe defaults to software cursor);
     KWIN_DRM_DEVICES = "/dev/dri/card0:/dev/dri/card1"; # (Intel: card0 first, NVIDIA: card1 second)
   };
 

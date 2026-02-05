@@ -1,9 +1,11 @@
-_:
-
+{ pkgs
+, inputs
+, ...
+}:
 {
-  # See: https://ghostty.org/docs/config/reference
   programs.ghostty = {
     enable = true;
+    package = inputs.ghostty.packages.${pkgs.system}.default; # Tip via flake input
 
     enableZshIntegration = true;
     installBatSyntax = true;
