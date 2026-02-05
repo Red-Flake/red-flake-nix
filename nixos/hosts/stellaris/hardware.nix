@@ -177,9 +177,7 @@
     bluetooth.enable = true;
 
     # TUXEDO-specific: drivers, Keyboard lighting and fan control (from nixpkgs)
-    # Force disable to avoid conflict with extraModulePackages overlay version
-    # (tuxedo-control-center automatically enables this, so we need to override it)
-    tuxedo-drivers.enable = lib.mkForce false;
+    tuxedo-drivers.enable = true;
     tuxedo-rs = {
       # Important: disable tuxedo-rs and tailor-gui to avoid conflict with tuxedo-drivers and tuxedo-control-center
       enable = lib.mkForce false;

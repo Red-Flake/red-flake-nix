@@ -96,9 +96,4 @@ in
   intelLegacyOverlay = [
     (import ../overlays/intel-legacy-overlay)
   ];
-
-  # TUXEDO drivers overlay (conditional - only for TUXEDO laptops)
-  tuxedoDriversOverlay = [
-    (import ../overlays/tuxedo-drivers-overlay)
-  ];
 }

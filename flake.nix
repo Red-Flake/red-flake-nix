@@ -385,8 +385,7 @@
                     "security"
                     "desktop"
                   ])
-                  sharedOverlays.desktopOverlays
-                ++ nixpkgs.lib.optionals includeTuxedo sharedOverlays.tuxedoDriversOverlay;
+                  sharedOverlays.desktopOverlays;
 
               hostPkgs = import inputs.nixpkgs {
                 inherit system;
