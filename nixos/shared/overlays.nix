@@ -78,6 +78,9 @@ let
   desktopOverlays = [
     # Fix Electron color issues on Wayland with wide-gamut displays
     (import ../overlays/electron-color-fix-overlay)
+
+    # Equibop: writable settings.json + opt-in speech-dispatcher
+    (import ../overlays/equibop-overlay)
   ];
 in
 {
