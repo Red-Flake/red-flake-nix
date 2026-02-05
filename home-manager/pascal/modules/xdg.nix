@@ -26,6 +26,11 @@ in
       # Remmina sometimes creates an autostart entry for the tray applet; remove it.
       rm -f "${config.xdg.configHome}/autostart/remmina-applet.desktop"
     '';
+
+    equibopAutostart = lib.hm.dag.entryBefore [ "writeBoundary" ] ''
+      # Equibop creates an autostart entry for the tray applet; If Equibop autostarts, it starts in wayland mode with speech dispatcher enabled and generates systemd-coredumps. Remove it.
+      rm -f "${config.xdg.configHome}/autostart/equibop.desktop"
+    '';
   };
 
   # enable xdg desktop portal
