@@ -2,11 +2,15 @@ diff --git a/src/apprt/gtk/class/surface.zig b/src/apprt/gtk/class/surface.zig
 index 49e1c89..a9b5b1f 100644
 --- a/src/apprt/gtk/class/surface.zig
 +++ b/src/apprt/gtk/class/surface.zig
-@@ -1229,7 +1229,7 @@ pub const Surface = struct {
-             // https://gitlab.gnome.org/GNOME/libadwaita/-/commit/a7738a4d269bfdf4d8d5429ca73ccdd9b2450421
-             // https://gitlab.gnome.org/GNOME/libadwaita/-/commit/9759d3fd81129608dd78116001928f2aed974ead
-             if (gtk_xft_dpi <= 0) {
+@@ -1558,4 +1558,4 @@
+             const gtk_xft_dpi = gsettings.get(.@"gtk-xft-dpi") orelse {
 -                log.warn("gtk-xft-dpi was not set, using default value", .{});
 +                log.debug("gtk-xft-dpi was not set, using default value", .{});
+                 break :xft_scale 1.0;
+             };
+@@ -1567,4 +1567,4 @@
+             if (gtk_xft_dpi <= 0) {
+-                log.warn("gtk-xft-dpi has invalid value ({}), using default", .{gtk_xft_dpi});
++                log.debug("gtk-xft-dpi has invalid value ({}), using default", .{gtk_xft_dpi});
                  break :xft_scale 1.0;
              }

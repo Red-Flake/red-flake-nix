@@ -82,13 +82,13 @@ let
     # Equibop: writable settings.json + opt-in speech-dispatcher
     (import ../overlays/equibop-overlay)
 
-    # Ghostty: suppress noisy warnings in journald
-    (import ../overlays/ghostty-overlay)
-
     # Ghostty tip package
     (final: _prev: {
       ghostty = inputs.ghostty.packages.${final.system}.default;
     })
+
+    # Ghostty: suppress noisy warnings in journald
+    (import ../overlays/ghostty-overlay)
   ];
 in
 {

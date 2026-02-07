@@ -1,0 +1,152 @@
+--- a/src/apprt/gtk/cgroup.zig
++++ b/src/apprt/gtk/cgroup.zig
+@@ -50,7 +50,7 @@
+         std.Thread.sleep(25 * std.time.ns_per_ms);
+     };
+     errdefer alloc.free(transient);
+-    log.info("transient scope created cgroup={s}", .{transient});
++    log.debug("transient scope created cgroup={s}", .{transient});
+ 
+     // Create the app cgroup and put ourselves in it. This is
+     // required because controllers can't be configured while a
+
+--- a/src/apprt/gtk/class/application.zig
++++ b/src/apprt/gtk/class/application.zig
+@@ -87,6 +87,20 @@
+         return .handled;
+     }
+     if (level.level_warning) {
++        // GTK sometimes emits harmless but noisy warnings that can spam
++        // journald when Ghostty is run with systemd integration enabled.
++        //
++        // Example:
++        //   GtkGizmo ... (slider) reported min width/height -2 ...
++        if (std.mem.eql(u8, domain, "Gtk") and
++            std.mem.indexOf(u8, message, "GtkGizmo") != null and
++            (std.mem.indexOf(u8, message, "reported min width") != null or
++                std.mem.indexOf(u8, message, "reported min height") != null))
++        {
++            glib_log.debug("WARNING(suppressed): {s}: {s}", .{ domain, message });
++            return .handled;
++        }
++
+         glib_log.warn("WARNING: {s}: {s}", .{ domain, message });
+         return .handled;
+     }
+@@ -755,7 +769,7 @@
+             .undo,
+             .redo,
+             => {
+-                log.warn("unimplemented action={}", .{action});
++                log.debug("unimplemented action={}", .{action});
+                 return false;
+             },
+         }
+@@ -1495,7 +1509,7 @@
+             return;
+         };
+ 
+-        log.info("cgroup isolation enabled base={s}", .{path});
++        log.debug("cgroup isolation enabled base={s}", .{path});
+         priv.transient_cgroup_base = path;
+     }
+ 
+
+--- a/src/apprt/gtk/class/surface.zig
++++ b/src/apprt/gtk/class/surface.zig
+@@ -2814,7 +2814,7 @@
+         // since we have direct access to the underlying gdk.Event here.
+         if (!consumed and button == .left and !surface.hasSelection()) {
+             if (!self.showOnScreenKeyboard(event)) {
+-                log.warn("failed to activate the on-screen keyboard", .{});
++                log.debug("failed to activate the on-screen keyboard", .{});
+             }
+         }
+     }
+
+--- a/src/terminal/stream.zig
++++ b/src/terminal/stream.zig
+@@ -1975,7 +1975,7 @@
+ 
+                 .change_window_icon => |icon| {
+                     @branchHint(.likely);
+-                    log.info("OSC 1 (change icon) received and ignored icon={s}", .{icon});
++                    log.debug("OSC 1 (change icon) received and ignored icon={s}", .{icon});
+                 },
+ 
+                 .clipboard_contents => |clip| {
+
+--- a/src/font/SharedGridSet.zig
++++ b/src/font/SharedGridSet.zig
+@@ -195,7 +195,7 @@
+                     var disco_it = try disco.discover(self.alloc, desc);
+                     defer disco_it.deinit();
+                     if (try disco_it.next()) |face| {
+-                        log.info("font {s}: {s}", .{
++                        log.debug("font {s}: {s}", .{
+                             field.name,
+                             try face.name(&name_buf),
+                         });
+@@ -226,7 +226,7 @@
+                     });
+                     defer disco_it.deinit();
+                     if (try disco_it.next()) |face| {
+-                        log.info("font {s}: {s}", .{
++                        log.debug("font {s}: {s}", .{
+                             field.name,
+                             try face.name(&name_buf),
+                         });
+
+--- a/src/renderer/OpenGL.zig
++++ b/src/renderer/OpenGL.zig
+@@ -135,7 +135,7 @@
+     const major = gl.glad.versionMajor(@intCast(version));
+     const minor = gl.glad.versionMinor(@intCast(version));
+     errdefer gl.glad.unload();
+-    log.info("loaded OpenGL {}.{}", .{ major, minor });
++    log.debug("loaded OpenGL {}.{}", .{ major, minor });
+ 
+     // Need to check version before trying to enable it
+     if (major < MIN_VERSION_MAJOR or
+
+--- a/src/termio/Exec.zig
++++ b/src/termio/Exec.zig
+@@ -620,7 +620,7 @@
+ 
+         // If we have a resources dir then set our env var
+         if (cfg.resources_dir) |dir| {
+-            log.info("found Ghostty resources dir: {s}", .{dir});
++            log.debug("found Ghostty resources dir: {s}", .{dir});
+             try env.put("GHOSTTY_RESOURCES_DIR", dir);
+         }
+ 
+@@ -790,7 +790,7 @@
+                 break :shell default_shell_command;
+             };
+ 
+-            log.info(
++            log.debug(
+                 "shell integration automatically injected shell={}",
+                 .{integration.shell},
+             );
+@@ -991,7 +991,7 @@
+             const pid = try cmd.spawn(alloc);
+             errdefer killCommandFlatpak(cmd);
+ 
+-            log.info("started subcommand on host via flatpak API path={s} pid={}", .{
++            log.debug("started subcommand on host via flatpak API path={s} pid={}", .{
+                 self.args[0],
+                 pid,
+             });
+@@ -1043,9 +1043,9 @@
+         errdefer killCommand(&cmd) catch |err| {
+             log.warn("error killing command during cleanup err={}", .{err});
+         };
+-        log.info("started subcommand path={s} pid={?}", .{ self.args[0], cmd.pid });
++        log.debug("started subcommand path={s} pid={?}", .{ self.args[0], cmd.pid });
+         if (comptime builtin.os.tag == .linux) {
+-            log.info("subcommand cgroup={s}", .{self.linux_cgroup orelse "-"});
++            log.debug("subcommand cgroup={s}", .{self.linux_cgroup orelse "-"});
+         }
+ 
+         self.process = .{ .fork_exec = cmd };

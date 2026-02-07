@@ -1,11 +1,8 @@
-{ pkgs
-, inputs
-, ...
-}:
+{ pkgs, ... }:
 {
   programs.ghostty = {
     enable = true;
-    package = inputs.ghostty.packages.${pkgs.system}.default; # Tip via flake input
+    package = pkgs.ghostty;
 
     enableZshIntegration = true;
     installBatSyntax = true;
