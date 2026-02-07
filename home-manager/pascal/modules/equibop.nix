@@ -19,6 +19,10 @@
       autoscroll.enable = true;
     };
 
+    # Disable arRPC (Discord RPC compatibility bridge).
+    # This is written to `~/.config/equibop/settings/settings.json`.
+    equibopConfig.arRPC = "off";
+
     config = {
       #themeLinks = [
       #  "https://capnkitten.github.io/BetterDiscord/Themes/Material-Discord/css/source.css"
