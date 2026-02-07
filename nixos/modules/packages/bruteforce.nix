@@ -16,6 +16,6 @@
     ncrack
     # python312Packages.patator   # is marked as broken
     fcrackzip
-    # medusa    # medusa fails to build...
+    medusa
   ];
 }
