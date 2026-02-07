@@ -23,6 +23,11 @@
     # This is written to `~/.config/equibop/settings/settings.json`.
     equibopConfig.arRPC = "off";
 
+    # Reduce background/theme overhead (no themes in use).
+    equibopConfig.enableOnlineThemes = false;
+    equibopConfig.useQuickCss = false;
+    equibopConfig.useQuickCSS = false;
+
     config = {
       #themeLinks = [
       #  "https://capnkitten.github.io/BetterDiscord/Themes/Material-Discord/css/source.css"
@@ -31,7 +36,7 @@
         # General Tweaks
         alwaysTrust.enable = true; # Removes the annoying untrusted domain and suspicious file popup
         betterSessions.enable = true; # Enhances the sessions (devices) menu
-        betterUploadButton.enable = true; # Upload with a single click, open menu with right click
+        #betterUploadButton.enable = true; # Upload with a single click, open menu with right click
         biggerStreamPreview.enable = true; # Allows enlarging stream previews
         copyFileContents.enable = true; # Adds a button to text file attachments to copy their contents
         fixYoutubeEmbeds.enable = true; # Bypasses youtube videos being blocked from display on Discord
@@ -40,10 +45,10 @@
         #PinDMs.enable = true; # Allows you to pin DMs, making them appear at the top of your DMs/ServerList
 
         # Image Tweaks
-        #fixImagesQuality.enable = true; # Improves quality of images in chat by forcing png format.
-        imageFilename.enable = true; # Displays the file name of images & GIFs as a tooltip when hovering over them
+        fixImagesQuality.enable = true; # Improves quality of images in chat by forcing png format.
+        #imageFilename.enable = true; # Displays the file name of images & GIFs as a tooltip when hovering over them
         imageZoom.enable = true; # zoom in to images and gifs
-        reverseImageSearch.enable = true; # Adds ImageSearch to image context menus
+        #reverseImageSearch.enable = true; # Adds ImageSearch to image context menus
 
         # Premium Features
         fakeNitro.enable = true; # Enables Stickers, and 4k streams
