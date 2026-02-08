@@ -299,9 +299,9 @@ mount --mkdir -t zfs zroot/persist /mnt/persist
 
 
 while true; do
-    read -rp "Which host to install? (kvm / vmware / stellaris / t580 / vps / redline) " HOST
+    read -rp "Which host to install? (kvm / vmware / stellaris / t580 / vps / redline / borg) " HOST
     case $HOST in
-        kvm|vmware|stellaris|t580|vps|redline ) break;;
+        kvm|vmware|stellaris|t580|vps|redline|borg) break;;
         * ) echo "Invalid host. Please select a valid host.";;
     esac
 done
@@ -356,6 +356,9 @@ case $HOST in
         ;;
     redline )
         USER="let"
+        ;;
+    borg )
+        USER="shanzem"
         ;;
     * )
         echo "Invalid host. Please select a valid host."

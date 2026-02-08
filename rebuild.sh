@@ -63,9 +63,9 @@ if ! ping -c 1 github.com &> /dev/null; then
 fi
 
 while true; do
-    read -rp "Which host to rebuild? (kvm / vmware / stellaris / t580 / vps / redline) " HOST
+    read -rp "Which host to rebuild? (kvm / vmware / stellaris / t580 / vps / redline / borg) " HOST
     case $HOST in
-        kvm|vmware|stellaris|t580|vps|redline ) break;;
+        kvm|vmware|stellaris|t580|vps|redline|borg ) break;;
         * ) echo "Invalid host. Please select a valid host.";;
     esac
 done
