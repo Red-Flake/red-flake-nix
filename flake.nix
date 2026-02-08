@@ -516,6 +516,23 @@
               ];
             };
 
+            # Shanzem desktop-pc
+            borg = mkNixOSConfig {
+              profile = "security";
+              hostname = "redflake-borg";
+              hostConfig = ./nixos/hosts/borg/default.nix;
+              user = "shanzem";
+              isKVM = false;
+              includeSpicetify = false;
+              homeManagerConfigs = [
+                {
+                  user = "shanzem";
+                  homeDirectory = "/home/shanzem";
+                  profile = "shanzem";
+                }
+              ];
+            };
+
           };
         };
     };

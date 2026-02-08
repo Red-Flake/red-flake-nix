@@ -137,6 +137,81 @@ in
     packages = packages.base ++ packages.desktop ++ packages.gaming ++ packages.networking;
   };
 
+
+
+# Profile for Shanzem
+  shanzem = {
+    git = {
+      userName = "Shanzem";
+      userEmail = "owar125@gmail.com";
+      signing = {
+        key = "~/.ssh/id_ed25519.pub";
+        signByDefault = true;
+        format = "ssh";
+      };
+    };
+    sessionVariables = {
+      # Enalbe Wayland for Firefox
+      MOZ_ENABLE_WAYLAND = 1;
+
+      # Set steam proton path
+      STEAM_EXTRA_COMPAT_TOOLS_PATHS = "\\\${HOME}/.steam/root/compatibilitytools.d";
+
+      # Set terminal to Ghostty
+      TERMINAL = "ghostty";
+
+      # Set global xcursor size to 24; this matches the default cursor size in KDE Plasma of 24
+      XCURSOR_SIZE = "24";
+
+      # Add ~/.local/bin to PATH
+      PATH = "\\\${HOME}/.local/bin:$PATH";
+    };
+    modules = [
+      # Base modules
+      ./base.nix
+      ../common/modules/git.nix
+      ../common/modules/zsh.nix
+      ../common/modules/fastfetch.nix
+      ../common/modules/flatpak.nix
+      ../common/modules/ssh-agent.nix
+      ../common/modules/ssh-config.nix
+
+      # Desktop modules
+      inputs.plasma-manager.homeModules.plasma-manager
+      inputs.nixcord.homeModules.nixcord
+      ../common/modules/dconf.nix
+      ../common/modules/artwork.nix
+      ../common/modules/theme.nix
+      ../common/modules/kwallet.nix
+      ../common/modules/konsole.nix
+      ../common/modules/ghostty.nix
+      ../common/modules/firefox.nix
+      ../common/modules/psd.nix
+      ../common/modules/virtualisation.nix
+      ../common/modules/desktop-files.nix
+      ../common/modules/xdg.nix
+      ../common/modules/bat.nix
+      ../common/modules/services.nix
+      ../common/modules/direnv.nix
+      ../common/modules/equibop.nix
+      #../common/modules/vesktop.nix
+      ../common/modules/vscode.nix
+      ../common/modules/plasma-manager.nix
+      ../common/modules/filezilla.nix
+
+      # Security modules
+      ../common/modules/msf.nix
+      ../common/modules/bloodhound.nix
+      ../common/modules/burpsuite.nix
+      ../common/modules/jadx.nix
+
+      # Common p10k module (uses pascal's configs)
+      ../common/modules/p10k.nix
+    ];
+    packages = packages.base ++ packages.desktop ++ packages.gaming ++ packages.development;
+  };
+
+
   # Profile for redflake (default account)
   redflake = {
     git = {
