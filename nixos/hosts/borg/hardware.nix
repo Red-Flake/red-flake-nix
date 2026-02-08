@@ -29,7 +29,6 @@
     initrd.kernelModules = [ "amdgpu" ];
     kernelModules = [
       "kvm-amd"
-      "intel_rapl"
       "rtw88_8822bu"
     ];
     extraModulePackages = [ ];
