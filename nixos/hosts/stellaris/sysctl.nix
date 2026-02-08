@@ -108,7 +108,7 @@ _:
     # Increase the sched_rt_runtime_us to mitigate issues:
     # sched: RT throttling activated
     # Defines the time (in microseconds) that real-time tasks can run without being throttled.
-    "kernel.sched_rt_runtime_us" = 980000;
+    "kernel.sched_rt_runtime_us" = 950000;
 
     # Improve interactive responsiveness by grouping tasks per TTY/session.
     "kernel.sched_autogroup_enabled" = 1;
@@ -205,12 +205,13 @@ _:
     "kernel.nmi_watchdog" = 0;
     "kernel.watchdog" = 0;
 
-    # Reduce timer slack for more precise wakeups (helps frame timing)
-    "kernel.timer_migration" = 0;
+    # Leave timer migration at the default (helps keep timers on housekeeping CPUs and avoids
+    # concentrating timer work on a subset of cores).
+    #"kernel.timer_migration" = 1;
 
     # Increase max memory map areas - required by many games and Electron apps
     # Steam Deck uses this value; fixes crashes in some games
-    "vm.max_map_count" = 2147483642;
+    "vm.max_map_count" = 1048576;
 
     # Disable proactive memory compaction to avoid latency spikes
     "vm.compaction_proactiveness" = 0;

@@ -102,17 +102,18 @@
       # Select full kernel preemption via PREEMPT_DYNAMIC: lets higher‑prio tasks preempt most kernel code -> lower latency/better interactivity, small throughput/overhead cost.
       "preempt=full"
 
-      # Offload RCU callbacks to dedicated kernel threads for lower latency
-      "rcu_nocbs=all"
-
       # Prefer THP madvise for desktop/gaming workloads.
       "transparent_hugepage=madvise"
 
       # Disable split lock detection - some games/apps trigger split locks causing micro-stutter
       "split_lock_detect=off"
 
-      # Set TEO as runtime governor for modern tickless system
-      "cpuidle.governor=teo"
+      # Let the kernel select the default CPUIdle governor (typically `menu` on tickless systems).
+      #"cpuidle.governor=teo"
+
+      # PCIe ASPM: prioritize latency over power saving.
+      # Monitor S0ix (s2idle) suspend power draw/residency; disabling ASPM can increase sleep drain on some laptops.
+      "pcie_aspm.policy=performance"
 
       # NVMe: Force PS0-only (disable APST sleep states) for zero-latency IO
       # Eliminates 10-100ms runtime stalls from NVMe power wakeup → fixes IO PSI spikes & desktop "stickiness"
@@ -246,8 +247,22 @@
     powertop.enable = lib.mkForce false;
   };
 
-  # Disable irqbalance since it is bad for Gaming, low-latency, discrete GPUs, anything needing stable and predictable IRQ placement
-  services.irqbalance.enable = lib.mkForce false;
+  # On hybrid CPUs (P/E-cores), irqbalance can be a win or a loss depending on workload/power goals.
+  # Keep it off by default for laptop power behavior, but make it easy to A/B test via a specialisation.
+  services.irqbalance.enable = lib.mkDefault false;
+
+  specialisation.debug-irqbalance.configuration = {
+    services.irqbalance.enable = lib.mkForce true;
+  };
+
+  # A/B test: cap CPU package C-states to reduce wake latency/jitter.
+  # Useful if GPU fence timeouts correlate with deep idle states (cost: higher idle power/temps).
+  specialisation.debug-cstate2.configuration = {
+    boot.kernelParams = [
+      "intel_idle.max_cstate=2"
+      "processor.max_cstate=2"
+    ];
+  };
 
   # Disable earlyoom on this machine. earlyoom kills at 5% RAM/ZRAM—too aggressive for 96GB + zram100%.
   services.earlyoom = {

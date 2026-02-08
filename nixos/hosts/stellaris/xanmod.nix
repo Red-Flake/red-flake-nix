@@ -40,8 +40,11 @@
             # 6 => 64-byte line size (typical for modern x86-64 CPUs).
             X86_NATIVE_CPU = lib.mkForce yes;
             X86_L1_CACHE_SHIFT = freeform "6";
-            X86_FRED = lib.mkForce yes;
-            X86_POSTED_MSI = lib.mkForce yes;
+            # Interrupt delivery features:
+            # - `X86_FRED` appears to be forced on in this XanMod config (Kconfig ends up with y even if requested n),
+            #   so we don't override it here (otherwise the build fails the config check).
+            # - `X86_POSTED_MSI` is still explicitly disabled as it can affect interrupt timing/latency.
+            X86_POSTED_MSI = lib.mkForce no;
 
             # Timer tick handling: tickless idle
             HZ_PERIODIC = lib.mkForce no;
@@ -65,15 +68,7 @@
             # Do not treat warnings as errors (GCC 15 triggers new warnings in libbpf).
             WERROR = lib.mkForce no;
 
-            # RCU tuning for low latency
-            RCU_EXPERT = lib.mkForce yes;
-            RCU_FANOUT = freeform "64";
-            RCU_FANOUT_LEAF = freeform "16";
-            RCU_EXP_KTHREAD = lib.mkForce yes;
-            #RCU_NOCB_CPU = yes;
-            RCU_DOUBLE_CHECK_CB_TIME = lib.mkForce yes;
-            RCU_BOOST = lib.mkForce yes;
-            RCU_BOOST_DELAY = freeform "300";
+            # RCU: keep defaults (RCU tuning is workload/topology dependent and can add overhead/jitter on desktops)
 
             # I/O Schedulers (use mkForce to override common-config.nix defaults)
             IOSCHED_BFQ = lib.mkForce yes;
@@ -113,8 +108,8 @@
             SCHED_CLUSTER = lib.mkForce yes;
 
             # Scheduler Extensions (sched_ext)
-            # Required for running BPF schedulers like LAVD/Rusty (defined in performance.nix services.scx)
-            SCHED_CLASS_EXT = lib.mkForce yes;
+            # Only enable when actually running an scx scheduler; otherwise keep it off to reduce moving parts.
+            SCHED_CLASS_EXT = lib.mkForce no;
 
             # Gaming & Windows Compatibility
             # Standard XanMod patches (Clear Linux, Futex2, PCIeACS, BBRv3) are already included in the source.
@@ -128,7 +123,9 @@
             ZSMALLOC = lib.mkForce yes; # Required for zram/MGLRU
 
             WIREGUARD = lib.mkForce module; # Faster VPN (Proton/WireGuard)
-            SCHED_CORE = lib.mkForce yes; # Core scheduling (P/E-core affinity)
+
+            # Core scheduling is primarily a security/isolation feature and can cost throughput.
+            SCHED_CORE = lib.mkForce no;
           };
 
           xanmodVersion = "6.18.8";
@@ -143,7 +140,6 @@
 
           linux-xanmod-custom =
             (xanmodBase.override {
-              inherit (pkgs.llvmPackages_latest) stdenv;
               argsOverride = {
                 version = xanmodVersion;
                 suffix = xanmodSuffix;
@@ -178,19 +174,10 @@
                   final.buildPackages.rustfmt
                 ];
 
-                # Optional: only affects host tools much more than the kernel itself
-                NIX_CFLAGS_COMPILE = (old.NIX_CFLAGS_COMPILE or "") + " -march=native -mtune=native -O3 -pipe";
-
                 # Point kbuild at unwrapped toolchain (no cc-wrapper flags like -nostdlibinc)
                 makeFlags = (old.makeFlags or [ ]) ++ [
                   # hardcode "-j24" for 24 cpu cores
                   "-j24"
-
-                  # host tool warning suppression (if needed)
-                  "HOSTCFLAGS=-Wno-unused-command-line-argument"
-
-                  # O3 for kernel compilation units
-                  "KCFLAGS=-march=native -mtune=native -O3 -pipe"
                 ];
               });
         in
