@@ -279,7 +279,7 @@ in
     #
     configFile = {
       "kdeglobals"."General"."AccentColor" = "160,31,52";
-      "kdeglobals"."KDE"."AnimationDurationFactor" = 0.7071067811865475;
+      "kdeglobals"."KDE"."AnimationDurationFactor" = 0.5;
       "baloofilerc"."Basic Settings"."Indexing-Enabled" = false;
       "kwinrc" = {
         "org.kde.kdecoration2"."ButtonsOnLeft" = "SF";

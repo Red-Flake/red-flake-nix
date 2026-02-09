@@ -217,7 +217,7 @@
       "kdeglobals"."General"."AccentColor" = "160,31,52";
       "baloofilerc"."Basic Settings"."Indexing-Enabled" = false;
       "kwinrc" = {
-        "KDE"."AnimationDurationFactor" = 0.8;
+        "KDE"."AnimationDurationFactor" = 0.5;
         "org.kde.kdecoration2"."ButtonsOnLeft" = "SF";
         "Desktops"."Number" = {
           value = 8;
