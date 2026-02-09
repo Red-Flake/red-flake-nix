@@ -43,6 +43,7 @@
         # NOTE: nixcord removed the nsfwGateBypass plugin option in the pinned revision.
         #nsfwGateBypass.enable = true; # Allows you to access NSFW channels without setting/verifying your age
         #PinDMs.enable = true; # Allows you to pin DMs, making them appear at the top of your DMs/ServerList
+        NoRPC.enable = true; # Disable Discord's RPC server
 
         # Image Tweaks
         fixImagesQuality.enable = true; # Improves quality of images in chat by forcing png format.
