@@ -522,6 +522,7 @@
               hostname = "redflake-borg";
               hostConfig = ./nixos/hosts/borg/default.nix;
               user = "shanzem";
+              localeProfile = "uk";
               isKVM = false;
               includeSpicetify = false;
               homeManagerConfigs = [
