@@ -93,6 +93,15 @@
       "xe.enable_psr=0"
       "xe.enable_dc=0"
 
+      # Intel Xe: Quiet GuC firmware logs
+      "xe.guc_log_level=0"
+
+      # Intel Xe: Disable verbose HW state warnings (hides non-fatal TLB WARN_ON)
+      "xe.verbose_state_checks=0"
+
+      # Intel Xe: Never declare GPU wedged on hangs/timeouts (force reset recovery, avoid lockup)
+      "xe.wedged_mode=0"
+
       # Quiet Intel Xe DRM debug kernel log spam (TLB/PHY refclk issues...)
       "drm.debug=0x0"
 
