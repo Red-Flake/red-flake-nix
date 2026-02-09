@@ -260,8 +260,8 @@ in
     #
     input.keyboard.layouts = [
       {
-        displayName = "de";
-        layout = "de";
+        displayName = "en";
+        layout = "en";
         #variant = "intl";
       }
     ];
