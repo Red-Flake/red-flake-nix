@@ -29,9 +29,19 @@
     initrd.kernelModules = [ "amdgpu" ];
     kernelModules = [
       "kvm-amd"
+      "rtw88_usb"
       "rtw88_8822bu"
     ];
-    extraModulePackages = [ ];
+    extraModulePackages = with config.boot.kernelPackages; [
+      rtw88
+    ];
+    extraModprobeConfig = ''
+      options rtw88_usb switch_usb_mode=N
+      options rtw88_core disable_lps_deep=y
+      options rtw88_pci disable_aspm=y disable_msi=y
+      options rtw_core disable_lps_deep=y
+      options rtw_pci disable_msi=y disable_aspm=y
+    '';
 
     kernelParams = [
       "amd_pstate=active"
