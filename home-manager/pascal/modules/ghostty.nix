@@ -18,7 +18,7 @@
       font-style-bold = "Bold";
       font-style-italic = "Italic";
       font-style-bold-italic = "Bold Italic";
-      font-thicken = true;
+      font-thicken = false;
       bold-is-bright = false;
 
       #adjust-cell-height = "-2%";
@@ -31,7 +31,7 @@
       mouse-hide-while-typing = true;
       mouse-scroll-multiplier = 1;
 
-      scrollback-limit = 4294967296;
+      scrollback-limit = 100000; # Reasonable large value (~days of output)
 
       # copy settings
       copy-on-select = false;
@@ -48,7 +48,7 @@
       window-decoration = "auto";
       #window-padding-x = 5;
       #window-padding-y = 5;
-      window-vsync = true;
+      window-vsync = false;
       window-show-tab-bar = "always";
       window-theme = "ghostty"; # Use the background and foreground colors specified in the Ghostty configuration.
 
@@ -76,7 +76,7 @@
       #bell-feature = "system"; # Unknown option in current ghostty version
 
       # async
-      async-backend = "auto";
+      async-backend = "epoll"; # Safer for Linux perf
 
       # auto update
       auto-update = "off";
