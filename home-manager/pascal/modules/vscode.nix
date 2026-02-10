@@ -11,26 +11,28 @@
     #
     # Also disable buggy Wayland color management that causes bright/oversaturated
     # colors on wide-gamut displays with Intel Mesa Xe driver
-    package = (pkgs.vscode.override {
-      commandLineArgs = "--disable-features=WaylandWpColorManagerV1";
-    }).overrideAttrs (
-      _finalAttrs: prevAttrs: {
-        desktopItems = lib.map
-          (
-            item:
-            if item.meta.name == "code-url-handler.desktop" then
-              item.overrideAttrs
-                (
-                  _final: prev: {
-                    text = lib.replaceStrings [ "StartupWMClass=Code\n" ] [ "" ] prev.text;
-                  }
-                )
-            else
-              item
-          )
-          prevAttrs.desktopItems;
-      }
-    );
+    package =
+      (pkgs.vscode.override {
+        commandLineArgs = "--disable-features=WaylandWpColorManagerV1";
+      }).overrideAttrs
+        (
+          _finalAttrs: prevAttrs: {
+            desktopItems = lib.map
+              (
+                item:
+                if item.meta.name == "code-url-handler.desktop" then
+                  item.overrideAttrs
+                    (
+                      _final: prev: {
+                        text = lib.replaceStrings [ "StartupWMClass=Code\n" ] [ "" ] prev.text;
+                      }
+                    )
+                else
+                  item
+              )
+              prevAttrs.desktopItems;
+          }
+        );
 
     # disable mutable extensions
     mutableExtensionsDir = false;
@@ -94,6 +96,9 @@
           # https://code.visualstudio.com/docs/getstarted/settings#_settingsjson
           "update.channel" = "none";
           "[nix]"."editor.tabSize" = 2;
+          "nix.formatterPath" = "treefmt"; # // set nix formatter to treefmt to match GitHub CI"
+          # // or pass full list of args like below
+          # // "nix.formatterPath": ["treefmt", "--stdin", "{file}"]
           "editor.formatOnSave" = true;
           "workbench.colorTheme" = "Catppuccin Mocha";
           "powershell.powerShellAdditionalExePaths"."Downloaded PowerShell" = lib.getExe pkgs.powershell;

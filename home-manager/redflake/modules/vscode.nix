@@ -69,6 +69,7 @@
           # https://code.visualstudio.com/docs/getstarted/settings#_settingsjson
           "update.channel" = "none";
           "[nix]"."editor.tabSize" = 2;
+          "nix.formatterPath" = "treefmt"; # // set nix formatter to treefmt to match GitHub CI"
           "editor.formatOnSave" = true;
           "workbench.colorTheme" = "Catppuccin Mocha";
           "powershell.powerShellAdditionalExePaths"."Downloaded PowerShell" = lib.getExe pkgs.powershell;

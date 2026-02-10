@@ -8,6 +8,6 @@
   environment.systemPackages = with pkgs; [
     pidgin
     irssi
-    telegram-desktop
+    _64gram
   ];
 }

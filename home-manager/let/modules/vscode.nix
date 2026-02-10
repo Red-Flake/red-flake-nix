@@ -74,6 +74,7 @@
           "telemetry.telemetryLevel" = "off";
           "telemetry.feedback.enabled" = false;
           "[nix]"."editor.tabSize" = 2;
+          "nix.formatterPath" = "treefmt"; # // set nix formatter to treefmt to match GitHub CI"
           "editor.formatOnSave" = true;
           "workbench.colorTheme" = "Catppuccin Mocha";
           "security.workspace.trust.enabled" = false;
