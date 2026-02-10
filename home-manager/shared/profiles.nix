@@ -137,8 +137,6 @@ in
     packages = packages.base ++ packages.desktop ++ packages.gaming ++ packages.networking;
   };
 
-
-
   # Profile for Shanzem
   shanzem = {
     git = {
@@ -196,7 +194,6 @@ in
       ../common/modules/equibop.nix
       #../common/modules/vesktop.nix
       ../common/modules/vscode.nix
-      ../common/modules/plasma-manager.nix
       ../common/modules/filezilla.nix
 
       # Security modules
@@ -207,10 +204,12 @@ in
 
       # Common p10k module (uses pascal's configs)
       ../common/modules/p10k.nix
+
+      # User-specific modules
+      ../shanzem/modules/plasma-manager.nix
     ];
     packages = packages.base ++ packages.desktop ++ packages.gaming ++ packages.development;
   };
-
 
   # Profile for redflake (default account)
   redflake = {
