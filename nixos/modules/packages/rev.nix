@@ -10,7 +10,7 @@
     cutterPlugins.jsdec
     cutterPlugins.rz-ghidra
     ghidra-bin
-    # jadx # disable jadx for now due to issues with arrow / flight
+    jadx
     radare2
     avalonia-ilspy
   ];
