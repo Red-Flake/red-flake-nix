@@ -19,7 +19,7 @@
       font-style-italic = "Italic";
       font-style-bold-italic = "Bold Italic";
       font-thicken = false;
-      bold-is-bright = false;
+      #bold-is-bright = false;      # removed due to: compatibility handler for bold-is-bright handled error, you may be using a deprecated field: error.InvalidField
 
       #adjust-cell-height = "-2%";
       adjust-cursor-thickness = 15;

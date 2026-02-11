@@ -108,6 +108,11 @@ let
     + "  # Defines character set used by powerlevel10k. It's best to let \`p10k configure\` set it for you.\n"
     + "  typeset -g POWERLEVEL9K_MODE=awesome-fontconfig\n"
     + "\n"
+    + "  # Disable OSC window title/icon spam (keeps visual segments intact)\n"
+    + "  typeset -g POWERLEVEL9K_OS_ICON_SHOW_ON_NEWLINE=false\n"
+    + "  typeset -g POWERLEVEL9K_DIR_SHOW_WRITABLE=false\n"
+    + "  typeset -g POWERLEVEL9K_DIR_DEFAULT_CONTENT_EXPANSION=''  # No dir title/icon\n"
+    + "\n"
     + "  # Add an empty line before each prompt.\n"
     + "  typeset -g POWERLEVEL9K_PROMPT_ADD_NEWLINE=false\n"
     + "  # Force prompt to clear properly\n"
@@ -274,6 +279,9 @@ let
     + "  )\n"
     + "  \n"
     + "  typeset -g POWERLEVEL9K_MODE=ascii\n"
+    + "  typeset -g POWERLEVEL9K_OS_ICON_SHOW_ON_NEWLINE=false\n"
+    + "  typeset -g POWERLEVEL9K_DIR_SHOW_WRITABLE=false\n"
+    + "  typeset -g POWERLEVEL9K_DIR_DEFAULT_CONTENT_EXPANSION=''\n"
     + "}\n";
 in
 {

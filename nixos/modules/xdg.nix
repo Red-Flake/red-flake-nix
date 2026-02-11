@@ -25,16 +25,21 @@
   # XDG portal settings
   xdg.portal = {
     enable = true;
-    # Prefer KDE portal (matches Plasma on these hosts); gtk fallback keeps
-    # flatpak/other apps working if KDE portal is unavailable.
-    config.common.default = "*";
-    configPackages = [
-      pkgs.kdePackages.xdg-desktop-portal-kde
+    extraPortals = with pkgs; [
+      kdePackages.xdg-desktop-portal-kde
+      xdg-desktop-portal-gtk # Fallback for DPI/apps
     ];
-    extraPortals = [
-      pkgs.kdePackages.xdg-desktop-portal-kde
-      pkgs.xdg-desktop-portal-gtk
-    ];
+    configPackages = [ pkgs.kdePackages.xdg-desktop-portal-kde ];
+    config = {
+      common = {
+        default = [ "kde" "gtk" ];
+      };
+      plasma = {
+        # Matches $XDG_CURRENT_DESKTOP=plasma
+        default = [ "kde" "gtk" ];
+        "org.freedesktop.impl.portal.Inhibit" = [ "kde" ]; # Targets CreateMonitor error
+      };
+    };
   };
 
   # if you use the NixOS module and have useUserPackages = true, make sure to add:
