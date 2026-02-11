@@ -88,7 +88,7 @@ let
     })
 
     # Ghostty: suppress noisy warnings in journald
-    (import ../overlays/ghostty-overlay)
+    #(import ../overlays/ghostty-overlay)
   ];
 in
 {
