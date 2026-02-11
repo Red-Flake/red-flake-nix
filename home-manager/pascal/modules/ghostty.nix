@@ -31,7 +31,7 @@
       mouse-hide-while-typing = true;
       mouse-scroll-multiplier = 1;
 
-      scrollback-limit = 100000; # Reasonable large value (~days of output)
+      scrollback-limit = 100000000000000; # Reasonable large value (~days of output)
 
       # copy settings
       copy-on-select = false;
