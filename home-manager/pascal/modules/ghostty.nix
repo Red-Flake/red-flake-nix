@@ -8,8 +8,8 @@
     installBatSyntax = true;
     installVimSyntax = true;
 
-    # enable systemd integration
-    systemd.enable = true;
+    # disable systemd integration
+    systemd.enable = false;
 
     settings = {
       font-family = "MesloLGS NF";
@@ -58,8 +58,6 @@
       shell-integration-features = [
         "sudo"
         "title"
-        "ssh-env"
-        "ssh-terminfo"
       ];
 
       gtk-single-instance = true;
