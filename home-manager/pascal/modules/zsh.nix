@@ -5,7 +5,6 @@
 let
   # P10K configuration files are now managed via Nix in p10k.nix
   configThemeNormal = ".p10k.zsh";
-  configThemeTTY = ".p10k-portable.zsh";
 in
 {
   fonts.fontconfig.enable = true;
@@ -28,13 +27,14 @@ in
 
       # Commands that should be added to top of {file}.zshrc.
       initContent = lib.mkBefore ''
-        # Load appropriate P10K config based on terminal capabilities
-        # P10K configs are now managed via Nix (see p10k.nix module)
-        if zmodload zsh/terminfo && (( terminfo[colors] >= 256 )); then
-          [[ ! -f ~/${configThemeNormal} ]] || source ~/${configThemeNormal}
-        else
-          [[ ! -f ~/${configThemeTTY} ]] || source ~/${configThemeTTY}
+        # Instant prompt (before anything else)
+        if [[ -r "${config.home.homeDirectory}/.cache/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
+          source "${config.home.homeDirectory}/.cache/p10k-instant-prompt-''${(%):-%n}.zsh"
         fi
+
+        # Load P10K config based on terminal capabilities
+        # P10K configs are now managed via Nix (see p10k.nix module)
+        source ~/${configThemeNormal}
 
         # disable nomatch to fix weird compatility issues with bash
         setopt +o nomatch
@@ -56,11 +56,11 @@ in
 
         plugins = [
           "git"
-          "docker"
-          "colorize"
-          "colored-man-pages"
-          "sudo"
-          "z"
+          #"docker"
+          #"colorize"
+          #"colored-man-pages"
+          #"sudo"
+          #"z"
         ];
 
       };
@@ -100,17 +100,16 @@ in
 
         # shell aliases
         python3-shell = ''
-          function _python3_shell {
+          _python3_shell() {
             local venv_dir=".venv"
             python3 -m venv "$venv_dir" && \
             source "$venv_dir/bin/activate" && \
             pip install pycryptodome pycryptodomex pwntools requests
           }
-          _python3_shell
         '';
         python-shell = "python3-shell";
         python2-shell = ''
-          function _python2_shell {
+          _python2_shell() {
             local venv_dir=".venv2"
             # Remove the venv directory if it exists
             [[ -d "$venv_dir" ]] && rm -rf "$venv_dir"
@@ -119,7 +118,6 @@ in
             source "$venv_dir/bin/activate" && \
             pip install pycryptodome pwntools requests
           }
-          _python2_shell
         '';
         ruby-shell = "nix-shell -p ruby bundler";
         node-shell = "nix-shell -p nodePackages_latest.nodejs";
