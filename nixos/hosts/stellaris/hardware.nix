@@ -199,6 +199,10 @@
     };
   };
 
+  services.uccd = {
+    enable = false;
+  };
+
   # Fix TCC service missing commands
   systemd.services.tccd = {
     # Add missing utilities to PATH for TCC to work properly

@@ -185,6 +185,8 @@
       repo = "packages";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    ucc.url = "github:Mag1cByt3s/ucc/nix-nixos-module-uccd";
   };
 
   outputs =
@@ -194,6 +196,7 @@
     , pre-commit-hooks
     , #binaryninja,
       redflake-packages
+    , ucc
     , darkmatter-grub-theme
     , tuxedo-nixos
     , spicetify-nix
@@ -420,7 +423,7 @@
                   extraModules =
                     extraModules
                       ++ (if includeSpicetify then [ spicetify-nix.nixosModules.default ] else [ ])
-                      ++ (if includeTuxedo then [ tuxedo-nixos.nixosModules.default ] else [ ]);
+                      ++ (if includeTuxedo then [ tuxedo-nixos.nixosModules.default ucc.nixosModules.default ] else [ ]);
                 })
               ]
               ++ (map (cfg: mkHomeManagerConfig (cfg // { pkgs = hostPkgs; })) homeManagerConfigs);
