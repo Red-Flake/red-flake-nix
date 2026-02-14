@@ -262,7 +262,6 @@ in
       {
         #displayName = "en";
         layout = "gb";
-        model = "pc105";
         #variant = "intl";
       }
     ];
