@@ -1239,16 +1239,15 @@
         "nixpkgs": "nixpkgs_7"
       },
       "locked": {
-        "lastModified": 1770942264,
-        "narHash": "sha256-Bfxk4z9mG8Hr6RMZL8BL8eoFbgAwHjexMfcmp2Xy0JM=",
-        "owner": "Mag1cByt3s",
+        "lastModified": 1771149105,
+        "narHash": "sha256-G6AylRaE0AN/3igPGhE0xk6AC5d88aAtGBQinqqq3Vo=",
+        "owner": "nanomatters",
         "repo": "ucc",
-        "rev": "2034b2c660650458bfd007c1a437f6d11a96303e",
+        "rev": "80a8a678166f254b9a6b7d3c29766a405574faf2",
         "type": "github"
       },
       "original": {
-        "owner": "Mag1cByt3s",
-        "ref": "nix-nixos-module-uccd",
+        "owner": "nanomatters",
         "repo": "ucc",
         "type": "github"
       }

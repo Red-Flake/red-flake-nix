@@ -194,13 +194,13 @@
       tailor-gui.enable = lib.mkForce false; # GUI for TUXEDO Control Center equivalent
     };
     tuxedo-control-center = {
-      enable = true; # Enable original TUXEDO Control Center via tuxedo-nixos
+      enable = false; # Enable original TUXEDO Control Center via tuxedo-nixos
       package = inputs.tuxedo-nixos.packages.x86_64-linux.default;
     };
   };
 
   services.uccd = {
-    enable = false;
+    enable = true;
   };
 
   # Fix TCC service missing commands
