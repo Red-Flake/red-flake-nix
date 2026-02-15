@@ -100,8 +100,7 @@
       # Intel Xe: Disable verbose HW state warnings (hides non-fatal TLB WARN_ON)
       "xe.verbose_state_checks=0"
 
-      # Intel Xe: Never declare GPU wedged on hangs/timeouts (force reset recovery, avoid lockup)
-      "xe.wedged_mode=0"
+      # Intel Xe: Keep the driver default wedged policy (avoids kernel taint from wedged_mode=0)
 
       # Quiet Intel Xe DRM debug kernel log spam (TLB/PHY refclk issues...)
       "drm.debug=0x0"
