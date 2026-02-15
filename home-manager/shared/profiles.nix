@@ -26,7 +26,7 @@ in
       STEAM_EXTRA_COMPAT_TOOLS_PATHS = "\\\${HOME}/.steam/root/compatibilitytools.d";
 
       # Set terminal to Ghostty
-      TERMINAL = "ghostty";
+      TERMINAL = "ghostty +new-window";
 
       # Set global xcursor size to 24; this matches the default cursor size in KDE Plasma of 24
       XCURSOR_SIZE = "24";
@@ -156,7 +156,7 @@ in
       STEAM_EXTRA_COMPAT_TOOLS_PATHS = "\\\${HOME}/.steam/root/compatibilitytools.d";
 
       # Set terminal to Ghostty
-      TERMINAL = "ghostty";
+      TERMINAL = "ghostty +new-window";
 
       # Set global xcursor size to 24; this matches the default cursor size in KDE Plasma of 24
       XCURSOR_SIZE = "24";

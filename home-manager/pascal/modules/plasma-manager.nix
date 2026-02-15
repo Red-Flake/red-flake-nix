@@ -92,7 +92,7 @@ in
     hotkeys.commands."launch-ghostty" = {
       name = "Launch Ghostty";
       key = "Ctrl+Alt+T";
-      command = "ghostty";
+      command = "ghostty +new-window";
     };
 
     fonts = {

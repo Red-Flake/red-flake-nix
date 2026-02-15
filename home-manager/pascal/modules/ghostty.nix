@@ -8,8 +8,8 @@
     installBatSyntax = true;
     installVimSyntax = true;
 
-    # disable systemd integration
-    systemd.enable = false;
+    # enable systemd integration
+    systemd.enable = true;
 
     settings = {
       font-family = "MesloLGS NF";
@@ -79,6 +79,11 @@
       # auto update
       auto-update = "off";
 
+      # recommended for the "start at login, then open windows instantly" flow
+      # also set quit-after-last-window-closed = false; to keep it always running
+      quit-after-last-window-closed = false;
+      quit-after-last-window-closed-delay = "5m";
+
       # custom-shader = "shaders/aurora.glsl";
       # custom-shader = "shaders/cursor_smear.glsl";
       # custom-shader = "shaders/cursor_blaze.glsl";
@@ -102,6 +107,29 @@
       # custom-shader = "cursor_shaders/sonic_boom.glsl";
       # custom-shader = "cursor_shaders/ripple_rectangle.glsl";
       # custom-shader = "cursor_shaders/ripple_rectangle_boom.glsl";
+    };
+  };
+
+  # Override Ghostty's .desktop file to enable full d-bus via +new-window in order to enable faster startup and shared intances.
+  xdg.desktopEntries."com.mitchellh.ghostty" = {
+    name = "Ghostty";
+    comment = "A terminal emulator";
+    icon = "com.mitchellh.ghostty";
+    exec = "${pkgs.ghostty}/bin/ghostty +new-window"; # Fast D-Bus path!
+    type = "Application";
+    categories = [ "System" "TerminalEmulator" ];
+    startupNotify = true;
+    terminal = false;
+    actions = {
+      "new-window" = {
+        name = "New Window";
+        exec = "${pkgs.ghostty}/bin/ghostty +new-window";
+      };
+    };
+    settings = {
+      Keywords = "terminal;tty;pty;";
+      DBusActivatable = "true";
+      StartupWMClass = "com.mitchellh.ghostty";
     };
   };
 }
