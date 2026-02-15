@@ -92,6 +92,7 @@
       "xe.enable_fbc=0"
       "xe.enable_psr=0"
       "xe.enable_dc=0"
+      "xe.enable_sagv=0" # Disable SAGV (System Agent voltage/frequency scaling) for stability
 
       # Intel Xe: Quiet GuC firmware logs
       "xe.guc_log_level=0"
