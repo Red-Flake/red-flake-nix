@@ -1,10 +1,23 @@
-{ pkgs
+{ config
+, lib
+, pkgs
 , ...
 }:
 {
 
   # force creation of ~/.mozilla/firefox/profiles.ini otherwise home-manager will fail
   home.file.".mozilla/firefox/profiles.ini".force = true;
+
+  # If a previous config left a *file* at the profile path, Home Manager can't
+  # create the directory needed for `user.js` and activation fails.
+  home.activation.fixFirefoxProfileDir = lib.hm.dag.entryBefore [ "linkGeneration" ] ''
+    profile_dir="$HOME/.mozilla/firefox/${config.programs.firefox.profiles.redflake.path or "redflake"}"
+    if [ -e "$profile_dir" ] && [ ! -d "$profile_dir" ]; then
+      backup="$profile_dir.hm-backup-$(date +%s)"
+      echo "Home Manager: '$profile_dir' is not a directory; moving it to '$backup'..."
+      mv "$profile_dir" "$backup"
+    fi
+  '';
 
   programs.firefox = {
     enable = true;
@@ -14,6 +27,7 @@
       id = 0;
       name = "Red-Flake";
       isDefault = true;
+      path = "redflake";
 
       search = {
         default = "SearXNG";
