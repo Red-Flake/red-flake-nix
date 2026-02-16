@@ -1239,11 +1239,11 @@
         "nixpkgs": "nixpkgs_7"
       },
       "locked": {
-        "lastModified": 1771149105,
-        "narHash": "sha256-G6AylRaE0AN/3igPGhE0xk6AC5d88aAtGBQinqqq3Vo=",
+        "lastModified": 1771200005,
+        "narHash": "sha256-7Ykgtd3oCpF6JXtk0edabmY/nTt0effvfmzbeGOtRMo=",
         "owner": "nanomatters",
         "repo": "ucc",
-        "rev": "80a8a678166f254b9a6b7d3c29766a405574faf2",
+        "rev": "ba4b097b708a80aeabf509adb2452069753dd3d9",
         "type": "github"
       },
       "original": {
