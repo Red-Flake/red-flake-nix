@@ -6,4 +6,6 @@
     inputs.redflake-packages.packages.x86_64-linux.outline-electron
     inputs.ucc.packages.x86_64-linux.ucc
   ];
+
+  programs.localsend.enable = true;
 }
