@@ -1249,6 +1249,7 @@
       "original": {
         "owner": "nanomatters",
         "repo": "ucc",
+        "rev": "ba4b097b708a80aeabf509adb2452069753dd3d9",
         "type": "github"
       }
     },
