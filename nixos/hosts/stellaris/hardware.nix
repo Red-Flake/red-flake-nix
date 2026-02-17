@@ -94,9 +94,9 @@
       "xe.enable_dc=0"
       "xe.enable_sagv=0" # Disable SAGV (System Agent voltage/frequency scaling) for stability
 
-      # Intel Xe: Load GuC + HuC
+      # Intel Xe (i915): Load GuC + HuC
       # Force Xe driver to load GuC + HuC (bitmask: 1=GuC submission, 2=HuC → 3=both)
-      "xe.guc_load=3"
+      #"xe.guc_load=3"
       "i915.enable_guc=3" # Same bitmask (GuC+HuC)
 
       # Intel Xe: Quiet GuC firmware logs
