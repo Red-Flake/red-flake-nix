@@ -94,8 +94,13 @@
       "xe.enable_dc=0"
       "xe.enable_sagv=0" # Disable SAGV (System Agent voltage/frequency scaling) for stability
 
+      # Intel Xe: Load GuC + HuC
+      # Force Xe driver to load GuC + HuC (bitmask: 1=GuC submission, 2=HuC → 3=both)
+      "xe.guc_load=3"
+      "i915.enable_guc=3" # Same bitmask (GuC+HuC)
+
       # Intel Xe: Quiet GuC firmware logs
-      "xe.guc_log_level=0"
+      #"xe.guc_log_level=0"
 
       # Intel Xe: Disable verbose HW state warnings (hides non-fatal TLB WARN_ON)
       "xe.verbose_state_checks=0"
@@ -164,7 +169,26 @@
 
     # load firmware packages
     firmware = with pkgs; [
-      linux-firmware
+      (linux-firmware.overrideAttrs (_oldAttrs: {
+        postFixup = ''
+          # Arrow Lake-HX Xe2: Ensure we load the exact GuC firmware the kernel expects
+          # Found in DRM coredump: `sudo cat /sys/class/drm/card0/device/devcoredump/data | strings`
+          # GuC firmware: i915/mtl_guc_70.bin
+          # GuC version: 70.53.0 (wanted 70.44.1)
+          # Arrow Lake-HX Xe2 (PCI 0x7d67): Downgrade to exact GuC v70.44.1 kernel wants
+          # Source: git.kernel.org i915/mtl_guc_70.bin (historical commit with v70.44.1)
+          cp ${pkgs.fetchurl {
+            url = "https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/plain/i915/mtl_guc_70.bin";
+            sha256 = "sha256-d5Twtqvl/NnG9HA12v4hmfMKbn0jC9WlP7+ABaYOWRE=";  # nix-prefetch-url "https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/plain/i915/mtl_guc_70.bin" | xargs nix hash to-sri --type sha256
+          }} $out/lib/firmware/i915/mtl_guc_70.bin
+
+          # HuC for GT1 media (Firefox VAAPI): Standard Meteor/Arrow Lake
+          cp ${pkgs.fetchurl {
+            url = "https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/plain/i915/mtl_huc_gsc.bin";
+            sha256 = "sha256-PqI/OelGEi0URlZdGgfAhmvz48iBm0MTSSU3HYd8pM0=";  # nix-prefetch-url "https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/plain/i915/mtl_huc_gsc.bin" | xargs nix hash to-sri --type sha256
+          }} $out/lib/firmware/i915/mtl_huc_gsc.bin
+        '';
+      }))
     ];
 
     # enable CPU microcode updates
