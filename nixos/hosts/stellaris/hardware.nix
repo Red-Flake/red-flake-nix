@@ -92,7 +92,7 @@
       "xe.enable_fbc=0"
       "xe.enable_psr=0"
       "xe.enable_dc=0"
-      "xe.enable_sagv=0" # Disable SAGV (System Agent voltage/frequency scaling) for stability
+      #"xe.enable_sagv=0" # Disable SAGV (System Agent voltage/frequency scaling) for stability
 
       # Intel Xe (i915): Load GuC + HuC
       # Force Xe driver to load GuC + HuC (bitmask: 1=GuC submission, 2=HuC → 3=both)
@@ -103,12 +103,12 @@
       #"xe.guc_log_level=0"
 
       # Intel Xe: Disable verbose HW state warnings (hides non-fatal TLB WARN_ON)
-      "xe.verbose_state_checks=0"
+      #"xe.verbose_state_checks=0"
 
       # Intel Xe: Keep the driver default wedged policy (avoids kernel taint from wedged_mode=0)
 
       # Quiet Intel Xe DRM debug kernel log spam (TLB/PHY refclk issues...)
-      "drm.debug=0x0"
+      #"drm.debug=0x0"
 
       # Intel Hybrid perf
       "intel_pstate=passive" # Let userspace (TUXEDO Control Center / TLP) manage P-states for Intel hybrid CPUs
@@ -218,32 +218,34 @@
       tailor-gui.enable = lib.mkForce false; # GUI for TUXEDO Control Center equivalent
     };
     tuxedo-control-center = {
-      enable = false; # Enable original TUXEDO Control Center via tuxedo-nixos
+      enable = false; # Disable original TUXEDO Control Center via tuxedo-nixos
       package = inputs.tuxedo-nixos.packages.x86_64-linux.default;
     };
   };
 
+  # Enable Uniwill Control Center
+  # https://github.com/nanomatters/ucc
   services.uccd = {
     enable = true;
   };
 
   # Fix TCC service missing commands
-  systemd.services.tccd = {
-    # Add missing utilities to PATH for TCC to work properly
-    path = with pkgs; [
-      coreutils # provides 'users', 'cat', etc.
-      util-linux # provides additional system utilities
-      procps # provides process utilities
-    ];
-  };
+  #systemd.services.tccd = {
+  # Add missing utilities to PATH for TCC to work properly
+  #  path = with pkgs; [
+  #    coreutils # provides 'users', 'cat', etc.
+  #    util-linux # provides additional system utilities
+  #    procps # provides process utilities
+  #  ];
+  #};
 
   # Fix tccd-sleep.service: upstream has broken ExecStart/ExecStop with quoted commands
-  systemd.services.tccd-sleep = {
-    serviceConfig = {
-      ExecStart = lib.mkForce "${pkgs.systemd}/bin/systemctl stop tccd";
-      ExecStop = lib.mkForce "${pkgs.systemd}/bin/systemctl start tccd";
-    };
-  };
+  #systemd.services.tccd-sleep = {
+  #  serviceConfig = {
+  #    ExecStart = lib.mkForce "${pkgs.systemd}/bin/systemctl stop tccd";
+  #    ExecStop = lib.mkForce "${pkgs.systemd}/bin/systemctl start tccd";
+  #  };
+  #};
 
   services.xserver = {
     # For Wayland (KDE), prevent kwin_wayland from using NVIDIA by default.
@@ -272,7 +274,7 @@
 
   services.thermald.enable = lib.mkForce false; # Thermal management
 
-  #services.auto-cpufreq.enable = lib.mkForce false; # Disable if using TLP + performance governor
+  services.auto-cpufreq.enable = lib.mkForce false; # Disable if using TLP / TCCD / UCCD
 
   # Make sure nothing else fights TLP
   # default is `on` on Gnome / KDE, and prevents using tlp:
@@ -288,18 +290,18 @@
   # Keep it off by default for laptop power behavior, but make it easy to A/B test via a specialisation.
   services.irqbalance.enable = lib.mkDefault false;
 
-  specialisation.debug-irqbalance.configuration = {
-    services.irqbalance.enable = lib.mkForce true;
-  };
+  #specialisation.debug-irqbalance.configuration = {
+  #  services.irqbalance.enable = lib.mkForce true;
+  #};
 
   # A/B test: cap CPU package C-states to reduce wake latency/jitter.
   # Useful if GPU fence timeouts correlate with deep idle states (cost: higher idle power/temps).
-  specialisation.debug-cstate2.configuration = {
-    boot.kernelParams = [
-      "intel_idle.max_cstate=2"
-      "processor.max_cstate=2"
-    ];
-  };
+  #specialisation.debug-cstate2.configuration = {
+  #  boot.kernelParams = [
+  #    "intel_idle.max_cstate=2"
+  #    "processor.max_cstate=2"
+  #  ];
+  #};
 
   # Disable earlyoom on this machine. earlyoom kills at 5% RAM/ZRAM—too aggressive for 96GB + zram100%.
   services.earlyoom = {
