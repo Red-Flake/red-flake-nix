@@ -18,8 +18,8 @@
       font-style-bold = "Bold";
       font-style-italic = "Italic";
       font-style-bold-italic = "Bold Italic";
-      font-thicken = true;
-      bold-is-bright = false;
+      font-thicken = false;
+      #bold-is-bright = false;      # removed due to: compatibility handler for bold-is-bright handled error, you may be using a deprecated field: error.InvalidField
 
       #adjust-cell-height = "-2%";
       adjust-cursor-thickness = 15;
@@ -31,7 +31,7 @@
       mouse-hide-while-typing = true;
       mouse-scroll-multiplier = 1;
 
-      scrollback-limit = 4294967296;
+      scrollback-limit = 100000000000000; # Reasonable large value (~days of output)
 
       # copy settings
       copy-on-select = false;
@@ -48,7 +48,7 @@
       window-decoration = "auto";
       #window-padding-x = 5;
       #window-padding-y = 5;
-      window-vsync = true;
+      window-vsync = false;
       window-show-tab-bar = "always";
       window-theme = "ghostty"; # Use the background and foreground colors specified in the Ghostty configuration.
 
@@ -58,8 +58,6 @@
       shell-integration-features = [
         "sudo"
         "title"
-        "ssh-env"
-        "ssh-terminfo"
       ];
 
       gtk-single-instance = true;
@@ -76,10 +74,15 @@
       #bell-feature = "system"; # Unknown option in current ghostty version
 
       # async
-      async-backend = "auto";
+      async-backend = "epoll"; # Safer for Linux perf
 
       # auto update
       auto-update = "off";
+
+      # recommended for the "start at login, then open windows instantly" flow
+      # also set quit-after-last-window-closed = false; to keep it always running
+      quit-after-last-window-closed = false;
+      quit-after-last-window-closed-delay = "5m";
 
       # custom-shader = "shaders/aurora.glsl";
       # custom-shader = "shaders/cursor_smear.glsl";
@@ -104,6 +107,29 @@
       # custom-shader = "cursor_shaders/sonic_boom.glsl";
       # custom-shader = "cursor_shaders/ripple_rectangle.glsl";
       # custom-shader = "cursor_shaders/ripple_rectangle_boom.glsl";
+    };
+  };
+
+  # Override Ghostty's .desktop file to enable full d-bus via +new-window in order to enable faster startup and shared intances.
+  xdg.desktopEntries."com.mitchellh.ghostty" = {
+    name = "Ghostty";
+    comment = "A terminal emulator";
+    icon = "com.mitchellh.ghostty";
+    exec = "${pkgs.ghostty}/bin/ghostty +new-window"; # Fast D-Bus path!
+    type = "Application";
+    categories = [ "System" "TerminalEmulator" ];
+    startupNotify = true;
+    terminal = false;
+    actions = {
+      "new-window" = {
+        name = "New Window";
+        exec = "${pkgs.ghostty}/bin/ghostty +new-window";
+      };
+    };
+    settings = {
+      Keywords = "terminal;tty;pty;";
+      DBusActivatable = "true";
+      StartupWMClass = "com.mitchellh.ghostty";
     };
   };
 }
