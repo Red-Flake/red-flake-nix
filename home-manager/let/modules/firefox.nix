@@ -66,9 +66,11 @@
         # use smooth fonts
         "gfx.use_text_smoothing_setting" = true;
 
-        # disable vsync
-        "widget.wayland.vsync.enabled" = false;
-        "gfx.vsync.force-disable-waitforvblank" = true;
+        # NOTE: We intentionally do NOT disable Wayland vsync here.
+        # Disabling it can cause unthrottled rendering and trigger very high
+        # `kwin_wayland` CPU usage (observed as ~90% CPU on a 300Hz panel).
+        # "widget.wayland.vsync.enabled" = false;
+        # "gfx.vsync.force-disable-waitforvblank" = true;
 
         # enable DOM webgpu
         "dom.webgpu.enabled" = true;
@@ -228,8 +230,11 @@
         user_pref("gfx.webgpu.ignore-blocklist", true);
         user_pref("gfx.webrender.precache-shaders", true);
         user_pref("gfx.use_text_smoothing_setting", true);
-        user_pref("widget.wayland.vsync.enabled", false);
-        user_pref("gfx.vsync.force-disable-waitforvblank", true);
+        // NOTE: We intentionally do NOT disable Wayland vsync here.
+        // Disabling it can cause unthrottled rendering and trigger very high
+        // `kwin_wayland` CPU usage (observed as ~90% CPU on a 300Hz panel).
+        // user_pref("widget.wayland.vsync.enabled", false);
+        // user_pref("gfx.vsync.force-disable-waitforvblank", true);
         user_pref("dom.webgpu.enabled", true);
         user_pref("gfx.webrender.compositor", true);
         user_pref("gfx.webrender.compositor.force-enabled", true);
