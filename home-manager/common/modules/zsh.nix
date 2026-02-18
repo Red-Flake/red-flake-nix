@@ -311,6 +311,16 @@ in
         vdi2john = "vdi2john.pl";
       };
 
+      # Regular shell aliases (not global aliases).
+      shellAliases = {
+        # fastfetch's `de` detection may spawn `plasmashell --version`. In some
+        # sandboxed/contained terminal contexts this can fail to connect to
+        # Wayland/X11 and abort (SIGABRT), creating a coredump. Running fastfetch
+        # with an offscreen Qt platform avoids display connection attempts for
+        # such helper processes.
+        fastfetch = "QT_QPA_PLATFORM=offscreen command fastfetch";
+      };
+
       # define session variables
       # https://home-manager-options.extranix.com/?query=programs.zsh.localVariables&release=master
       localVariables = {

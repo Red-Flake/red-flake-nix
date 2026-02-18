@@ -1,4 +1,5 @@
-{ lib
+{ config
+, lib
 , pkgs
 , ...
 }:
@@ -91,6 +92,10 @@ in
         msfconsole = "msfconsole -q";
         mono-csc = "csc";
         proxychains = "proxychains4";
+        # Avoid coredumps when fastfetch probes Plasma (it may spawn
+        # `plasmashell --version`, which can abort in restricted/sandboxed
+        # terminal contexts if Qt can't connect to Wayland/X11).
+        fastfetch = "QT_QPA_PLATFORM=offscreen command fastfetch";
 
         # nixos
         redflake-rebuild = "bash <(curl -L https://raw.githubusercontent.com/Red-Flake/red-flake-nix/main/rebuild.sh)";
