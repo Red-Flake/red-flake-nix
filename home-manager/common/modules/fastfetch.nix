@@ -26,7 +26,16 @@
         "uptime"
         "packages"
         "shell"
-        "de"
+        # Don't use the built-in `de` module here: with version detection enabled,
+        # fastfetch may spawn `plasmashell --version`, which can abort (SIGABRT)
+        # and create a coredump in restricted terminal contexts where Qt can't
+        # connect to Wayland/X11. Show the DE from environment instead.
+        {
+          type = "command";
+          key = "DE";
+          text = "printf '%s' \"\${XDG_CURRENT_DESKTOP:-\${XDG_SESSION_DESKTOP:-unknown}}\"";
+          format = "{}";
+        }
         "wm"
         "wmtheme"
         "theme"
