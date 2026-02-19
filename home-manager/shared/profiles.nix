@@ -75,6 +75,9 @@ in
 
       # Common p10k module (uses pascal's configs)
       ../common/modules/p10k.nix
+
+      # UCC (Uniwill Control Center) module
+      ../pascal/modules/ucc.nix
     ];
     packages = packages.base ++ packages.desktop ++ packages.gaming ++ packages.development;
   };
