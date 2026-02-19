@@ -100,6 +100,7 @@
           "extensions.ignoreRecommendations" = true;
           "[nix]"."editor.tabSize" = 2;
           "nix.formatterPath" = "treefmt"; # // set nix formatter to treefmt to match GitHub CI"
+          "nixEnvSelector.useFlakes" = true;
           # // or pass full list of args like below
           # // "nix.formatterPath": ["treefmt", "--stdin", "{file}"]
           "editor.formatOnSave" = true;
