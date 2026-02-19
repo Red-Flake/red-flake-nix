@@ -95,14 +95,45 @@
           # This property will be used to generate settings.json:
           # https://code.visualstudio.com/docs/getstarted/settings#_settingsjson
           "update.channel" = "none";
+          "update.showReleaseNotes" = false;
+          "extensions.autoUpdate" = false;
+          "extensions.ignoreRecommendations" = true;
           "[nix]"."editor.tabSize" = 2;
           "nix.formatterPath" = "treefmt"; # // set nix formatter to treefmt to match GitHub CI"
           # // or pass full list of args like below
           # // "nix.formatterPath": ["treefmt", "--stdin", "{file}"]
           "editor.formatOnSave" = true;
+          "editor.smoothScrolling" = true;
+          "editor.stablePeek" = true;
+          "editor.tabCompletion" = "on";
+          "editor.cursorBlinking" = "smooth";
+          "editor.cursorSmoothCaretAnimation" = "on";
+          "workbench.settings.alwaysShowAdvancedSettings" = true;
+          "workbench.startupEditor" = "none";
           "workbench.colorTheme" = "Catppuccin Mocha";
+          "workbench.preferredDarkColorTheme" = "Catppuccin Mocha";
+          "workbench.tips.enabled" = false;
+          "workbench.externalBrowser" = "firefox";
+          "workbench.list.smoothScrolling" = true;
+          "workbench.welcomePage.walkthroughs.openOnInstall" = false;
+          "workbench.editor.enablePreviewFromCodeNavigation" = true;
+          "workbench.editor.enablePreviewFromQuickOpen" = true;
+          "window.restoreFullscreen" = true;
+          "window.newWindowDimensions" = "maximized";
           "powershell.powerShellAdditionalExePaths"."Downloaded PowerShell" = lib.getExe pkgs.powershell;
           "powershell.powerShellAdditionalExePaths"."Built PowerShell" = lib.getExe pkgs.powershell;
+          "scm.alwaysShowActions" = true;
+          "scm.alwaysShowRepositories" = true;
+          "terminal.explorerKind" = "external";
+          "terminal.external.linuxExec" = "ghostty +new-window";
+
+          # disable telemetry
+          "telemetry.editStats.details.enabled" = false;
+          "telemetry.editStats.enabled" = false;
+          "telemetry.editStats.showDecorations" = false;
+          "telemetry.editStats.showStatusBar" = false;
+          "telemetry.feedback.enabled" = false;
+          "telemetry.telemetryLevel" = "off";
         };
 
         # set keybindings

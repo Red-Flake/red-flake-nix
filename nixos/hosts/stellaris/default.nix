@@ -9,6 +9,7 @@
     ./gaming.nix
     ./nvidia.nix
     ./ollama.nix
+    ./on-demand-services.nix
     ./packages.nix
   ];
 }
