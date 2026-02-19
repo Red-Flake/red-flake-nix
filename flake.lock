@@ -1239,17 +1239,17 @@
         "nixpkgs": "nixpkgs_7"
       },
       "locked": {
-        "lastModified": 1771445078,
-        "narHash": "sha256-Ph57XoIUHdrklYDz4BKIcR2hwxhnz8gHPSJl3akgITE=",
+        "lastModified": 1771458181,
+        "narHash": "sha256-xVM4/jjbNjMVvCgTpt62dpkbjfRPcsM7uIFDijGueNo=",
         "owner": "nanomatters",
         "repo": "ucc",
-        "rev": "e5a668572526e633817cbc73fb27b4a5311e8eba",
+        "rev": "98b84999db127b2abfb471bb4814979b675f2e91",
         "type": "github"
       },
       "original": {
         "owner": "nanomatters",
         "repo": "ucc",
-        "rev": "e5a668572526e633817cbc73fb27b4a5311e8eba",
+        "rev": "98b84999db127b2abfb471bb4814979b675f2e91",
         "type": "github"
       }
     },
