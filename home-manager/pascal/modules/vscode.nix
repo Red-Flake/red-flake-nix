@@ -94,7 +94,7 @@
         userSettings = {
           # This property will be used to generate settings.json:
           # https://code.visualstudio.com/docs/getstarted/settings#_settingsjson
-          "update.channel" = "none";
+          "update.mode" = "none";
           "update.showReleaseNotes" = false;
           "extensions.autoUpdate" = false;
           "extensions.ignoreRecommendations" = true;
@@ -123,6 +123,7 @@
           "window.newWindowDimensions" = "maximized";
           "powershell.powerShellAdditionalExePaths"."Downloaded PowerShell" = lib.getExe pkgs.powershell;
           "powershell.powerShellAdditionalExePaths"."Built PowerShell" = lib.getExe pkgs.powershell;
+          "powershell.promptToUpdatePowerShell" = false;
           "scm.alwaysShowActions" = true;
           "scm.alwaysShowRepositories" = true;
           "terminal.explorerKind" = "external";
@@ -135,6 +136,9 @@
           "telemetry.editStats.showStatusBar" = false;
           "telemetry.feedback.enabled" = false;
           "telemetry.telemetryLevel" = "off";
+          "gitlens.telemetry.enabled" = false;
+          "redhat.telemetry.enabled" = false;
+          "workbench.enableExperiments" = false;
         };
 
         # set keybindings
