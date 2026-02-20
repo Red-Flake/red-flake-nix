@@ -7,7 +7,7 @@ _self: super: {
     # Fetch the script from GitHub
     src = super.fetchurl {
       url = "https://raw.githubusercontent.com/Red-Flake/nmapAutomator/refs/heads/master/nmapAutomator.sh";
-      sha256 = "sha256-fFbSnuL8xcFKLZSGCR87e7VZ7VABpjBKIQWuwJSnO/4="; # Replace with the actual SHA256 hash
+      sha256 = "sha256-fcjTULv06C9+aMLTcZTeeejXEqqnE1/SymHzvQbjjAU="; # nix-prefetch-url "https://raw.githubusercontent.com/Red-Flake/nmapAutomator/refs/heads/master/nmapAutomator.sh" | xargs nix hash to-sri --type sha256
     };
 
     # Runtime dependencies
