@@ -143,7 +143,9 @@
   systemd.services.nvidia-suspend = {
     serviceConfig = {
       Type = "oneshot";
-      ExecStart = lib.mkForce "${config.boot.kernelPackages.nvidiaPackages.latest}/bin/nvidia-sleep.sh suspend";
+      # `nvidia-sleep.sh` ships with `#!/bin/bash`, but NixOS does not guarantee `/bin/bash` exists.
+      # If the interpreter is missing, systemd reports ENOENT on the script itself and suspend fails.
+      ExecStart = lib.mkForce "${pkgs.bash}/bin/bash ${config.boot.kernelPackages.nvidiaPackages.latest}/bin/nvidia-sleep.sh suspend";
     };
     before = [ "systemd-suspend.service" ];
     wantedBy = [ "suspend.target" ];
@@ -152,7 +154,7 @@
   systemd.services.nvidia-hibernate = {
     serviceConfig = {
       Type = "oneshot";
-      ExecStart = lib.mkForce "${config.boot.kernelPackages.nvidiaPackages.latest}/bin/nvidia-sleep.sh hibernate";
+      ExecStart = lib.mkForce "${pkgs.bash}/bin/bash ${config.boot.kernelPackages.nvidiaPackages.latest}/bin/nvidia-sleep.sh hibernate";
     };
     before = [ "systemd-hibernate.service" ];
     wantedBy = [ "hibernate.target" ];
@@ -161,7 +163,7 @@
   systemd.services.nvidia-resume = {
     serviceConfig = {
       Type = "oneshot";
-      ExecStart = lib.mkForce "${config.boot.kernelPackages.nvidiaPackages.latest}/bin/nvidia-sleep.sh resume";
+      ExecStart = lib.mkForce "${pkgs.bash}/bin/bash ${config.boot.kernelPackages.nvidiaPackages.latest}/bin/nvidia-sleep.sh resume";
     };
     after = [
       "systemd-suspend.service"
