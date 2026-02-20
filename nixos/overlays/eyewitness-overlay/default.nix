@@ -6,16 +6,16 @@ _self: super: {
       pyvirtualdisplay = psuper.pyvirtualdisplay.overrideAttrs (_old: {
         postPatch = ''
           substituteInPlace pyvirtualdisplay/xvfb.py \
-            --replace '"Xvfb"' '"${super.xorg.xorgserver}/bin/Xvfb"'
+            --replace '"Xvfb"' '"${super.xvfb}/bin/Xvfb"'
           substituteInPlace pyvirtualdisplay/abstractdisplay.py \
-            --replace "'Xvfb'" "'${super.xorg.xorgserver}/bin/Xvfb'"
+            --replace "'Xvfb'" "'${super.xvfb}/bin/Xvfb'"
         '';
       });
     };
   };
 
   eyewitness = super.eyewitness.overrideAttrs (old: {
-    dependencies = old.dependencies or [ ] ++ [ super.xorg.xorgserver ];
+    dependencies = old.dependencies or [ ] ++ [ super.xvfb ];
 
     postPatch = ''
       substituteInPlace Python/modules/selenium_module.py \
@@ -31,7 +31,7 @@ _self: super: {
       makeWrapper "${super.python3Packages.python.interpreter}" "$out/bin/eyewitness" \
         --set PYTHONPATH "$PYTHONPATH" \
         --add-flags "$out/share/eyewitness/Python/EyeWitness.py" \
-        --prefix PATH : "${super.lib.makeBinPath [ super.xorg.xorgserver super.geckodriver super.firefox-esr super.xvfb-run ]}"
+        --prefix PATH : "${super.lib.makeBinPath [ super.xvfb super.geckodriver super.firefox-esr super.xvfb-run ]}"
 
       runHook postFixup
     '';
