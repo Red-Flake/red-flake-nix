@@ -5,20 +5,29 @@
 }:
 
 let
-  nixCaches =
-    let
-      flakeConfig = inputs.self.nixConfig or { };
-    in
-    {
-      substituters =
-        lib.unique (
-          [
-            "https://cache.nixos.org/"
-          ]
-          ++ (flakeConfig."extra-substituters" or [ ])
-        );
-      trustedPublicKeys = lib.unique (flakeConfig."extra-trusted-public-keys" or [ ]);
-    };
+  # NOTE: flake-level `nixConfig` is not available inside `builtins.getFlake` / NixOS module evaluation,
+  # so we keep the cache list here (and append in host modules when needed).
+  nixCaches = {
+    substituters = lib.unique [
+      "https://cache.nixos.org/"
+      "https://nix-community.cachix.org/"
+      "https://nyx.chaotic.cx"
+      "https://claude-code.cachix.org"
+      "https://mrn157.cachix.org/"
+      "https://cache.garnix.io"
+      "https://attic.xuyh0120.win/lantian"
+    ];
+    trustedPublicKeys = lib.unique [
+      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
+      "nyx.chaotic.cx-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
+      "claude-code.cachix.org-1:YeXf2aNu7UTX8Vwrze0za1WEDS+4DuI2kVeWEE4fsRk="
+      "mrn157.cachix.org-1:A3KuzqTH/AeTFpDsu7Fql7KpZBJvFCkfNqxkL2+DZlc="
+      "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
+      "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
+    ];
+  };
 in
 {
   nix =

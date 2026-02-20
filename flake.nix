@@ -11,7 +11,8 @@
       "https://nix-community.cachix.org/"
       "https://nyx.chaotic.cx"
       "https://claude-code.cachix.org"
-      #"https://cache.garnix.io"
+      "https://mrn157.cachix.org/"
+      "https://cache.garnix.io"
       "https://attic.xuyh0120.win/lantian"
     ];
     extra-trusted-public-keys = [
@@ -20,7 +21,8 @@
       "chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
       "nyx.chaotic.cx-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
       "claude-code.cachix.org-1:YeXf2aNu7UTX8Vwrze0za1WEDS+4DuI2kVeWEE4fsRk="
-      #"cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
+      "mrn157.cachix.org-1:A3KuzqTH/AeTFpDsu7Fql7KpZBJvFCkfNqxkL2+DZlc="
+      "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
       "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
     ];
     extra-deprecated-features = [
@@ -148,6 +150,9 @@
 
     # https://github.com/xddxdd/nix-cachyos-kernel
     #nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
+
+    # CachyOS kernels via CachyNix (cached via mrn157.cachix + cache.garnix)
+    cachynix.url = "github:Mrn157/CachyNix";
 
     # https://github.com/xiv3r/Burpsuite-Professional
     burpsuitepro = {

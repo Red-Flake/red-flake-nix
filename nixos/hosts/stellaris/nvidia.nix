@@ -7,13 +7,11 @@
 }:
 {
 
-  # Enable Nix cache for CUDA packages
-  nix.settings = {
-    substituters = [ "https://cuda-maintainers.cachix.org" ];
-    trusted-public-keys = [
-      "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E="
-    ];
-  };
+  # Enable Nix cache for CUDA packages (append; don't override global caches).
+  nix.settings.substituters = lib.mkAfter [ "https://cuda-maintainers.cachix.org" ];
+  nix.settings.trusted-public-keys = lib.mkAfter [
+    "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E="
+  ];
 
   boot = {
     # Nvidia-specific: kernel parameters
@@ -78,9 +76,9 @@
       # architecture than Turing (older than the RTX 20-Series).
       open = true;
 
-      # Enable the Nvidia settings menu,
-      # accessible via `nvidia-settings`.
-      nvidiaSettings = true;
+      # We'll install a locally fixed nvidia-settings below (upstream build currently
+      # fails due to missing `strip` in PATH during the build).
+      nvidiaSettings = false;
 
       # Disable NVIDIA persistence mode so the driver can be unloaded when not in use.
       nvidiaPersistenced = false;
@@ -109,6 +107,13 @@
       ];
     };
   };
+
+  environment.systemPackages = [
+    (config.hardware.nvidia.package.settings.overrideAttrs (old: {
+      nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.binutils ];
+      makeFlags = (old.makeFlags or [ ]) ++ [ "STRIP=${pkgs.binutils}/bin/strip" ];
+    }))
+  ];
 
   # Custom udev rules for NVIDIA GPU
   # See: https://download.nvidia.com/XFree86/Linux-x86_64/580.65.06/README/dynamicpowermanagement.html
