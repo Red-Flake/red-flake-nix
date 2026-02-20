@@ -114,7 +114,7 @@
       "intel_pstate=passive" # Let userspace (TUXEDO Control Center / TLP) manage P-states for Intel hybrid CPUs
 
       # Select full kernel preemption via PREEMPT_DYNAMIC: lets higher‑prio tasks preempt most kernel code -> lower latency/better interactivity, small throughput/overhead cost.
-      "preempt=full"
+      #"preempt=full"
 
       # Prefer THP madvise for desktop/gaming workloads.
       "transparent_hugepage=madvise"
