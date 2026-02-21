@@ -110,6 +110,16 @@
       # Quiet Intel Xe DRM debug kernel log spam (TLB/PHY refclk issues...)
       #"drm.debug=0x0"
 
+      # Workarounds for Intel `xe` TLB invalidation fence timeouts / PHY refclk hiccups.
+      # Disable SAGV (System Agent voltage/frequency scaling) for stability.
+      "xe.enable_sagv=0"
+      # Disable Panel Replay / PSR2 selective fetch. Some panels/firmware combos misbehave here.
+      "xe.enable_panel_replay=0"
+      "xe.enable_psr2_sel_fetch=0"
+      "xe.psr_safest_params=1"
+      # Keep display power wells on (avoid refclk/power-well related glitches at the cost of power).
+      "xe.disable_power_well=0"
+
       # Intel Hybrid perf
       "intel_pstate=passive" # Let userspace (TUXEDO Control Center / TLP) manage P-states for Intel hybrid CPUs
 
@@ -289,19 +299,6 @@
   # On hybrid CPUs (P/E-cores), irqbalance can be a win or a loss depending on workload/power goals.
   # Keep it off by default for laptop power behavior, but make it easy to A/B test via a specialisation.
   services.irqbalance.enable = lib.mkDefault false;
-
-  #specialisation.debug-irqbalance.configuration = {
-  #  services.irqbalance.enable = lib.mkForce true;
-  #};
-
-  # A/B test: cap CPU package C-states to reduce wake latency/jitter.
-  # Useful if GPU fence timeouts correlate with deep idle states (cost: higher idle power/temps).
-  #specialisation.debug-cstate2.configuration = {
-  #  boot.kernelParams = [
-  #    "intel_idle.max_cstate=2"
-  #    "processor.max_cstate=2"
-  #  ];
-  #};
 
   # Disable earlyoom on this machine. earlyoom kills at 5% RAM/ZRAM—too aggressive for 96GB + zram100%.
   services.earlyoom = {
