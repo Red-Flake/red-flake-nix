@@ -191,8 +191,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    ucc.url = "github:nanomatters/ucc/165b859615d7d00a3836ff6ca747976d4b5f449b";
-    #ucc.url = "github:Mag1cByt3s/ucc/nix-nixos-module-uccd";
+    #ucc.url = "github:nanomatters/ucc/c087b25ee3460958ae35e6021f86e72b7e44bc80";
+    ucc.url = "github:Mag1cByt3s/ucc/f2b6510c2605ea26ddc7d2698e061808b35c4d91";
   };
 
   outputs =
