@@ -68,7 +68,7 @@
 
       # Optional: extra Vulkan ICD and Mesa Vulkan layers, useful for some apps and games
       extraPackages = with pkgs; [
-        ocl-icd # OpenCL ICD loader
+        #ocl-icd # OpenCL ICD loader; dont enable this since it conflicts with rocmPackages.clr
         rocmPackages.clr # ROCm OpenCL runtime (ships an ICD file)
         rocmPackages.rocminfo
         rocmPackages.rocm-smi
