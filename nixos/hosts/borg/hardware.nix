@@ -131,7 +131,6 @@
       rocmPackages.hiprand
       rocmPackages.rocm-runtime
       rocmPackages.rocminfo
-      rocmPackages.rpp-opencl
 
       # ROCm Application for Reporting System Info
       rocmPackages.rocminfo
