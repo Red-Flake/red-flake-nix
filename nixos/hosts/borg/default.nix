@@ -3,7 +3,6 @@
   imports = [
     ./hardware.nix
     ./sysctl.nix
-    ./cachyos-kernel.nix
     ./packages.nix
   ];
 }

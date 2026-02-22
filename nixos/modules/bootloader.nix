@@ -32,8 +32,7 @@ in
       "biosdevname=0"
     ];
 
-    # Switch to latest Xanmod Kernel
-    kernelPackages = pkgs.linuxPackages_xanmod_latest;
+    # Kernel selection is handled by `custom.kernel.*` (see `nixos/modules/kernel.nix`).
 
     # Initramfs settings
     initrd = {

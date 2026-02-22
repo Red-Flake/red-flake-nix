@@ -10,6 +10,8 @@
     # enable ZFS encryption
     zfs.encryption = true;
 
+    kernel.cachyos.mArch = "GENERIC_V3";
+
     # disable Intel OpenCL legacy runtime
     IntelComputeRuntimeLegacy.enable = false;
 

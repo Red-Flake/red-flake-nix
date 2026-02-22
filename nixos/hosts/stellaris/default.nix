@@ -4,7 +4,6 @@
     ./hardware.nix
     ./sysctl.nix
     ./performance.nix
-    ./cachyos-kernel.nix
     #./xanmod.nix
     ./avatar.nix
     ./gaming.nix

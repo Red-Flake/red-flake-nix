@@ -7,6 +7,8 @@
 }:
 {
 
+  custom.kernel.nvidia.stripFix.enable = true;
+
   # Enable Nix cache for CUDA packages (append; don't override global caches).
   nix.settings.substituters = lib.mkAfter [ "https://cuda-maintainers.cachix.org" ];
   nix.settings.trusted-public-keys = lib.mkAfter [
