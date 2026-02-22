@@ -145,9 +145,6 @@
       # CMake modules for common build tasks for the ROCm stack
       rocmPackages.rocm-cmake
 
-      # Radeon open compute thunk interface
-      rocmPackages.rocm-thunk
-
       # You should also install the clinfo package to verify that OpenCL is correctly setup (or check in the program you use to see if it is now available, such as in Darktable).
       clinfo
     ];
