@@ -67,9 +67,9 @@
       # Optional: extra Vulkan ICD and Mesa Vulkan layers, useful for some apps and games
       extraPackages = with pkgs; [
         vulkan-tools # For vulkaninfo and debugging Vulkan apps
-        rocmPackages.clr
-        rocmPackages.rocminfo
-        rocmPackages.rocm-smi
+        rocmPackages.clr.icd
+        vaapiVdpau
+        libvdpau-va-gl
       ];
     };
   };
