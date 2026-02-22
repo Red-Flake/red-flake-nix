@@ -68,7 +68,7 @@
       extraPackages = with pkgs; [
         vulkan-tools # For vulkaninfo and debugging Vulkan apps
         rocmPackages.clr.icd
-        vaapiVdpau
+        libva-vdpau-driver
         libvdpau-va-gl
       ];
     };
