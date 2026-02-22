@@ -4,7 +4,7 @@
 }:
 
 let
-  pwndbg = inputs.pwndbg.packages.${pkgs.system}.default;
+  pwndbg = inputs.pwndbg.packages.${pkgs.stdenv.hostPlatform.system}.default;
 in
 {
   # List packages installed in system profile. To search, run:

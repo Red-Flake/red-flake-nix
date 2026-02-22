@@ -30,7 +30,7 @@ let
       };
 
   cachyPkgs = import inputs.cachynix.inputs.nixpkgs {
-    inherit (pkgs) system;
+    inherit (pkgs.stdenv.hostPlatform) system;
     overlays = [ inputs.cachynix.overlays.default ];
     config = {
       allowUnfree = pkgs.config.allowUnfree or true;

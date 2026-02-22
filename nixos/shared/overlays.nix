@@ -3,6 +3,9 @@
 let
   # Base overlays available to all hosts
   baseOverlays = [
+    # Provide a non-deprecated `pkgs.system` attr for older overlays/modules.
+    (_: prev: { inherit (prev.stdenv.hostPlatform) system; })
+
     # Lix overlay
     (_: prev: {
       inherit (prev.lixPackageSets.stable)
@@ -15,7 +18,7 @@ let
 
     # Chaotic-Nyx overlay
     (_: prev: {
-      chaoticPkgs = import inputs.chaotic { inherit (prev) system; };
+      chaoticPkgs = import inputs.chaotic { inherit (prev.stdenv.hostPlatform) system; };
     })
 
     # NUR overlay
@@ -85,7 +88,7 @@ let
 
     # Ghostty tip package
     (final: _prev: {
-      ghostty = inputs.ghostty.packages.${final.system}.default;
+      ghostty = inputs.ghostty.packages.${final.stdenv.hostPlatform.system}.default;
     })
 
     # Ghostty: suppress noisy warnings in journald

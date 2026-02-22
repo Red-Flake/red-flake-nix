@@ -8,7 +8,7 @@ let
   # `pkgs.ucc` is the HPC UCC library (no tray binary). Prefer the flake input.
   uccPkg =
     if inputs != null && inputs ? ucc then
-      inputs.ucc.packages.${pkgs.system}.ucc
+      inputs.ucc.packages.${pkgs.stdenv.hostPlatform.system}.ucc
     else
       pkgs.ucc;
 
