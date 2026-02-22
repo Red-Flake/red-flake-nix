@@ -5,8 +5,47 @@
 }:
 {
 
-  # force creation of ~/.mozilla/firefox/profiles.ini otherwise home-manager will fail
-  home.file.".mozilla/firefox/profiles.ini".force = true;
+  # Ensure `profiles.ini` is writable.
+  #
+  # Firefox needs to write `~/.mozilla/firefox/profiles.ini` (Profile Manager, migrations, etc).
+  # If it ends up managed as an immutable Home Manager symlink, Firefox can misbehave (e.g. grey window).
+  home.activation.ensureWritableFirefoxProfilesIni = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
+        set -euo pipefail
+        ff_dir="$HOME/.mozilla/firefox"
+        profiles_ini="$ff_dir/profiles.ini"
+
+        mkdir -p "$ff_dir"
+
+        # If Home Manager (or a past config) created it as a symlink, replace it with a real file.
+        if [ -L "$profiles_ini" ]; then
+          tmp="$(mktemp)"
+          cp -aL "$profiles_ini" "$tmp" || true
+          rm -f "$profiles_ini"
+          if [ -s "$tmp" ]; then
+            cat "$tmp" > "$profiles_ini"
+          else
+            : > "$profiles_ini"
+          fi
+          rm -f "$tmp"
+        fi
+
+        # If it's missing or empty, seed a minimal config that points at our managed profile path.
+        if [ ! -s "$profiles_ini" ]; then
+          cat > "$profiles_ini" <<EOF
+    [General]
+    Version=2
+    StartWithLastProfile=1
+
+    [Profile0]
+    Name=${config.programs.firefox.profiles.redflake.name or "Red-Flake"}
+    IsRelative=1
+    Path=${config.programs.firefox.profiles.redflake.path or "redflake"}
+    Default=1
+    EOF
+        fi
+
+        chmod u+rw "$profiles_ini" || true
+  '';
 
   # If a previous config left a *file* at the profile path, Home Manager can't
   # create the directory needed for `user.js` and activation fails.
@@ -59,9 +98,9 @@
         # Disable recommended performance preferences; this helps improve render performance a lot
         "browser.preferences.defaultPerformanceSettings.enabled" = false;
 
-        # Force hardware acceleration
-        "gfx.webrender.all" = true;
-        "gfx.webgpu.ignore-blocklist" = true;
+        # Avoid forcing graphics features that Firefox would normally blocklist.
+        # Forcing WebRender/WebGPU/DMABUF/VA-API can cause intermittent UI hangs
+        # on some driver + Wayland compositor combinations.
 
         # use smooth fonts
         "gfx.use_text_smoothing_setting" = true;
@@ -75,65 +114,51 @@
         # bump DOM IPC process count to 24 (= number of CPU threads)
         "dom.ipc.processCount" = 24;
 
-        # enable DOM webgpu
-        "dom.webgpu.enabled" = true;
-
-        # enable webrender compositor
-        "gfx.webrender.compositor" = true;
-
-        # force enable webrender compositor
-        "gfx.webrender.compositor.force-enabled" = true;
-
-        # enable webrender layer compositor
-        "gfx.webrender.layer-compositor" = true;
-
-        # pre cache webrender shaders
-        "gfx.webrender.precache-shaders" = true;
-
-        # Force hardware acceleration for compositing browser layers
-        "layers.force-active" = true;
-        "layers.acceleration.disabled" = false;
-        "layers.acceleration.force-enabled" = true;
-
-        # Force 300 FPS framerate
-        "layout.frame_rate" = 300;
-
-        # Force canvas acceleration
-        "gfx.canvas.accelerated" = true;
-        "gfx.canvas.accelerated.aa-stroke.enabled" = true;
-        "gfx.canvas.accelerated.async-present" = true;
-        "gfx.canvas.accelerated.force-enabled" = true;
-
         # enable fractional scaling on wayland
         "widget.wayland.fractional-scale.enabled" = true;
 
-        # fix issue with dropped frames
-        "widget.wayland.opaque-region.enabled" = false;
-
         # changes touchpad gesture scrolling from page/line-based (0 or 1) to pixel-based mode (2), resulting in smoother, less jumpy scrolling
         # https://jfkimmes.eu/posts/firefox-trackpad-on-wayland/
+        "apz.gtk.kinetic_scroll.enabled" = true;
         "apz.gtk.kinetic_scroll.delta_mode" = 2;
         "apz.gtk.pangesture.delta_mode" = 2;
 
         # lower scrolling speed for smoother / slower scrolling
         # https://jfkimmes.eu/posts/firefox-trackpad-on-wayland/
-        "apz.gtk.kinetic_scroll.pixel_delta_mode_multiplier" = 15;
-        "apz.gtk.pangesture.pixel_delta_mode_multiplier" = 15;
+        # The article uses 20 as a good baseline.
+        "apz.gtk.kinetic_scroll.pixel_delta_mode_multiplier" = 20;
+        "apz.gtk.pangesture.pixel_delta_mode_multiplier" = 20;
 
-        # for smoother scrolling
+        # Note: `apz.gtk.touchpad_hold.enabled` can cause abrupt stops if your fingers
+        # frequently re-contact the pad; keep it off for a more continuous “fade out”.
+        "apz.gtk.touchpad_hold.enabled" = false;
+
+        # for smoother scrolling (keep mostly default behavior; touchpad uses APZ)
+        "general.smoothScroll" = true;
         "general.smoothScroll.msdPhysics.enabled" = true;
 
-        # increase scrolling friction for 'heavier' scroll feel
-        "apz.fling_friction" = 0.005;
+        # Momentum (“fling”) tuning: higher friction = stops sooner / less slippery.
+        # Values around 0.01–0.03 are commonly used to make touchpad flings feel heavier.
+        # If scrolling stops too early, reduce this (e.g. 0.012–0.018) for a longer “fade out”.
+        "apz.fling_friction" = 0.012;
+        # Avoid turning tiny finger movements into a long momentum fling.
+        "apz.fling_min_velocity_threshold" = 4.0;
 
         # add overscroll
         "apz.overscroll.enabled" = true;
 
         "browser.aboutConfig.showWarning" = false;
         "toolkit.telemetry.enabled" = false;
-        "browser.startup.page" = 3; # Open windows and tabs from the last session
+        # Session restore (keep), but avoid getting stuck in an infinite “restore after crash” loop.
+        # If a session file/tab triggers a render/GPU hang, unlimited crash-restore retries can make
+        # Firefox look permanently broken (grey window) until you remove `sessionstore*.jsonlz4`.
+        "browser.startup.page" = 3; # Restore previous session
         "browser.sessionstore.resume_from_crash" = true;
-        "browser.sessionstore.max_resumed_crashes" = -1;
+        "browser.sessionstore.max_resumed_crashes" = 2;
+        # Restore tabs on demand to reduce startup load (and reduce the chance of immediately
+        # triggering the problematic tab/GPU/video path during startup).
+        "browser.sessionstore.restore_on_demand" = true;
+        "browser.sessionstore.restore_pinned_tabs_on_demand" = true;
         "browser.newtabpage.enabled" = true;
         "browser.newtabpage.activity-stream.topSitesRows" = 2;
         "browser.newtabpage.storageVersion" = 1;
@@ -233,8 +258,9 @@
         "extensions.formautofill.heuristics.enabled" = false;
         "signon.formlessCapture.enabled" = false;
         "network.auth.subresource-http-auth-allow" = 1;
+        # VA-API hardware video decoding (Intel Quick Sync). If you still hit freezes,
+        # try toggling this off to see whether decode is the trigger.
         "media.ffmpeg.vaapi.enabled" = true;
-        "widget.dmabuf.force-enabled" = true;
         "webgl.enable-debug-renderer-info" = false;
         "network.http.speculative-parallel-limit" = 0;
 
@@ -262,13 +288,6 @@
       extraConfig = ''
         user_pref("remote.prefs.recommended", false);
         user_pref("browser.preferences.defaultPerformanceSettings.enabled", false);
-        user_pref("layers.acceleration.disabled", false);
-        user_pref("layers.acceleration.force-enabled", true);
-        user_pref("layers.force-active", true);
-        user_pref("gfx.webrender.all", true);
-        user_pref("gfx.webgpu.ignore-blocklist", true);
-        user_pref("gfx.webrender.precache-shaders", true);
-        user_pref("layout.frame_rate", 300);
         user_pref("gfx.use_text_smoothing_setting", true);
         // NOTE: We intentionally do NOT disable Wayland vsync here.
         // Disabling it can cause unthrottled rendering and trigger very high
@@ -276,18 +295,12 @@
         // user_pref("widget.wayland.vsync.enabled", false);
         // user_pref("gfx.vsync.force-disable-waitforvblank", true);
         user_pref("dom.ipc.processCount", 24);
-        user_pref("dom.webgpu.enabled", true);
-        user_pref("gfx.webrender.compositor", true);
-        user_pref("gfx.webrender.compositor.force-enabled", true);
-        user_pref("gfx.webrender.layer-compositor", true);
         user_pref("widget.wayland.fractional-scale.enabled", true);
-        user_pref("widget.wayland.opaque-region.enabled", false);
         user_pref("browser.theme.content-theme", 0);
         user_pref("browser.theme.toolbar-theme", 0);
         user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
         user_pref("full-screen-api.warning.timeout", 0);
         user_pref("media.hardware-video-decoding.enabled", true);
-        user_pref("media.hardware-video-decoding.force-enabled", true);
         user_pref("media.ffmpeg.vaapi.enabled", true);
         user_pref("media.rdd-vpx.enabled", true);
         user_pref("apz.overscroll.enabled", true);
@@ -297,6 +310,13 @@
         user_pref("browser.translations.automaticallyPopup", false);
 
         user_pref("apz.gtk.kinetic_scroll.enabled", true);
+        user_pref("apz.gtk.kinetic_scroll.delta_mode", 2);
+        user_pref("apz.gtk.pangesture.delta_mode", 2);
+        user_pref("apz.gtk.kinetic_scroll.pixel_delta_mode_multiplier", 20);
+        user_pref("apz.gtk.pangesture.pixel_delta_mode_multiplier", 20);
+        user_pref("apz.gtk.touchpad_hold.enabled", false);
+
+        user_pref("general.smoothScroll", true);
 
         user_pref("browser.bookmarks.defaultLocation", "toolbar");
         user_pref("browser.toolbars.bookmarks.visibility", "always");

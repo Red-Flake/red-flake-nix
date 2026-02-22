@@ -19,8 +19,12 @@ in
       };
     };
     sessionVariables = {
-      # Enalbe Wayland for Firefox
+      # Enable Wayland for Firefox by default.
+      # If you need XWayland for troubleshooting, launch with `MOZ_DISABLE_WAYLAND=1 firefox`.
       MOZ_ENABLE_WAYLAND = 1;
+
+      # Improves touchpad scrolling responsiveness/smoothness for some setups (esp. XWayland).
+      MOZ_USE_XINPUT2 = 1;
 
       # Set steam proton path
       STEAM_EXTRA_COMPAT_TOOLS_PATHS = "\\\${HOME}/.steam/root/compatibilitytools.d";
