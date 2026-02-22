@@ -68,33 +68,89 @@
 
       # Optional: extra Vulkan ICD and Mesa Vulkan layers, useful for some apps and games
       extraPackages = with pkgs; [
-        #ocl-icd # OpenCL ICD loader; dont enable this since it conflicts with rocmPackages.clr
-        rocmPackages.clr # ROCm OpenCL runtime (ships an ICD file)
-        rocmPackages.rocminfo
+        # AMD OpenCL
+        rocmPackages.rocm-runtime
         rocmPackages.rocm-smi
-        vulkan-tools
+        rocmPackages.rocminfo
+
+        # OpenCL ICD definition for AMD GPUs using the ROCm stack
+        rocmPackages.clr.icd
+
+        # OpenCL runtime for AMD GPUs, part of the ROCm stack
+        rocmPackages.clr
       ];
     };
   };
 
   # Some programs hard-code the path to HIP
-  systemd.tmpfiles.rules = [ "L+ /opt/rocm/hip - - - - ${pkgs.rocmPackages.clr}" ];
+  #systemd.tmpfiles.rules = [ "L+ /opt/rocm/hip - - - - ${pkgs.rocmPackages.clr}" ];
+  systemd.tmpfiles.rules =
+    let
+      rocmEnv = pkgs.symlinkJoin {
+        name = "rocm-combined";
+        paths = with pkgs.rocmPackages; [ rocblas hipblas clr ];
+      };
+    in
+    [
+      "L+    /opt/rocm   -    -    -     -    ${rocmEnv}"
+      "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
+    ];
+
+  environment.etc."OpenCL/vendors/amdocl64.icd".text =
+    "${pkgs.rocmPackages.clr.icd}/lib/libamdocl64.so ";
 
   services.fstrim.enable = true;
 
   # Recommended to explicitly declare video driver for Xorg and fallback support
   services.xserver.videoDrivers = [ "amdgpu" ];
 
-  environment.variables.AMD_VULKAN_ICD = "RADV";
+  environment.variables =
+    {
+      AMD_VULKAN_ICD = "RADV";
+      ROCM_PATH = "${pkgs.rocmPackages.rocm-runtime}";
+    };
 
-  environment.systemPackages = with pkgs; [
-    clinfo
-    vulkan-tools
-    mesa-demos
-    radeontop # AMD GPU utilization monitor
-    lm_sensors # For temperature sensors
-    pciutils
-  ];
+  environment.systemPackages = with pkgs;
+    [
+      vulkan-tools
+      mesa-demos
+      radeontop # AMD GPU utilization monitor
+      lm_sensors # For temperature sensors
+      pciutils
+
+      # ------------------------------------------------
+      # ---- ROCM Packages
+      # ------------------------------------------------
+      rocmPackages.clr
+      rocmPackages.hip-common
+      rocmPackages.hipblas
+      rocmPackages.hipcc
+      rocmPackages.hipcub
+      rocmPackages.hipfft
+      rocmPackages.hipify
+      rocmPackages.hiprand
+      rocmPackages.rocm-runtime
+      rocmPackages.rocminfo
+      rocmPackages.rpp-opencl
+
+      # ROCm Application for Reporting System Info
+      rocmPackages.rocminfo
+
+      # System management interface for AMD GPUs supported by ROCm
+      rocmPackages.rocm-smi
+
+      # Platform runtime for ROCm
+      rocmPackages.rocm-runtime
+
+      # CMake modules for common build tasks for the ROCm stack
+      rocmPackages.rocm-cmake
+
+      # Radeon open compute thunk interface
+      rocmPackages.rocm-thunk
+
+      # You should also install the clinfo package to verify that OpenCL is correctly setup (or check in the program you use to see if it is now available, such as in Darktable).
+      clinfo
+    ];
 
   # Allow firmware Updates
   services.fwupd.enable = true;
