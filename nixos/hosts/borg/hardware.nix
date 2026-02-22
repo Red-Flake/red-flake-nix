@@ -57,7 +57,9 @@
     # enable CPU microcode updates
     cpu.amd.updateMicrocode = true;
 
-    amdgpu.opencl.enable = true; # Proprietary AMD OpenCL support
+    # Make sure you are NOT enabling AMDGPU-PRO OpenCL
+    amdgpu.opencl.enable = false;
+
     amdgpu.initrd.enable = true; # Enable Initrd support
 
     graphics = {
@@ -66,16 +68,11 @@
 
       # Optional: extra Vulkan ICD and Mesa Vulkan layers, useful for some apps and games
       extraPackages = with pkgs; [
-        vulkan-tools # For vulkaninfo and debugging Vulkan apps
-        rocmPackages.clr.icd
-        rocmPackages.hipcc
-        rocmPackages.rocm-device-libs
-        rocmPackages.hip-common
+        ocl-icd # OpenCL ICD loader
+        rocmPackages.clr # ROCm OpenCL runtime (ships an ICD file)
+        rocmPackages.rocminfo
         rocmPackages.rocm-smi
-        rocmPackages.rocm-cmake
-        rocmPackages.rocm-runtime
-        libva-vdpau-driver
-        libvdpau-va-gl
+        vulkan-tools
       ];
     };
   };
