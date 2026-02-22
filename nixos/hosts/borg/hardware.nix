@@ -67,9 +67,13 @@
       # Optional: extra Vulkan ICD and Mesa Vulkan layers, useful for some apps and games
       extraPackages = with pkgs; [
         vulkan-tools # For vulkaninfo and debugging Vulkan apps
+        pkgs.rocm-opencl-icd
       ];
     };
   };
+
+  # Some programs hard-code the path to HIP
+  systemd.tmpfiles.rules = [ "L+ /opt/rocm/hip - - - - ${pkgs.rocmPackages.clr}" ];
 
   services.fstrim.enable = true;
 
