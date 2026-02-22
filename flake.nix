@@ -479,6 +479,7 @@
               isKVM = false;
               includeTuxedo = true;
               nixpkgsConfig = {
+                allowUnfree = true;
                 nvidia.acceptLicense = true;
                 cudaSupport = true;
               };
@@ -533,6 +534,10 @@
               user = "shanzem";
               localeProfile = "uk";
               isKVM = false;
+              nixpkgsConfig = {
+                allowUnfree = true;
+                rocmSupport = true;
+              };
               includeSpicetify = false;
               homeManagerConfigs = [
                 {

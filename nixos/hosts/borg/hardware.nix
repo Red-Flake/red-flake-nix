@@ -85,9 +85,6 @@
   # Recommended to explicitly declare video driver for Xorg and fallback support
   services.xserver.videoDrivers = [ "amdgpu" ];
 
-  # Enable ROCm support
-  nixpkgs.config.rocmSupport = true;
-
   environment.variables.AMD_VULKAN_ICD = "RADV";
 
   environment.systemPackages = with pkgs; [
