@@ -281,6 +281,7 @@ in
       "kdeglobals"."General"."AccentColor" = "160,31,52";
       "kdeglobals"."KDE"."AnimationDurationFactor" = 0.5;
       "baloofilerc"."Basic Settings"."Indexing-Enabled" = false;
+      "krunnerrc"."Plugins"."baloosearchEnabled" = false;
       "kwinrc" = {
         "org.kde.kdecoration2"."ButtonsOnLeft" = "SF";
         "Desktops"."Number" = {

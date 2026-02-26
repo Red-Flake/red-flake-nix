@@ -216,6 +216,7 @@
     configFile = {
       "kdeglobals"."General"."AccentColor" = "160,31,52";
       "baloofilerc"."Basic Settings"."Indexing-Enabled" = false;
+      "krunnerrc"."Plugins"."baloosearchEnabled" = false;
       "kwinrc" = {
         "KDE"."AnimationDurationFactor" = 0.5;
         "org.kde.kdecoration2"."ButtonsOnLeft" = "SF";

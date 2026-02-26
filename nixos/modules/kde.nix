@@ -151,6 +151,24 @@ in
     only basic indexing=true
   '';
 
+  # Disable the KRunner "Desktop Search" runner (baloosearch) to prevent D-Bus
+  # activation of `plasma-baloorunner.service` / `baloorunner`.
+  environment.etc."xdg/krunnerrc".text = ''
+    [Plugins]
+    baloosearchEnabled=false
+  '';
+
+  # Also override the unit to a no-op so even if something D-Bus-activates
+  # `plasma-baloorunner.service`, it won't execute the real `baloorunner`.
+  systemd.user.services.plasma-baloorunner = {
+    description = "Disabled: KRunner provider for baloo file indexer";
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.coreutils}/bin/true";
+      RemainAfterExit = true;
+    };
+  };
+
   # KDE PAM Settings
   security.pam.services = {
     login.kwallet = {
