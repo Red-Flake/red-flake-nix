@@ -1,9 +1,51 @@
-{ lib
+{ config
+, lib
 , pkgs
 , ...
 }:
 
 {
+  # Keep the red-team DB stack running, but reduce its impact on desktop latency
+  # by putting it into a low-weight slice + lowering CPU/IO priority.
+  systemd.slices.db-background = {
+    description = "Background database/services slice (desktop latency first)";
+    sliceConfig = {
+      CPUWeight = 25;
+      IOWeight = 25;
+    };
+  };
+
+  systemd.services.neo4j = lib.mkIf (config.services.neo4j.enable or false) {
+    serviceConfig = {
+      Slice = "db-background.slice";
+      Nice = 10;
+      IOSchedulingClass = "best-effort";
+      IOSchedulingPriority = 7;
+    };
+  };
+
+  systemd.services.postgresql = lib.mkIf (config.services.postgresql.enable or false) {
+    serviceConfig = {
+      Slice = "db-background.slice";
+      Nice = 5;
+      IOSchedulingClass = "best-effort";
+      IOSchedulingPriority = 7;
+    };
+  };
+
+  systemd.services."bloodhound-ce" = lib.mkIf
+    (
+      (config.services ? "bloodhound-ce") && (config.services."bloodhound-ce".enable or false)
+    )
+    {
+      serviceConfig = {
+        Slice = "db-background.slice";
+        Nice = 10;
+        IOSchedulingClass = "best-effort";
+        IOSchedulingPriority = 7;
+      };
+    };
+
   # Enable ZRAM swap for better responsiveness
   zramSwap = {
     enable = true;
