@@ -28,7 +28,7 @@
     extra-deprecated-features = [
       "url-literals"
     ];
-    builders-use-substituters = true;
+    builders-use-substitutes = true;
     max-jobs = "auto";
     cores = 0;
     allowUnfree = true;

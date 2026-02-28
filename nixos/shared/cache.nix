@@ -39,7 +39,7 @@
       ];
 
       # Performance tweaks
-      builders-use-substituters = true;
+      builders-use-substitutes = true;
       auto-optimise-store = true;
 
       # Build isolation and reproducibility
