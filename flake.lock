@@ -1006,6 +1006,22 @@
         "type": "github"
       }
     },
+    "nixpkgs_4": {
+      "locked": {
+        "lastModified": 1772198003,
+        "narHash": "sha256-I45esRSssFtJ8p/gLHUZ1OUaaTaVLluNkABkk6arQwE=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "dd9b079222d43e1943b6ebd802f04fd959dc8e61",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nur": {
       "inputs": {
         "flake-parts": "flake-parts_5",
@@ -1452,22 +1468,20 @@
     "ucc": {
       "inputs": {
         "flake-utils": "flake-utils_5",
-        "nixpkgs": [
-          "nixpkgs"
-        ]
+        "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1772362937,
-        "narHash": "sha256-nrOZR+BDHJAKWP2lwLerq4vQHInnpJjKO+nswtnPWBk=",
+        "lastModified": 1772466764,
+        "narHash": "sha256-+wC1uyJf37ryd+G13Byg2vJJUpFC0f050Q523oWDtQc=",
         "owner": "nanomatters",
         "repo": "ucc",
-        "rev": "bd89bae06db9bd6c461d7af15bac1e23cab0f0c1",
+        "rev": "213d1075a088cd53a6542d8e872e89173e18c8cf",
         "type": "github"
       },
       "original": {
         "owner": "nanomatters",
         "repo": "ucc",
-        "rev": "bd89bae06db9bd6c461d7af15bac1e23cab0f0c1",
+        "rev": "213d1075a088cd53a6542d8e872e89173e18c8cf",
         "type": "github"
       }
     },

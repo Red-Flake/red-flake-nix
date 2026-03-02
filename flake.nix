@@ -210,15 +210,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    ucc = {
-      url = "github:nanomatters/ucc/bd89bae06db9bd6c461d7af15bac1e23cab0f0c1";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    #ucc.url = "github:Mag1cByt3s/ucc/4abb658cc11f2642d4cdc013b17adb6f7dc6a6f6";
+    # UCC (Uniwill Control Center)
+    # Upstream: github:nanomatters/ucc
     #ucc = {
     #  url = "path:/home/pascal/Git/ucc";
     #  inputs.nixpkgs.follows = "nixpkgs";
     #};
+    ucc.url = "github:nanomatters/ucc/213d1075a088cd53a6542d8e872e89173e18c8cf";
+    #ucc.url = "github:Mag1cByt3s/ucc/fix/uccd-sleep-requires-loop";
   };
 
   outputs =
