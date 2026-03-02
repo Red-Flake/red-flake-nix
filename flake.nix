@@ -160,9 +160,6 @@
     };
 
     # https://github.com/xddxdd/nix-cachyos-kernel
-    #nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
-
-    # https://github.com/xddxdd/nix-cachyos-kernel
     # CachyOS kernels via nix-cachyos-kernel (cached via Hydra)
     # https://hydra.lantian.pub/jobset/lantian/nix-cachyos-kernel
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
