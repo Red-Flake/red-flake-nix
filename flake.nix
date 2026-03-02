@@ -35,14 +35,20 @@
   };
 
   inputs = {
-    # Nixpkgs-Unstable
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    # Nixpkgs (NixOS stable)
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+
+    # Nixpkgs (NixOS unstable) - for packages not available on stable
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     # Pinned nixpkgs for Neo4j 4.4.11 (BloodHound CE compatibility)
     nixpkgs-neo4j-4-4-11.url = "github:NixOS/nixpkgs/7a339d87931bba829f68e94621536cad9132971a";
 
     # Chaotic's Nyx
-    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+    chaotic = {
+      url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Modules support for flakes
     flake-parts = {
@@ -58,13 +64,13 @@
 
     # Home configuration management
     home-manager = {
-      url = "github:nix-community/home-manager/master";
+      url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # https://github.com/pjones/plasma-manager
     plasma-manager = {
-      url = "github:nix-community/plasma-manager/d47428e5390d6a5a8f764808a4db15929347cd77";
+      url = "github:nix-community/plasma-manager";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
@@ -76,7 +82,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nur.url = "github:nix-community/NUR";
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # https://gitlab.com/VandalByte/darkmatter-grub-theme
     darkmatter-grub-theme = {
@@ -93,6 +102,7 @@
     # https://github.com/nix-community/impermanence
     impermanence = {
       url = "github:nix-community/impermanence";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # disable for now due to hash mismatch issues
@@ -122,6 +132,7 @@
     # https://github.com/sund3RRR/tuxedo-nixos
     tuxedo-nixos = {
       url = "github:sund3RRR/tuxedo-nixos";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Nix Gaming for Steam platformOptimizations
@@ -151,8 +162,10 @@
     # https://github.com/xddxdd/nix-cachyos-kernel
     #nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
 
-    # CachyOS kernels via CachyNix (cached via mrn157.cachix + cache.garnix)
-    cachynix.url = "github:Mrn157/CachyNix";
+    # https://github.com/xddxdd/nix-cachyos-kernel
+    # CachyOS kernels via nix-cachyos-kernel (cached via Hydra)
+    # https://hydra.lantian.pub/jobset/lantian/nix-cachyos-kernel
+    nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
 
     # https://github.com/xiv3r/Burpsuite-Professional
     burpsuitepro = {
@@ -164,6 +177,9 @@
 
     # https://github.com/ghostty-org/ghostty
     ghostty.url = "github:ghostty-org/ghostty/main";
+
+    # https://github.com/mozilla/nixpkgs-mozilla
+    nixpkgs-mozilla.url = "github:mozilla/nixpkgs-mozilla";
 
     # Red-Flake artwork
     artwork = {
@@ -197,7 +213,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    ucc.url = "github:nanomatters/ucc/bd89bae06db9bd6c461d7af15bac1e23cab0f0c1";
+    ucc = {
+      url = "github:nanomatters/ucc/bd89bae06db9bd6c461d7af15bac1e23cab0f0c1";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     #ucc.url = "github:Mag1cByt3s/ucc/4abb658cc11f2642d4cdc013b17adb6f7dc6a6f6";
     #ucc = {
     #  url = "path:/home/pascal/Git/ucc";
@@ -214,7 +233,6 @@
     , redflake-packages
     , ucc
     , darkmatter-grub-theme
-    , cachynix
     , tuxedo-nixos
     , spicetify-nix
     , ...
@@ -326,6 +344,16 @@
             overlays = commonOverlays;
           };
 
+          # Common unstable pkgs (used when HM modules need newer packages)
+          commonPkgsUnstable = import inputs.nixpkgs-unstable {
+            inherit system;
+            config = {
+              allowUnfree = true;
+              permittedInsecurePackages = insecurePackages;
+            };
+            overlays = [ ];
+          };
+
           # Import shared user helper (parametrized by pkgs to match host config)
           mkUserFor =
             pkgs: homeDirectory:
@@ -354,6 +382,7 @@
             , profile
             , extraConfig ? { }
             , pkgs ? commonPkgs
+            , pkgsUnstable ? commonPkgsUnstable
             ,
             }:
             {
@@ -369,6 +398,7 @@
                 inherit inputs;
                 inherit user;
                 inherit pkgs;
+                inherit pkgsUnstable;
               };
 
               home-manager.users.${user} = (mkUserFor pkgs homeDirectory).mkUser profile (
@@ -421,6 +451,17 @@
                 // nixpkgsConfig;
                 overlays = hostOverlays;
               };
+
+              hostPkgsUnstable = import inputs.nixpkgs-unstable {
+                inherit system;
+                config = {
+                  allowUnfree = true;
+                  permittedInsecurePackages =
+                    nixpkgsConfig.permittedInsecurePackages or (if profile == "server" then [ ] else insecurePackages);
+                }
+                // nixpkgsConfig;
+                overlays = [ ];
+              };
             in
             nixpkgs.lib.nixosSystem {
               inherit system;
@@ -428,13 +469,13 @@
               specialArgs = {
                 inherit inputs outputs;
                 chaoticPkgs = hostPkgs.chaoticPkgs or hostPkgs;
+                pkgsUnstable = hostPkgsUnstable;
                 inherit user isKVM;
               };
               modules = [
                 redflake-packages.nixosModules.bloodhound-ce
                 darkmatter-grub-theme.nixosModule
                 inputs.impermanence.nixosModules.impermanence
-                cachynix.nixosModules.default
                 binaryninja.nixosModules.binaryninja
                 (mkHost.mkHost profile hostConfig {
                   inherit hostname localeProfile;
@@ -445,7 +486,15 @@
                       ++ (if includeTuxedo then [ tuxedo-nixos.nixosModules.default ucc.nixosModules.default ] else [ ]);
                 })
               ]
-              ++ (map (cfg: mkHomeManagerConfig (cfg // { pkgs = hostPkgs; })) homeManagerConfigs);
+              ++ (map
+                (
+                  cfg:
+                  mkHomeManagerConfig (cfg // {
+                    pkgs = hostPkgs;
+                    pkgsUnstable = hostPkgsUnstable;
+                  })
+                )
+                homeManagerConfigs);
             };
         in
         {

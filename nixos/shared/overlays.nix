@@ -35,6 +35,8 @@ let
       samba4Full = prev.samba4Full.override { enableCephFS = false; }; # disable cephfs in order to get around issues with => fatal error: tommath.h: No such file or directory
     })
 
+    # Needed by common package set (used outside the security profile too)
+    (import ../overlays/XSSer-overlay)
   ];
 
   # Security tool overlays
@@ -63,7 +65,6 @@ let
     (import ../overlays/cupp-overlay)
     (import ../overlays/john-overlay)
     (import ../overlays/XSStrike-overlay)
-    (import ../overlays/XSSer-overlay)
     (import ../overlays/bashfuscator-overlay)
     (import ../overlays/sliver-overlay)
     (import ../overlays/XXEinjector-overlay)

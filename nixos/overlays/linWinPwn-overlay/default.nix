@@ -410,7 +410,7 @@ in
         --set PATH "${
           self.lib.makeBinPath (
             [
-              self.coreutils
+              self.toybox
               self.which
               self.iproute2
               self.gnused

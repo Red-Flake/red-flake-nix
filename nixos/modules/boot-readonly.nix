@@ -92,7 +92,7 @@ let
           ;
         path = with pkgs; lib.makeBinPath (
           [
-            coreutils
+            toybox
             gnused
             gnugrep
             findutils
@@ -158,7 +158,7 @@ in
 
         # Step 4: Sync and remount /boot read-only
         echo "Syncing and remounting /boot read-only..."
-        ${pkgs.coreutils}/bin/sync
+        ${pkgs.toybox}/bin/sync
         ${pkgs.util-linux}/bin/mount -o remount,ro /boot
       ''
     );

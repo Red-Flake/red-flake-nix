@@ -1,5 +1,6 @@
 { inputs
 , pkgs
+, pkgsUnstable
 , ...
 }:
 
@@ -10,11 +11,11 @@
     bloodhound
     inputs.redflake-packages.packages.x86_64-linux.bloodhound-ce-py
     bloodhound-quickwin
-    python314Packages.impacket
+    python313Packages.impacket
     openldap
     ldapdomaindump-patched
-    certipy # certipy fails to build...
-    netexec
+    pkgsUnstable.certipy
+    pkgsUnstable.netexec
     powershell
     python313Packages.bloodyad
     krb5
@@ -37,6 +38,6 @@
     adenum
     wimlib
     shortscan
-    pywhisker
+    pkgsUnstable.pywhisker
   ];
 }

@@ -29,16 +29,18 @@ let
         nvidiaPackages = kernelPackages.nvidiaPackages // { latest = latestDrv; };
       };
 
-  cachyPkgs = import inputs.cachynix.inputs.nixpkgs {
+  cachyPkgs = import inputs.nix-cachyos-kernel.inputs.nixpkgs {
     inherit (pkgs.stdenv.hostPlatform) system;
-    overlays = [ inputs.cachynix.overlays.default ];
+    overlays = [ inputs.nix-cachyos-kernel.overlays.pinned ];
     config = {
       allowUnfree = pkgs.config.allowUnfree or true;
       nvidia.acceptLicense = (pkgs.config.nvidia or { }).acceptLicense or false;
     };
   };
 
-  cachyKernel = cachyPkgs.linuxPackages_cachyos-gcc.kernel;
+  # stick to LTS kernel for ZFS and stable nixpkgs
+  # NOTE: `linuxPackagesFor` expects a kernel derivation (with `.override`), not a linuxPackages set.
+  cachyKernel = cachyPkgs.cachyosKernels.linuxPackages-cachyos-lts.kernel;
 
   cachyBaseKernelPackages = pkgs.linuxPackagesFor cachyKernel;
 

@@ -1,5 +1,6 @@
 { config
 , pkgs
+, pkgsUnstable
 , ...
 }:
 
@@ -823,7 +824,7 @@
     name = "Equibop";
     genericName = "Equibop is a custom Discord App aiming to give you better performance and improve linux support";
     exec = "equibop %U";
-    icon = "${pkgs.equibop}/share/icons/hicolor/scalable/apps/equibop.svg";
+    icon = "${pkgsUnstable.equibop}/share/icons/hicolor/scalable/apps/equibop.svg";
     type = "Application";
     categories = [
       "Network"

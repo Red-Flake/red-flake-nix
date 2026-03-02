@@ -30,7 +30,7 @@ in
     Service = {
       ExecStart = "${scriptWriteRevSSHKey}";
       ExecStartPost = ''
-        ${pkgs.bash}/bin/bash -c '${pkgs.coreutils}/bin/chmod 600 %h/.ssh/id_reverse-ssh' || true
+        ${pkgs.bash}/bin/bash -c '${pkgs.toybox}/bin/chmod 600 %h/.ssh/id_reverse-ssh' || true
       '';
       Type = "oneshot"; # Ensures the service runs once and exits
       RemainAfterExit = true; # Keep the service status as 'active' after it finishes

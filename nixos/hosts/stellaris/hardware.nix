@@ -243,7 +243,7 @@
   #systemd.services.tccd = {
   # Add missing utilities to PATH for TCC to work properly
   #  path = with pkgs; [
-  #    coreutils # provides 'users', 'cat', etc.
+  #    toybox # provides 'users', 'cat', etc.
   #    util-linux # provides additional system utilities
   #    procps # provides process utilities
   #  ];

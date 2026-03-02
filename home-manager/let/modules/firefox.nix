@@ -21,6 +21,8 @@
 
   programs.firefox = {
     enable = true;
+
+    # use binary package in order to avoid long compiles
     package = pkgs.firefox-bin;
 
     profiles.redflake = {
@@ -570,13 +572,13 @@
                     name = "Package Search";
                     tags = [ "nixos" ];
                     keyword = "nixos";
-                    url = "https://search.nixos.org/packages?channel=unstable";
+                    url = "https://search.nixos.org/packages?channel=25.11";
                   }
                   {
                     name = "Option Search";
                     tags = [ "nixos" ];
                     keyword = "nixos";
-                    url = "https://search.nixos.org/options?channel=unstable";
+                    url = "https://search.nixos.org/options?channel=25.11";
                   }
                   {
                     name = "Nix package versions";

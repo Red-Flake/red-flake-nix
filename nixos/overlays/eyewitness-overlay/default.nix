@@ -1,21 +1,25 @@
 # eyewitness-overlay.nix
-_self: super: {
-
+_self: super:
+let
+  xvfbPkg = super.xvfb or super.xorg.xorgserver;
+  xvfbRunPkg = super.xvfb-run or (super.xorg.xvfb-run or super.xorg.xorgserver);
+in
+{
   python3Packages = super.python3Packages.override {
     overrides = _pself: psuper: {
       pyvirtualdisplay = psuper.pyvirtualdisplay.overrideAttrs (_old: {
         postPatch = ''
           substituteInPlace pyvirtualdisplay/xvfb.py \
-            --replace '"Xvfb"' '"${super.xvfb}/bin/Xvfb"'
+            --replace '"Xvfb"' '"${xvfbPkg}/bin/Xvfb"'
           substituteInPlace pyvirtualdisplay/abstractdisplay.py \
-            --replace "'Xvfb'" "'${super.xvfb}/bin/Xvfb'"
+            --replace "'Xvfb'" "'${xvfbPkg}/bin/Xvfb'"
         '';
       });
     };
   };
 
   eyewitness = super.eyewitness.overrideAttrs (old: {
-    dependencies = old.dependencies or [ ] ++ [ super.xvfb ];
+    dependencies = old.dependencies or [ ] ++ [ xvfbPkg ];
 
     postPatch = ''
       substituteInPlace Python/modules/selenium_module.py \
@@ -31,7 +35,7 @@ _self: super: {
       makeWrapper "${super.python3Packages.python.interpreter}" "$out/bin/eyewitness" \
         --set PYTHONPATH "$PYTHONPATH" \
         --add-flags "$out/share/eyewitness/Python/EyeWitness.py" \
-        --prefix PATH : "${super.lib.makeBinPath [ super.xvfb super.geckodriver super.firefox-esr super.xvfb-run ]}"
+        --prefix PATH : "${super.lib.makeBinPath [ xvfbPkg super.geckodriver super.firefox-bin xvfbRunPkg ]}"
 
       runHook postFixup
     '';

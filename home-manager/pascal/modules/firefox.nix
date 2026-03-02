@@ -5,6 +5,9 @@
 }:
 {
 
+  # Ensure Firefox uses the native Wayland backend on KDE Plasma Wayland.
+  home.sessionVariables.MOZ_ENABLE_WAYLAND = 1;
+
   # Ensure `profiles.ini` is writable.
   #
   # Firefox needs to write `~/.mozilla/firefox/profiles.ini` (Profile Manager, migrations, etc).
@@ -60,6 +63,8 @@
 
   programs.firefox = {
     enable = true;
+
+    # use binary package in order to avoid long compiles
     package = pkgs.firefox-bin;
 
     profiles.redflake = {
@@ -260,7 +265,9 @@
         "network.auth.subresource-http-auth-allow" = 1;
         # VA-API hardware video decoding (Intel Quick Sync). If you still hit freezes,
         # try toggling this off to see whether decode is the trigger.
+        "media.hardware-video-decoding.enabled" = true;
         "media.ffmpeg.vaapi.enabled" = true;
+        "media.rdd-vpx.enabled" = true;
         "webgl.enable-debug-renderer-info" = false;
         "network.http.speculative-parallel-limit" = 0;
 
@@ -300,9 +307,6 @@
         user_pref("browser.theme.toolbar-theme", 0);
         user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
         user_pref("full-screen-api.warning.timeout", 0);
-        user_pref("media.hardware-video-decoding.enabled", true);
-        user_pref("media.ffmpeg.vaapi.enabled", true);
-        user_pref("media.rdd-vpx.enabled", true);
         user_pref("apz.overscroll.enabled", true);
         user_pref("browser.shell.checkDefaultBrowser", false);
         user_pref("privacy.resistFingerprinting", false);
@@ -344,13 +348,13 @@
                     name = "Package Search";
                     tags = [ "nixos" ];
                     keyword = "nixos";
-                    url = "https://search.nixos.org/packages?channel=unstable";
+                    url = "https://search.nixos.org/packages?channel=25.11";
                   }
                   {
                     name = "Option Search";
                     tags = [ "nixos" ];
                     keyword = "nixos";
-                    url = "https://search.nixos.org/options?channel=unstable";
+                    url = "https://search.nixos.org/options?channel=25.11";
                   }
                   {
                     name = "Nix package versions";

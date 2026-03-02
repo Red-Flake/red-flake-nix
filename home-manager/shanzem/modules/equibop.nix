@@ -1,5 +1,5 @@
 { lib
-, pkgs
+, pkgsUnstable
 , ...
 }:
 {
@@ -15,7 +15,7 @@
     # Enable and configure Equibop
     equibop = {
       enable = lib.mkDefault true;
-      package = lib.mkDefault pkgs.equibop;
+      package = lib.mkDefault pkgsUnstable.equibop;
       autoscroll.enable = true;
     };
 

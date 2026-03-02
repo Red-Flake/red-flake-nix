@@ -128,8 +128,14 @@ in
     # Set GTK Theme to Breeze
     GTK_THEME = "Breeze";
 
-    # Set default browser to firefox
-    DEFAULT_BROWSER = lib.getExe pkgs.firefox-bin;
+    # Set default browser to firefox.
+    #
+    # Don't reference `config.programs.firefox.package` here: even if
+    # `programs.firefox.enable` is off, that package can default to `pkgs.firefox`
+    # (source build) and will get pulled into the system closure, triggering a
+    # long compile. Home Manager already installs `firefox-bin` for users.
+    DEFAULT_BROWSER = "firefox";
+    BROWSER = "firefox";
 
     # Performance: Enable Triple Buffering for KWin (smoother, slightly higher latency)
     KWIN_TRIPLE_BUFFER = "1";
@@ -164,7 +170,7 @@ in
     description = "Disabled: KRunner provider for baloo file indexer";
     serviceConfig = {
       Type = "oneshot";
-      ExecStart = "${pkgs.coreutils}/bin/true";
+      ExecStart = "${pkgs.toybox}/bin/true";
       RemainAfterExit = true;
     };
   };

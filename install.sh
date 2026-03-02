@@ -88,8 +88,11 @@ The following ZFS datasets will be created:
     - zroot/persist (mounted at /persist)
     - zroot/cache (mounted at /cache)"
 
-# ZFS got removed from the live ISO, so we need to install it manually
-nix-env -iA nixos.zfs_unstable
+# ZFS got removed from the live ISO, so we need to install it manually.
+# Use unstable for ZFS userspace to stay compatible with newer kernels.
+nix-channel --add https://channels.nixos.org/nixos-unstable nixos-unstable
+nix-channel --update nixos-unstable
+nix-env -iA nixos-unstable.zfs_unstable
 # and also load the zfs kernel module
 modprobe zfs
 

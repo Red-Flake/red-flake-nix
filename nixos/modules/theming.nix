@@ -81,19 +81,19 @@ in
     os-release.text = ''
       ANSI_COLOR="1;34"
       BUG_REPORT_URL="https://github.com/Red-Flake/red-flake-nix/issues"
-      BUILD_ID="rolling"
+      BUILD_ID="stable"
       DOCUMENTATION_URL="https://github.com/Red-Flake/red-flake-nix/wiki"
       HOME_URL="https://github.com/Red-Flake/"
       ID=redflake
-      IMAGE_ID="rolling"
-      IMAGE_VERSION="rolling"
+      IMAGE_ID="stable"
+      IMAGE_VERSION="stable"
       LOGO="${logoPath}/RedFlake_Logo_128x128px.png"
       NAME="Red Flake"
       PRETTY_NAME="Red Flake"
       SUPPORT_URL="https://github.com/Red-Flake/"
-      VERSION="rolling"
-      VERSION_CODENAME=rolling
-      VERSION_ID="rolling"
+      VERSION="stable"
+      VERSION_CODENAME=stable
+      VERSION_ID="stable"
     '';
   };
 

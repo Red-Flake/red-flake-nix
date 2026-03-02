@@ -18,7 +18,7 @@ in
           --unset NIXOS_SPEECH \
           --unset NIXOS_OZONE_WL \
           --set ELECTRON_OZONE_PLATFORM_HINT x11 \
-          --prefix PATH : ${lib.makeBinPath [ prev.coreutils prev.speechd ]} \
+          --prefix PATH : ${lib.makeBinPath [ prev.speechd ]} \
           --run '
             # Hard-disable Chromium speech APIs by default to avoid Electron
             # speech-dispatcher crashes. Opt-in by setting EQUIBOP_SPEECH=1.

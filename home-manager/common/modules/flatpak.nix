@@ -8,7 +8,7 @@
     flatpak="${lib.getExe' pkgs.flatpak "flatpak"}"
     getent="${lib.getExe' pkgs.glibc.bin "getent"}"
     grep="${lib.getExe' pkgs.gnugrep "grep"}"
-    timeout="${lib.getExe' pkgs.coreutils "timeout"}"
+    timeout="${lib.getExe' pkgs.toybox "timeout"}"
 
     # Don't rely on `ping` here (ICMP can be blocked and it may not be available
     # in the activation environment). If Flathub isn't present yet, do a quick

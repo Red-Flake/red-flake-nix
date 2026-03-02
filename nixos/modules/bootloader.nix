@@ -1,6 +1,7 @@
 { config
 , isKVM
 , pkgs
+, pkgsUnstable
 , inputs
 , ...
 }:
@@ -56,7 +57,7 @@ in
 
       # Use ZFS 2.4.0 userspace package (Linux 6.18 requires ZFS 2.4.0+)
       # boot.zfs.package expects the userspace package, not the kernel module
-      package = pkgs.zfs_unstable;
+      package = pkgsUnstable.zfs_unstable;
       requestEncryptionCredentials = cfg.zfs.encryption;
     };
 
@@ -109,7 +110,7 @@ in
           echo "Updating GRUB menu entry name..."
           GRUB_CFG="/boot/grub/grub.cfg"
           if [ -f "$GRUB_CFG" ]; then
-            ${pkgs.coreutils}/bin/cp "$GRUB_CFG" "$GRUB_CFG.bak"
+            ${pkgs.toybox}/bin/cp "$GRUB_CFG" "$GRUB_CFG.bak"
             ${pkgs.gnused}/bin/sed -i 's/"NixOS/"Red Flake/g' "$GRUB_CFG"
           else
             echo "Warning: GRUB configuration file not found."

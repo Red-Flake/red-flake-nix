@@ -1,8 +1,8 @@
-[![NixOS Unstable](https://img.shields.io/badge/NixOS-unstable-informational?style=flat-square&logo=NixOS&logoColor=white)](https://nixos.org)
+[![NixOS 25.11](https://img.shields.io/badge/NixOS-25.11-informational?style=flat-square&logo=NixOS&logoColor=white)](https://nixos.org)
 &ensp;
 [![Nix](https://img.shields.io/badge/Nix-5277C3?logo=nixos&style=flat-square&logoColor=fff)](#)
 &ensp;
-[![Home-Manager Master](https://img.shields.io/badge/home_manager-master-blue?style=flat-square)](#)
+[![Home-Manager 25.11](https://img.shields.io/badge/home_manager-25.11-blue?style=flat-square)](#)
 &ensp;
 [![KDE Plasma 6](https://img.shields.io/badge/KDE_Plasma-6-blue?style=flat-square)](#)
 &ensp;
@@ -47,7 +47,7 @@ redflake-rebuild
 
 <br>
 
-- custom NixOS flake using NixOS unstable
+- custom NixOS flake using NixOS 25.11
 - NixOS home-manager
 - encrypted root on ZFS
 - Impermanence (non-persistent root on tmpfs) with persistence on `/persist`

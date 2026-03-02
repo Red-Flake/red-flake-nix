@@ -13,7 +13,7 @@ _self: super: {
     # Runtime dependencies
     buildInputs = [
       super.nmap
-      #super.coreutils        # tests fail...
+      #super.toybox        # tests fail...
       super.gawk
     ];
 
