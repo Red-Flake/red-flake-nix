@@ -68,7 +68,6 @@ in
       ../common/modules/services.nix
       ../common/modules/direnv.nix
       ../common/modules/equibop.nix
-      #../common/modules/vesktop.nix
       ../common/modules/vscode.nix
       ../common/modules/plasma-manager.nix
       ../common/modules/filezilla.nix
@@ -131,6 +130,7 @@ in
       ../common/modules/bat.nix
       ../common/modules/services.nix
       ../common/modules/direnv.nix
+      ../common/modules/filezilla.nix
 
       # Security modules
       ../common/modules/msf.nix
@@ -274,6 +274,7 @@ in
       ../common/modules/vesktop.nix
       ../common/modules/vscode.nix
       ../common/modules/plasma-manager.nix
+      ../common/modules/filezilla.nix
 
       # Security modules
       ../common/modules/msf.nix
