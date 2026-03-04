@@ -324,9 +324,10 @@
     # KWin Wayland fixes for Intel Xe (Arrow Lake)
     # https://bugs.kde.org/show_bug.cgi?id=513296
     # 300Hz = 3333µs frame time; default margin is 1000µs; too low = half refresh rate
-    KWIN_DRM_OVERRIDE_SAFETY_MARGIN = "1500"; # ~45% of frame time; reduces "atomic commit failed" errors
+    #KWIN_DRM_OVERRIDE_SAFETY_MARGIN = "500"; # Lower than default (1000); worked well for high refresh rate users
     #KWIN_DRM_NO_AMS = "1"; # Disable Atomic Mode Setting to reduce CPU usage during animations; DISABLED: causes slow kwin rendering
     #KWIN_FORCE_SW_CURSOR = "0"; # Use hardware cursor (Intel Xe defaults to software cursor);
+    #KWIN_DRM_DISABLE_TRIPLE_BUFFERING = "0"; # Enable KWin triple buffering
     # NOTE: KWIN_DRM_DEVICES is ':'-separated; don't use /dev/dri/by-path/* (they contain ':' in the PCI address).
     # Intel iGPU (0000:00:02.0) first, NVIDIA dGPU (0000:02:00.0) second.
     KWIN_DRM_DEVICES = "/dev/dri/card-intel:/dev/dri/card-nvidia";
