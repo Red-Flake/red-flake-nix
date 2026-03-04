@@ -113,6 +113,8 @@
       # Workarounds for Intel `xe` TLB invalidation fence timeouts / PHY refclk hiccups.
       # Disable SAGV (System Agent voltage/frequency scaling) for stability.
       "xe.enable_sagv=0"
+      # Enable DMC flip queue for better atomic commit coordination (may reduce "Device or resource busy" errors)
+      "xe.enable_flipq=1"
       # Disable Panel Replay / PSR2 selective fetch. Some panels/firmware combos misbehave here.
       "xe.enable_panel_replay=0"
       "xe.enable_psr2_sel_fetch=0"
@@ -320,7 +322,9 @@
     # Steam and other apps can override these as needed
 
     # KWin Wayland fixes for Intel Xe (Arrow Lake)
-    #KWIN_DRM_OVERRIDE_SAFETY_MARGIN = "1500"; # ~45% of frame time (3333µs @ 300Hz); default is 1500µs
+    # https://bugs.kde.org/show_bug.cgi?id=513296
+    # 300Hz = 3333µs frame time; default margin is 1000µs; too low = half refresh rate
+    KWIN_DRM_OVERRIDE_SAFETY_MARGIN = "1500"; # ~45% of frame time; reduces "atomic commit failed" errors
     #KWIN_DRM_NO_AMS = "1"; # Disable Atomic Mode Setting to reduce CPU usage during animations; DISABLED: causes slow kwin rendering
     #KWIN_FORCE_SW_CURSOR = "0"; # Use hardware cursor (Intel Xe defaults to software cursor);
     # NOTE: KWIN_DRM_DEVICES is ':'-separated; don't use /dev/dri/by-path/* (they contain ':' in the PCI address).
