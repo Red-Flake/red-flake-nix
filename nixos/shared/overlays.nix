@@ -6,16 +6,6 @@ let
     # Provide a non-deprecated `pkgs.system` attr for older overlays/modules.
     (_: prev: { inherit (prev.stdenv.hostPlatform) system; })
 
-    # Lix overlay
-    (_: prev: {
-      inherit (prev.lixPackageSets.stable)
-        nixpkgs-review
-        nix-eval-jobs
-        nix-fast-build
-        colmena
-        ;
-    })
-
     # Chaotic-Nyx overlay
     (_: prev: {
       chaoticPkgs = import inputs.chaotic { inherit (prev.stdenv.hostPlatform) system; };
@@ -34,9 +24,6 @@ let
     (_: prev: {
       samba4Full = prev.samba4Full.override { enableCephFS = false; }; # disable cephfs in order to get around issues with => fatal error: tommath.h: No such file or directory
     })
-
-    # Needed by common package set (used outside the security profile too)
-    (import ../overlays/XSSer-overlay)
   ];
 
   # Security tool overlays
@@ -65,6 +52,7 @@ let
     (import ../overlays/cupp-overlay)
     (import ../overlays/john-overlay)
     (import ../overlays/XSStrike-overlay)
+    (import ../overlays/XSSer-overlay)
     (import ../overlays/bashfuscator-overlay)
     (import ../overlays/sliver-overlay)
     (import ../overlays/XXEinjector-overlay)

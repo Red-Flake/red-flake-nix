@@ -9,7 +9,7 @@
     sqlmap
     mariadb
     sqlcmd
-    # sqsh      # sqsh fails to build...
+    sqsh
     mdbtools
   ];
 }

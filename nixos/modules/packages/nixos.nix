@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ inputs, pkgs, ... }:
 
 {
   # List packages installed in system profile. To search, run:
@@ -6,7 +6,7 @@
   environment.systemPackages = with pkgs; [
     nix-index
     home-manager
-    # inputs.nix-alien.packages.${pkgs.stdenv.hostPlatform.system}.nix-alien    # nix-alien fails to build...
+    inputs.nix-alien.packages.${pkgs.stdenv.hostPlatform.system}.nix-alien
     treefmt
     nixpkgs-fmt
     deadnix

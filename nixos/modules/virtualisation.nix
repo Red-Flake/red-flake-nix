@@ -61,10 +61,10 @@
   programs.virt-manager.enable = true;
 
   # enable VirtualBox
-  #virtualisation.virtualbox.host.enable = true;
+  virtualisation.virtualbox.host.enable = true;
 
   # enable VirtualBox ExtensionPack
-  #virtualisation.virtualbox.host.enableExtensionPack = true;
+  virtualisation.virtualbox.host.enableExtensionPack = true;
 
   virtualisation.containers.storage.settings = lib.mkIf (config.fileSystems."/".fsType == "zfs") {
     storage = {
