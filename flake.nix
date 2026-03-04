@@ -1,6 +1,8 @@
 {
   description = "Red-Flake";
 
+  # NOTE: nixConfig requires static values (no imports/thunks).
+  # The authoritative cache list is in nixos/shared/caches.nix - keep these in sync.
   nixConfig = {
     experimental-features = [
       "flakes"
@@ -467,6 +469,8 @@
                 chaoticPkgs = hostPkgs.chaoticPkgs or hostPkgs;
                 pkgsUnstable = hostPkgsUnstable;
                 inherit user isKVM;
+                # Pass profile as hostType for module conditional imports
+                hostType = profile;
               };
               modules = [
                 redflake-packages.nixosModules.bloodhound-ce

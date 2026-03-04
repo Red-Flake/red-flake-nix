@@ -48,6 +48,15 @@
       };
     };
 
+    # Storage optimizations
+    storage = {
+      hasNVMe = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        description = "Whether the host has NVMe storage (enables NVMe-specific udev optimizations).";
+      };
+    };
+
   };
 
 }

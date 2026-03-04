@@ -48,7 +48,6 @@
               "network"
               "audio"
               "storage"
-              "libvirtd"
               "video"
               "render"
             ];

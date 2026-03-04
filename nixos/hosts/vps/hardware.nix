@@ -5,6 +5,8 @@
     # disable ZFS encryption
     zfs.encryption = lib.mkForce false;
 
+    # VPS typically doesn't have NVMe
+    storage.hasNVMe = false;
   };
 
   boot = {

@@ -1,5 +1,7 @@
 # Base NixOS configuration shared across all hosts
-{ lib
+# hostType is passed via specialArgs from flake.nix
+{ config
+, lib
 , hostType ? "security"
 , ...
 }:
@@ -20,8 +22,8 @@
     ../modules/setup-hosts.nix
     ../modules/ssh.nix
 
-    # Conditional packages based on host type
-    (import ./conditional-packages.nix { inherit lib hostType; })
+    # Conditional packages based on host type (receives hostType via specialArgs)
+    ./conditional-packages.nix
 
     # Core system environment
     ../modules/fhs.nix
@@ -59,8 +61,8 @@
   # Make host type available to other modules for conditional defaults.
   custom.hostType = lib.mkDefault hostType;
 
-  # Default NVMe optimizations for all hosts (can be overridden per-host)
-  services.udev.extraRules = ''
+  # NVMe optimizations (conditional - can be disabled per-host with custom.storage.hasNVMe = false)
+  services.udev.extraRules = lib.mkIf config.custom.storage.hasNVMe ''
     # NVMe SSD: Use none scheduler (default for NVMe)
     ACTION=="add|change", SUBSYSTEM=="block", KERNEL=="nvme*n*", ENV{DEVTYPE}=="disk", ATTR{queue/scheduler}="none"
 

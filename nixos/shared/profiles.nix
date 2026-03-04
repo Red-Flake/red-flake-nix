@@ -1,27 +1,15 @@
 # NixOS configuration profiles for different host types
-{ config
-, lib
+# hostType is passed via specialArgs from flake.nix
+{ lib
 , pkgs
-, chaoticPkgs
-, inputs
-, isKVM
 , ...
 }:
 {
   # Full security/penetration testing configuration
   security = {
     imports = [
-      (import ./base.nix {
-        inherit
-          config
-          lib
-          pkgs
-          chaoticPkgs
-          inputs
-          isKVM
-          ;
-        hostType = "security";
-      })
+      # Base configuration
+      ./base.nix
 
       # Security-specific modules
       ../modules/setup-burp.nix
@@ -37,23 +25,19 @@
       ../modules/tools.nix
       ../modules/metasploit.nix
     ];
+
+    # Set host type option (so other modules can query it)
+    custom.hostType = lib.mkDefault "security";
   };
 
   # Minimal server configuration
   server = {
     imports = [
-      (import ./base.nix {
-        inherit
-          config
-          lib
-          pkgs
-          chaoticPkgs
-          inputs
-          isKVM
-          ;
-        hostType = "server";
-      })
+      ./base.nix
     ];
+
+    # Set host type option
+    custom.hostType = lib.mkDefault "server";
 
     # Disable unnecessary services for servers
     services.xserver.enable = lib.mkForce false;
@@ -87,17 +71,10 @@
   # Desktop workstation (non-security)
   desktop = {
     imports = [
-      (import ./base.nix {
-        inherit
-          config
-          lib
-          pkgs
-          chaoticPkgs
-          inputs
-          isKVM
-          ;
-        hostType = "desktop";
-      })
+      ./base.nix
     ];
+
+    # Set host type option
+    custom.hostType = lib.mkDefault "desktop";
   };
 }

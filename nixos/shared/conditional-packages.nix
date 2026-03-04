@@ -1,4 +1,5 @@
 # Conditional package loading based on host type
+# hostType is passed via specialArgs from flake.nix
 { lib
 , hostType ? "security"
 , ...

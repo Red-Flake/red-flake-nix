@@ -33,7 +33,6 @@
     imagemagick
     strace
     clamav
-    xsser
     lsd
     bat
     man
