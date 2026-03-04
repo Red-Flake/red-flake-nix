@@ -458,7 +458,7 @@
                     nixpkgsConfig.permittedInsecurePackages or (if profile == "server" then [ ] else insecurePackages);
                 }
                 // nixpkgsConfig;
-                overlays = [ ];
+                overlays = hostOverlays;
               };
             in
             nixpkgs.lib.nixosSystem {
