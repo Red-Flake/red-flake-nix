@@ -1,8 +1,9 @@
 # eyewitness-overlay.nix
 _self: super:
 let
-  xvfbPkg = super.xvfb or super.xorg.xorgserver;
-  xvfbRunPkg = super.xvfb-run or (super.xorg.xvfb-run or super.xorg.xorgserver);
+  xorgserverPkg = super.xorgserver or super.xorg.xorgserver;
+  xvfbPkg = super.xvfb or xorgserverPkg;
+  xvfbRunPkg = super."xvfb-run" or (super.xorg."xvfb-run" or xorgserverPkg);
 in
 {
   python3Packages = super.python3Packages.override {

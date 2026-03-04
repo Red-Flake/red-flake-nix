@@ -11,17 +11,17 @@
     bloodhound
     inputs.redflake-packages.packages.x86_64-linux.bloodhound-ce-py
     bloodhound-quickwin
-    python313Packages.impacket
+    pkgsUnstable.python313Packages.impacket
     openldap
     ldapdomaindump-patched
     pkgsUnstable.certipy
     pkgsUnstable.netexec
     powershell
-    python313Packages.bloodyad
+    pkgsUnstable.python313Packages.bloodyad
     krb5
     krb5.dev
     samba4Full
-    autobloody
+    pkgsUnstable.autobloody
     python312Packages.lsassy
     ldeep
     #linWinPwn

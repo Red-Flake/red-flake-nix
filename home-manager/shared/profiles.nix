@@ -1,11 +1,12 @@
 # User profiles with specific configurations
 { inputs
 , pkgs
+, pkgsUnstable ? pkgs
 , homeDirectory
 , ...
 }:
 let
-  packages = import ./packages.nix { inherit pkgs; };
+  packages = import ./packages.nix { inherit pkgs pkgsUnstable; };
 in
 {
   # Profile for pascal

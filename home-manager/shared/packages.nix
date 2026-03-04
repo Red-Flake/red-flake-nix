@@ -1,5 +1,5 @@
 # Shared package sets for home-manager configurations
-{ pkgs, ... }:
+{ pkgs, pkgsUnstable, ... }:
 {
   # Base packages that all users need
   base = with pkgs; [
@@ -41,7 +41,7 @@
   ];
 
   # AI/Development tools
-  development = with pkgs; [
+  development = with pkgsUnstable; [
     claude-code
     opencode
     codex
