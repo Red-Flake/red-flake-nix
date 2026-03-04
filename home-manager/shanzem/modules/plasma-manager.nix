@@ -300,9 +300,9 @@ in
           # Disable blur effect - causes high CPU usage on Intel Xe (Arrow Lake)
           "blurEnabled" = false;
         };
-        #"Compositing" = {
-        #  "TripleBuffering" = true; # Enable Kwin triple buffering
-        #};
+        "Compositing" = {
+          "TripleBuffering" = true; # Enable Kwin triple buffering
+        };
       };
       #"kscreenlockerrc" = {
       #  "Greeter"."WallpaperPlugin" = "org.kde.potd";
