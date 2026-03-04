@@ -218,7 +218,7 @@
     #  url = "path:/home/pascal/Git/ucc";
     #  inputs.nixpkgs.follows = "nixpkgs";
     #};
-    ucc.url = "github:nanomatters/ucc/213d1075a088cd53a6542d8e872e89173e18c8cf";
+    ucc.url = "github:nanomatters/ucc/bf26a4009100e80eeafbbededea59d32d92ca4ba";
     #ucc.url = "github:Mag1cByt3s/ucc/fix/uccd-sleep-requires-loop";
   };
 
