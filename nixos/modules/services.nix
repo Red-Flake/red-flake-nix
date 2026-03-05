@@ -90,6 +90,9 @@ in
   # Red team stack (only enabled by default on "security" hosts).
   services.postgresql = lib.mkIf isSecurityHost {
     enable = lib.mkDefault true;
+
+    # set PostgreSQL Version to 18
+    package = pkgs.postgresql_18;
     enableTCPIP = true;
     settings.port = 5432;
     authentication = lib.mkOverride 10 ''

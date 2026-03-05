@@ -1194,11 +1194,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1767500168,
-        "narHash": "sha256-tbWyOXbvUJ59HPWlssHPCXfpq0KkMH3si3whLOuXmCM=",
+        "lastModified": 1772687461,
+        "narHash": "sha256-vw4BWEoh7ABm+kUTQp29vZKmAR5lOKf5xhGZP4VBwH4=",
         "owner": "Red-Flake",
         "repo": "packages",
-        "rev": "9371f4983b1449e62308830d08e6357521d80c66",
+        "rev": "95628cf4c127ed5e70ca0778cbb040039663d899",
         "type": "github"
       },
       "original": {
