@@ -110,7 +110,7 @@ in
             python3 -m venv "$venv_dir" && \
             source "$venv_dir/bin/activate" && \
             pip install pycryptodome pycryptodomex pwntools requests
-          }
+          } && _python3_shell
         '';
         python-shell = "python3-shell";
         python2-shell = ''
@@ -122,7 +122,7 @@ in
             python2 -m virtualenv "$venv_dir" && \
             source "$venv_dir/bin/activate" && \
             pip install pycryptodome pwntools requests
-          }
+          } && _python2_shell
         '';
         ruby-shell = "nix-shell -p ruby bundler";
         node-shell = "nix-shell -p nodePackages_latest.nodejs";
