@@ -52,7 +52,7 @@ in
     # Set initial password only once (before first start)
     if [ ! -f /var/lib/neo4j/data/dbms/auth.ini ]; then
       echo "Setting initial Neo4j password…"
-      su -s /bin/sh -c \
+      ${pkgs.shadow.su}/bin/su -s /bin/sh -c \
         'NEO4J_HOME=/var/lib/neo4j NEO4J_CONF=/var/lib/neo4j/conf ${lib.getExe' neo4jPkg "neo4j-admin"} set-initial-password "Password1337"' \
         neo4j || true
     fi
