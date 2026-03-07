@@ -64,6 +64,9 @@
   programs.firefox = {
     enable = true;
 
+    # set language pack
+    languagePacks = [ "en-US" ];
+
     # use binary package in order to avoid long compiles
     package = pkgs.firefox-bin;
 
@@ -74,24 +77,24 @@
       path = "redflake";
 
       search = {
-        default = "SearXNG";
-        privateDefault = "SearXNG";
+        default = "google";
+        privateDefault = "google";
         force = true;
         order = [
-          "SearXNG"
+          "google"
         ];
 
         engines = {
-          "SearXNG" = {
+          "google" = {
             urls = [
               {
-                template = "https://search.inetol.net/search?q={searchTerms}";
+                template = "https://www.google.com/search?q={searchTerms}&hl=en";
               }
             ];
 
-            icon = "https://search.inetol.net/static/themes/simple/img/favicon.svg";
+            icon = "https://www.google.com/favicon.ico";
             updateInterval = 24 * 60 * 60 * 1000;
-            definedAliases = [ "@sx" ];
+            definedAliases = [ "@go" ];
           };
         };
       };
@@ -171,6 +174,7 @@
         "browser.newtab.preload" = false;
         "browser.newtabpage.activity-stream.telemetry" = false;
         "browser.newtabpage.activity-stream.showSponsored" = false;
+        "browser.newtabpage.activity-stream.system.showSponsored" = false;
         "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
         "browser.newtabpage.activity-stream.feeds.topsites" = false;
         "browser.newtabpage.activity-stream.feeds.sections" = false;
@@ -179,6 +183,9 @@
         "browser.newtabpage.activity-stream.feeds.section.topstories" = false;
         "browser.newtabpage.activity-stream.feeds.discoverystreamfeed" = false;
         "browser.newtabpage.activity-stream.section.highlights.includePocket" = false;
+        "browser.newtabpage.activity-stream.section.highlights.includeBookmarks" = false;
+        "browser.newtabpage.activity-stream.section.highlights.includeDownloads" = false;
+        "browser.newtabpage.activity-stream.section.highlights.includeVisited" = false;
         "browser.newtabpage.activity-stream.default.sites" = "";
 
         "browser.tabs.tabmanager.enabled" = false;
@@ -743,7 +750,33 @@
     };
 
     policies = {
+      # Updates & Background Services
+      AppAutoUpdate = false;
+      BackgroundAppUpdate = false;
 
+      # Telemetry & Data Collection
+      DisableTelemetry = true;
+      DisableFirefoxStudies = true;
+      DisablePocket = true;
+      DisableFirefoxAccounts = true;
+      DisableAccounts = true;
+
+      # Disable useless features
+      DisableMasterPasswordCreation = true;
+      DisableProfileImport = true;
+      DisableProfileRefresh = true;
+
+      # Nice to haves
+      DisableFirefoxScreenshots = true;
+      OverrideFirstRunPage = "";
+      OverridePostUpdatePage = "";
+      DontCheckDefaultBrowser = true;
+      HardwareAcceleration = true;
+      DisplayMenuBar = "default-off"; # alternatives: "always", "never" or "default-on"
+      SearchBar = "unified"; # alternative: "separate"
+      OfferToSaveLogins = false;
+
+      # Certificates & Extensions
       Certificates = {
         ImportEnterpriseRoots = true;
 
