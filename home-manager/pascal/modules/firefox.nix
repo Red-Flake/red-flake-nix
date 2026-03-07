@@ -297,6 +297,15 @@
 
         # immediately start rendering (no delay)
         "nglayout.initialpaint.delay" = 0;
+
+        # disable AI features
+        "browser.ai.control.default" = "blocked";
+        "browser.ai.control.linkPreviewKeyPoints" = "blocked";
+        "browser.ai.control.pdfjsAltText" = "blocked";
+        "browser.ai.control.sidebarChatbot" = "blocked";
+        "browser.ai.control.smartTabGroups" = "blocked";
+        "browser.ai.control.translations" = "blocked";
+        "browser.aiwindow.enabled" = false;
       };
 
       extraConfig = ''
@@ -765,6 +774,16 @@
       DisableMasterPasswordCreation = true;
       DisableProfileImport = true;
       DisableProfileRefresh = true;
+
+      # Disable AI
+      GenerativeAI = {
+        Enabled = false;
+        Chatbot = false;
+        LinkPreviews = false;
+        TabGroups = false;
+        Translations = false;
+        Locked = true;
+      };
 
       # Nice to haves
       DisableFirefoxScreenshots = true;
