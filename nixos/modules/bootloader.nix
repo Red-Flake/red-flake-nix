@@ -55,9 +55,10 @@ in
         else
           "/dev/disk/by-path";
 
-      # Use ZFS 2.4.0 userspace package (Linux 6.18 requires ZFS 2.4.0+)
-      # boot.zfs.package expects the userspace package, not the kernel module
-      package = pkgsUnstable.zfs_unstable;
+      # Use ZFS 2.4 userspace package (Linux 6.18+ requires ZFS 2.4.0+)
+      # NixOS automatically selects the matching kernel module via kernelModuleAttribute
+      package = pkgsUnstable.zfs_2_4;
+
       requestEncryptionCredentials = cfg.zfs.encryption;
     };
 
