@@ -155,6 +155,16 @@
         # add overscroll
         "apz.overscroll.enabled" = true;
 
+        # some performance tweaks
+        # https://gist.github.com/0XDE57/fbd302cef7693e62c769
+        "layout.frame_rate.precise" = true; # Increases animation speed. May mitigate choppy scrolling.
+        "webgl.force-enabled" = true;
+        "layers.acceleration.force-enabled" = true;
+        "layers.offmainthreadcomposition.enabled" = true;
+        "layers.offmainthreadcomposition.async-animations" = true;
+        "layers.async-video.enabled" = true;
+        "html5.offmainthread" = true; # Enable Hardware Acceleration and Off Main Thread Compositing (OMTC).
+
         "browser.aboutConfig.showWarning" = false;
         "toolkit.telemetry.enabled" = false;
         # Session restore (keep), but avoid getting stuck in an infinite “restore after crash” loop.
