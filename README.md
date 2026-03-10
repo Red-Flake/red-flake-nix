@@ -1,6 +1,7 @@
 <h1 align="center">
   <img src="https://raw.githubusercontent.com/Red-Flake/artwork/main/logos/RedFlake_Logo_256x256px.png" width="250px"/>
   <div>Red-Flake Nix</div>
+  <br>
   <div>
     <a href="https://github.com/Red-Flake/red-flake-nix/issues">
         <img src="https://img.shields.io/github/issues/Red-Flake/red-flake-nix?color=f5a97f&labelColor=303446&style=for-the-badge">
