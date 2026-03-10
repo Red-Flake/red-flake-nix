@@ -1,19 +1,35 @@
-[![NixOS 25.11](https://img.shields.io/badge/NixOS-25.11-informational?style=flat-square&logo=NixOS&logoColor=white)](https://nixos.org)
-&ensp;
-[![Nix](https://img.shields.io/badge/Nix-5277C3?logo=nixos&style=flat-square&logoColor=fff)](#)
-&ensp;
-[![Home-Manager 25.11](https://img.shields.io/badge/home_manager-25.11-blue?style=flat-square)](#)
-&ensp;
-[![KDE Plasma 6](https://img.shields.io/badge/KDE_Plasma-6-blue?style=flat-square)](#)
-&ensp;
-[![CI](https://github.com/Red-Flake/red-flake-nix/actions/workflows/ci.yml/badge.svg)](https://github.com/Red-Flake/red-flake-nix/actions/workflows/ci.yml)
-
-<br><br>
-
 <h1 align="center">
-   <img src="https://raw.githubusercontent.com/Red-Flake/artwork/main/logos/RedFlake_Logo_256x256px.png" width="160"/> 
-   <br>
-   Red-Flake Nix Flake
+  <img src="https://raw.githubusercontent.com/Red-Flake/artwork/main/logos/RedFlake_Logo_256x256px.png" width="250px"/>
+  <div>Red-Flake Nix</div>
+  <div>
+    <a href="https://github.com/Red-Flake/red-flake-nix/issues">
+        <img src="https://img.shields.io/github/issues/Red-Flake/red-flake-nix?color=f5a97f&labelColor=303446&style=for-the-badge">
+    </a>
+    <a href="https://github.com/Red-Flake/red-flake-nix/stargazers">
+        <img src="https://img.shields.io/github/stars/Red-Flake/red-flake-nix?color=c6a0f6&labelColor=303446&style=for-the-badge">
+    </a>
+    <a href="https://github.com/Red-Flake/red-flake-nix">
+        <img src="https://img.shields.io/github/repo-size/Red-Flake/red-flake-nix?color=ea999c&labelColor=303446&style=for-the-badge">
+    </a>
+    <a href="https://github.com/Red-Flake/red-flake-nix/blob/main/LICENSE">
+        <img src="https://img.shields.io/static/v1.svg?style=for-the-badge&label=License&message=GPL-3&logoColor=ca9ee6&colorA=313244&colorB=a6da95"/>
+    </a>
+    <a href="https://nixos.org">
+        <img src="https://img.shields.io/badge/NixOS-25.11-blue.svg?style=for-the-badge&labelColor=303446&logo=NixOS&logoColor=white&color=91D7E3">
+    </a>
+     <a href="https://github.com/nix-community/home-manager">
+        <img src="https://img.shields.io/badge/home_manager-25.11-blue?style=for-the-badge&labelColor=303446&logo=NixOS&logoColor=white&color=91D7E3">
+    </a>
+     <a href="https://kde.org/de/announcements/megarelease/6">
+        <img src="https://img.shields.io/badge/KDE_Plasma-6-blue?style=for-the-badge&labelColor=303446&logo=NixOS&logoColor=white&color=91D7E3">
+    </a>
+     <a href="https://img.shields.io/github/actions/workflow/status/Red-Flake/red-flake-nix/ci.yml">
+        <img src="https://img.shields.io/github/actions/workflow/status/Red-Flake/red-flake-nix/ci.yml">
+    </a>
+  </div>
+  <a href="https://builtwithnix.org">
+      <img src="https://builtwithnix.org/badge.svg"/>
+  </a>
 </h1>
 
 <br><br><br>
