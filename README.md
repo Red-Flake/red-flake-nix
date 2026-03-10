@@ -25,7 +25,7 @@
         <img src="https://img.shields.io/badge/KDE_Plasma-6-blue?style=for-the-badge&labelColor=303446&logo=NixOS&logoColor=white&color=91D7E3">
     </a>
      <a href="https://img.shields.io/github/actions/workflow/status/Red-Flake/red-flake-nix/ci.yml">
-        <img src="https://img.shields.io/github/actions/workflow/status/Red-Flake/red-flake-nix/ci.yml">
+        <img src="https://img.shields.io/github/actions/workflow/status/Red-Flake/red-flake-nix/ci.yml?style=for-the-badge&labelColor=303446">
     </a>
   </div>
   <a href="https://builtwithnix.org">
