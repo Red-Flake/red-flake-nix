@@ -20,9 +20,11 @@ _:
         vimcmd_symbol = "[❮](bold green)";
       };
 
-      # Directory
+      # Directory with intelligent truncation
       directory = {
+        format = "[$path]($style) ";
         truncation_length = 3;
+        truncation_symbol = "…/";
         truncate_to_repo = true;
         style = "bold cyan";
       };
