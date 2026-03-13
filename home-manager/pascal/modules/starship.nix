@@ -7,17 +7,24 @@ _:
     enableZshIntegration = false; # Using custom transient prompt implementation in zsh.nix
 
     settings = {
-      # Prompt format
-      format = "$username$hostname$directory$git_branch$git_status$nix_shell$python$rust$nodejs$golang$cmd_duration$line_break$character";
+      # Prompt format - two lines with right-aligned content on each
+      # Line 1: path/git info ... IPs (right, using fill)
+      # Line 2: character (left) ... time (right, using right_format)
+      format = "$username$hostname$directory$git_branch$git_status$nix_shell$python$rust$nodejs$golang$cmd_duration$fill\${custom.vpn_ip}\${custom.lan_ip}$line_break$character";
 
-      # Right side prompt - show IPs
-      right_format = "\${custom.vpn_ip}\${custom.lan_ip}";
+      # Right format appears on line 2 next to character
+      right_format = "$time";
 
       # Character module (prompt symbol)
       character = {
         success_symbol = "[❯](bold green)";
         error_symbol = "[❯](bold red)";
         vimcmd_symbol = "[❮](bold green)";
+      };
+
+      # Fill - used to push content to the right
+      fill = {
+        symbol = " ";
       };
 
       # Directory with intelligent truncation
@@ -109,13 +116,21 @@ _:
         ssh_only = true;
       };
 
+      # Time with seconds
+      time = {
+        disabled = false;
+        format = "[ $time]($style)";
+        time_format = "%H:%M:%S";
+        style = "bold white";
+      };
+
       # Custom modules for IP display
       custom = {
-        # LAN IP - always shown
+        # LAN IP - always shown (trailing space to align with RPROMPT margin)
         lan_ip = {
           command = "ip route get 1.1.1.1 2>/dev/null | awk '{for(i=1;i<=NF;i++) if($i==\"src\") print $(i+1)}'";
           when = "true";
-          format = "[󰈀 $output]($style)";
+          format = "[󰈀 $output]($style) ";
           style = "bold green";
         };
 
