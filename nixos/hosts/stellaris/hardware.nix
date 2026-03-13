@@ -7,6 +7,12 @@
 {
 
   custom = {
+    # set Kernel options
+    kernel = {
+      flavor = "cachyos";
+      cachyos.target = "x86_64-v3";
+    };
+
     # enable ZFS encryption
     zfs.encryption = true;
 

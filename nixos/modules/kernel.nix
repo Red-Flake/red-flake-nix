@@ -24,30 +24,46 @@ let
             };
         });
       in
-      kernelPackages
-      // {
-        nvidiaPackages = kernelPackages.nvidiaPackages // { latest = latestDrv; };
+      kernelPackages // {
+        nvidiaPackages = kernelPackages.nvidiaPackages // {
+          latest = latestDrv;
+        };
       };
 
-  cachyPkgs = import inputs.nix-cachyos-kernel.inputs.nixpkgs {
-    inherit (pkgs.stdenv.hostPlatform) system;
-    overlays = [ inputs.nix-cachyos-kernel.overlays.pinned ];
-    config = {
-      allowUnfree = pkgs.config.allowUnfree or true;
-      nvidia.acceptLicense = (pkgs.config.nvidia or { }).acceptLicense or false;
-    };
-  };
+  cachyKernelAttrName =
+    let
+      suffix =
+        if cfg.cachyos.target == "generic" then
+          ""
+        else
+          "-${cfg.cachyos.target}";
+    in
+    "linux-cachyos-lts${suffix}";
 
-  # stick to LTS kernel for ZFS and stable nixpkgs
-  # NOTE: `linuxPackagesFor` expects a kernel derivation (with `.override`), not a linuxPackages set.
-  cachyKernel = cachyPkgs.cachyosKernels.linuxPackages-cachyos-lts.kernel;
+  cachyKernel =
+    let
+      exported = inputs.nix-cachyos-kernel.packages.${pkgs.system};
+    in
+    if builtins.hasAttr cachyKernelAttrName exported then
+      builtins.getAttr cachyKernelAttrName exported
+    else
+      throw ''
+        Requested CachyOS kernel "${cachyKernelAttrName}" was not found in:
+          inputs.nix-cachyos-kernel.packages.${pkgs.system}
+
+        Available attrs:
+          ${lib.concatStringsSep ", " (builtins.attrNames exported)}
+      '';
 
   cachyBaseKernelPackages = pkgs.linuxPackagesFor cachyKernel;
 
   xanmodKernelPackages =
     pkgs.linuxPackages_xanmod_latest or (
-      pkgs.linuxPackages_xanmod or (throw "custom.kernel.flavor = \"xanmod\" is not available in this nixpkgs")
+      pkgs.linuxPackages_xanmod or
+        (throw "custom.kernel.flavor = \"xanmod\" is not available in this nixpkgs")
     );
+
+  defaultKernelPackages = pkgs.linuxPackages;
 
   selectedKernelPackagesBase =
     if cfg.flavor == "cachyos" then
@@ -55,7 +71,7 @@ let
     else if cfg.flavor == "xanmod" then
       xanmodKernelPackages
     else
-      pkgs.linuxPackages;
+      defaultKernelPackages;
 
   selectedKernelPackages =
     if cfg.nvidia.stripFix.enable then
@@ -73,6 +89,26 @@ in
       ];
       default = "cachyos";
       description = "Kernel flavor to use system-wide by default.";
+    };
+
+    cachyos.target = lib.mkOption {
+      type = lib.types.enum [
+        "generic"
+        "x86_64-v2"
+        "x86_64-v3"
+        "x86_64-v4"
+        "zen4"
+      ];
+      default = "generic";
+      description = ''
+        CachyOS kernel target variant to use when custom.kernel.flavor = "cachyos".
+
+        generic     -> linux-cachyos-lts
+        x86_64-v2   -> linux-cachyos-lts-x86_64-v2
+        x86_64-v3   -> linux-cachyos-lts-x86_64-v3
+        x86_64-v4   -> linux-cachyos-lts-x86_64-v4
+        zen4        -> linux-cachyos-lts-zen4
+      '';
     };
 
     nvidia.stripFix.enable = lib.mkOption {

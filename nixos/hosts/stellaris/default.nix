@@ -4,7 +4,6 @@
     ./hardware.nix
     ./sysctl.nix
     ./performance.nix
-    #./xanmod.nix
     ./avatar.nix
     ./gaming.nix
     ./nvidia.nix
