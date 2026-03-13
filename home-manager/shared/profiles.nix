@@ -19,7 +19,7 @@ let
     ../common/modules/zsh.nix
     ../common/modules/fastfetch.nix
     ../common/modules/ssh-agent.nix
-    ../common/modules/p10k.nix
+    ../common/modules/starship.nix
   ];
 
   # Base modules for desktop profiles (adds flatpak to core)

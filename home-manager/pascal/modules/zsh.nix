@@ -1,12 +1,4 @@
-{ config
-, lib
-, pkgs
-, ...
-}:
-let
-  # P10K configuration files are now managed via Nix in p10k.nix
-  configThemeNormal = ".p10k.zsh";
-in
+{ lib, pkgs, ... }:
 {
   fonts.fontconfig.enable = true;
 
@@ -28,43 +20,99 @@ in
 
       # Commands that should be added to top of {file}.zshrc.
       initContent = lib.mkBefore ''
-        # Instant prompt (before anything else)
-        if [[ -r "${config.home.homeDirectory}/.cache/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
-          source "${config.home.homeDirectory}/.cache/p10k-instant-prompt-''${(%):-%n}.zsh"
-        fi
-
-        # Load P10K config based on terminal capabilities
-        # P10K configs are now managed via Nix (see p10k.nix module)
-        source ~/${configThemeNormal}
-
         # disable nomatch to fix weird compatility issues with bash
         setopt +o nomatch
+
+        # Custom starship init with transient prompt support
+        # Based on: https://github.com/starship/starship/issues/888
+        if (( $+commands[starship] )); then
+            eval "$(starship init zsh)"
+            zmodload zsh/datetime
+            bindkey -v
+
+            _starship_build_prompt() {
+                local current_keymap="''${KEYMAP:-main}"
+                local job_count=$(jobs | wc -l | tr -d ' ')
+                PROMPT="$(starship prompt --terminal-width="$COLUMNS" --keymap="$current_keymap" --status=''${_STARSHIP_LAST_STATUS:-0} --cmd-duration=''${_STARSHIP_LAST_DURATION:-0} --jobs="$job_count")"
+                RPROMPT="$(starship prompt --right --terminal-width="$COLUMNS" --keymap="$current_keymap" --status=''${_STARSHIP_LAST_STATUS:-0} --cmd-duration=''${_STARSHIP_LAST_DURATION:-0} --jobs="$job_count")"
+            }
+
+            _starship_timer_start() {
+                export _MY_CMD_START_TIME=''${EPOCHREALTIME}
+            }
+            autoload -Uz add-zsh-hook
+            add-zsh-hook preexec _starship_timer_start
+
+            _starship_precmd() {
+                _STARSHIP_LAST_STATUS=$?
+                _STARSHIP_LAST_DURATION=0
+                if [[ -n $_MY_CMD_START_TIME ]]; then
+                    local end_time=''${EPOCHREALTIME}
+                    _STARSHIP_LAST_DURATION=$(( (end_time - _MY_CMD_START_TIME) * 1000 ))
+                    _STARSHIP_LAST_DURATION=''${_STARSHIP_LAST_DURATION%.*}
+                fi
+                unset _MY_CMD_START_TIME
+
+                _starship_build_prompt
+            }
+            add-zsh-hook precmd _starship_precmd
+
+            _starship_zle-keymap-select() {
+                _starship_build_prompt
+                zle reset-prompt
+            }
+            zle -N zle-keymap-select _starship_zle-keymap-select
+
+            _starship_transient_collapse() {
+                if [[ "$CONTEXT" == "start" ]]; then
+                    PROMPT="$(starship module character) "
+                    RPROMPT=""
+                    zle .reset-prompt
+                fi
+            }
+            zle -N zle-line-finish _starship_transient_collapse
+        fi
+
+        # Keybindings for history-substring-search (after plugin loads)
+        bindkey '^[[A' history-substring-search-up
+        bindkey '^[[B' history-substring-search-down
+        bindkey '^P' history-substring-search-up
+        bindkey '^N' history-substring-search-down
       '';
 
+      # Zsh plugins
       plugins = [
         {
-          # A prompt will appear the first time to configure it properly
-          # make sure to select MesloLGS NF as the font in Ghostty
-          name = "powerlevel10k";
-          src = pkgs.zsh-powerlevel10k;
-          file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+          name = "zsh-z";
+          src = pkgs.fetchFromGitHub {
+            owner = "agkozak";
+            repo = "zsh-z";
+            rev = "master";
+            sha256 = "0vb6ixwdlnkd5cnxkyansz8cwk3pplxiz9j1i64p8d4nwr45xgqb";
+          };
+          file = "zsh-z.plugin.zsh";
+        }
+        {
+          name = "fzf-tab";
+          src = pkgs.fetchFromGitHub {
+            owner = "Aloxaf";
+            repo = "fzf-tab";
+            rev = "v1.2.0";
+            sha256 = "0mnsmfv0bx6np2r6pll43h261v7mh2ic1kd08r7jcwyb5xarfvmb";
+          };
+          file = "fzf-tab.plugin.zsh";
+        }
+        {
+          name = "zsh-history-substring-search";
+          src = pkgs.fetchFromGitHub {
+            owner = "zsh-users";
+            repo = "zsh-history-substring-search";
+            rev = "v1.1.0";
+            sha256 = "0vjw4s0h4sams1a1jg9jx92d6hd2swq4z908nbmmm2qnz212y88r";
+          };
+          file = "zsh-history-substring-search.plugin.zsh";
         }
       ];
-
-      oh-my-zsh = {
-        # enable oh-my-zsh
-        enable = true;
-
-        plugins = [
-          "git"
-          #"docker"
-          #"colorize"
-          #"colored-man-pages"
-          #"sudo"
-          #"z"
-        ];
-
-      };
 
       # https://home-manager-options.extranix.com/?query=programs.zsh.shellAliases&release=master
       shellAliases = {
@@ -321,6 +369,12 @@ in
         XDG_RUNTIME_DIR = "/run/user/$UID";
       };
 
+    };
+
+    # fzf - fuzzy finder (required for fzf-tab)
+    fzf = {
+      enable = true;
+      enableZshIntegration = true;
     };
   };
 }
