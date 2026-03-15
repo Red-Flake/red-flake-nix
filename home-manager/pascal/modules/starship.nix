@@ -7,6 +7,9 @@ _:
     enableZshIntegration = false; # Using custom transient prompt implementation in zsh.nix
 
     settings = {
+      # Don't add blank line before prompt
+      add_newline = false;
+
       # Prompt format - two lines with right-aligned content on each
       # Line 1: path/git info ... IPs (right, using fill)
       # Line 2: character (left) ... time (right, using right_format)

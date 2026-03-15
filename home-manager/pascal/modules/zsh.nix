@@ -33,6 +33,14 @@
             bindkey '^[[1;5D' backward-word
             bindkey '^[[1;5C' forward-word
 
+            # Clear screen widget that resets prompt spacing
+            _clear_screen_and_reset() {
+                unset _STARSHIP_PROMPT_SHOWN
+                zle clear-screen
+            }
+            zle -N _clear_screen_and_reset
+            bindkey '^L' _clear_screen_and_reset
+
             _starship_build_prompt() {
                 local current_keymap="''${KEYMAP:-main}"
                 local job_count=$(jobs | wc -l | tr -d ' ')
@@ -49,6 +57,12 @@
             _starship_precmd() {
                 _STARSHIP_LAST_STATUS=$?
                 _STARSHIP_LAST_DURATION=0
+
+                # Add newline between commands, but not on first prompt
+                if [[ -n "$_STARSHIP_PROMPT_SHOWN" ]]; then
+                    echo
+                fi
+                _STARSHIP_PROMPT_SHOWN=1
                 if [[ -n $_MY_CMD_START_TIME ]]; then
                     local end_time=''${EPOCHREALTIME}
                     _STARSHIP_LAST_DURATION=$(( (end_time - _MY_CMD_START_TIME) * 1000 ))
@@ -68,7 +82,7 @@
 
             _starship_transient_collapse() {
                 if [[ "$CONTEXT" == "start" ]]; then
-                    PROMPT="$(starship module character) "
+                    PROMPT="$(starship module character)"
                     RPROMPT=""
                     zle .reset-prompt
                 fi
@@ -119,6 +133,9 @@
 
       # https://home-manager-options.extranix.com/?query=programs.zsh.shellAliases&release=master
       shellAliases = {
+        # Reset prompt spacing flag when clearing screen
+        clear = "unset _STARSHIP_PROMPT_SHOWN; command clear";
+
         # general
         ls = "lsd";
         ll = "lsd -la";
