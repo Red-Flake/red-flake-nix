@@ -28,7 +28,10 @@
         if (( $+commands[starship] )); then
             eval "$(starship init zsh)"
             zmodload zsh/datetime
-            bindkey -v
+
+            # Word navigation with Ctrl+Left/Right
+            bindkey '^[[1;5D' backward-word
+            bindkey '^[[1;5C' forward-word
 
             _starship_build_prompt() {
                 local current_keymap="''${KEYMAP:-main}"
