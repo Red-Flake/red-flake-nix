@@ -18,6 +18,47 @@
     # Debug: `sudo journalctl -u NetworkManager-dispatcher -e`
     dispatcherScripts = [
       {
+        # Fix VPN split tunneling for lab VPNs (HackTheBox, OffSec, etc.)
+        # Problem: When VPN is connected, some apps (Discord) send packets with the VPN
+        # source IP (e.g., 192.168.45.171) out the regular interface (wlan0). The remote
+        # server can't reply because that IP is unreachable from the internet.
+        # Solution: Masquerade (SNAT) traffic from VPN IPs going out non-VPN interfaces.
+        source = pkgs.writeShellScript "09-vpn-split-tunnel" ''
+          export PATH="${lib.makeBinPath [ pkgs.iproute2 pkgs.iptables pkgs.gnugrep ]}:$PATH"
+
+          INTERFACE="$1"
+          ACTION="$2"
+
+          # Only act on tun interfaces (OpenVPN)
+          case "$INTERFACE" in
+            tun*) ;;
+            *) exit 0 ;;
+          esac
+
+          # Get the VPN interface's IP address
+          VPN_IP=$(ip -4 addr show dev "$INTERFACE" | grep -oP 'inet \K[0-9.]+')
+
+          case "$ACTION" in
+            up)
+              if [ -n "$VPN_IP" ]; then
+                # Add masquerade rule: traffic from VPN IP going out non-tun interfaces
+                # gets its source IP rewritten to the outgoing interface's IP
+                iptables -t nat -C POSTROUTING -s "$VPN_IP" ! -o "$INTERFACE" -j MASQUERADE 2>/dev/null || \
+                  iptables -t nat -A POSTROUTING -s "$VPN_IP" ! -o "$INTERFACE" -j MASQUERADE
+                echo "VPN NAT enabled: masquerading traffic from $VPN_IP on non-VPN interfaces"
+              fi
+              ;;
+            down)
+              if [ -n "$VPN_IP" ]; then
+                # Remove the masquerade rule when VPN disconnects
+                iptables -t nat -D POSTROUTING -s "$VPN_IP" ! -o "$INTERFACE" -j MASQUERADE 2>/dev/null || true
+                echo "VPN NAT disabled: removed masquerade rule for $VPN_IP"
+              fi
+              ;;
+          esac
+        '';
+      }
+      {
         source = pkgs.writeText "10-update-timesyncd" ''
           [ -z "$CONNECTION_UUID" ] && exit 0
           INTERFACE="$1"

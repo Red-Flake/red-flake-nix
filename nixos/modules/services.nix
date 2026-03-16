@@ -274,6 +274,45 @@ in
     ACTION=="add|change", KERNEL=="sd[a-z]*", ATTR{queue/rotational}=="1", ATTR{queue/scheduler}="bfq"
     # SSD
     ACTION=="add|change", KERNEL=="sd[a-z]*|mmcblk[0-9]*", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="bfq"
+
+    # VPN split tunneling: trigger service when tun interface is created
+    ACTION=="add", KERNEL=="tun[0-9]*", TAG+="systemd", ENV{SYSTEMD_WANTS}+="vpn-split-tunnel@%k.service"
   '';
+
+  # VPN split tunneling service - fixes source IP issues for lab VPNs
+  # Problem: When VPN is connected, some apps send packets with VPN source IP out wlan0.
+  # Remote servers can't reply because the VPN IP is unreachable from the internet.
+  # Solution: Add SNAT/masquerade rule to rewrite source IP for non-VPN traffic.
+  systemd.services."vpn-split-tunnel@" = {
+    description = "Enable split tunneling for VPN interface %i";
+    after = [ "sys-devices-virtual-net-%i.device" ];
+    path = [ pkgs.iproute2 pkgs.iptables pkgs.gawk pkgs.coreutils ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = false;
+    };
+    script = ''
+      INTERFACE="%i"
+
+      # Wait for OpenVPN to configure the interface
+      sleep 2
+
+      # Get the VPN interface's IP address
+      VPN_IP=$(ip -4 addr show dev "$INTERFACE" 2>/dev/null | awk '/inet / {print $2}' | cut -d/ -f1)
+
+      if [ -n "$VPN_IP" ]; then
+        # Add masquerade rule: traffic from VPN IP going out non-tun interfaces
+        # gets its source IP rewritten to the outgoing interface's IP
+        if ! iptables -t nat -C POSTROUTING -s "$VPN_IP" ! -o "$INTERFACE" -j MASQUERADE 2>/dev/null; then
+          iptables -t nat -A POSTROUTING -s "$VPN_IP" ! -o "$INTERFACE" -j MASQUERADE
+          echo "VPN NAT enabled: masquerading traffic from $VPN_IP on non-VPN interfaces"
+        else
+          echo "VPN NAT rule already exists for $VPN_IP"
+        fi
+      else
+        echo "Could not determine IP for $INTERFACE"
+      fi
+    '';
+  };
 
 }
