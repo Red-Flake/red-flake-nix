@@ -23,6 +23,33 @@
         # disable nomatch to fix weird compatility issues with bash
         setopt +o nomatch
 
+        # History improvements
+        setopt HIST_IGNORE_ALL_DUPS    # Remove older duplicates from history
+        setopt HIST_REDUCE_BLANKS      # Remove superfluous blanks from history
+        setopt HIST_VERIFY             # Show command before executing from history
+        setopt SHARE_HISTORY           # Share history between sessions
+
+        # Completion caching for faster tab completion
+        zstyle ':completion:*' use-cache on
+        zstyle ':completion:*' cache-path "$HOME/.zsh/cache"
+
+        # Cache IP addresses (avoids running ip/awk on every prompt)
+        _update_ip_cache() {
+            export _CACHED_LAN_IP="$(ip route get 1.1.1.1 2>/dev/null | awk '{for(i=1;i<=NF;i++) if($i=="src") print $(i+1)}')"
+            export _CACHED_VPN_IP=""
+            for iface in tun0 tun1 tun2 wg0 wg1 proton0 nordlynx; do
+                local ip=$(ip -4 addr show "$iface" 2>/dev/null | awk '/inet / {gsub(/\/.*/, "", $2); print $2; exit}')
+                if [[ -n "$ip" ]]; then
+                    export _CACHED_VPN_IP="$ip"
+                    break
+                fi
+            done
+        }
+        _update_ip_cache
+
+        # Refresh IP cache (call manually or bind to a key)
+        refresh-ips() { _update_ip_cache && echo "IPs refreshed: LAN=$_CACHED_LAN_IP VPN=$_CACHED_VPN_IP" }
+
         # Custom starship init with transient prompt support
         # Based on: https://github.com/starship/starship/issues/888
         if (( $+commands[starship] )); then
@@ -42,10 +69,10 @@
             bindkey '^L' _clear_screen_and_reset
 
             _starship_build_prompt() {
-                local current_keymap="''${KEYMAP:-main}"
-                local job_count=$(jobs | wc -l | tr -d ' ')
-                PROMPT="$(starship prompt --terminal-width="$COLUMNS" --keymap="$current_keymap" --status=''${_STARSHIP_LAST_STATUS:-0} --cmd-duration=''${_STARSHIP_LAST_DURATION:-0} --jobs="$job_count")"
-                RPROMPT="$(starship prompt --right --terminal-width="$COLUMNS" --keymap="$current_keymap" --status=''${_STARSHIP_LAST_STATUS:-0} --cmd-duration=''${_STARSHIP_LAST_DURATION:-0} --jobs="$job_count")"
+                # Use pure zsh to count jobs (avoids spawning 3 processes)
+                local job_count=''${#jobstates}
+                PROMPT="$(starship prompt --terminal-width="$COLUMNS" --status=''${_STARSHIP_LAST_STATUS:-0} --cmd-duration=''${_STARSHIP_LAST_DURATION:-0} --jobs="$job_count")"
+                RPROMPT="$(starship prompt --right --terminal-width="$COLUMNS" --status=''${_STARSHIP_LAST_STATUS:-0} --cmd-duration=''${_STARSHIP_LAST_DURATION:-0} --jobs="$job_count")"
             }
 
             _starship_timer_start() {
@@ -74,12 +101,6 @@
             }
             add-zsh-hook precmd _starship_precmd
 
-            _starship_zle-keymap-select() {
-                _starship_build_prompt
-                zle reset-prompt
-            }
-            zle -N zle-keymap-select _starship_zle-keymap-select
-
             _starship_transient_collapse() {
                 if [[ "$CONTEXT" == "start" ]]; then
                     PROMPT="$(starship module character)"
@@ -104,8 +125,8 @@
           src = pkgs.fetchFromGitHub {
             owner = "agkozak";
             repo = "zsh-z";
-            rev = "master";
-            sha256 = "0vb6ixwdlnkd5cnxkyansz8cwk3pplxiz9j1i64p8d4nwr45xgqb";
+            rev = "cf9225feebfae55e557e103e95ce20eca5eff270"; # Pinned commit for reproducibility
+            sha256 = "sha256-C79eSOaWNHSJiUGmHzu9d0zO0NdW+dktK21a2niPZm0=";
           };
           file = "zsh-z.plugin.zsh";
         }

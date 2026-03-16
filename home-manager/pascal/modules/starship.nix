@@ -60,6 +60,7 @@ _:
         staged = "+\${count} ";
         renamed = "»\${count} ";
         deleted = "✘\${count} ";
+        ignore_submodules = true; # Performance: skip submodule status checks
       };
 
       # Nix shell indicator
@@ -127,25 +128,21 @@ _:
         style = "bold white";
       };
 
-      # Custom modules for IP display
+      # Custom modules for IP display (using cached values from zsh for performance)
       custom = {
-        # LAN IP - always shown (trailing space to align with RPROMPT margin)
+        # LAN IP - uses cached value from $_CACHED_LAN_IP (set at shell startup)
         lan_ip = {
-          command = "ip route get 1.1.1.1 2>/dev/null | awk '{for(i=1;i<=NF;i++) if($i==\"src\") print $(i+1)}'";
-          when = "true";
+          command = "echo $_CACHED_LAN_IP";
+          when = "[ -n \"$_CACHED_LAN_IP\" ]";
           format = "[󰈀 $output]($style) ";
           style = "bold green";
         };
 
-        # VPN IP - only shown when VPN interface is active
-        # Checks for common VPN interfaces: tun0, tun1, wg0, wg1, etc.
+        # VPN IP - uses cached value from $_CACHED_VPN_IP (set at shell startup)
+        # Run 'refresh-ips' to update after connecting/disconnecting VPN
         vpn_ip = {
-          command = ''
-            for iface in tun0 tun1 tun2 wg0 wg1 proton0 nordlynx; do
-              ip -4 addr show "$iface" 2>/dev/null | awk '/inet / {gsub(/\/.*/, "", $2); print $2; exit}'
-            done | head -1
-          '';
-          when = "ip link show tun0 2>/dev/null || ip link show tun1 2>/dev/null || ip link show wg0 2>/dev/null || ip link show wg1 2>/dev/null || ip link show proton0 2>/dev/null || ip link show nordlynx 2>/dev/null";
+          command = "echo $_CACHED_VPN_IP";
+          when = "[ -n \"$_CACHED_VPN_IP\" ]";
           format = "[󰖂 $output]($style) ";
           style = "bold yellow";
         };
