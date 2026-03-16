@@ -35,22 +35,42 @@
         zstyle ':completion:*' use-cache on
         zstyle ':completion:*' cache-path "$HOME/.zsh/cache"
 
-        # Cache IP addresses (avoids running ip/awk on every prompt)
+        # Async IP caching (non-blocking startup)
+        # Cache file persists across shells for the same user
+        _IP_CACHE_FILE="/tmp/zsh_ip_cache_$UID"
+
         _update_ip_cache() {
-            export _CACHED_LAN_IP="$(ip route get 1.1.1.1 2>/dev/null | awk '{for(i=1;i<=NF;i++) if($i=="src") print $(i+1)}')"
-            export _CACHED_VPN_IP=""
+            local lan_ip vpn_ip=""
+            lan_ip="$(ip route get 1.1.1.1 2>/dev/null | awk '{for(i=1;i<=NF;i++) if($i=="src") print $(i+1)}')"
             for iface in tun0 tun1 tun2 wg0 wg1 proton0 nordlynx; do
                 local ip=$(ip -4 addr show "$iface" 2>/dev/null | awk '/inet / {gsub(/\/.*/, "", $2); print $2; exit}')
                 if [[ -n "$ip" ]]; then
-                    export _CACHED_VPN_IP="$ip"
+                    vpn_ip="$ip"
                     break
                 fi
             done
+            printf '%s\n%s\n' "$lan_ip" "$vpn_ip" > "$_IP_CACHE_FILE"
         }
-        _update_ip_cache
+
+        # Fast cache loader - reads 2 lines from local file
+        _load_ip_cache() {
+            if [[ -f "$_IP_CACHE_FILE" ]]; then
+                { read -r _CACHED_LAN_IP; read -r _CACHED_VPN_IP; } < "$_IP_CACHE_FILE"
+                export _CACHED_LAN_IP _CACHED_VPN_IP
+            fi
+        }
+
+        # Initialize empty (will be populated by background job or cache)
+        export _CACHED_LAN_IP="" _CACHED_VPN_IP=""
+
+        # Load existing cache immediately (if available from previous shell)
+        _load_ip_cache
+
+        # Start background update (disowned - won't block startup)
+        { _update_ip_cache } &!
 
         # Refresh IP cache (call manually or bind to a key)
-        refresh-ips() { _update_ip_cache && echo "IPs refreshed: LAN=$_CACHED_LAN_IP VPN=$_CACHED_VPN_IP" }
+        refresh-ips() { _update_ip_cache && _load_ip_cache && echo "IPs refreshed: LAN=$_CACHED_LAN_IP VPN=$_CACHED_VPN_IP" }
 
         # Custom starship init with transient prompt support
         # Based on: https://github.com/starship/starship/issues/888
