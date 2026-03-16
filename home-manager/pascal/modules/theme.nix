@@ -4,6 +4,9 @@
 , ...
 }:
 {
+  # Enable fontconfig for proper font rendering
+  fonts.fontconfig.enable = true;
+
   gtk = {
     enable = true;
     theme = {

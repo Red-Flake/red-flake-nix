@@ -1,7 +1,5 @@
 { lib, pkgs, ... }:
 {
-  fonts.fontconfig.enable = true;
-
   programs = {
     zsh = {
       ## See options: https://nix-community.github.io/home-manager/options.xhtml
@@ -25,9 +23,13 @@
 
         # History improvements
         setopt HIST_IGNORE_ALL_DUPS    # Remove older duplicates from history
+        setopt HIST_SAVE_NO_DUPS       # Don't save duplicates to history file
         setopt HIST_REDUCE_BLANKS      # Remove superfluous blanks from history
         setopt HIST_VERIFY             # Show command before executing from history
         setopt SHARE_HISTORY           # Share history between sessions
+
+        # Navigation
+        setopt AUTO_CD                 # Type directory name to cd into it
 
         # Completion caching for faster tab completion
         zstyle ':completion:*' use-cache on
