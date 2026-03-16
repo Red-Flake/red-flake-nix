@@ -2,7 +2,6 @@
 {
   programs.ghostty = {
     enable = true;
-    package = pkgs.ghostty;
 
     enableZshIntegration = true;
     installBatSyntax = true;
@@ -31,7 +30,7 @@
       mouse-hide-while-typing = true;
       mouse-scroll-multiplier = 1;
 
-      scrollback-limit = 100000000000000; # Reasonable large value (~days of output)
+      scrollback-limit = 10000000; # 10 million lines (~1-2GB max memory)
 
       # copy settings
       copy-on-select = false;
@@ -48,13 +47,12 @@
       window-decoration = "auto";
       #window-padding-x = 5;
       #window-padding-y = 5;
-      window-vsync = false;
+      window-vsync = true;
       window-show-tab-bar = "always";
       window-theme = "ghostty"; # Use the background and foreground colors specified in the Ghostty configuration.
 
       confirm-close-surface = false;
 
-      shell-integration = "zsh";
       shell-integration-features = [
         "sudo"
         "title"
@@ -80,9 +78,7 @@
       auto-update = "off";
 
       # recommended for the "start at login, then open windows instantly" flow
-      # also set quit-after-last-window-closed = false; to keep it always running
       quit-after-last-window-closed = false;
-      quit-after-last-window-closed-delay = "5m";
 
       # custom-shader = "shaders/aurora.glsl";
       # custom-shader = "shaders/cursor_smear.glsl";
