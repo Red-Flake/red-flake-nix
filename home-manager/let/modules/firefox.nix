@@ -31,7 +31,7 @@ in
           global_vaultSettings_enablePasskeys = false;
           global_autofillSettingsLocal_inlineMenuVisibility = {
             __json__ = true;
-            value = "1";
+            value = "2";
           };
           user_5450439a-482e-48fe-91ba-a0fecf259c67_autofillSettings_autofillOnPageLoad = true;
           user_5450439a-482e-48fe-91ba-a0fecf259c67_autofillSettings_autofillOnPageLoadDefault = true;

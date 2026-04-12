@@ -30,7 +30,7 @@ in
           global_vaultSettings_enablePasskeys = false;
           global_autofillSettingsLocal_inlineMenuVisibility = {
             __json__ = true;
-            value = "1";
+            value = "2";
           };
         };
       };
