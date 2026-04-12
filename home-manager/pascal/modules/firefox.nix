@@ -9,7 +9,7 @@ in
   custom.firefox = {
     enable = true;
     profile = "security";
-    dnsProvider = "cloudflare";
+    dnsProvider = "none";
     processCount = 24;
     aggressiveAcceleration = false;
     enableScrollTuning = true;

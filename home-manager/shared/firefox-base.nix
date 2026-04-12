@@ -221,7 +221,7 @@ let
     "dom.serviceWorkers.enabled" = false;
 
     # DNS over HTTPS
-    "network.trr.mode" = if cfg.dnsProvider == "none" then 0 else 2;
+    "network.trr.mode" = if cfg.dnsProvider == "none" then 5 else 2;
     "network.trr.uri" = dnsProviderUri.${cfg.dnsProvider};
     "network.trr.wait-for-portal" = true;
     "network.dns.echconfig.enabled" = true;
