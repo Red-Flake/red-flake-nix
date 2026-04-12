@@ -7,6 +7,14 @@
 let
   cfg = config.custom.firefox;
 
+  addons = pkgs.nur.repos.rycee.firefox-addons;
+
+  # Sanitize addon IDs for use in uiCustomization.state
+  sanitize = s:
+    lib.toLower (
+      builtins.replaceStrings [ "@" "." "{" "}" ] [ "_" "_" "_" "_" ] s
+    );
+
   # DNS provider URIs
   dnsProviderUri = {
     cloudflare = "https://mozilla.cloudflare-dns.com/dns-query";
@@ -32,8 +40,27 @@ let
     # About config
     "browser.aboutConfig.showWarning" = false;
 
-    # Telemetry
-    "toolkit.telemetry.enabled" = false;
+    # Custom CSS support
+    "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+
+    # Fullscreen warning
+    "full-screen-api.warning.timeout" = 0;
+
+    # Default browser
+    "browser.shell.checkDefaultBrowser" = false;
+
+    # Fingerprinting (disabled for pentesting)
+    "privacy.resistFingerprinting" = false;
+
+    # Translations
+    "browser.translations.automaticallyPopup" = false;
+
+    # Bookmarks
+    "browser.bookmarks.defaultLocation" = "toolbar";
+    "browser.toolbars.bookmarks.visibility" = "always";
+    "browser.tabs.loadBookmarksInTabs" = true;
+    "browser.bookmarks.restore_default_bookmarks" = false;
+    "browser.bookmarks.addedImportButton" = true;
 
     # Session restore
     "browser.startup.page" = 3;
@@ -41,6 +68,7 @@ let
     "browser.sessionstore.max_resumed_crashes" = 2;
     "browser.sessionstore.restore_on_demand" = true;
     "browser.sessionstore.restore_pinned_tabs_on_demand" = true;
+    "browser.startup.couldRestoreSession.count" = -1;
 
     # New tab page
     "browser.newtabpage.enabled" = true;
@@ -72,6 +100,7 @@ let
     "ui.key.menuAccessKeyFocuses" = false;
     "browser.theme.toolbar-theme" = 0;
     "browser.theme.content-theme" = 0;
+    "layout.css.prefers-color-scheme.content-override" = 0;
 
     # DRM/Media
     "media.eme.enabled" = true;
@@ -86,13 +115,38 @@ let
     "extensions.pocket.enabled" = false;
     "extensions.screenshots.disabled" = true;
     "extensions.blocklist.enabled" = false;
+    "extensions.update.autoUpdateDefault" = false;
+    "extensions.systemAddon.update.enabled" = false;
+    "extensions.systemAddon.update.url" = "";
+    "extensions.update.enabled" = false;
+    "extensions.autoDisableScopes" = 0;
     "identity.fxaccounts.enabled" = false;
+    "identity.fxaccounts.telemetry.clientAssociationPing.enabled" = false;
 
-    # Crash reporting
+    # Telemetry / Data collection / Crash reporting
+    "toolkit.telemetry.enabled" = false;
+    "toolkit.telemetry.archive.enabled" = false;
+    "toolkit.telemetry.bhrPing.enabled" = false;
+    "toolkit.telemetry.firstShutdownPing.enabled" = false;
+    "toolkit.telemetry.hybridContent.enabled" = false;
+    "toolkit.telemetry.newProfilePing.enabled" = false;
+    "toolkit.telemetry.prompted" = 2;
+    "toolkit.telemetry.rejected" = true;
+    "toolkit.telemetry.reportingpolicy.firstRun" = false;
+    "toolkit.telemetry.server" = "";
+    "toolkit.telemetry.shutdownPingSender.enabled" = false;
+    "toolkit.telemetry.unified" = false;
+    "toolkit.telemetry.unifiedIsOptIn" = false;
+    "toolkit.telemetry.updatePing.enabled" = false;
+    "app.shield.optoutstudies.enabled" = false;
+    "browser.ping-centre.telemetry" = false;
+    "datareporting.healthreport.service.enabled" = false;
+    "datareporting.healthreport.uploadEnabled" = false;
+    "datareporting.policy.dataSubmissionEnabled" = false;
+    "datareporting.sessions.current.clean" = true;
+    "devtools.onboarding.telemetry.logged" = false;
     "breakpad.reportURL" = "";
     "browser.tabs.crashReporting.sendReport" = false;
-    "datareporting.policy.dataSubmissionEnabled" = false;
-    "datareporting.healthreport.uploadEnabled" = false;
     "toolkit.coverage.endpoint.base" = "";
     "toolkit.coverage.opt-out" = true;
     "toolkit.telemetry.coverage.opt-out" = true;
@@ -114,11 +168,43 @@ let
     "browser.safebrowsing.downloads.remote.url" = "";
     "browser.safebrowsing.provider.*.gethashURL" = "";
     "browser.safebrowsing.provider.*.updateURL" = "";
+
+    # First-run annoyances
+    "browser.disableResetPrompt" = true;
+    "browser.download.panel.shown" = true;
+    "browser.feeds.showFirstRunUI" = false;
+    "browser.messaging-system.whatsNewPanel.enabled" = false;
+    "browser.rights.3.shown" = true;
+    "browser.shell.defaultBrowserCheckCount" = 1;
+    "browser.uitour.enabled" = false;
+    "startup.homepage_override_url" = "";
+    "startup.homepage_welcome_url.additional" = "";
+    "trailhead.firstrun.didSeeAboutWelcome" = true;
+    "browser.contentblocking.introCount" = 99;
     "browser.pagethumbnails.capturing_disabled" = true;
     "browser.startup.homepage_override.mstone" = "ignore";
+
+    # Recommendations
     "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.addons" = false;
     "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.features" = false;
     "extensions.ui.lastCategory" = "about:addons";
+
+    # Warnings
+    "browser.tabs.warnOnClose" = false;
+    "browser.tabs.warnOnCloseOtherTabs" = false;
+    "browser.tabs.warnOnOpen" = false;
+    "browser.warnOnQuit" = false;
+
+    # Popup restrictions
+    "browser.link.open_newwindow.restriction" = 0;
+
+    # Downloads
+    "browser.download.useDownloadDir" = false;
+
+    # DevTools
+    "devtools.selfxss.count" = 50;
+
+    # Network / Privacy
     "browser.vpn_promo.enabled" = false;
     "app.normandy.enabled" = false;
     "extensions.webextensions.restrictedDomains" = "";
@@ -131,19 +217,20 @@ let
 
     # Media autoplay
     "media.autoplay.default" = 5;
-    "layout.css.prefers-color-scheme.content-override" = 0;
     "dom.security.https_only_mode" = false;
     "dom.serviceWorkers.enabled" = false;
 
     # DNS over HTTPS
-    "network.trr.mode" = if cfg.dnsProvider == "none" then 0 else 1;
+    "network.trr.mode" = if cfg.dnsProvider == "none" then 0 else 2;
     "network.trr.uri" = dnsProviderUri.${cfg.dnsProvider};
+    "network.trr.wait-for-portal" = true;
     "network.dns.echconfig.enabled" = true;
     "network.dns.http3_echconfig.enabled" = true;
+    "security.OCSP.enabled" = 0;
 
     # Prefetch
     "network.prefetch-next" = false;
-    "network.dns.disablePrefetch" = false;
+    "network.dns.disablePrefetch" = true;
 
     # WebRTC
     "media.peerconnection.ice.default_address_only" = true;
@@ -151,9 +238,13 @@ let
     # Geolocation
     "geo.provider.network.url" = "https://location.services.mozilla.com/v1/geolocate?key=%MOZILLA_API_KEY%";
 
-    # Forms
+    # Forms / Autofill
     "signon.rememberSignons" = false;
     "signon.autofillForms" = false;
+    "signon.autofillForms.http" = false;
+    "signon.showAutoCompleteFooter" = false;
+    "signon.management.page.breach-alerts.enabled" = false;
+    "signon.generation.enabled" = false;
     "browser.formfill.enable" = false;
     "extensions.formautofill.addresses.enabled" = false;
     "extensions.formautofill.creditCards.enabled" = false;
@@ -163,8 +254,10 @@ let
 
     # Hardware acceleration
     "media.hardware-video-decoding.enabled" = true;
+    "media.hardware-video-decoding.force-enabled" = true;
     "media.ffmpeg.vaapi.enabled" = true;
     "media.rdd-vpx.enabled" = true;
+    "widget.dmabuf.force-enabled" = true;
     "webgl.enable-debug-renderer-info" = false;
     "network.http.speculative-parallel-limit" = 0;
 
@@ -186,6 +279,39 @@ let
     "content.max.tokenizing.time" = 3000;
     "content.switch.threshold" = 250000;
     "nglayout.initialpaint.delay" = 0;
+
+    # Scrolling
+    "apz.overscroll.enabled" = true;
+
+    # HTB domain support (pentesting)
+    "browser.fixup.domainsuffixwhitelist.htb" = true;
+    "browser.urlbar.trimURLs" = false;
+
+    # Toolbar layout with extension button order
+    "browser.uiCustomization.state" = builtins.toJSON {
+      placements = {
+        nav-bar = [
+          "back-button"
+          "forward-button"
+          "stop-reload-button"
+          "customizableui-special-spring1"
+          "vertical-spacer"
+          "urlbar-container"
+          "customizableui-special-spring2"
+          "downloads-button"
+          "fxa-toolbar-menu-button"
+          "${sanitize addons.ublock-origin.addonId}-browser-action"
+          "${sanitize addons.bitwarden.addonId}-browser-action"
+          "${sanitize addons.pwnfox.addonId}-browser-action"
+          "${sanitize addons.darkreader.addonId}-browser-action"
+          "${sanitize addons.wappalyzer.addonId}-browser-action"
+          "${sanitize addons.bypass-paywalls-clean.addonId}-browser-action"
+          "${sanitize addons.cookie-editor.addonId}-browser-action"
+          "${sanitize addons.hacktools.addonId}-browser-action"
+          "${sanitize addons.simple-modify-header.addonId}-browser-action"
+        ];
+      };
+    };
   };
 
   # Scroll tuning settings (touchpad/APZ)
@@ -200,7 +326,6 @@ let
     "general.smoothScroll.msdPhysics.enabled" = true;
     "apz.fling_friction" = 0.012;
     "apz.fling_min_velocity_threshold" = 4.0;
-    "apz.overscroll.enabled" = true;
     "layout.frame_rate.precise" = true;
   };
 
@@ -213,14 +338,28 @@ let
     "browser.ai.control.smartTabGroups" = "blocked";
     "browser.ai.control.translations" = "blocked";
     "browser.aiwindow.enabled" = false;
+    "browser.ml.enable" = false;
     "browser.ml.chat.enabled" = false;
+    "browser.ml.chat.hideFromLabs" = false;
+    "browser.ml.chat.hideLabsShortcuts" = false;
     "browser.ml.chat.page" = false;
+    "browser.ml.chat.page.footerBadge" = false;
+    "browser.ml.chat.page.menuBadge" = false;
+    "browser.ml.chat.menu" = false;
+    "browser.ml.chat.sidebar" = false;
     "browser.ml.linkPreview.enabled" = false;
+    "browser.ml.pageAssist.enabled" = false;
+    "browser.ml.smartAssist.enabled" = false;
     "browser.tabs.groups.smart.enabled" = false;
     "browser.tabs.groups.smart.userEnabled" = false;
+    "browser.tabs.groups.smart.userEnable" = false;
+    "browser.search.visualSearch.featureGate" = false;
+    "browser.urlbar.quicksuggest.mlEnabled" = false;
     "browser.translations.enable" = false;
     "extensions.ml.enabled" = false;
     "pdfjs.enableAltText" = false;
+    "places.semanticHistory.featureGate" = false;
+    "sidebar.revamp" = false;
   };
 
   # Aggressive acceleration settings
@@ -240,7 +379,6 @@ let
     "gfx.canvas.accelerated.async-present" = true;
     "gfx.canvas.accelerated.force-enabled" = true;
     "widget.wayland.opaque-region.enabled" = false;
-    "widget.dmabuf.force-enabled" = true;
     "webgl.force-enabled" = true;
     "layers.offmainthreadcomposition.enabled" = true;
     "layers.offmainthreadcomposition.async-animations" = true;
@@ -248,119 +386,93 @@ let
     "html5.offmainthread" = true;
   };
 
-  # Base extensions shared by all users
-  baseExtensions = {
-    "addon@darkreader.org" = {
-      install_url = "https://addons.mozilla.org/firefox/downloads/latest/darkreader/latest.xpi";
-      installation_mode = "force_installed";
-      default_area = "navbar";
+  # Base extensions from NUR
+  baseExtensionPackages = [
+    addons.bitwarden
+    addons.bypass-paywalls-clean
+    addons.cookie-editor
+    addons.darkreader
+    addons.hacktools
+    addons.pwnfox
+    addons.simple-modify-header
+    addons.simple-translate
+    addons.ublock-origin
+    addons.wappalyzer
+  ];
+
+  # Base extension settings
+  baseExtensionSettings = {
+    # uBlock Origin - comprehensive filter lists
+    "${addons.ublock-origin.addonId}".settings = {
+      selectedFilterLists = [
+        "user-filters"
+        "ublock-filters"
+        "ublock-badware"
+        "ublock-privacy"
+        "ublock-quick-fixes"
+        "ublock-unbreak"
+        "easylist"
+        "adguard-generic"
+        "easyprivacy"
+        "adguard-spyware-url"
+        "urlhaus-1"
+        "curben-phishing"
+        "plowe-0"
+        "fanboy-cookiemonster"
+        "ublock-cookies-easylist"
+        "adguard-cookies"
+        "ublock-cookies-adguard"
+        "easylist-chat"
+        "easylist-newsletters"
+        "easylist-notifications"
+        "easylist-annoyances"
+        "adguard-other-annoyances"
+        "adguard-popup-overlays"
+        "adguard-widgets"
+        "ublock-annoyances"
+        "DEU-0"
+      ];
     };
-    "{446900e4-71c2-419f-a6a7-df9c091e268b}" = {
-      install_url = "https://addons.mozilla.org/firefox/downloads/latest/bitwarden-password-manager/latest.xpi";
-      installation_mode = "force_installed";
-      default_area = "navbar";
+    # Cookie-Editor - disable ads
+    "${addons.cookie-editor.addonId}" = {
+      force = true;
+      settings.all_options.adsEnabled = false;
     };
-    "uBlock0@raymondhill.net" = {
-      install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
-      installation_mode = "force_installed";
-      default_area = "navbar";
+    # PwnFox - enable with Burp proxy container
+    "${addons.pwnfox.addonId}" = {
+      force = true;
+      settings = {
+        enabled = true;
+        useBurpProxyContainer = true;
+        removeSecurityHeaders = true;
+      };
     };
-    "wappalyzer@crunchlabz.com" = {
-      install_url = "https://addons.mozilla.org/firefox/downloads/latest/wappalyzer/latest.xpi";
-      installation_mode = "force_installed";
-      default_area = "navbar";
+    # Wappalyzer - accept terms, disable tracking, dark theme
+    "${addons.wappalyzer.addonId}" = {
+      force = true;
+      settings = {
+        termsAccepted = true;
+        tracking = false;
+        version = 1;
+        upgradeMessage = false;
+        theme = "dark";
+      };
     };
-    "{f6ca2dfb-43a6-4334-9fad-8d5a71a1fe67}" = {
-      install_url = "https://addons.mozilla.org/firefox/downloads/latest/simple-modify-header/latest.xpi";
-      installation_mode = "force_installed";
-      default_area = "navbar";
-    };
-    "simple-translate@sienori" = {
-      install_url = "https://addons.mozilla.org/firefox/downloads/latest/simple-translate/latest.xpi";
-      installation_mode = "force_installed";
-      default_area = "navbar";
-    };
-    "{c3c10168-4186-445c-9c5b-63f12b8e2c87}" = {
-      install_url = "https://addons.mozilla.org/firefox/downloads/latest/cookie-editor/latest.xpi";
-      installation_mode = "force_installed";
-      default_area = "navbar";
-    };
-    "{f1423c11-a4e2-4709-a0f8-6d6a68c83d08}" = {
-      install_url = "https://addons.mozilla.org/firefox/downloads/latest/hacktools/latest.xpi";
-      installation_mode = "force_installed";
-      default_area = "navbar";
-    };
-    "default-compact-dark-theme@glitchii.github.io" = {
-      install_url = "https://addons.mozilla.org/firefox/downloads/latest/default-compact-dark-theme/latest.xpi";
-      installation_mode = "force_installed";
-    };
-    "plasma-browser-integration@kde.org" = {
-      install_url = "https://addons.mozilla.org/firefox/downloads/latest/plasma-integration/latest.xpi";
-      installation_mode = "force_installed";
-    };
-    "{ce25b613-ecd1-47e0-9492-c0260efb633c}" = {
-      install_url = "https://addons.mozilla.org/firefox/downloads/latest/google-sign-in-popup-blocker/latest.xpi";
-      installation_mode = "force_installed";
-    };
-    "PwnFox@bi.tk" = {
-      install_url = "https://addons.mozilla.org/firefox/downloads/latest/pwnfox/latest.xpi";
-      installation_mode = "force_installed";
-      default_area = "navbar";
-    };
-    "magnolia@12.34" = {
-      install_url = "https://gitflic.ru/project/magnolia1234/bpc_uploads/blob/raw?file=bypass_paywalls_clean-latest.xpi";
-      installation_mode = "force_installed";
+    # Bypass Paywalls Clean - opt-in
+    "${addons.bypass-paywalls-clean.addonId}" = {
+      force = true;
+      settings = {
+        optInShown = true;
+        customShown = true;
+        fetchShown = true;
+        optInFetch = true;
+        optIn = true;
+        customOptIn = true;
+        optInUpdate = false;
+        sites."placeholder" = "#####";
+      };
     };
   };
-
-  # Extra config for user.js
-  baseExtraConfig = ''
-    user_pref("remote.prefs.recommended", false);
-    user_pref("browser.preferences.defaultPerformanceSettings.enabled", false);
-    user_pref("gfx.use_text_smoothing_setting", true);
-    user_pref("dom.ipc.processCount", ${toString cfg.processCount});
-    user_pref("widget.wayland.fractional-scale.enabled", true);
-    user_pref("browser.theme.content-theme", 0);
-    user_pref("browser.theme.toolbar-theme", 0);
-    user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
-    user_pref("full-screen-api.warning.timeout", 0);
-    user_pref("apz.overscroll.enabled", true);
-    user_pref("browser.shell.checkDefaultBrowser", false);
-    user_pref("privacy.resistFingerprinting", false);
-    user_pref("ui.systemUsesDarkTheme", 1);
-    user_pref("browser.translations.automaticallyPopup", false);
-    user_pref("browser.bookmarks.defaultLocation", "toolbar");
-    user_pref("browser.toolbars.bookmarks.visibility", "always");
-    user_pref("browser.tabs.loadBookmarksInTabs", true);
-  '';
-
-  scrollTuningExtraConfig = lib.optionalString cfg.enableScrollTuning ''
-    user_pref("apz.gtk.kinetic_scroll.enabled", true);
-    user_pref("apz.gtk.kinetic_scroll.delta_mode", 2);
-    user_pref("apz.gtk.pangesture.delta_mode", 2);
-    user_pref("apz.gtk.kinetic_scroll.pixel_delta_mode_multiplier", 20);
-    user_pref("apz.gtk.pangesture.pixel_delta_mode_multiplier", 20);
-    user_pref("apz.gtk.touchpad_hold.enabled", false);
-    user_pref("general.smoothScroll", true);
-  '';
-
-  aggressiveExtraConfig = lib.optionalString cfg.aggressiveAcceleration ''
-    user_pref("layers.acceleration.disabled", false);
-    user_pref("layers.acceleration.force-enabled", true);
-    user_pref("layers.force-active", true);
-    user_pref("gfx.webrender.all", true);
-    user_pref("gfx.webgpu.ignore-blocklist", true);
-    user_pref("gfx.webrender.precache-shaders", true);
-    user_pref("dom.webgpu.enabled", true);
-    user_pref("gfx.webrender.compositor", true);
-    user_pref("gfx.webrender.compositor.force-enabled", true);
-    user_pref("gfx.webrender.layer-compositor", true);
-    user_pref("widget.wayland.opaque-region.enabled", false);
-    user_pref("media.hardware-video-decoding.enabled", true);
-    user_pref("media.hardware-video-decoding.force-enabled", true);
-    user_pref("media.ffmpeg.vaapi.enabled", true);
-    user_pref("media.rdd-vpx.enabled", true);
-  '';
 in
 {
   options.custom.firefox = {
@@ -402,10 +514,22 @@ in
       description = "Disable Firefox AI features.";
     };
 
-    extraExtensions = lib.mkOption {
+    extraExtensionPackages = lib.mkOption {
+      type = lib.types.listOf lib.types.package;
+      default = [ ];
+      description = "Additional NUR firefox-addons extension packages to install.";
+    };
+
+    extraExtensionSettings = lib.mkOption {
       type = lib.types.attrsOf lib.types.attrs;
       default = { };
-      description = "Additional extensions to install.";
+      description = "Additional extension settings (keyed by addon ID).";
+    };
+
+    extraPolicyExtensions = lib.mkOption {
+      type = lib.types.attrsOf lib.types.attrs;
+      default = { };
+      description = "Additional extensions to install via Firefox policy (for addons not in NUR).";
     };
 
     bookmarks = lib.mkOption {
@@ -495,8 +619,6 @@ in
           // aiBlockingSettings
           // aggressiveAccelerationSettings;
 
-        extraConfig = baseExtraConfig + scrollTuningExtraConfig + aggressiveExtraConfig;
-
         bookmarks = {
           force = true;
           settings = [
@@ -506,6 +628,12 @@ in
               inherit (cfg) bookmarks;
             }
           ];
+        };
+
+        extensions = {
+          force = true;
+          packages = baseExtensionPackages ++ cfg.extraExtensionPackages;
+          settings = baseExtensionSettings // cfg.extraExtensionSettings;
         };
       };
 
@@ -546,10 +674,23 @@ in
         SearchBar = "unified";
         OfferToSaveLogins = false;
 
-        # Extensions
+        # Policy-based extensions (for addons not available in NUR)
         ExtensionSettings =
-          baseExtensions
-          // cfg.extraExtensions;
+          {
+            "plasma-browser-integration@kde.org" = {
+              install_url = "https://addons.mozilla.org/firefox/downloads/latest/plasma-integration/latest.xpi";
+              installation_mode = "force_installed";
+            };
+            "{ce25b613-ecd1-47e0-9492-c0260efb633c}" = {
+              install_url = "https://addons.mozilla.org/firefox/downloads/latest/google-sign-in-popup-blocker/latest.xpi";
+              installation_mode = "force_installed";
+            };
+            "default-compact-dark-theme@glitchii.github.io" = {
+              install_url = "https://addons.mozilla.org/firefox/downloads/latest/default-compact-dark-theme/latest.xpi";
+              installation_mode = "force_installed";
+            };
+          }
+          // cfg.extraPolicyExtensions;
       };
     };
   };

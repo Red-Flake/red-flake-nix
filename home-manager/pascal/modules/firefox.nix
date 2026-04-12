@@ -1,5 +1,8 @@
 # Pascal's firefox configuration
-{ ... }:
+{ pkgs, ... }:
+let
+  addons = pkgs.nur.repos.rycee.firefox-addons;
+in
 {
   imports = [ ../../shared/firefox-base.nix ];
 
@@ -12,14 +15,24 @@
     enableScrollTuning = true;
     enableAIBlocking = true;
     bookmarks = import ./firefox-bookmarks.nix;
-    extraExtensions = {
-      "firefox@betterttv.net" = {
-        install_url = "https://addons.mozilla.org/firefox/downloads/latest/betterttv/latest.xpi";
-        installation_mode = "force_installed";
-      };
-      "frankerfacez@frankerfacez.com" = {
-        install_url = "https://addons.mozilla.org/firefox/downloads/latest/frankerfacez/latest.xpi";
-        installation_mode = "force_installed";
+    extraExtensionPackages = [
+      addons.betterttv
+      addons.frankerfacez
+    ];
+    extraExtensionSettings = {
+      "${addons.bitwarden.addonId}" = {
+        force = true;
+        settings = {
+          global_loginEmail_storedEmail = "ppeinecke@netcat.rocks";
+          global_vaultBrowserIntroCarousel_introCarouselDismissed = true;
+          global_extensionInitialInstall_extensionInstalled = true;
+          global_vaultAppearance_copyButtons = "quick";
+          global_vaultSettings_enablePasskeys = false;
+          global_autofillSettingsLocal_inlineMenuVisibility = {
+            __json__ = true;
+            value = "1";
+          };
+        };
       };
     };
   };
