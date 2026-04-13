@@ -62,6 +62,9 @@ let
     "browser.bookmarks.restore_default_bookmarks" = false;
     "browser.bookmarks.addedImportButton" = true;
 
+    # Disable search suggestions in order to suggest bookmarks, history and open tabs instead
+    "browser.search.suggest.enabled" = false;
+
     # Session restore
     "browser.startup.page" = 3;
     "browser.sessionstore.resume_from_crash" = true;
