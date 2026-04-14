@@ -10,6 +10,7 @@ in
     enable = true;
     profile = "security";
     dnsProvider = "none";
+    defaultZoom = 110;
     processCount = 24;
     aggressiveAcceleration = false;
     enableScrollTuning = true;

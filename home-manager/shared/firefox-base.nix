@@ -498,6 +498,13 @@ let
         sites."placeholder" = "#####";
       };
     };
+    # Default Zoom extension for Firefox
+    "${"default-zoom@jamielinux.com"}" = {
+      force = true;
+      settings = {
+        defaultZoom = builtins.toString cfg.defaultZoom;
+      };
+    };
   };
 in
 {
@@ -568,6 +575,12 @@ in
       type = lib.types.listOf lib.types.attrs;
       default = [ ];
       description = "Bookmarks to add to the toolbar.";
+    };
+
+    defaultZoom = lib.mkOption {
+      type = lib.types.ints.between 30 300;
+      default = 100;
+      description = "Default zoom percentage for the Default Zoom Firefox extension.";
     };
   };
 
@@ -721,6 +734,10 @@ in
             };
             "default-compact-dark-theme@glitchii.github.io" = {
               install_url = "https://addons.mozilla.org/firefox/downloads/latest/default-compact-dark-theme/latest.xpi";
+              installation_mode = "force_installed";
+            };
+            "default-zoom@jamielinux.com" = {
+              install_url = "https://addons.mozilla.org/firefox/downloads/latest/default-zoom/latest.xpi";
               installation_mode = "force_installed";
             };
           }

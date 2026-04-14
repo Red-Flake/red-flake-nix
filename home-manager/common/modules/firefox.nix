@@ -8,6 +8,7 @@
     enable = true;
     profile = "security";
     dnsProvider = "cloudflare";
+    defaultZoom = 100;
     processCount = 8;
     aggressiveAcceleration = false;
     enableScrollTuning = true;

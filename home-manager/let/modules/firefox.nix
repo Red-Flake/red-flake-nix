@@ -10,6 +10,7 @@ in
     enable = true;
     profile = "streaming";
     dnsProvider = "mullvad";
+    defaultZoom = 100;
     processCount = 8;
     aggressiveAcceleration = true;
     enableScrollTuning = true;
