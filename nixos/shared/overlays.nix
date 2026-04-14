@@ -51,7 +51,6 @@ let
     (import ../overlays/apachetomcatscanner-overlay)
     (import ../overlays/jwtcrack-overlay)
     (import ../overlays/freerdp-overlay)
-    (import ../overlays/mingwW64-overlay)
     (import ../overlays/metasploit-overlay)
   ];
 
