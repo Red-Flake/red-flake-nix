@@ -2,5 +2,6 @@ result
 .vscode
 .venv
 .claude
+.codex
 .pre-commit-config.yaml
 .cache
