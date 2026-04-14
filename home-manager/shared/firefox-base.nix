@@ -94,6 +94,9 @@ let
     "browser.newtabpage.activity-stream.section.highlights.includeVisited" = false;
     "browser.newtabpage.activity-stream.default.sites" = "";
 
+    # Sidebar
+    "sidebar.revamp" = false;
+
     # Tab manager
     "browser.tabs.tabmanager.enabled" = false;
 
@@ -317,6 +320,16 @@ let
     };
   };
 
+  baseUserChrome = ''
+    /* Remove the "Show sidebars" button everywhere */
+    #sidebar-button,
+    toolbarpaletteitem > #sidebar-button {
+      display: none !important;
+    }
+  '';
+
+  mergedUserChrome = baseUserChrome + "\n" + cfg.extraUserChrome;
+
   # Scroll tuning settings (touchpad/APZ)
   scrollTuningSettings = lib.optionalAttrs cfg.enableScrollTuning {
     "apz.gtk.kinetic_scroll.enabled" = true;
@@ -362,7 +375,6 @@ let
     "extensions.ml.enabled" = false;
     "pdfjs.enableAltText" = false;
     "places.semanticHistory.featureGate" = false;
-    "sidebar.revamp" = false;
   };
 
   # Aggressive acceleration settings
@@ -535,6 +547,12 @@ in
       description = "Additional extensions to install via Firefox policy (for addons not in NUR).";
     };
 
+    extraUserChrome = lib.mkOption {
+      type = lib.types.lines;
+      default = "";
+      description = "Additional userChrome.css content for Firefox.";
+    };
+
     bookmarks = lib.mkOption {
       type = lib.types.listOf lib.types.attrs;
       default = [ ];
@@ -600,6 +618,8 @@ in
         name = "Red-Flake";
         isDefault = true;
         path = "redflake";
+
+        userChrome = mergedUserChrome;
 
         search = {
           default = "google";
