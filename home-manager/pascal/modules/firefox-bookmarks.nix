@@ -134,6 +134,12 @@
         url = "https://ctf.hackthebox.com";
       }
       {
+        name = "OffSec";
+        tags = [ "offsec" ];
+        keyword = "offsec";
+        url = "https://portal.offsec.com";
+      }
+      {
         name = "Vulnlab";
         tags = [ "vulnlab" ];
         keyword = "vulnlab";
