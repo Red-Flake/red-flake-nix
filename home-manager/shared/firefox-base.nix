@@ -326,6 +326,17 @@ let
     toolbarpaletteitem > #sidebar-button {
       display: none !important;
     }
+
+    /* Remove the Firefox View / Recent Browsing button on the far left */
+    #firefox-view-button {
+      display: none !important;
+    }
+
+    /* Remove the List all tabs / Tab Manager button */
+    #alltabs-button,
+    toolbarpaletteitem > #alltabs-button {
+      display: none !important;
+    }
   '';
 
   mergedUserChrome = baseUserChrome + "\n" + cfg.extraUserChrome;
