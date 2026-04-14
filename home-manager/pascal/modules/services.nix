@@ -19,6 +19,19 @@ _:
     };
   };
 
+  # Suppress harmless but noisy Ghostty log messages in journald
+  # (gtk-xft-dpi warnings, GtkGizmo min width/height, cgroup info, etc.)
+  systemd.user.services.app-com-mitchellh-ghostty = {
+    Service = {
+      LogFilterPatterns = [
+        "~gtk-xft-dpi"
+        "~GtkGizmo"
+        "~transient scope created"
+        "~cgroup isolation enabled"
+      ];
+    };
+  };
+
   # Fix drkonqi-coredump-pickup.service - restore the full service definition
   # Home-manager's systemd.user.services creates a *replacement* file, not a drop-in.
   # The original drkonqi package service was being replaced with one missing ExecStart.
