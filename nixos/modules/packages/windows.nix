@@ -31,7 +31,7 @@
     wmiexec-Pro
     coercer
     ntlm_theft
-    powerview-py
+    powerview
     pkinittools
     petitpotam
     adidnsdump
