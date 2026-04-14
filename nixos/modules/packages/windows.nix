@@ -21,7 +21,7 @@
     krb5
     krb5.dev
     samba4Full
-    pkgsUnstable.autobloody
+    autobloody
     python312Packages.lsassy
     ldeep
     #linWinPwn

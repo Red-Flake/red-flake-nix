@@ -22,7 +22,6 @@ let
     (import ../overlays/pyGPOAbuse-overlay)
     (import ../overlays/spose-overlay)
     (import ../overlays/nmapAutomator-overlay)
-    (import ../overlays/autobloody-overlay)
     (import ../overlays/social-engineer-toolkit)
     (import ../overlays/username-anarchy-overlay)
     (import ../overlays/wmiexec-Pro-overlay)
