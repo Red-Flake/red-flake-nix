@@ -46,7 +46,6 @@ let
     (import ../overlays/apachetomcatscanner-overlay)
     (import ../overlays/jwtcrack-overlay)
     (import ../overlays/freerdp-overlay)
-    (import ../overlays/metasploit-overlay)
   ];
 
   # Desktop specific overlays
