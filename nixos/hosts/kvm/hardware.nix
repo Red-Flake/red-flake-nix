@@ -18,12 +18,13 @@
       "ahci"
       "xhci_pci"
       "virtio_pci"
-      "sr_mod"
       "virtio_blk"
-      "kvm"
-      "kvm_intel"
-      "kvm_amd"
-      "vhost_net"
+      "virtio_net" # network
+      "virtio_balloon" # memory ballooning
+      "virtio_console" # serial/console
+      "virtio_scsi" # if using scsi controller
+      "sr_mod"
+      "virtio_rng" # faster entropy from the host's /dev/random
     ];
     initrd.kernelModules = [ ];
     kernelModules = [ ];
@@ -42,4 +43,12 @@
     ];
   };
 
+  # enable spice-autorandr service that will automatically resize display to match SPICE client window size.
+  services.spice-autorandr.enable = true;
+
+  # enable Spice guest vdagent daemon
+  services.spice-vdagentd.enable = true;
+
+  # enable QEMU guest agent for better integration with the host (e.g. automatic shutdown, improved clipboard sharing, etc.)
+  services.qemuGuest.enable = true;
 }
