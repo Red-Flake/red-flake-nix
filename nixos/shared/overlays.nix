@@ -21,7 +21,6 @@ let
     (import ../overlays/SMB_Killer-overlay)
     (import ../overlays/pyGPOAbuse-overlay)
     (import ../overlays/spose-overlay)
-    (import ../overlays/impacket-overlay)
     (import ../overlays/nmapAutomator-overlay)
     (import ../overlays/autobloody-overlay)
     (import ../overlays/social-engineer-toolkit)
