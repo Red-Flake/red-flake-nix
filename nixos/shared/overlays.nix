@@ -19,7 +19,6 @@ let
     (import ../overlays/bloodhound-quickwin-overlay)
     (import ../overlays/ldapdomaindump-overlay)
     (import ../overlays/SMB_Killer-overlay)
-    (import ../overlays/pyGPOAbuse-overlay)
     (import ../overlays/spose-overlay)
     (import ../overlays/nmapAutomator-overlay)
     (import ../overlays/social-engineer-toolkit)

@@ -26,7 +26,7 @@
     ldeep
     #linWinPwn
     python312Packages.xlsxwriter
-    pyGPOAbuse
+    pygpoabuse
     python312Packages.pypykatz
     wmiexec-Pro
     coercer
