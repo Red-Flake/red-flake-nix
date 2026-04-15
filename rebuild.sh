@@ -10,7 +10,7 @@
 set -eou pipefail
 
 # define variables
-FLAKE="github:Red-Flake/red-flake-nix"
+REMOTE_FLAKE="github:Red-Flake/red-flake-nix"
 GIT_REV="main"
 
 # define colors
@@ -53,24 +53,58 @@ function check_command() {
     fi
 }
 
+function resolve_local_flake() {
+    local script_dir candidate
+    local -a candidates=()
+
+    if [[ -n "${RED_FLAKE_PATH:-}" ]]; then
+        candidates+=("${RED_FLAKE_PATH}")
+    fi
+
+    script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)"
+    candidates+=(
+        "${script_dir}"
+        "${PWD}"
+        "${HOME}/Git/red-flake-nix"
+        "${HOME}/red-flake-nix"
+        "/etc/nixos"
+    )
+
+    for candidate in "${candidates[@]}"; do
+        if [[ -f "${candidate}/flake.nix" ]]; then
+            printf 'path:%s' "${candidate}"
+            return 0
+        fi
+    done
+
+    return 1
+}
+
 # Check for required commands
 check_command "nixos-rebuild"
 
-# Network connectivity check
-if ! ping -c 1 github.com &> /dev/null; then
-    log "ERROR" "Network connectivity check failed. Please ensure you have an active internet connection."
-    exit 1
+# Prefer a local checkout to avoid fetching the flake on every rebuild.
+if FLAKE="$(resolve_local_flake)"; then
+    log "INFO" "Using local flake ${FLAKE}"
+else
+    FLAKE="${REMOTE_FLAKE}/${GIT_REV:-main}"
+
+    # Network connectivity check is only required for remote flake rebuilds.
+    if ! ping -c 1 github.com &> /dev/null; then
+        log "ERROR" "Network connectivity check failed. Please ensure you have an active internet connection."
+        exit 1
+    fi
 fi
 
 while true; do
-    read -rp "Which host to rebuild? (kvm / vmware / stellaris / t580 / vps / redline / borg) " HOST
+    read -rp "Which host to rebuild? (kvm / vmware / stellaris / vps / redline / borg) " HOST
     case $HOST in
-        kvm|vmware|stellaris|t580|vps|redline|borg ) break;;
+        kvm|vmware|stellaris|vps|redline|borg ) break;;
         * ) echo "Invalid host. Please select a valid host.";;
     esac
 done
 
 log "INFO" "Rebuilding Red-Flake with profile ${HOST}"
-sudo nixos-rebuild switch --install-bootloader --flake "${FLAKE}/${GIT_REV:-main}#$HOST" --option eval-cache false
+sudo nixos-rebuild switch --install-bootloader --flake "${FLAKE}#$HOST"
 
 log "INFO" "Rebuilding finished."
