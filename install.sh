@@ -76,6 +76,43 @@ function yesno() {
     done
 }
 
+function tune_live_environment() {
+    local gov epp tuned_any=false
+    local -a governors=(
+        /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
+    )
+    local -a epps=(
+        /sys/devices/system/cpu/cpu*/cpufreq/energy_performance_preference
+    )
+
+    if command -v systemctl &> /dev/null && systemctl is-active --quiet power-profiles-daemon.service; then
+        log "INFO" "Stopping power-profiles-daemon to avoid overriding performance tuning ..."
+        if ! systemctl stop power-profiles-daemon.service; then
+            log "WARN" "Failed to stop power-profiles-daemon; continuing."
+        fi
+    fi
+
+    for gov in "${governors[@]}"; do
+        if [[ -w "${gov}" ]]; then
+            printf 'performance' > "${gov}" || true
+            tuned_any=true
+        fi
+    done
+
+    for epp in "${epps[@]}"; do
+        if [[ -w "${epp}" ]]; then
+            printf 'performance' > "${epp}" || true
+            tuned_any=true
+        fi
+    done
+
+    if [[ "${tuned_any}" == true ]]; then
+        log "INFO" "Applied best-effort live environment performance tuning."
+    else
+        log "WARN" "No writable CPU performance tuning controls were found; continuing."
+    fi
+}
+
 log "INFO" "Welcome to the Red Flake installer!"
 log "INFO" "The installer will log the installation process to $LOGFILE."
 
@@ -107,6 +144,8 @@ if ! ping -c 1 github.com &> /dev/null; then
     log "ERROR" "Network connectivity check failed. Please ensure you have an active internet connection."
     exit 1
 fi
+
+tune_live_environment
 
 log "INFO" "Cloning Red-Flake into ${LOCAL_FLAKE_DIR} ..."
 rm -rf "${LOCAL_FLAKE_DIR}"
@@ -412,7 +451,12 @@ chown -R root:shadow /mnt/persist/etc/shadow.d/
 chmod -R 640 /mnt/persist/etc/shadow.d/
 
 log "INFO" "Installing Red-Flake with host profile ${HOST} for user ${USER} on disk ${DISK}..."
-nixos-install --no-root-password --flake "path:${LOCAL_FLAKE_DIR}#$HOST"
+nixos-install \
+    --no-root-password \
+    --flake "path:${LOCAL_FLAKE_DIR}#$HOST" \
+    --option builders-use-substitutes true \
+    --option max-jobs auto \
+    --option cores 0
 
 log "INFO" "Syncing disk writes..."
 sync
