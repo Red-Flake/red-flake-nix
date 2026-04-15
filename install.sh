@@ -20,8 +20,9 @@ fi
 
 # define variables
 LOGFILE="/mnt/nixos_install.log"
-FLAKE="github:Red-Flake/red-flake-nix"
+REMOTE_REPO="https://github.com/Red-Flake/red-flake-nix"
 GIT_REV="main"
+LOCAL_FLAKE_DIR="/tmp/red-flake-nix"
 
 # define colors
 RED="\e[31m"
@@ -97,7 +98,7 @@ nix-env -iA nixos-unstable.zfs_unstable
 modprobe zfs
 
 # Check for required commands
-for cmd in blkdiscard sgdisk zpool zfs mkfs.fat mkswap swapon; do
+for cmd in blkdiscard sgdisk zpool zfs mkfs.fat mkswap swapon git; do
     check_command "$cmd"
 done
 
@@ -106,6 +107,10 @@ if ! ping -c 1 github.com &> /dev/null; then
     log "ERROR" "Network connectivity check failed. Please ensure you have an active internet connection."
     exit 1
 fi
+
+log "INFO" "Cloning Red-Flake into ${LOCAL_FLAKE_DIR} ..."
+rm -rf "${LOCAL_FLAKE_DIR}"
+git clone --depth 1 --branch "${GIT_REV}" "${REMOTE_REPO}" "${LOCAL_FLAKE_DIR}"
 
 # Check if in a VM
 # Function to detect if running in a VM
@@ -407,7 +412,7 @@ chown -R root:shadow /mnt/persist/etc/shadow.d/
 chmod -R 640 /mnt/persist/etc/shadow.d/
 
 log "INFO" "Installing Red-Flake with host profile ${HOST} for user ${USER} on disk ${DISK}..."
-nixos-install --no-root-password --flake "${FLAKE}/${GIT_REV:-main}#$HOST" --option tarball-ttl 0
+nixos-install --no-root-password --flake "path:${LOCAL_FLAKE_DIR}#$HOST"
 
 log "INFO" "Syncing disk writes..."
 sync
