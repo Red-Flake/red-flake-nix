@@ -1,4 +1,5 @@
-{ lib
+{ config
+, lib
 , ...
 }:
 {
@@ -75,6 +76,17 @@
 
   # https://github.com/openzfs/zfs/issues/10891
   systemd.services.systemd-udev-settle.enable = false;
+
+  # nixpkgs' ZFS initrd import unit still pulls in `systemd-udev-settle.service`,
+  # which adds boot delay even though ZFS already retries import until devices appear.
+  # Keep the normal module/password ordering, but drop the deprecated global settle wait.
+  boot.initrd.systemd.services.zfs-import-zroot = lib.mkIf (!config.boot.initrd.clevis.useTang) {
+    wants = lib.mkForce [ ];
+    after = lib.mkForce [
+      "systemd-modules-load.service"
+      "systemd-ask-password-console.service"
+    ];
+  };
 
   # https://github.com/NixOS/nixpkgs/issues/257505
   #custom.shell.packages.remount-persist = ''
