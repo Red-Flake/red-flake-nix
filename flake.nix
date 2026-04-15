@@ -290,7 +290,6 @@
             config = { };
             inherit (nixpkgs) lib;
             pkgs = commonPkgs;
-            chaoticPkgs = commonPkgs;
             inherit inputs;
             isKVM = false; # Default value, will be overridden per host
           };
@@ -383,7 +382,6 @@
               specialArgs = {
                 inherit inputs outputs;
                 inherit hostPkgs;
-                chaoticPkgs = hostPkgs.chaoticPkgs or hostPkgs;
                 pkgsUnstable = hostPkgsUnstable;
                 inherit user isKVM;
                 # Pass profile as hostType for module conditional imports

@@ -2,7 +2,6 @@
 { config
 , lib
 , pkgs
-, chaoticPkgs
 , inputs
 , isKVM
 , ...
@@ -13,7 +12,6 @@ let
       config
       lib
       pkgs
-      chaoticPkgs
       inputs
       isKVM
       ;
