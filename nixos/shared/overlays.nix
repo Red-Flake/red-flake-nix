@@ -59,12 +59,4 @@ let
 in
 {
   inherit baseOverlays securityOverlays desktopOverlays;
-
-  # Combined list for backward compatibility or full hosts
-  allOverlays = baseOverlays ++ securityOverlays ++ desktopOverlays;
-
-  # Intel legacy overlay (conditional)
-  intelLegacyOverlay = [
-    (import ../overlays/intel-legacy-overlay)
-  ];
 }
