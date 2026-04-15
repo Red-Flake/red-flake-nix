@@ -79,4 +79,9 @@ in
 
   };
 
+  environment.systemPackages = with pkgs; [
+    # EFI bootloader management tool
+    efibootmgr
+  ];
+
 }
