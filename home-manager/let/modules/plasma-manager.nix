@@ -15,7 +15,6 @@
       "applications:org.telegram.desktop.desktop"
       "applications:code.desktop"
       "applications:burpsuitepro.desktop"
-      "applications:bloodhound.desktop"
       "applications:ghidra.desktop"
       "applications:org.wireshark.Wireshark.desktop"
     ];
