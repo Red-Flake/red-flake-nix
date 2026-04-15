@@ -31,12 +31,6 @@ in
 
       # Enable xsession for desktop users
       xsession.enable = lib.mkDefault (builtins.elem "desktop" (extraConfig.tags or [ ]));
-
-      # Common overlays
-      nixpkgs.overlays = [
-        (import ../../nixos/overlays/equibop-overlay)
-      ]
-      ++ (extraConfig.extraOverlays or [ ]);
     }
     // (extraConfig.extraConfig or { });
 }

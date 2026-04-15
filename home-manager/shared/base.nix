@@ -1,14 +1,8 @@
 # Shared base home-manager configuration
-{ inputs
-, user
+{ user
 , ...
 }:
 {
-  # Common imports for all users
-  imports = [
-    inputs.nur.modules.homeManager.default
-  ];
-
   home = {
     # set username and directory from passed parameters
     username = "${user}";
