@@ -102,9 +102,6 @@
 
     # set display resolution to 1600p
     display.resolution = "1600p";
-
-    # set bootloader resolution to 1080p or 1440p (Dark Matter GRUB Theme only supports these two resolutions)
-    bootloader.resolution = "1440p";
   };
 
   nix.settings = {
@@ -378,10 +375,13 @@
     enable = true;
   };
 
-  # Fix UCCD PrepareForSleep signal failure: ensure D-Bus is ready before UCCD starts
+  # UCCD already ships a system DBus activation file. Leave the unit disabled so
+  # it no longer blocks multi-user.target, but still starts automatically when a
+  # client asks for com.uniwill.uccd on the system bus.
   systemd.services.uccd = {
     after = [ "dbus.service" ];
     wants = [ "dbus.service" ];
+    wantedBy = lib.mkForce [ ];
   };
 
   # Fix TCC service missing commands
@@ -402,8 +402,6 @@
   #  };
   #};
 
-  # Disable OS prober - single-boot system, saves ~1-2s loader time
-  boot.loader.grub.useOSProber = lib.mkForce false;
   boot.loader.timeout = lib.mkForce 1;
 
   services.xserver = {

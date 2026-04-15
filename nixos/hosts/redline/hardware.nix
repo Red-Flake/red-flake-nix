@@ -7,9 +7,6 @@
 
     # set display resolution to 1080p
     display.resolution = "1440p";
-
-    # set bootloader resolution to 1080p or 1440p (Dark Matter GRUB Theme only supports these two resolutions)
-    bootloader.resolution = "1440p";
   };
 
   # Increase the number of parallel build jobs for Nix to 24

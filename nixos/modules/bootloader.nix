@@ -62,49 +62,18 @@ in
 
     # Bootloader settings
     loader = {
-      systemd-boot.enable = false;
+      systemd-boot = {
+        enable = true;
+        configurationLimit = 20;
+        editor = false;
+      };
 
-      timeout = 3;
+      timeout = 2;
 
       # EFI settings
       efi = {
         canTouchEfiVariables = true;
         efiSysMountPoint = "/boot";
-      };
-
-      # Enable Grub Bootloader
-      grub = {
-        enable = true;
-
-        # always boot the newest kernel by default
-        default = 0;
-        copyKernels = true;
-
-        efiSupport = true;
-        devices = [ "nodev" ];
-        useOSProber = true;
-        fontSize = 24;
-
-        # Use Dark Matter GRUB Theme
-        darkmatter-theme = {
-          enable = true;
-          style = "nixos";
-          icon = "color";
-          inherit (cfg.bootloader) resolution;
-        };
-
-        # Fix GRUB menu entry name (NixOS -> Red Flake)
-        # Note: remounting /boot read-only is handled by boot-readonly.nix
-        extraInstallCommands = ''
-          echo "Updating GRUB menu entry name..."
-          GRUB_CFG="/boot/grub/grub.cfg"
-          if [ -f "$GRUB_CFG" ]; then
-            ${pkgs.toybox}/bin/cp "$GRUB_CFG" "$GRUB_CFG.bak"
-            ${pkgs.gnused}/bin/sed -i 's/"NixOS/"Red Flake/g' "$GRUB_CFG"
-          else
-            echo "Warning: GRUB configuration file not found."
-          fi
-        '';
       };
     };
 

@@ -71,12 +71,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # https://gitlab.com/VandalByte/darkmatter-grub-theme
-    darkmatter-grub-theme = {
-      url = "gitlab:VandalByte/darkmatter-grub-theme";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # https://github.com/thiagokokada/nix-alien
     nix-alien = {
       url = "github:thiagokokada/nix-alien";
@@ -179,7 +173,6 @@
     , pre-commit-hooks
     , redflake-packages
     , ucc
-    , darkmatter-grub-theme
     , spicetify-nix
     , ...
     }:
@@ -394,7 +387,6 @@
                   nixpkgs.overlays = hostOverlays;
                 }
                 redflake-packages.nixosModules.bloodhound-ce
-                darkmatter-grub-theme.nixosModule
                 inputs.impermanence.nixosModules.impermanence
                 (mkHost.mkHost profile hostConfig {
                   inherit hostname localeProfile;
