@@ -344,63 +344,11 @@
   # Force Intel GPU for the greeter to avoid NVIDIA issues
   services.displayManager.sddm.wayland.enable = lib.mkForce true;
 
-  # SDDM X11 mode requires xserver to be enabled
-  # Use Intel iGPU only for X11 - NVIDIA nouveau is blacklisted so modesetting fails on dGPU
-  #services.xserver.enable = true;
-  #services.xserver.deviceSection = ''
-  #  BusID "PCI:0:2:0"
-  #'';
-
-  # Prevent X from auto-adding the NVIDIA GPU as a secondary screen
-  # Without this, modesetting auto-probes nvidia-drm and fails because glamor
-  # tries to use Mesa's nouveau driver which doesn't work with nvidia kernel module
-  #services.xserver.serverFlagsSection = ''
-  #  Option "AutoAddGPU" "false"
-  #'';
-
-  # Systemd hardware watchdog: automatically reboot on hard lockups
-  # Intel iTCO watchdog will reset the system if systemd fails to ping it
-  /*systemd.settings.Manager = {
-    # Hardware watchdog timeout (seconds) - system reboots if no ping within this time
-    RuntimeWatchdogSec = "30";
-    # Reboot watchdog - ensure clean reboot completes within this time
-    RebootWatchdogSec = "10min";
-    # Shutdown watchdog - ensure clean shutdown completes within this time
-    ShutdownWatchdogSec = "10min";
-  };*/
-
   # Enable Uniwill Control Center
   # https://github.com/nanomatters/ucc
   services.uccd = {
     enable = true;
   };
-
-  # UCCD already ships a system DBus activation file. Leave the unit disabled so
-  # it no longer blocks multi-user.target, but still starts automatically when a
-  # client asks for com.uniwill.uccd on the system bus.
-  systemd.services.uccd = {
-    after = [ "dbus.service" ];
-    wants = [ "dbus.service" ];
-    wantedBy = lib.mkForce [ ];
-  };
-
-  # Fix TCC service missing commands
-  #systemd.services.tccd = {
-  # Add missing utilities to PATH for TCC to work properly
-  #  path = with pkgs; [
-  #    toybox # provides 'users', 'cat', etc.
-  #    util-linux # provides additional system utilities
-  #    procps # provides process utilities
-  #  ];
-  #};
-
-  # Fix tccd-sleep.service: upstream has broken ExecStart/ExecStop with quoted commands
-  #systemd.services.tccd-sleep = {
-  #  serviceConfig = {
-  #    ExecStart = lib.mkForce "${pkgs.systemd}/bin/systemctl stop tccd";
-  #    ExecStop = lib.mkForce "${pkgs.systemd}/bin/systemctl start tccd";
-  #  };
-  #};
 
   boot.loader.timeout = lib.mkForce 1;
 
