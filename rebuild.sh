@@ -10,8 +10,9 @@
 set -eou pipefail
 
 # define variables
-REMOTE_FLAKE="github:Red-Flake/red-flake-nix"
+REMOTE_REPO="https://github.com/Red-Flake/red-flake-nix"
 GIT_REV="main"
+LOCAL_FALLBACK_FLAKE_DIR="/tmp/red-flake-nix"
 
 # define colors
 RED="\e[31m"
@@ -80,6 +81,15 @@ function resolve_local_flake() {
     return 1
 }
 
+function prepare_remote_fallback_flake() {
+    check_command "git"
+
+    log "INFO" "Cloning Red-Flake into ${LOCAL_FALLBACK_FLAKE_DIR} ..."
+    rm -rf "${LOCAL_FALLBACK_FLAKE_DIR}"
+    git clone --depth 1 --branch "${GIT_REV}" "${REMOTE_REPO}" "${LOCAL_FALLBACK_FLAKE_DIR}"
+    printf 'path:%s' "${LOCAL_FALLBACK_FLAKE_DIR}"
+}
+
 # Check for required commands
 check_command "nixos-rebuild"
 
@@ -87,13 +97,13 @@ check_command "nixos-rebuild"
 if FLAKE="$(resolve_local_flake)"; then
     log "INFO" "Using local flake ${FLAKE}"
 else
-    FLAKE="${REMOTE_FLAKE}/${GIT_REV:-main}"
-
-    # Network connectivity check is only required for remote flake rebuilds.
+    # Network connectivity check is only required for remote fallback rebuilds.
     if ! ping -c 1 github.com &> /dev/null; then
         log "ERROR" "Network connectivity check failed. Please ensure you have an active internet connection."
         exit 1
     fi
+
+    FLAKE="$(prepare_remote_fallback_flake)"
 fi
 
 while true; do
