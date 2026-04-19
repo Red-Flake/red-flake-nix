@@ -1,4 +1,5 @@
 # TUXEDO Stellaris host-specific configuration
+{ lib, ... }:
 {
   imports = [
     ./hardware.nix
@@ -10,6 +11,17 @@
     ./on-demand-services.nix
     ./packages.nix
   ];
+
+  # Use tmpfs for /tmp instead of ZFS — 96 GB RAM is plenty
+  fileSystems."/tmp" = lib.mkForce {
+    device = "tmpfs";
+    fsType = "tmpfs";
+    options = [
+      "defaults"
+      "size=16G"
+      "mode=1777"
+    ];
+  };
 
   # Workstation sysctl profile with all optimizations enabled
   custom.sysctl = {
