@@ -229,8 +229,10 @@
       # Disable split lock detection - some games/apps trigger split locks causing micro-stutter
       "split_lock_detect=off"
 
-      # Let the kernel select the default CPUIdle governor (typically `menu` on tickless systems).
-      #"cpuidle.governor=teo"
+      # TEO (Timer Events Oriented) cpuidle governor: better idle-state predictions
+      # than `menu` on tickless kernels — wakes faster from shallow C-states,
+      # reducing interactive/gaming latency.
+      "cpuidle.governor=teo"
 
       # PCIe ASPM: prioritize latency over power saving.
       # Monitor S0ix (s2idle) suspend power draw/residency; disabling ASPM can increase sleep drain on some laptops.
@@ -376,6 +378,13 @@
     enable = lib.mkForce true;
     powertop.enable = lib.mkForce false;
   };
+
+  # HWP dynamic boost: let the CPU hardware opportunistically boost
+  # single-threaded workloads above normal turbo when thermal/power
+  # headroom allows.  No downside — the CPU just won't boost if it can't.
+  systemd.tmpfiles.rules = [
+    "w /sys/devices/system/cpu/intel_pstate/hwp_dynamic_boost - - - - 1"
+  ];
 
   # On hybrid CPUs (P/E-cores), irqbalance can be a win or a loss depending on workload/power goals.
   # Keep it off by default for laptop power behavior, but make it easy to A/B test via a specialisation.
