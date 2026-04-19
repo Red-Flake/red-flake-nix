@@ -159,11 +159,11 @@
     # UCC (Uniwill Control Center)
     # Upstream: github:nanomatters/ucc
     #ucc = {
-    #  url = "path:/home/pascal/Git/ucc";
+    #  url = "git+file:/home/pascal/Git/ucc?ref=fix/suspend-resume-cuda-deadlock";
     #  inputs.nixpkgs.follows = "nixpkgs";
     #};
-    ucc.url = "github:nanomatters/ucc/bf26a4009100e80eeafbbededea59d32d92ca4ba";
-    #ucc.url = "github:Mag1cByt3s/ucc/fix/uccd-sleep-requires-loop";
+    #ucc.url = "github:nanomatters/ucc/bf26a4009100e80eeafbbededea59d32d92ca4ba";
+    ucc.url = "github:Mag1cByt3s/ucc/fix/suspend-resume-cuda-deadlock";
   };
 
   outputs =

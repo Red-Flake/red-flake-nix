@@ -943,17 +943,17 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1772666232,
-        "narHash": "sha256-CYAp3vqTaN/cN7n3MzL+cn005pwZ/G8LD4cNXfEkeGk=",
-        "owner": "nanomatters",
+        "lastModified": 1776635411,
+        "narHash": "sha256-a9UrQqMSjvTZ+6m3QCpRxDrPOiM2xMI7HzHhRX7HgR8=",
+        "owner": "Mag1cByt3s",
         "repo": "ucc",
-        "rev": "bf26a4009100e80eeafbbededea59d32d92ca4ba",
+        "rev": "465de89b71ef4ab42475a2b40ee59d8e2b708a33",
         "type": "github"
       },
       "original": {
-        "owner": "nanomatters",
+        "owner": "Mag1cByt3s",
+        "ref": "fix/suspend-resume-cuda-deadlock",
         "repo": "ucc",
-        "rev": "bf26a4009100e80eeafbbededea59d32d92ca4ba",
         "type": "github"
       }
     },
