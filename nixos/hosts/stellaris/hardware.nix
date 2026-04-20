@@ -386,6 +386,77 @@
     "w /sys/devices/system/cpu/intel_pstate/hwp_dynamic_boost - - - - 1"
   ];
 
+  # Prevent double-suspend race after resume.
+  # Problem: On resume, user.slice thaws before nvidia-resume completes. KWin tries
+  # atomic modeset immediately, gets "Permission denied", DPMS-on fails. PowerDevil
+  # sees no display activity and re-suspends within 1 second — freezing the Plasma panel.
+  # Fix: Hold a block sleep inhibitor for 15s after resume, giving GPU time to reinitialize.
+  systemd.services.post-resume-inhibit = {
+    description = "Block sleep for 15s after resume to prevent double-suspend race";
+    after = [ "suspend.target" "hibernate.target" "hybrid-sleep.target" ];
+    wantedBy = [ "suspend.target" "hibernate.target" "hybrid-sleep.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = pkgs.writeShellScript "post-resume-inhibit" ''
+        exec ${pkgs.systemd}/bin/systemd-inhibit \
+          --what=sleep \
+          --who="post-resume-inhibit" \
+          --why="Stabilizing GPU after resume" \
+          --mode=block \
+          ${pkgs.coreutils}/bin/sleep 15
+      '';
+    };
+  };
+
+  # Recover KWin display output after suspend resume.
+  # Even with the inhibitor above, KWin's initial modeset attempt fails because the
+  # NVIDIA driver isn't ready yet. KWin doesn't retry automatically, leaving the
+  # display in a broken DRM state (panel frozen, DPMS stuck off).
+  # Fix: After nvidia-resume completes, force DPMS on and tell KWin to reconfigure.
+  systemd.services.kwin-resume-recovery = {
+    description = "Recover KWin display output after suspend resume";
+    after = [
+      "suspend.target"
+      "hibernate.target"
+      "hybrid-sleep.target"
+      "nvidia-resume.service"
+    ];
+    wantedBy = [ "suspend.target" "hibernate.target" "hybrid-sleep.target" ];
+    path = with pkgs; [ systemd util-linux gawk kdePackages.libkscreen ];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStartPre = "${pkgs.coreutils}/bin/sleep 3";
+      ExecStart = pkgs.writeShellScript "kwin-resume-recovery" ''
+        # Find the graphical user session (seat0 = local display)
+        read -r _ uid user _ <<< "$(loginctl list-sessions --no-legend | awk '/seat0/ {print; exit}')"
+        [ -z "$user" ] && { echo "No graphical session found"; exit 0; }
+
+        env_args=(
+          "XDG_RUNTIME_DIR=/run/user/$uid"
+          "DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$uid/bus"
+          "WAYLAND_DISPLAY=wayland-0"
+          "QT_QPA_PLATFORM=wayland"
+        )
+
+        echo "Recovering KWin display for user=$user uid=$uid"
+
+        # Force DPMS on (display may be stuck off after failed modeset)
+        if runuser -u "$user" -- env "''${env_args[@]}" kscreen-doctor --dpms on 2>&1; then
+          echo "kscreen-doctor --dpms on succeeded"
+        else
+          echo "kscreen-doctor --dpms on failed (non-fatal)"
+        fi
+
+        # Tell KWin to re-read and re-apply output configuration
+        if runuser -u "$user" -- env "''${env_args[@]}" busctl --user call org.kde.KWin /KWin org.kde.KWin reconfigure 2>&1; then
+          echo "KWin reconfigure succeeded"
+        else
+          echo "KWin reconfigure failed (non-fatal)"
+        fi
+      '';
+    };
+  };
+
   # On hybrid CPUs (P/E-cores), irqbalance can be a win or a loss depending on workload/power goals.
   # Keep it off by default for laptop power behavior, but make it easy to A/B test via a specialisation.
   services.irqbalance.enable = lib.mkDefault false;
