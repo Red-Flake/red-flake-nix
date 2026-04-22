@@ -310,7 +310,6 @@ let
           "${sanitize addons.bitwarden.addonId}-browser-action"
           "${sanitize addons.pwnfox.addonId}-browser-action"
           "${sanitize addons.darkreader.addonId}-browser-action"
-          "${sanitize addons.wappalyzer.addonId}-browser-action"
           "${sanitize addons.bypass-paywalls-clean.addonId}-browser-action"
           "${sanitize addons.cookie-editor.addonId}-browser-action"
           "${sanitize addons.hacktools.addonId}-browser-action"
@@ -421,9 +420,7 @@ let
     addons.hacktools
     addons.pwnfox
     addons.simple-modify-header
-    addons.simple-translate
     addons.ublock-origin
-    addons.wappalyzer
   ];
 
   # Base extension settings
@@ -471,17 +468,6 @@ let
         enabled = true;
         useBurpProxyContainer = true;
         removeSecurityHeaders = true;
-      };
-    };
-    # Wappalyzer - accept terms, disable tracking, dark theme
-    "${addons.wappalyzer.addonId}" = {
-      force = true;
-      settings = {
-        termsAccepted = true;
-        tracking = false;
-        version = 1;
-        upgradeMessage = false;
-        theme = "dark";
       };
     };
     # Bypass Paywalls Clean - opt-in
