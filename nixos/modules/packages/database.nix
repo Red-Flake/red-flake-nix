@@ -11,5 +11,6 @@
     sqlcmd
     sqsh
     mdbtools
+    mongosh
   ];
 }
