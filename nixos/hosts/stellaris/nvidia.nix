@@ -99,8 +99,9 @@
       # - RTX 50 series (Blackwell) has known GSP timeout bugs causing system lockups
       #   when the GPU frequently transitions in/out of D3 power state
       #   See: https://github.com/NVIDIA/open-gpu-kernel-modules/issues/1045
-      # - Using coarse-grained mode instead (NVreg_DynamicPowerManagement=0x01 in kernelParams)
-      #   which only powers off GPU when no NVIDIA apps are running at all
+      # - Using DynamicPowerManagement=0x00 (disabled) in kernelParams because
+      #   even coarse-grained mode (0x01) triggers GSP hangs on Blackwell.
+      #   GPU stays powered on at all times — small power cost, no lockups.
       # - This reduces D3 state transitions while still providing power savings
       #
       # Note: This setting controls RTD3 (runtime power management while system is awake).

@@ -51,7 +51,7 @@
       linux-firmware = prev.linux-firmware.overrideAttrs (oldAttrs: {
         nativeBuildInputs = (oldAttrs.nativeBuildInputs or [ ]) ++ [ final.zstd ];
         postInstall = (oldAttrs.postInstall or "") + ''
-          # Arrow Lake-HX Xe2: Override GuC firmware with specific version
+          # Arrow Lake-HX iGPU (Xe-LPG, same graphics IP as Meteor Lake): Override GuC firmware with specific version
           # The default linux-firmware may have a version that causes TLB invalidation timeouts.
           # This replaces the firmware BEFORE compression happens.
           #
@@ -200,10 +200,10 @@
       #"xe.force_probe=7d67" # Force the new xe driver to bind the Meteor Lake device (PCI ID 7d67)
 
       # Intel i915 params:
-      "i915.enable_fbc=0"
+      #"i915.enable_fbc=0"   # FBC compresses static regions of the framebuffer so the display engine reads less from main memory each refresh. At 2560x1600@300Hz that's non-trivial bandwidth shared with everything else on RAM. Mature on MTL, no errors in dmesg.
       "i915.enable_psr=0"
       "i915.enable_dc=0"
-      "i915.enable_sagv=0" # Disable SAGV (System Agent voltage/frequency scaling) for stability
+      # "i915.enable_sagv=0"    # Did not help with PHY refclk error. It governs iGPU memory bandwidth allocation.
       "i915.enable_dmc_wl=1" # Prevent the Display Microcontroller from entering low-power state during display operations. May help with the PHY A refclk errors.
       "i915.enable_panel_replay=0" # Disable Panel Replay / PSR2 selective fetch. Some panels/firmware combos misbehave here. Can cause flicker or timing issues.
       "i915.enable_psr2_sel_fetch=0" # Disable PSR2 selective fetch. Some panels/firmware combos misbehave here. Can cause flicker or timing issues.
