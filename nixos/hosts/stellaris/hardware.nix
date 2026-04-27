@@ -7,19 +7,19 @@
   # Override linux-firmware globally so enableAllFirmware uses our patched version
   # Also override tuxedo-drivers to fix compatibility with Linux 6.19+
   nixpkgs.overlays = [
-    # Overlay 1: Update tuxedo-drivers to 4.21.2 for Linux 6.19 compatibility
+    # Overlay 1: Update tuxedo-drivers to 4.22.1 for Linux 6.19+ compatibility
     (final: prev: {
       linuxKernel = prev.linuxKernel // {
         packagesFor = kernel:
           (prev.linuxKernel.packagesFor kernel).extend (_: lpPrev: {
             # Change the underscore (_) to 'oldAttrs' below
             tuxedo-drivers = lpPrev.tuxedo-drivers.overrideAttrs (oldAttrs: {
-              version = "4.21.2";
+              version = "4.22.1";
               src = final.fetchFromGitLab {
                 group = "tuxedocomputers";
                 owner = "development/packages";
                 repo = "tuxedo-drivers";
-                rev = "v4.21.2";
+                rev = "v4.22.1";
                 hash = "sha256-KMn3O3Rq8LaZAgr6R7zNeBn637zZDFD2E2X+a3zKN3s=";
               };
 
