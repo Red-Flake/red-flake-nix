@@ -585,7 +585,7 @@
         name = "GTFOBins";
         tags = [ "gtfobins" ];
         keyword = "gtfobins";
-        url = "https://gtfobins.github.io/";
+        url = "https://gtfobins.org/";
       }
       {
         name = "LOLBAS ";
