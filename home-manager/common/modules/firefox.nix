@@ -7,6 +7,7 @@
   custom.firefox = {
     enable = true;
     profile = "security";
+    searchEngine = "startpage";
     dnsProvider = "cloudflare";
     defaultZoom = 100;
     processCount = 8;

@@ -9,6 +9,7 @@ in
   custom.firefox = {
     enable = true;
     profile = "streaming";
+    searchEngine = "startpage";
     dnsProvider = "mullvad";
     defaultZoom = 100;
     processCount = 8;

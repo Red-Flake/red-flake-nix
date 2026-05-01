@@ -22,6 +22,22 @@ let
     none = "";
   };
 
+  # Search engine definitions
+  searchEngineConfigs = {
+    google = {
+      urls = [{ template = "https://www.google.com/search?q={searchTerms}&hl=en"; }];
+      icon = "https://www.google.com/favicon.ico";
+      updateInterval = 24 * 60 * 60 * 1000;
+      definedAliases = [ "@go" ];
+    };
+    startpage = {
+      urls = [{ template = "https://www.startpage.com/do/search?query={searchTerms}&cat=web&language=english&lui=english&t=device&qsr=all&qadf=none"; }];
+      icon = "https://www.startpage.com/favicon.ico";
+      updateInterval = 24 * 60 * 60 * 1000;
+      definedAliases = [ "@sp" ];
+    };
+  };
+
   # Base settings shared across all profiles
   baseSettings = {
     # Disable remote prefs
@@ -492,6 +508,12 @@ in
       description = "Firefox profile type (security or streaming).";
     };
 
+    searchEngine = lib.mkOption {
+      type = lib.types.enum [ "google" "startpage" ];
+      default = "startpage";
+      description = "Default search engine.";
+    };
+
     dnsProvider = lib.mkOption {
       type = lib.types.enum [ "cloudflare" "mullvad" "none" ];
       default = "cloudflare";
@@ -621,17 +643,12 @@ in
         userChrome = mergedUserChrome;
 
         search = {
-          default = "google";
-          privateDefault = "google";
+          default = cfg.searchEngine;
+          privateDefault = cfg.searchEngine;
           force = true;
-          order = [ "google" ];
+          order = [ cfg.searchEngine ];
           engines = {
-            "google" = {
-              urls = [{ template = "https://www.google.com/search?q={searchTerms}&hl=en"; }];
-              icon = "https://www.google.com/favicon.ico";
-              updateInterval = 24 * 60 * 60 * 1000;
-              definedAliases = [ "@go" ];
-            };
+            "${cfg.searchEngine}" = searchEngineConfigs.${cfg.searchEngine};
           };
         };
 

@@ -9,6 +9,7 @@ in
   custom.firefox = {
     enable = true;
     profile = "security";
+    searchEngine = "startpage";
     dnsProvider = "none";
     defaultZoom = 110;
     processCount = 24;
