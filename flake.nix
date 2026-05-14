@@ -162,7 +162,7 @@
     #  url = "git+file:/home/pascal/Git/ucc?ref=fix/suspend-resume-cuda-deadlock";
     #  inputs.nixpkgs.follows = "nixpkgs";
     #};
-    ucc.url = "github:nanomatters/ucc/540a7abbf930b6cffee0e4f74d930a4c07dbcc72";
+    ucc.url = "github:nanomatters/ucc";
     #ucc.url = "github:Mag1cByt3s/ucc/fix/suspend-resume-cuda-deadlock";
   };
 
