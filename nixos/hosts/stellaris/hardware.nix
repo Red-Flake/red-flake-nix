@@ -379,13 +379,6 @@
     powertop.enable = lib.mkForce false;
   };
 
-  # HWP dynamic boost: let the CPU hardware opportunistically boost
-  # single-threaded workloads above normal turbo when thermal/power
-  # headroom allows.  No downside — the CPU just won't boost if it can't.
-  systemd.tmpfiles.rules = [
-    "w /sys/devices/system/cpu/intel_pstate/hwp_dynamic_boost - - - - 1"
-  ];
-
   # Prevent double-suspend race after resume.
   # Problem: On resume, user.slice thaws before nvidia-resume completes. KWin tries
   # atomic modeset immediately, gets "Permission denied", DPMS-on fails. PowerDevil
