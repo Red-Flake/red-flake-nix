@@ -9,6 +9,7 @@ let
     prev.perlPackages.StringRandom
     prev.perlPackages.XMLWriter
     prev.perlPackages.WWWMechanize
+    prev.perlPackages.LWPProtocolHttps
     prev.perlPackages.HTMLParser
     prev.perlPackages.HTMLTree
     prev.perlPackages.HTTPMessage
