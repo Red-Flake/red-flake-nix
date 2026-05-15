@@ -43,13 +43,14 @@ let
 
   cachyKernelAttrName =
     let
-      suffix =
+      ltoSuffix = if cfg.cachyos.lto then "-lto" else "";
+      targetSuffix =
         if cfg.cachyos.target == "generic" then
           ""
         else
           "-${cfg.cachyos.target}";
     in
-    "linux-cachyos-${cfg.cachyos.variant}${suffix}";
+    "linux-cachyos-${cfg.cachyos.variant}${ltoSuffix}${targetSuffix}";
 
   cachyKernel =
     let
@@ -109,13 +110,41 @@ in
       type = lib.types.enum [
         "lts"
         "latest"
+        "bore"
+        "bmq"
+        "eevdf"
+        "rt-bore"
+        "hardened"
+        "server"
+        "deckify"
+        "rc"
       ];
-      default = "lts";
+      default = "bore";
       description = ''
         CachyOS kernel variant to use when custom.kernel.flavor = "cachyos".
 
-        lts    -> Long-term support kernel (6.18.x)
-        latest -> Latest stable kernel (6.19.x)
+        lts      -> Long-term support kernel (6.18.x)
+        latest   -> Latest stable kernel (7.0.x)
+        bore     -> BORE scheduler, best for desktop/gaming (7.0.x)
+        bmq      -> BitMap Queue scheduler (7.0.x)
+        eevdf    -> Earliest Eligible Virtual Deadline First scheduler (7.0.x)
+        rt-bore  -> Real-time kernel with BORE scheduler (7.0.x)
+        hardened -> Security-hardened kernel (6.19.x)
+        server   -> Server-optimized kernel (7.0.x)
+        deckify  -> Steam Deck optimized kernel (7.0.x)
+        rc       -> Release candidate kernel (7.1-rcX)
+
+        Note: not all variant + target combinations exist.
+        The module will error with available options if a combination is invalid.
+      '';
+    };
+
+    cachyos.lto = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = ''
+        Enable Clang ThinLTO variant for better runtime performance.
+        Not all variant + lto combinations may exist.
       '';
     };
 
@@ -127,15 +156,18 @@ in
         "x86_64-v4"
         "zen4"
       ];
-      default = "generic";
+      default = "x86_64-v3";
       description = ''
         CachyOS kernel target optimization to use when custom.kernel.flavor = "cachyos".
 
-        generic     -> linux-cachyos-{variant}
-        x86_64-v2   -> linux-cachyos-{variant}-x86_64-v2
-        x86_64-v3   -> linux-cachyos-{variant}-x86_64-v3
-        x86_64-v4   -> linux-cachyos-{variant}-x86_64-v4
-        zen4        -> linux-cachyos-{variant}-zen4
+        generic     -> linux-cachyos-{variant}[-lto]
+        x86_64-v2   -> linux-cachyos-{variant}[-lto]-x86_64-v2
+        x86_64-v3   -> linux-cachyos-{variant}[-lto]-x86_64-v3
+        x86_64-v4   -> linux-cachyos-{variant}[-lto]-x86_64-v4
+        zen4        -> linux-cachyos-{variant}[-lto]-zen4
+
+        Note: not all variant + target combinations exist (e.g. hardened has no target suffixes).
+        The module will error with available options if a combination is invalid.
       '';
     };
 

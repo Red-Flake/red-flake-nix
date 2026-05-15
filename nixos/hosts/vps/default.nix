@@ -7,6 +7,9 @@
     ./services.nix
   ];
 
+  # VPS don't benefit from x86_64-v3 target optimization
+  custom.kernel.cachyos.target = "generic";
+
   # Standard sysctl profile for VPS with core dumps disabled
   custom.sysctl = {
     enable = true;
