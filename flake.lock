@@ -943,11 +943,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1778431571,
-        "narHash": "sha256-1Y3niqRpvu7aLAykenXzoPK0DupSAhkg/ZzUqp80d78=",
+        "lastModified": 1778781420,
+        "narHash": "sha256-XoRcnpdQvjwVRR3ImLiXI2ENTRwgb3g+sZ3apTC7hXo=",
         "owner": "nanomatters",
         "repo": "ucc",
-        "rev": "7146141998e949d2df1ebd27898204918ab3b080",
+        "rev": "d740e78fae5897597f8d7632b8a3d26bf2b7a3e3",
         "type": "github"
       },
       "original": {
