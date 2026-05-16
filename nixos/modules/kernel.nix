@@ -8,15 +8,39 @@
 let
   cfg = config.custom.kernel;
 
-  # Add ZFS 2.4 kernel module from pkgsUnstable (supports kernels 4.18 - 6.19)
+  # ZFS 2.4 for CachyOS kernels: use pre-built kernel module + userspace from nix-cachyos-kernel
+  # The exported package is the kernel module; passthru.userspaceTools is the matching userspace
+  cachyosZfsModule =
+    let
+      exported = inputs.nix-cachyos-kernel.packages.${pkgs.system};
+      attrName = if cfg.cachyos.lto then "zfs-cachyos-lto" else "zfs-cachyos";
+    in
+    if builtins.hasAttr attrName exported then
+      builtins.getAttr attrName exported
+    else
+      throw ''
+        CachyOS ZFS package "${attrName}" was not found in:
+          inputs.nix-cachyos-kernel.packages.${pkgs.system}
+
+        Available attrs:
+          ${lib.concatStringsSep ", " (builtins.attrNames exported)}
+      '';
+
   withZfs24 =
     kernelPackages:
-    kernelPackages // {
-      zfs_2_4 = pkgsUnstable.zfs_2_4.override {
-        configFile = "kernel";
-        inherit (kernelPackages) kernel;
-      };
-    };
+    if cfg.flavor == "cachyos" then
+      kernelPackages.extend
+        (_self: _super: {
+          # NixOS looks up the kernel module via boot.zfs.package.kernelModuleAttribute ("zfs_2_4")
+          zfs_2_4 = cachyosZfsModule;
+        })
+    else
+      kernelPackages.extend (_self: _super: {
+        zfs_2_4 = pkgsUnstable.zfs_2_4.override {
+          configFile = "kernel";
+          inherit (kernelPackages) kernel;
+        };
+      });
 
   withNvidiaStripFix =
     kernelPackages:
@@ -93,6 +117,10 @@ let
       withNvidiaStripFix selectedKernelPackagesWithZfs
     else
       selectedKernelPackagesWithZfs;
+
+  # Userspace ZFS package — must match the kernel module version
+  # The cachyos ZFS module is 2.4.2, same as pkgsUnstable.zfs_2_4
+  zfsPackage = pkgsUnstable.zfs_2_4;
 in
 {
   options.custom.kernel = {
@@ -180,5 +208,6 @@ in
 
   config = {
     boot.kernelPackages = lib.mkDefault selectedKernelPackages;
+    boot.zfs.package = lib.mkDefault zfsPackage;
   };
 }

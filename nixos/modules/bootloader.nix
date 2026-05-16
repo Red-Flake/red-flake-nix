@@ -1,7 +1,6 @@
 { config
 , isKVM
 , pkgs
-, pkgsUnstable
 , inputs
 , ...
 }:
@@ -39,9 +38,7 @@ in
         else
           "/dev/disk/by-path";
 
-      # Use ZFS 2.4.1 from pkgsUnstable (supports kernels 4.18 - 6.19)
-      # Must override kernel module to use the same version as userspace
-      package = pkgsUnstable.zfs_2_4;
+      # ZFS package is set by kernel.nix to ensure kernel module and userspace match
 
       requestEncryptionCredentials = cfg.zfs.encryption;
     };
