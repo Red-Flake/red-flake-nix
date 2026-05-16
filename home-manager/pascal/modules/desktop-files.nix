@@ -823,7 +823,10 @@
   xdg.desktopEntries."equibop" = {
     name = "Equibop";
     genericName = "Equibop is a custom Discord App aiming to give you better performance and improve linux support";
-    exec = "equibop %U";
+    # XCURSOR_SIZE=36: Electron under XWayland renders the cursor at 1x
+    # while the compositor scales the window, producing a tiny cursor.
+    # Bumping the cursor size compensates. Matches the BloodHound pattern.
+    exec = "env XCURSOR_SIZE=36 equibop %U";
     icon = "${pkgsUnstable.equibop}/share/icons/hicolor/scalable/apps/equibop.svg";
     type = "Application";
     categories = [

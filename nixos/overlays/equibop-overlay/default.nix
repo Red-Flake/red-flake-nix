@@ -31,6 +31,13 @@ in
             # prevents Nixpkgs wrappers from injecting Wayland Ozone flags.
             unset NIXOS_OZONE_WL
             export ELECTRON_OZONE_PLATFORM_HINT=x11
+            # Force the Electron Ozone platform to X11 explicitly. Electron 41+
+            # auto-selects Wayland when WAYLAND_DISPLAY is set and ignores
+            # ELECTRON_OZONE_PLATFORM_HINT, which breaks taskbar grouping on
+            # KDE (Plasma groups by Wayland app_id, not StartupWMClass).
+            # NOTE: no apostrophes in this --run block; the body is single-quoted.
+            set -- --ozone-platform=x11 "$@"
+
             case "''${EQUIBOP_SPEECH:-}" in
               1|true|TRUE|True|yes|YES|on|ON)
                 export NIXOS_SPEECH=True
