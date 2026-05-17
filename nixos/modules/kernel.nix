@@ -8,39 +8,29 @@
 let
   cfg = config.custom.kernel;
 
-  # ZFS 2.4 for CachyOS kernels: use pre-built kernel module + userspace from nix-cachyos-kernel
-  # The exported package is the kernel module; passthru.userspaceTools is the matching userspace
-  cachyosZfsModule =
+  withZfs24 = kernelPackages:
     let
-      exported = inputs.nix-cachyos-kernel.packages.${pkgs.system};
-      attrName = if cfg.cachyos.lto then "zfs-cachyos-lto" else "zfs-cachyos";
+      fromSource = pkgsUnstable.zfs_2_4.override {
+        configFile = "kernel";
+        inherit (kernelPackages) kernel;
+      };
+      cachyosPreBuilt =
+        let
+          exported = inputs.nix-cachyos-kernel.packages.${pkgs.system};
+          ltoSuffix = if cfg.cachyos.lto then "-lto" else "";
+          # Upstream uses the unsuffixed name for "latest"
+          variantSuffix =
+            if cfg.cachyos.variant == "latest" then ""
+            else "-${cfg.cachyos.variant}";
+          attrName = "zfs-cachyos${variantSuffix}${ltoSuffix}";
+        in
+          exported.${attrName} or null;
+      selected =
+        if cfg.flavor == "cachyos" && cachyosPreBuilt != null
+        then cachyosPreBuilt
+        else fromSource;
     in
-    if builtins.hasAttr attrName exported then
-      builtins.getAttr attrName exported
-    else
-      throw ''
-        CachyOS ZFS package "${attrName}" was not found in:
-          inputs.nix-cachyos-kernel.packages.${pkgs.system}
-
-        Available attrs:
-          ${lib.concatStringsSep ", " (builtins.attrNames exported)}
-      '';
-
-  withZfs24 =
-    kernelPackages:
-    if cfg.flavor == "cachyos" then
-      kernelPackages.extend
-        (_self: _super: {
-          # NixOS looks up the kernel module via boot.zfs.package.kernelModuleAttribute ("zfs_2_4")
-          zfs_2_4 = cachyosZfsModule;
-        })
-    else
-      kernelPackages.extend (_self: _super: {
-        zfs_2_4 = pkgsUnstable.zfs_2_4.override {
-          configFile = "kernel";
-          inherit (kernelPackages) kernel;
-        };
-      });
+    kernelPackages.extend (_self: _super: { zfs_2_4 = selected; });
 
   withNvidiaStripFix =
     kernelPackages:
