@@ -34,16 +34,13 @@ let
 
     # File system limits
     "fs.inotify.max_user_watches" = 1048576;
-    "fs.file-max" = 4194304;
     "fs.aio-max-nr" = 1000000;
 
     # Scheduler settings
-    "kernel.sched_rt_runtime_us" = 980000;
     "kernel.unprivileged_userns_clone" = 1;
     "kernel.printk" = "3 3 3 3";
     "kernel.kexec_load_disabled" = 1;
     "kernel.sysrq" = 1;
-    "kernel.pid_max" = 262144;
 
     # Network settings
     "net.core.somaxconn" = 8192;
@@ -79,10 +76,6 @@ let
     "vm.compaction_proactiveness" = 0;
     # Disable zone reclaim for desktop
     "vm.zone_reclaim_mode" = 0;
-    # Disable NUMA balancing (single-socket system)
-    "kernel.numa_balancing" = 0;
-    # Disable sched autogroup for scx
-    "kernel.sched_autogroup_enabled" = 0;
   };
 
   # Advanced networking tweaks
@@ -110,7 +103,7 @@ let
     "kernel.nmi_watchdog" = 1;
     "kernel.watchdog" = 1;
     # Panic on oops
-    "kernel.panic_on_oops" = 1;
+    "kernel.panic_on_oops" = 0;
   };
 in
 {

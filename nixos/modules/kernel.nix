@@ -169,7 +169,7 @@ in
 
     cachyos.lto = lib.mkOption {
       type = lib.types.bool;
-      default = true;
+      default = false;
       description = ''
         Enable Clang ThinLTO variant for better runtime performance.
         Not all variant + lto combinations may exist.

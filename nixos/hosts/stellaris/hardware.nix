@@ -90,7 +90,7 @@
     # set Kernel options
     kernel = {
       flavor = "cachyos";
-      cachyos.variant = "latest";
+      cachyos.variant = "bore";
       cachyos.target = "x86_64-v3";
     };
 

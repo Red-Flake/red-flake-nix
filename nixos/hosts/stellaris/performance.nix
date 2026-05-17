@@ -72,7 +72,7 @@
 
   # Host-specific sched_ext configuration for Stellaris (Core Ultra 9 275HX + RTX 5070 Ti)
   services.scx = {
-    enable = lib.mkForce true;
+    enable = lib.mkForce false; # Disable sched_ext in favor of BORE scheduler for better desktop responsiveness
 
     # scx_bpfland: Best for desktop/KDE + occasional gaming
     # - Designed for interactive workloads and desktop responsiveness
