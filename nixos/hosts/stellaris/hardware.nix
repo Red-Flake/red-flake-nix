@@ -91,7 +91,7 @@
     kernel = {
       flavor = "cachyos";
       cachyos.variant = "lts"; # 6.18.31, pre-i915 7.0
-      cachyos.lto = false; # or true; both have matching ZFS
+      cachyos.lto = true; # or true; both have matching ZFS
       cachyos.target = "x86_64-v3";
     };
 
