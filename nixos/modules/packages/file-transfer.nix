@@ -8,5 +8,6 @@
     nfs-utils
     python312Packages.wsgidav
     lftp
+    ncftp
   ];
 }
