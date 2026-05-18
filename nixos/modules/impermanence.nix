@@ -32,6 +32,7 @@ _: {
         "/var/lib/tcc" # persist Tuxedo Control Center data
         "/etc/ucc" # persist Uniwill Control Center data
         "/var/lib/AccountsService" # persist user account data
+        "/etc/wireguard" # persist WireGuard configs
       ];
     };
 
