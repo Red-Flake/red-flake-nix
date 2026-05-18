@@ -10,6 +10,7 @@
     ./ollama.nix
     ./on-demand-services.nix
     ./packages.nix
+    ./vpn-mtu.nix
   ];
 
   # Use tmpfs for /tmp instead of ZFS — 96 GB RAM is plenty
