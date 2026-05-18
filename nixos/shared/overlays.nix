@@ -26,7 +26,6 @@ let
     (import ../overlays/wmiexec-Pro-overlay)
     (import ../overlays/ntlm_theft-overlay)
     (import ../overlays/kerbrute-overlay)
-    (import ../overlays/DNSenum-overlay)
     (import ../overlays/dnscat2-overlay)
     (import ../overlays/wordlists-overlay)
     (import ../overlays/PKINITtools-overlay)

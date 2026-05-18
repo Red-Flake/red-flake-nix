@@ -1,12 +1,12 @@
-{ pkgs, ... }:
+{ pkgs, pkgsUnstable, ... }:
 
 {
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     dig
-    dnsenum
-    dnsrecon
+    pkgsUnstable.dnsenum
+    pkgsUnstable.dnsrecon
     fierce
     subfinder
   ];
