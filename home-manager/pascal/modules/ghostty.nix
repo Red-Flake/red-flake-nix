@@ -37,7 +37,9 @@
       mouse-hide-while-typing = true;
       mouse-scroll-multiplier = 1;
 
-      scrollback-limit = 10000000; # 10 million lines (~1-2GB max memory)
+      # Value is in BYTES (not lines), per terminal surface. Allocated lazily,
+      # so a large cap does not immediately consume memory. 4 GiB here.
+      scrollback-limit = 4294967296; # 4 GiB per surface (4 * 1024^3)
 
       # copy settings
       copy-on-select = false;

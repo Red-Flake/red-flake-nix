@@ -116,6 +116,7 @@ in
     sessionPath = commonSessionPath;
     modules = fullDesktopModules ++ [
       # Letgamer-specific modules
+      ../pascal/modules/ghostty.nix
       ../let/modules/firefox.nix
       ../let/modules/monitors.nix
       ../let/modules/plasma-manager.nix
