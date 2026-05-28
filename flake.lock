@@ -924,11 +924,11 @@
     "tools": {
       "flake": false,
       "locked": {
-        "lastModified": 1769569185,
-        "narHash": "sha256-RxNb/eACM3ADyXRTAkItBK4fpgCUsXFNdeMwrgPjuQE=",
+        "lastModified": 1779903654,
+        "narHash": "sha256-VsPqU/ueL2BIOSW1FcWLn7paq+OZRkE1l/YEMh5bHUk=",
         "owner": "Red-Flake",
         "repo": "tools",
-        "rev": "ea7114a5d486ac233701f81fa9e69528959d1051",
+        "rev": "b22a3eefb1addfa269d295659f13efc192632ca7",
         "type": "github"
       },
       "original": {
