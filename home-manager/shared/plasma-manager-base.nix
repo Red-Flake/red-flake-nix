@@ -386,6 +386,11 @@ in
       configFile = {
         "kdeglobals"."General"."AccentColor" = "160,31,52";
         "kdeglobals"."KDE"."AnimationDurationFactor" = 0.5;
+        # Stop Plasma 6 from tinting device LEDs (e.g. per-key keyboard backlight)
+        # with the accent colour.  Without this Powerdevil rewrites the
+        # rgb:kbd_backlight LED at session start and after resume, clobbering
+        # the per-key colours that uccd applied from the active profile.
+        "kdeglobals"."Colors:Window"."DeviceLedsAccentColored" = false;
         "kwinrc" = {
           "org.kde.kdecoration2"."ButtonsOnLeft" = "SF";
           "Desktops"."Number" = {
