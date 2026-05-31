@@ -390,7 +390,7 @@ in
         # with the accent colour.  Without this Powerdevil rewrites the
         # rgb:kbd_backlight LED at session start and after resume, clobbering
         # the per-key colours that uccd applied from the active profile.
-        "kdeglobals"."Colors:Window"."DeviceLedsAccentColored" = false;
+        "kdeglobals"."General"."DeviceLedsAccentColored" = false;
         "kwinrc" = {
           "org.kde.kdecoration2"."ButtonsOnLeft" = "SF";
           "Desktops"."Number" = {
