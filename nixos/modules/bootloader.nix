@@ -29,6 +29,8 @@ in
 
     # ZFS settings
     zfs = {
+      forceImportRoot = true;
+
       devNodes =
         if isKVM then
           "/dev/disk/by-partuuid"

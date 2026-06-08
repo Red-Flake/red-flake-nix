@@ -8,5 +8,6 @@
     "python-2.7.18.8"
     "python-2.7.18.12"
     "openssl-1.1.1w"
+    "electron-39.8.10"
   ];
 }

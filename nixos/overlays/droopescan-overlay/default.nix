@@ -7,6 +7,7 @@ final: prev: {
         version = "2.10.14";
         format = "setuptools";
         nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pySuper.setuptools ];
+        patches = [ ];
         doCheck = false; # Disable tests to avoid failure on missing test files
         doInstallCheck = false;
         pythonImportsCheck = [ ];

@@ -31,10 +31,12 @@ in
     mono
     javaPackages.compiler.openjdk25
     maven
-    python313
-    python313Packages.pip
-    python313Packages.pipx
-    # python313Packages.bpython # tests fail.....
+    python314
+    python314Packages.pip
+    (python314Packages.pipx.overridePythonAttrs (_old: {
+      doCheck = false;
+    }))
+    python314Packages.bpython
     mingwW64-gcc-wrapped # x86_64-w64-mingw32-gcc & g++ (wrapped with mcfgthreads path)
     pkgs.pkgsCross.mingw32.buildPackages.gcc # i686-w64-mingw32-gcc & g++
     pkgs.pkgsCross.mingwW64.buildPackages.binutils # Binutils for 64-bit

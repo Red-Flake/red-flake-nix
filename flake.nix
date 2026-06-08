@@ -11,14 +11,12 @@
     extra-substituters = [
       "https://cache.nixos.org/"
       "https://nix-community.cachix.org/"
-      "https://mrn157.cachix.org/"
       "https://cache.garnix.io"
       "https://attic.xuyh0120.win/lantian"
     ];
     extra-trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      "mrn157.cachix.org-1:A3KuzqTH/AeTFpDsu7Fql7KpZBJvFCkfNqxkL2+DZlc="
       "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
       "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
     ];
@@ -32,7 +30,7 @@
 
   inputs = {
     # Nixpkgs (NixOS stable)
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
 
     # Nixpkgs (NixOS unstable) - for packages not available on stable
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -48,7 +46,7 @@
 
     # Home configuration management
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
+      url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -162,8 +160,9 @@
     #  url = "git+file:/home/pascal/Git/ucc?ref=fix/suspend-resume-cuda-deadlock";
     #  inputs.nixpkgs.follows = "nixpkgs";
     #};
-    ucc.url = "github:nanomatters/ucc";
-    #ucc.url = "github:Mag1cByt3s/ucc/fix/suspend-resume-cuda-deadlock";
+    # TODO: switch back to github:nanomatters/ucc after the libxcb-cursor fix is merged upstream.
+    # ucc.url = "github:nanomatters/ucc";
+    ucc.url = "github:Mag1cByt3s/ucc/fix/libxcb-cursor-dependency";
   };
 
   outputs =

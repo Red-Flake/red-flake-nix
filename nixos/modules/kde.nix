@@ -39,7 +39,7 @@ in
     kdePackages.kwalletmanager
     kdePackages.ksshaskpass
     # Qt 6 XCB platform plugin runtime dependency (prevents Qt abort on fallback)
-    xcb-util-cursor
+    libxcb-cursor
     # Portal fix
     kdePackages.appstream-qt
 

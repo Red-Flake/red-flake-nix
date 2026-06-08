@@ -42,7 +42,7 @@
     lshw
     lshw-gui
     thunderbird-bin
-    helvum
+    crosspipe
     mission-center
     psmisc
     aha

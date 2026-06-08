@@ -53,7 +53,10 @@ in
       configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
     };
     gtk3.extraConfig = gtkExtraConfig;
-    gtk4.extraConfig = gtkExtraConfig;
+    gtk4 = {
+      inherit (config.gtk) theme;
+      extraConfig = gtkExtraConfig;
+    };
   };
 
   # force creation of ~/.config/gtk-2.0/gtkrc otherwise home-manager will fail

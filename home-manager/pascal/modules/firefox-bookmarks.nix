@@ -13,13 +13,13 @@
         name = "Package Search";
         tags = [ "nixos" ];
         keyword = "nixos";
-        url = "https://search.nixos.org/packages?channel=25.11";
+        url = "https://search.nixos.org/packages?channel=26.05";
       }
       {
         name = "Option Search";
         tags = [ "nixos" ];
         keyword = "nixos";
-        url = "https://search.nixos.org/options?channel=25.11";
+        url = "https://search.nixos.org/options?channel=26.05";
       }
       {
         name = "Nix package versions";

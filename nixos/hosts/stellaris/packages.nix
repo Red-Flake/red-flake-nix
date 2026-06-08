@@ -3,7 +3,9 @@
   environment.systemPackages = with pkgs; [
     #linuxKernel.packages.linux_xanmod_latest.turbostat
     intel-gpu-tools
-    inputs.redflake-packages.packages.x86_64-linux.outline-electron
+    (pkgs.callPackage (inputs.redflake-packages + "/pkgs/outline-electron/package.nix") {
+      inherit (pkgs) electron_39;
+    })
     inputs.ucc.packages.x86_64-linux.ucc
     nvtopPackages.full
   ];

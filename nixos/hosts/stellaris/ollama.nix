@@ -1,5 +1,6 @@
 # https://wiki.nixos.org/wiki/Ollama
 { lib
+, pkgs
 , user
 , ...
 }:
@@ -7,7 +8,7 @@
   # Enable Ollama with CUDA acceleration
   services.ollama = {
     enable = true;
-    acceleration = "cuda"; # Explicitly use NVIDIA RTX 5070 Ti for inference
+    package = pkgs.ollama-cuda; # Explicitly use NVIDIA RTX 5070 Ti for inference
   };
 
   # Add user to ollama group
