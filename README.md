@@ -16,10 +16,10 @@
         <img src="https://img.shields.io/static/v1.svg?style=for-the-badge&label=License&message=GPL-3&logoColor=ca9ee6&colorA=313244&colorB=a6da95"/>
     </a>
     <a href="https://nixos.org">
-        <img src="https://img.shields.io/badge/NixOS-25.11-blue.svg?style=for-the-badge&labelColor=303446&logo=NixOS&logoColor=white&color=91D7E3">
+        <img src="https://img.shields.io/badge/NixOS-26.05-blue.svg?style=for-the-badge&labelColor=303446&logo=NixOS&logoColor=white&color=91D7E3">
     </a>
      <a href="https://github.com/nix-community/home-manager">
-        <img src="https://img.shields.io/badge/home_manager-25.11-blue?style=for-the-badge&labelColor=303446&logo=NixOS&logoColor=white&color=91D7E3">
+        <img src="https://img.shields.io/badge/home_manager-26.05-blue?style=for-the-badge&labelColor=303446&logo=NixOS&logoColor=white&color=91D7E3">
     </a>
      <a href="https://kde.org/de/announcements/megarelease/6">
         <img src="https://img.shields.io/badge/KDE_Plasma-6-blue?style=for-the-badge&labelColor=303446&logo=NixOS&logoColor=white&color=91D7E3">
@@ -64,11 +64,12 @@ redflake-rebuild
 
 <br>
 
-- custom NixOS flake using NixOS 25.11
+- custom NixOS flake using NixOS 26.05
 - NixOS home-manager
 - encrypted root on ZFS
 - Impermanence (non-persistent root on tmpfs) with persistence on `/persist`
-- GRUB bootloader with EFI support & theme
+- systemd-boot with EFI support and read-only `/boot` handling
+- host-specific kernel selection, including CachyOS LTS on Stellaris
 - performance tweaks
 - custom Red-Flake themes
 - custom Red-Flake boot logo
@@ -83,7 +84,8 @@ redflake-rebuild
 - exploitdb in `/usr/share/exploits/exploitdb`
 - customized zsh shell with oh-my-zsh
 - support for Docker, LXC, KVM & VirtualBox
-- postgres & neo4j databases for metasploit & bloodhound
+- PostgreSQL & Neo4j databases for Metasploit and BloodHound CE
+- BloodHound CE service integration with Neo4j readiness handling
 - provide automatic provisioning for
    - Zsh
    - KDE Plasma
