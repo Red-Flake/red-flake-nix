@@ -11,6 +11,8 @@ let
 
     # redflake-packages overlay
     inputs.redflake-packages.overlays.default
+
+    (import ../overlays/evil-winrm-py-overlay)
   ];
 
   # Security tool overlays

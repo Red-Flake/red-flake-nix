@@ -1,0 +1,37 @@
+diff --git a/evil_winrm_py/pypsrp_ewp/wsman.py b/evil_winrm_py/pypsrp_ewp/wsman.py
+index 69707f8..d7e1520 100644
+--- a/evil_winrm_py/pypsrp_ewp/wsman.py
++++ b/evil_winrm_py/pypsrp_ewp/wsman.py
+@@ -288,7 +288,13 @@ class _TransportHTTPEWP(_TransportHTTP):
+         # used when building tests, keep commented out
+         # self._test_messages = []
+ 
+-    def send(self, message: bytes) -> bytes:
++    def send(
++        self,
++        message: bytes,
++        *,
++        retries_on_read_timeout: int = 0,
++        timeout: typing.Optional[typing.Union[int, float, tuple]] = None,
++    ) -> bytes:
+         hostname = get_hostname(self.endpoint)
+         if self.session is None:
+             self.session = self._build_session()
+@@ -298,7 +304,7 @@ class _TransportHTTPEWP(_TransportHTTP):
+             if self.wrap_required:
+                 request = requests.Request("POST", self.endpoint, data=None)
+                 prep_request = self.session.prepare_request(request)
+-                self._send_request(prep_request)
++                self._send_request(prep_request, timeout=timeout)
+ 
+                 protocol = WinRMEncryption.SPNEGO
+                 if isinstance(self.session.auth, HttpCredSSPAuth):
+@@ -338,7 +344,7 @@ class _TransportHTTPEWP(_TransportHTTP):
+         request = requests.Request("POST", self.endpoint, data=payload, headers=headers)
+         prep_request = self.session.prepare_request(request)
+         try:
+-            return self._send_request(prep_request)
++            return self._send_request(prep_request, timeout=timeout)
+         except WinRMTransportError as err:
+             if err.code == 400:
+                 log.debug("Session invalid, resetting session")
