@@ -12,7 +12,7 @@
       "applications:org.kde.dolphin.desktop"
       "applications:com.mitchellh.ghostty.desktop"
       "applications:outline-electron.desktop"
-      "applications:firefox.desktop"
+      "applications:firefox-nightly.desktop"
       "applications:io.github.tdesktop_x64.TDesktop.desktop"
       "applications:equibop.desktop"
       "applications:code.desktop"

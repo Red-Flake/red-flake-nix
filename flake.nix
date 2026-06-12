@@ -13,12 +13,14 @@
       "https://nix-community.cachix.org/"
       "https://cache.garnix.io"
       "https://attic.xuyh0120.win/lantian"
+      "https://nyx-cache.chaotic.cx/"
     ];
     extra-trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
       "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
+      "nyx-cache.chaotic.cx:dJxTrgMC3V3cFfyIiBQDQorG6k1LsqurH/srpMSq7qk="
     ];
     extra-deprecated-features = [
       "url-literals"
@@ -37,6 +39,9 @@
 
     # Pinned nixpkgs for Neo4j 4.4.11 (BloodHound CE compatibility)
     nixpkgs-neo4j-4-4-11.url = "github:NixOS/nixpkgs/7a339d87931bba829f68e94621536cad9132971a";
+
+    # https://www.nyx.chaotic.cx
+    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
 
     # Modules support for flakes
     flake-parts = {
@@ -168,6 +173,7 @@
   outputs =
     inputs@{ self
     , nixpkgs
+    , chaotic
     , flake-parts
     , pre-commit-hooks
     , redflake-packages
@@ -295,6 +301,7 @@
             , extraConfig ? { }
             , pkgs
             , pkgsUnstable
+            , chaoticPkgs
             }:
             {
               imports = [ inputs.home-manager.nixosModules.home-manager ];
@@ -310,6 +317,7 @@
                 inherit user;
                 inherit pkgs;
                 inherit pkgsUnstable;
+                inherit chaoticPkgs;
               };
 
               home-manager.users.${user} = (mkUserFor pkgs pkgsUnstable homeDirectory).mkUser profile (
@@ -367,6 +375,11 @@
                 config = hostNixpkgsConfig;
                 overlays = hostOverlays;
               };
+
+              # Chaotic-Nyx package set, built against nyx's own pinned nixpkgs
+              # so it hits the nyx binary cache. Kept separate from hostPkgs so
+              # the chaotic overlay never overrides the host's nixpkgs.
+              chaoticPkgs = chaotic.legacyPackages.${system};
             in
             nixpkgs.lib.nixosSystem {
               inherit system;
@@ -375,6 +388,7 @@
                 inherit inputs outputs;
                 inherit hostPkgs;
                 pkgsUnstable = hostPkgsUnstable;
+                inherit chaoticPkgs;
                 inherit user isKVM;
                 # Pass profile as hostType for module conditional imports
                 hostType = profile;
@@ -387,6 +401,11 @@
                 }
                 redflake-packages.nixosModules.bloodhound-ce
                 inputs.impermanence.nixosModules.impermanence
+                # Only cache + registry; NOT the overlay - we don't want to
+                # override the host's nixpkgs. Chaotic packages are consumed
+                # via the separate `chaoticPkgs` set instead.
+                chaotic.nixosModules.nyx-cache
+                chaotic.nixosModules.nyx-registry
                 (mkHost.mkHost profile hostConfig {
                   inherit hostname localeProfile;
                   inherit extraConfig;
@@ -402,6 +421,7 @@
                   mkHomeManagerConfig (cfg // {
                     pkgs = hostPkgs;
                     pkgsUnstable = hostPkgsUnstable;
+                    inherit chaoticPkgs;
                   })
                 )
                 homeManagerConfigs);

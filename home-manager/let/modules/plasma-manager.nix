@@ -11,7 +11,7 @@
     taskbarApps = [
       "applications:org.kde.dolphin.desktop"
       "applications:org.kde.konsole.desktop"
-      "applications:firefox.desktop"
+      "applications:firefox-nightly.desktop"
       "applications:org.telegram.desktop.desktop"
       "applications:code.desktop"
       "applications:burpsuitepro.desktop"

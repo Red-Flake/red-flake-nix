@@ -14,6 +14,10 @@ let
 
   # Core modules needed by all profiles (including server)
   coreModules = [
+    # NOTE: chaotic's HM module is intentionally NOT imported. Its nyx-overlay
+    # sets `nixpkgs.overlays`, which is ignored under `home-manager.useGlobalPkgs`
+    # and triggers an eval warning. Chaotic packages are consumed via the
+    # separate `chaoticPkgs` set, and its cache/registry are set system-wide.
     ./base.nix
     ../common/modules/git.nix
     ../pascal/modules/zsh.nix

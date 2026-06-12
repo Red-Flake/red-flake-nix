@@ -117,7 +117,7 @@ in
       default = [
         "applications:org.kde.dolphin.desktop"
         "applications:com.mitchellh.ghostty.desktop"
-        "applications:firefox.desktop"
+        "applications:firefox-nightly.desktop"
         "applications:code.desktop"
         "applications:burpsuitepro.desktop"
         "applications:ghidra.desktop"

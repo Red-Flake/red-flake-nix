@@ -2,6 +2,7 @@
 { config
 , lib
 , pkgs
+, chaoticPkgs
 , ...
 }:
 let
@@ -633,7 +634,7 @@ in
       enable = true;
       configPath = ".mozilla/firefox";
       languagePacks = [ "en-US" ];
-      package = pkgs.firefox-bin;
+      package = chaoticPkgs.firefox_nightly;
 
       profiles.redflake = {
         id = 0;

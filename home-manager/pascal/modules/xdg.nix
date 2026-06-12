@@ -4,7 +4,7 @@
 }:
 
 let
-  browser = "firefox.desktop";
+  browser = "firefox-nightly.desktop";
   terminal = "com.mitchellh.ghostty.desktop";
   fileManager = "org.kde.dolphin.desktop";
   editor = "code.desktop";
