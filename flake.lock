@@ -1152,16 +1152,16 @@
         "treefmt-nix": "treefmt-nix_2"
       },
       "locked": {
-        "lastModified": 1780939740,
-        "narHash": "sha256-0coJtn2yyAd5JH+hSXdjEDEMulXd86yNBZJhQRWMms8=",
+        "lastModified": 1781367573,
+        "narHash": "sha256-mI2hurfhYIOSSMoVuq0YfJXUrUtxjSzHyeRnJOd75kQ=",
         "owner": "Mag1cByt3s",
         "repo": "ucc",
-        "rev": "bec342dc940e29845c32037ee7e727f9d8c0962d",
+        "rev": "fa8e678804fde9e8ed2afaea0b7f99a2e41e33fb",
         "type": "github"
       },
       "original": {
         "owner": "Mag1cByt3s",
-        "ref": "fix/libxcb-cursor-dependency",
+        "ref": "fix/intel-pstate-performance-epp",
         "repo": "ucc",
         "type": "github"
       }

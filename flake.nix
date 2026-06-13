@@ -165,9 +165,10 @@
     #  url = "git+file:/home/pascal/Git/ucc?ref=fix/suspend-resume-cuda-deadlock";
     #  inputs.nixpkgs.follows = "nixpkgs";
     #};
+    ucc.url = "github:Mag1cByt3s/ucc/fix/intel-pstate-performance-epp";
     # TODO: switch back to github:nanomatters/ucc after the libxcb-cursor fix is merged upstream.
     # ucc.url = "github:nanomatters/ucc";
-    ucc.url = "github:Mag1cByt3s/ucc/fix/libxcb-cursor-dependency";
+    # ucc.url = "github:Mag1cByt3s/ucc/fix/libxcb-cursor-dependency";
   };
 
   outputs =
