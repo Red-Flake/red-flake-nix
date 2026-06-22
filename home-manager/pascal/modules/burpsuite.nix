@@ -1,12 +1,9 @@
 { pkgs
-, inputs
 , ...
 }: {
   programs.burp = {
     enable = true;
     proEdition = true;
-
-    package = inputs.burpsuitepro.packages.${pkgs.stdenv.hostPlatform.system}.default;
 
     wordlists = {
       seclists = "${pkgs.seclists}/share/wordlists/seclists";

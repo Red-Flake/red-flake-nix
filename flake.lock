@@ -37,26 +37,6 @@
         "type": "github"
       }
     },
-    "burpsuitepro": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs-unstable"
-        ]
-      },
-      "locked": {
-        "lastModified": 1776956774,
-        "narHash": "sha256-9EgAlRhNemIyinqQw5Ie5pNMySTLpvrt6SwUPwXh6PQ=",
-        "owner": "Red-Flake",
-        "repo": "Burpsuite-Professional",
-        "rev": "186e1703dfc54929eebb97e7e807a48ee3e30076",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Red-Flake",
-        "repo": "Burpsuite-Professional",
-        "type": "github"
-      }
-    },
     "cachyos-kernel": {
       "flake": false,
       "locked": {
@@ -990,7 +970,6 @@
       "inputs": {
         "artwork": "artwork",
         "burpsuite-nix": "burpsuite-nix",
-        "burpsuitepro": "burpsuitepro",
         "chaotic": "chaotic",
         "flake-parts": "flake-parts",
         "home-manager": "home-manager_3",

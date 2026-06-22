@@ -122,11 +122,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    burpsuitepro = {
-      url = "github:Red-Flake/Burpsuite-Professional";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
-
     # Red-Flake artwork
     artwork = {
       url = "github:Red-Flake/artwork";

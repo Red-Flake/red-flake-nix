@@ -800,11 +800,11 @@
   ## .desktop application entries
   # Make the burp suite start screen group with the main burp suite pro application
   # fix burpsuitepro StartupWMClass so that it groups properly in taskbar
-  xdg.desktopEntries."burpsuitepro" = {
-    name = "BurpSuite Professional";
+  xdg.desktopEntries."burpsuite" = {
+    name = "BurpSuite";
     genericName = "An integrated platform for performing security testing of web applications";
-    exec = "burpsuitepro %F";
-    icon = "burpsuitepro";
+    exec = "burpsuite %F";
+    icon = "burpsuite";
     type = "Application";
     categories = [
       "Development"
@@ -816,7 +816,7 @@
     # Note: StartupWMClass removed - Java doesn't support setting WM_CLASS externally
     # Use KWin window rules to match by title instead
     settings = {
-      X-KDE-DesktopFileName = "burpsuitepro";
+      X-KDE-DesktopFileName = "burpsuite";
     };
   };
 
