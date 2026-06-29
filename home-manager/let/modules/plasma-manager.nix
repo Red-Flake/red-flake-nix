@@ -14,7 +14,7 @@
       "applications:firefox-nightly.desktop"
       "applications:org.telegram.desktop.desktop"
       "applications:code.desktop"
-      "applications:burpsuitepro.desktop"
+      "applications:burpsuite.desktop"
       "applications:ghidra.desktop"
       "applications:org.wireshark.Wireshark.desktop"
     ];

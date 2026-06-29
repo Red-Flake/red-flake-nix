@@ -119,7 +119,7 @@ in
         "applications:com.mitchellh.ghostty.desktop"
         "applications:firefox-nightly.desktop"
         "applications:code.desktop"
-        "applications:burpsuitepro.desktop"
+        "applications:burpsuite.desktop"
         "applications:ghidra.desktop"
         "applications:re.rizin.cutter.desktop"
         "applications:org.wireshark.Wireshark.desktop"
