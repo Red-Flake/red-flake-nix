@@ -91,6 +91,10 @@
       # [  363.611590] NVRM: GPU 0000:02:00.0: PreserveVideoMemoryAllocations module parameter is set.
       # System Power Management attempted without driver procfs suspend interface.
       # Please refer to the 'Configuring Power Management Support' section in the driver README.
+      # NixOS defaults this to true for open NVIDIA modules >= 595, which removes
+      # /proc/driver/nvidia/suspend. This host needs the procfs/systemd path for
+      # reliable full-VRAM S0ix suspend.
+      powerManagement.kernelSuspendNotifier = false;
 
       # Fine-grained power management (RTD3) - actively monitors GPU and powers off after short idle
       # See: https://download.nvidia.com/XFree86/Linux-x86_64/580.65.06/README/dynamicpowermanagement.html

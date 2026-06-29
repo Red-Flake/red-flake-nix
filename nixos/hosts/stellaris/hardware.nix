@@ -515,6 +515,10 @@
     # Tell ModemManager to ignore WiFi interfaces (fixes "Missing port probe" warnings)
     ACTION=="add|change", SUBSYSTEM=="net", KERNEL=="wlan*", ENV{ID_MM_DEVICE_IGNORE}="1"
 
+    # Disable barrel-jack AC adapter wake without disabling EC wake events globally.
+    # Lid-open resume depends on EC events, so do not use acpi.ec_no_wakeup=1.
+    ACTION=="add|change", SUBSYSTEM=="power_supply", KERNEL=="AC0", ATTR{type}=="Mains", ATTR{power/wakeup}="disabled"
+
     # Disable Thunderbolt wakeup to prevent spurious S0ix wakes (GPE46)
     # TB4 USB Controller and NHI
     ACTION=="add|change", SUBSYSTEM=="pci", KERNEL=="0000:00:0d.0", ATTR{power/wakeup}="disabled"
