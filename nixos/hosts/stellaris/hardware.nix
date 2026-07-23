@@ -463,6 +463,15 @@
   # Enable the usbmuxd ("USB multiplexing daemon") service. This daemon is in charge of multiplexing connections over USB to an iOS device.
   services.usbmuxd.enable = true;
 
+  # Enable printing
+  services.printing = {
+    enable = true;
+    drivers = with pkgs; [
+      cups-filters
+      cups-browsed
+    ];
+  };
+
   # Disable VirtualBox service to avoid hardware related stability issues
   virtualisation.virtualbox.host.enable = lib.mkForce false;
   virtualisation.virtualbox.host.enableExtensionPack = lib.mkForce false;
