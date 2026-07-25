@@ -1,0 +1,20 @@
+diff --git a/nix/pyenv.nix b/nix/pyenv.nix
+index 0a79d64..d5a4b46 100644
+--- a/nix/pyenv.nix
++++ b/nix/pyenv.nix
+@@ -204,7 +204,15 @@ let
+         lib.optionalAttrs (isBuildSource old) {
+           nativeBuildInputs = old.nativeBuildInputs ++ [
+             cmake
+           ];
++          postPatch =
++            (old.postPatch or "")
++            + ''
++              substituteInPlace src/CMakeLists.txt \
++                --replace-fail 'add_executable(fuzz_disasm ''${PROJECT_SOURCE_DIR}/suite/fuzz/onefile.c ''${PROJECT_SOURCE_DIR}/suite/fuzz/fuzz_disasm.c ''${PROJECT_SOURCE_DIR}/suite/fuzz/platform.c)' ""
++              substituteInPlace src/CMakeLists.txt \
++                --replace-fail 'target_link_libraries(fuzz_disasm PRIVATE capstone)' ""
++            '';
+         }
+       )
+     ) { };

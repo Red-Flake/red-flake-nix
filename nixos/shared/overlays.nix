@@ -12,6 +12,70 @@ let
     # redflake-packages overlay
     inputs.redflake-packages.overlays.default
 
+    (final: prev:
+      let
+        python312PackageOverrides = _: pyPrev: {
+          bloodhound-py = pyPrev.bloodhound-py.overridePythonAttrs (_: {
+            pname = "bloodhound";
+          });
+
+          pynfsclient = pyPrev.pynfsclient.overridePythonAttrs (old: {
+            postPatch =
+              (old.postPatch or "")
+              + ''
+                substituteInPlace pyNfsClient/__info__.py \
+                  --replace-fail '__version__ = "0.1.5"' '__version__ = "${old.version}"'
+              '';
+          });
+        };
+      in
+      {
+        python3 = prev.python3.override {
+          packageOverrides = python312PackageOverrides;
+        };
+
+        python3Packages = final.python3.pkgs;
+
+        python312 = prev.python312.override {
+          packageOverrides = python312PackageOverrides;
+        };
+
+        python312Packages = final.python312.pkgs;
+
+        python314 = prev.python314.override {
+          packageOverrides = _: pyPrev: {
+            stamina = pyPrev.stamina.overridePythonAttrs (_: {
+              doCheck = false;
+            });
+          };
+        };
+
+        python314Packages = final.python314.pkgs;
+
+        dnsrecon = prev.dnsrecon.overridePythonAttrs (old: {
+          dependencies = map
+            (pkg:
+              if (pkg.pname or "") == "stamina" then
+                final.python314Packages.stamina
+              else
+                pkg)
+            old.dependencies;
+        });
+
+        netexec = prev.netexec.overridePythonAttrs (old: {
+          pythonCatchConflictsPhase = "true";
+          dependencies = map
+            (pkg:
+              if (pkg.pname or "") == "bloodhound-py" then
+                final.python312Packages.bloodhound-py
+              else if (pkg.pname or "") == "pynfsclient" then
+                final.python312Packages.pynfsclient
+              else
+                pkg)
+            old.dependencies;
+        });
+      })
+
     (import ../overlays/evil-winrm-py-overlay)
   ];
 
