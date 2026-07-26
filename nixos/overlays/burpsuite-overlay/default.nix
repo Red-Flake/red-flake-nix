@@ -1,8 +1,8 @@
 _final: prev:
 let
   loaderSrc = prev.fetchurl {
-    url = "https://github.com/xiv3r/Burpsuite-Professional/raw/refs/heads/main/loader.jar";
-    hash = "sha256-3N8orPNgVUpamNePQDyWzOpQC+JLJ9ArAg4UKCBjfAo=";
+    url = "https://github.com/Letgamer/burp/releases/download/master/loader.jar";
+    hash = "sha256-3W+eXaCnxYoVihBQ2aobDdBkaVkz6+/dxQhw/BQ5xX8=";
   };
 
   javaOpts = builtins.concatStringsSep " " [

@@ -212,6 +212,9 @@
         # terminal contexts if Qt can't connect to Wayland/X11).
         fastfetch = "QT_QPA_PLATFORM=offscreen command fastfetch";
 
+        # Run the Burpsuite Community Edition, e.g. for OSCP
+        burpsuitece = "burpsuite --product-mode=community";
+
         # nixos
         redflake-rebuild = ''
           if [ -f "$PWD/rebuild.sh" ] && [ -f "$PWD/flake.nix" ]; then
