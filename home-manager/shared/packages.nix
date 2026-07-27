@@ -1,5 +1,5 @@
 # Shared package sets for home-manager configurations
-{ pkgs, pkgsUnstable, ... }:
+{ inputs, pkgs, pkgsUnstable, ... }:
 {
   # Base packages that all users need
   base = with pkgs; [
@@ -46,6 +46,7 @@
     opencode
     codex
     gemini-cli-bin
+    inputs.kimi-code.packages.${pkgsUnstable.system}.kimi-code
   ];
 
   # VPN and networking tools

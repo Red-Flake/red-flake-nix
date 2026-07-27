@@ -19,14 +19,6 @@ let
             pname = "bloodhound";
           });
 
-          pynfsclient = pyPrev.pynfsclient.overridePythonAttrs (old: {
-            postPatch =
-              (old.postPatch or "")
-              + ''
-                substituteInPlace pyNfsClient/__info__.py \
-                  --replace-fail '__version__ = "0.1.5"' '__version__ = "${old.version}"'
-              '';
-          });
         };
       in
       {

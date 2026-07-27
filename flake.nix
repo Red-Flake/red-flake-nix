@@ -117,6 +117,9 @@
     # https://hydra.lantian.pub/jobset/lantian/nix-cachyos-kernel
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
 
+    # https://github.com/MoonshotAI/kimi-code
+    kimi-code.url = "github:MoonshotAI/kimi-code";
+
     burpsuite-nix = {
       url = "github:Red-Flake/burpsuite-nix";
       inputs.nixpkgs.follows = "nixpkgs";

@@ -6,7 +6,7 @@
 , ...
 }:
 let
-  packages = import ./packages.nix { inherit pkgs pkgsUnstable; };
+  packages = import ./packages.nix { inherit inputs pkgs pkgsUnstable; };
 
   # =============================================================================
   # Module Groups (Mixins) - Reusable module sets to avoid duplication
