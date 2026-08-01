@@ -18,6 +18,21 @@
       powersave = false;
     };
 
+    # IPv6 privacy extensions (RFC 4941): prefer rotating temporary addresses
+    # as the source address. Note this is NOT "disable IPv6" — global addressing
+    # and routing are unaffected either way; only source-address stability is.
+    #
+    # nixpkgs implements networking.tempAddresses via a udev RUN+= rule that
+    # races interface creation, so it is applied inconsistently: on stellaris
+    # wlan0 ended up with use_tempaddr=2 while eth0 got 0. NetworkManager
+    # applies this at connection-activation time instead, so it is deterministic
+    # and covers interfaces that appear after boot.
+    #
+    # Connections default to ip6-privacy=-1 ("use the sysctl"), so this sets the
+    # global default for every NM-managed connection.
+    # Verify:  cat /proc/sys/net/ipv6/conf/*/use_tempaddr
+    settings.connection."ipv6.ip6-privacy" = 2;
+
     # Dynamically set NTP servers received via DHCP (systemd-timesyncd).
     # Debug: `sudo journalctl -u NetworkManager-dispatcher -e`
     dispatcherScripts = [

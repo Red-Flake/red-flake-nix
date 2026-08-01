@@ -299,8 +299,17 @@
       install eeepc_wmi /run/current-system/sw/bin/true
 
       # ZFS ARC tuning for 96GB RAM
-      # Cap ARC at 16GB to leave ~80GB for apps/games (default would use ~48GB)
-      options zfs zfs_arc_max=17179869184
+      # Cap ARC at 32GB, leaving ~64GB for apps/games.
+      #
+      # Was 16GB. Measured with that cap: ARC sat pinned at exactly c_max
+      # (arcstats size == c_max) with a 96.4% hit rate, while ~42GB of RAM was
+      # free and ZRAM usage was 0B — i.e. the cache was starved while memory
+      # sat idle, and the misses turned into device reads on an already
+      # IO-bound workload (nix builds, ZFS-backed /home).
+      #
+      # Verify headroom after changing:
+      #   awk '/^size|^c_max/ {print $1, $3}' /proc/spl/kstat/zfs/arcstats
+      options zfs zfs_arc_max=34359738368
     '';
   };
 

@@ -63,8 +63,19 @@ in
     ## Enable automated snapshots
     autoSnapshot.enable = true;
 
-    ## Enable TRIM
-    trim.enable = true;
+    ## Periodic full-pool TRIM: disabled on purpose.
+    ##
+    ## install.sh creates zroot with `-o autotrim=on`, so freed blocks are
+    ## trimmed continuously as they are released. The weekly zpool-trim.timer
+    ## would additionally re-trim the *entire* free space on top of that.
+    ##
+    ## That redundant pass saturates the device: on stellaris it was measured at
+    ## 9.8s of IO stall per 10s wall-clock (/proc/pressure/io "full") for its
+    ## whole duration, which shows up as desktop stickiness.
+    ##
+    ## Re-enable this only for a pool created without autotrim:
+    ##   zpool get autotrim <pool>
+    trim.enable = false;
 
     ## ZED (ZFS Event Daemon) configuration
     ## Disable LED scripts that cause "Failed to stat" errors on systems without enclosure LEDs
