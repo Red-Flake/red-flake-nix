@@ -239,10 +239,27 @@
       # Monitor S0ix (s2idle) suspend power draw/residency; disabling ASPM can increase sleep drain on some laptops.
       "pcie_aspm.policy=performance"
 
-      # NVMe: Force PS0-only (disable APST sleep states) for zero-latency IO
-      # Eliminates 10-100ms runtime stalls from NVMe power wakeup → fixes IO PSI spikes & desktop "stickiness"
-      # Power cost: ~0.5-1W idle
-      # Does not affect suspend/lid-close (S0ix/S3 uses separate shutdown sequence)
+      # NVMe: force PS0-only (disable APST sleep states) for zero-latency IO.
+      #
+      # Power states on this drive (Samsung 9100 PRO), via
+      #   sudo nvme id-ctrl /dev/nvme0 | grep -E "^ps |^ +(en|ex)_lat"
+      #   ps0-2  operational      8.70W max   exit  0.6ms
+      #   ps3    non-operational  0.05W       exit 12.5ms
+      #   ps4    non-operational  0.005W      exit   46ms
+      #
+      # ps4 costs 46ms on the first IO after idle for essentially no extra
+      # saving over ps3 (0.045W). Allowing ps3 only (=20000) would reclaim
+      # roughly 1W of idle draw at a 12.5ms worst case — but this machine is a
+      # desktop replacement that runs on AC ~99% of the time, so that saving is
+      # never collected and the latency is not worth trading for it.
+      #
+      # NOTE: an earlier revision of this comment justified the setting with
+      # "fixes IO PSI spikes". That was wrong — /proc/pressure/io "full" reads
+      # ~97% on this host even with a completely idle disk; see the PSI caveat
+      # in nixos/modules/services.nix. The real justification is the ps4 exit
+      # latency above.
+      #
+      # Does not affect suspend/lid-close (S0ix/S3 uses a separate sequence).
       "nvme_core.default_ps_max_latency_us=0"
 
       # Boot / quiet
@@ -303,9 +320,11 @@
       #
       # Was 16GB. Measured with that cap: ARC sat pinned at exactly c_max
       # (arcstats size == c_max) with a 96.4% hit rate, while ~42GB of RAM was
-      # free and ZRAM usage was 0B — i.e. the cache was starved while memory
-      # sat idle, and the misses turned into device reads on an already
-      # IO-bound workload (nix builds, ZFS-backed /home).
+      # free and ZRAM usage was 0B — a saturated cache next to idle memory.
+      #
+      # This is a modest cache-hit improvement, not a fix for IO stalls: the
+      # device is only ~0.2% busy under normal use. See the PSI caveat in
+      # nixos/modules/services.nix before "optimising" IO on this host.
       #
       # Verify headroom after changing:
       #   awk '/^size|^c_max/ {print $1, $3}' /proc/spl/kstat/zfs/arcstats

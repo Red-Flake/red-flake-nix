@@ -67,14 +67,20 @@ in
     ##
     ## install.sh creates zroot with `-o autotrim=on`, so freed blocks are
     ## trimmed continuously as they are released. The weekly zpool-trim.timer
-    ## would additionally re-trim the *entire* free space on top of that.
-    ##
-    ## That redundant pass saturates the device: on stellaris it was measured at
-    ## 9.8s of IO stall per 10s wall-clock (/proc/pressure/io "full") for its
-    ## whole duration, which shows up as desktop stickiness.
+    ## would additionally re-trim the *entire* free space on top of that — pure
+    ## duplicate work, and extra write amplification on the SSD for no benefit.
     ##
     ## Re-enable this only for a pool created without autotrim:
     ##   zpool get autotrim <pool>
+    ##
+    ## CAVEAT — do not use /proc/pressure/io to justify ZFS tuning on these
+    ## hosts. PSI "full" means "all non-idle tasks are stalled", and ZFS marks
+    ## its internal condvar waits as iowait (cv_wait_io). On an otherwise idle
+    ## desktop that combination pins io "full" near 100% while the disk does
+    ## nothing. Measured on stellaris: io full = 98% with the device 0.18% busy,
+    ## zero tasks in D state, and 7ms read+sync. Loading all 24 cores dropped
+    ## io full from 7861ms/8000ms to 1ms/8000ms without touching the disk.
+    ## Use device utilisation (/proc/diskstats io_ticks) or real latency instead.
     trim.enable = false;
 
     ## ZED (ZFS Event Daemon) configuration
