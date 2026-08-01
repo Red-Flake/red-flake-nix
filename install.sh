@@ -316,16 +316,32 @@ mount -t zfs zroot/root/nixos /mnt
 log "INFO" "Mounting /boot (efi)"
 mount --mkdir "$BOOTDISK" /mnt/boot
 
+# The datasets below opt out of auto-snapshots.
+#
+# The pool root sets com.sun:auto-snapshot=true, which every dataset inherits.
+# That is wrong for reproducible/scratch data:
+#
+#   /nix    the store is fully reproducible, and snapshots PIN deleted store
+#           paths so nix-collect-garbage can never free them. Observed on
+#           stellaris: a single zroot/nix@install snapshot held 36.8G of dead
+#           paths ~11 months after install.
+#   /tmp    scratch data; snapshotting it just preserves junk.
+#   /cache  cache data is by definition rebuildable.
+#
+# Only /home, /persist and /root keep snapshots, which is where real data lives.
 log "INFO" "Creating /nix"
 zfs create -o mountpoint=legacy zroot/nix
+zfs set com.sun:auto-snapshot=false zroot/nix
 mount --mkdir -t zfs zroot/nix /mnt/nix
 
 log "INFO" "Creating /tmp"
 zfs create -o mountpoint=legacy zroot/tmp
+zfs set com.sun:auto-snapshot=false zroot/tmp
 mount --mkdir -t zfs zroot/tmp /mnt/tmp
 
 log "INFO" "Creating /cache"
 zfs create -o mountpoint=legacy zroot/cache
+zfs set com.sun:auto-snapshot=false zroot/cache
 mount --mkdir -t zfs zroot/cache /mnt/cache
 
 log "INFO" "Creating /home"
