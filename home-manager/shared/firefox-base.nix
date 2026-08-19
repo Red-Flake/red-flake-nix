@@ -111,6 +111,11 @@ let
     "browser.newtabpage.activity-stream.section.highlights.includeVisited" = false;
     "browser.newtabpage.activity-stream.default.sites" = "";
 
+    # Nova UI redesign (Nightly-only, default-on since 156.0a1) - keep the old
+    # tab/toolbar design with square-ish corners
+    "browser.nova.enabled" = false;
+    "browser.newtabpage.activity-stream.nova.enabled" = false;
+
     # Sidebar
     "sidebar.revamp" = false;
 
