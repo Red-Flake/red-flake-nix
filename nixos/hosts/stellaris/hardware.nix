@@ -90,8 +90,8 @@
     # set Kernel options
     kernel = {
       flavor = "cachyos";
-      cachyos.variant = "lts"; # Keep Stellaris off upstream/latest kernels while i915 is unstable there.
-      cachyos.lto = true; # or true; both have matching ZFS
+      cachyos.variant = "bore";
+      cachyos.lto = true; # both lto and non-lto have matching ZFS
       cachyos.target = "x86_64-v3";
     };
 
