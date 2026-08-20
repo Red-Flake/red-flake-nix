@@ -43,6 +43,7 @@
   # AI/Development tools
   development = with pkgsUnstable; [
     claude-code
+    mcp-nixos
     opencode
     codex
     gemini-cli-bin
