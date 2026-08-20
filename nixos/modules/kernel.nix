@@ -18,10 +18,17 @@ let
         let
           exported = inputs.nix-cachyos-kernel.packages.${pkgs.system};
           ltoSuffix = if cfg.cachyos.lto then "-lto" else "";
-          # Upstream uses the unsuffixed name for "latest"
+          # Upstream only ships dedicated ZFS builds for the variants that sit on
+          # their own kernel base (hardened/lts/rc). Every other variant shares the
+          # unsuffixed build - they all resolve to the same modDirVersion
+          # (e.g. bore, latest, bmq, server -> 7.2.0-cachyos-lto), so the module
+          # loads fine. Mapping them to "zfs-cachyos-${variant}${lto}" would miss
+          # and silently fall back to a source build, which nixpkgs marks broken
+          # on kernels newer than ZFS upstream supports.
           variantSuffix =
-            if cfg.cachyos.variant == "latest" then ""
-            else "-${cfg.cachyos.variant}";
+            if builtins.elem cfg.cachyos.variant [ "hardened" "lts" "rc" ]
+            then "-${cfg.cachyos.variant}"
+            else "";
           attrName = "zfs-cachyos${variantSuffix}${ltoSuffix}";
         in
           exported.${attrName} or null;
