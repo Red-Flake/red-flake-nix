@@ -1,0 +1,23 @@
+Fix build of the NVIDIA open GPU kernel modules against Linux 7.x.
+
+__to_hwgpio() declares its gdev parameter const, but gpio_device_get_chip()
+takes a non-const struct gpio_device *. Clang rejects this under -Werror with
+-Wincompatible-pointer-types-discards-qualifiers, breaking the build:
+
+  ././common/inc/nv-linux.h:1737:51: error: passing 'const struct gpio_device *'
+  to parameter of type 'struct gpio_device *' discards qualifiers
+
+gpio_device_get_chip() does not mutate gdev, so casting away const at the call
+site is safe. Upstream issue: https://github.com/xddxdd/nix-cachyos-kernel/issues/101
+
+--- a/kernel-open/common/inc/nv-linux.h
++++ b/kernel-open/common/inc/nv-linux.h
+@@ -1734,7 +1734,7 @@
+      * port and pin in args[0] and of_xlate sums per-port pin counts
+      * to produce the real offset.
+      */
+-    struct gpio_chip *chip = gpio_device_get_chip(gdev);
++    struct gpio_chip *chip = gpio_device_get_chip((struct gpio_device *)gdev);
+ 
+     if (chip->of_xlate)
+         return chip->of_xlate(chip, gpiospec, NULL);

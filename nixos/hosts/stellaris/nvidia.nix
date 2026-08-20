@@ -136,7 +136,24 @@
 
       # Optionally, you may need to select the appropriate driver version for your specific GPU.
       # Use NVIDIA driver from nixpkgs-unstable, built against the current kernel
-      package = (pkgsUnstable.linuxPackagesFor config.boot.kernelPackages.kernel).nvidiaPackages.latest;
+      # 610.57.04's open modules don't build against Linux 7.x: __to_hwgpio()
+      # passes a const gpio_device* to gpio_device_get_chip(), which clang
+      # rejects under -Werror. See patches/nvidia-open-gpio-device-const.patch
+      # and https://github.com/xddxdd/nix-cachyos-kernel/issues/101
+      #
+      # generic.nix is curried, so its `patchesOpen` argument is not reachable
+      # via .override - patch the open module derivation through passthru.
+      package =
+        let
+          base = (pkgsUnstable.linuxPackagesFor config.boot.kernelPackages.kernel).nvidiaPackages.latest;
+        in
+        base.overrideAttrs (old: {
+          passthru = old.passthru // {
+            open = old.passthru.open.overrideAttrs (o: {
+              patches = (o.patches or [ ]) ++ [ ./patches/nvidia-open-gpio-device-const.patch ];
+            });
+          };
+        });
 
       prime = {
         offload = {
