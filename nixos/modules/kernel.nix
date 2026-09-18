@@ -8,36 +8,43 @@
 let
   cfg = config.custom.kernel;
 
+  # Pre-built CachyOS ZFS (module + userspace in one derivation), or null when
+  # upstream does not ship one for this variant.
+  cachyosZfs =
+    let
+      exported = inputs.nix-cachyos-kernel.packages.${pkgs.system};
+      ltoSuffix = if cfg.cachyos.lto then "-lto" else "";
+      # Upstream only ships dedicated ZFS builds for the variants that sit on
+      # their own kernel base (hardened/lts/rc). Every other variant shares the
+      # unsuffixed build - they all resolve to the same modDirVersion
+      # (e.g. bore, latest, bmq, server -> 7.2.0-cachyos-lto), so the module
+      # loads fine. Mapping them to "zfs-cachyos-${variant}${lto}" would miss
+      # and silently fall back to a source build, which nixpkgs marks broken
+      # on kernels newer than ZFS upstream supports.
+      variantSuffix =
+        if builtins.elem cfg.cachyos.variant [ "hardened" "lts" "rc" ]
+        then "-${cfg.cachyos.variant}"
+        else "";
+      attrName = "zfs-cachyos${variantSuffix}${ltoSuffix}";
+    in
+    if cfg.flavor == "cachyos" then exported.${attrName} or null else null;
+
   withZfs24 = kernelPackages:
     let
       fromSource = pkgsUnstable.zfs_2_4.override {
         configFile = "kernel";
         inherit (kernelPackages) kernel;
       };
-      cachyosPreBuilt =
-        let
-          exported = inputs.nix-cachyos-kernel.packages.${pkgs.system};
-          ltoSuffix = if cfg.cachyos.lto then "-lto" else "";
-          # Upstream only ships dedicated ZFS builds for the variants that sit on
-          # their own kernel base (hardened/lts/rc). Every other variant shares the
-          # unsuffixed build - they all resolve to the same modDirVersion
-          # (e.g. bore, latest, bmq, server -> 7.2.0-cachyos-lto), so the module
-          # loads fine. Mapping them to "zfs-cachyos-${variant}${lto}" would miss
-          # and silently fall back to a source build, which nixpkgs marks broken
-          # on kernels newer than ZFS upstream supports.
-          variantSuffix =
-            if builtins.elem cfg.cachyos.variant [ "hardened" "lts" "rc" ]
-            then "-${cfg.cachyos.variant}"
-            else "";
-          attrName = "zfs-cachyos${variantSuffix}${ltoSuffix}";
-        in
-          exported.${attrName} or null;
-      selected =
-        if cfg.flavor == "cachyos" && cachyosPreBuilt != null
-        then cachyosPreBuilt
-        else fromSource;
+      selected = if cachyosZfs != null then cachyosZfs else fromSource;
     in
-    kernelPackages.extend (_self: _super: { zfs_2_4 = selected; });
+    kernelPackages.extend (_self: _super: {
+      zfs_2_4 = selected;
+      # The pre-built CachyOS package declares kernelModuleAttribute =
+      # "zfs_cachyos", which is how the NixOS module looks up the module
+      # package from boot.kernelPackages - so it must be reachable under
+      # both names.
+      zfs_cachyos = selected;
+    });
 
   withNvidiaStripFix =
     kernelPackages:
@@ -115,9 +122,11 @@ let
     else
       selectedKernelPackagesWithZfs;
 
-  # Userspace ZFS package — must match the kernel module version
-  # The cachyos ZFS module is 2.4.2, same as pkgsUnstable.zfs_2_4
-  zfsPackage = pkgsUnstable.zfs_2_4;
+  # Userspace ZFS package — must match the kernel module version, which the
+  # NixOS module asserts. The pre-built CachyOS derivation ships both halves, so
+  # take userspace from it whenever it provides the module; otherwise the module
+  # is built from pkgsUnstable.zfs_2_4 sources and the versions line up anyway.
+  zfsPackage = if cachyosZfs != null then cachyosZfs else pkgsUnstable.zfs_2_4;
 in
 {
   options.custom.kernel = {
