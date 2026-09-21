@@ -497,6 +497,30 @@
     drivers = with pkgs; [
       cups-filters
       cups-browsed
+      # Epson's PS3 PPD for the WF-M5299; nixpkgs ships no driver for this model,
+      # so the vendor file is kept in-tree and exposed via the CUPS model path.
+      (runCommand "epson-wf-m5299-ppd" { } ''
+        install -Dm444 ${./ppd/EPSON_WF-M5299_Series.ppd} \
+          "$out/share/cups/model/EPSON_WF-M5299_Series.ppd"
+      '')
+    ];
+  };
+
+  # Network printer in the basement, reached over LPD (raw passthrough queue).
+  hardware.printers = {
+    ensureDefaultPrinter = "EPSON_WF-M5299_Series";
+    ensurePrinters = [
+      {
+        name = "EPSON_WF-M5299_Series";
+        description = "EPSON WF-M5299 Series";
+        location = "basement";
+        deviceUri = "lpd://192.168.2.249:515/PASSTHRU";
+        model = "EPSON_WF-M5299_Series.ppd";
+        ppdOptions = {
+          PageSize = "A4";
+          Duplex = "None";
+        };
+      }
     ];
   };
 
