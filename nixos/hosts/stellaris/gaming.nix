@@ -44,12 +44,9 @@ in
           WINEFSYNC = "0";
           STEAM_FORCE_DESKTOPUI_SCALING = "2";
           XCURSOR_SIZE = "36";
-          DRI_PRIME = "1"; # Force discrete GPU
-          MESA_LOADER_DRIVER_OVERRIDE = "nvidia"; # Force Nvidia driver for steam
           __NV_PRIME_RENDER_OFFLOAD = "1"; # Offload rendering to discrete NVIDIA GPU
           __GLX_VENDOR_LIBRARY_NAME = "nvidia"; # Use NVIDIA GLX library
           __VK_LAYER_NV_optimus = "NVIDIA_only"; # Use NVIDIA Vulkan layer
-          __VK_DRIVER_ID = "nvidia"; # Use NVIDIA Vulkan driver
         }
         // (prev.extraEnv or { });
 
@@ -90,7 +87,7 @@ in
       };
       gpu = {
         apply_gpu_optimisations = "accept-responsibility"; # Allow GPU tweaks
-        gpu_device = 0; # Use discrete GPU (card0 = NVIDIA); see: /sys/class/drm/card0/device/
+        gpu_device = 0; # NVIDIA GPU index (nvidia-smi), not a DRM card number.
       };
       custom = {
         start = "${pkgs.libnotify}/bin/notify-send 'GameMode started'";

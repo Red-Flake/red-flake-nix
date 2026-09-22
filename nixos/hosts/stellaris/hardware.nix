@@ -4,15 +4,15 @@
 , ...
 }:
 {
-  # Override linux-firmware globally so enableAllFirmware uses our patched version
-  # Also override tuxedo-drivers to fix compatibility with Linux 6.19+
+  # TUXEDO driver compatibility with Linux 6.19+. Firmware comes from the
+  # flake-pinned linux-firmware package: its MTL GuC/HuC/GSC binaries match
+  # the previously overridden versions byte for byte (verified 2026-09-22).
   nixpkgs.overlays = [
-    # Overlay 1: Update tuxedo-drivers to 4.22.1 for Linux 6.19+ compatibility
+    # Update tuxedo-drivers to 4.22.1 for Linux 6.19+ compatibility
     (final: prev: {
       linuxKernel = prev.linuxKernel // {
         packagesFor = kernel:
           (prev.linuxKernel.packagesFor kernel).extend (_: lpPrev: {
-            # Change the underscore (_) to 'oldAttrs' below
             tuxedo-drivers = lpPrev.tuxedo-drivers.overrideAttrs (oldAttrs: {
               version = "4.22.1";
               src = final.fetchFromGitLab {
@@ -23,7 +23,6 @@
                 hash = "sha256-KMn3O3Rq8LaZAgr6R7zNeBn637zZDFD2E2X+a3zKN3s=";
               };
 
-              # Now oldAttrs.postPatch is correctly in scope
               postPatch = (oldAttrs.postPatch or "") + ''
                 # Add your specific Board Name to the IO whitelist
                 # cat /sys/class/dmi/id/board_name
@@ -45,45 +44,6 @@
           });
       };
     })
-
-    # Overlay 2: Patch linux-firmware with correct GuC/HuC/GSC versions for Arrow Lake
-    (final: prev: {
-      linux-firmware = prev.linux-firmware.overrideAttrs (oldAttrs: {
-        nativeBuildInputs = (oldAttrs.nativeBuildInputs or [ ]) ++ [ final.zstd ];
-        postInstall = (oldAttrs.postInstall or "") + ''
-          # Arrow Lake-HX iGPU (Xe-LPG, same graphics IP as Meteor Lake): Override GuC firmware with specific version
-          # The default linux-firmware may have a version that causes TLB invalidation timeouts.
-          # This replaces the firmware BEFORE compression happens.
-          #
-          # Check DRM coredump for firmware version mismatches:
-          #   sudo cat /sys/class/drm/card0/device/devcoredump/data | strings
-
-          # GuC firmware for Meteor Lake / Arrow Lake Xe
-          rm -f $out/lib/firmware/i915/mtl_guc_70.bin $out/lib/firmware/i915/mtl_guc_70.bin.zst 2>/dev/null || true
-          cp ${final.fetchurl {
-            url = "https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/plain/i915/mtl_guc_70.bin";
-            sha256 = "sha256-d5Twtqvl/NnG9HA12v4hmfMKbn0jC9WlP7+ABaYOWRE="; # nix-prefetch-url "https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/plain/i915/mtl_guc_70.bin" | xargs nix hash to-sri --type sha256
-          }} $out/lib/firmware/i915/mtl_guc_70.bin
-
-          # HuC firmware for GT1 media (Firefox VAAPI)
-          rm -f $out/lib/firmware/i915/mtl_huc_gsc.bin $out/lib/firmware/i915/mtl_huc_gsc.bin.zst 2>/dev/null || true
-          cp ${final.fetchurl {
-            url = "https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/plain/i915/mtl_huc_gsc.bin";
-            sha256 = "sha256-PqI/OelGEi0URlZdGgfAhmvz48iBm0MTSSU3HYd8pM0="; # nix-prefetch-url "https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/plain/i915/mtl_huc_gsc.bin" | xargs nix hash to-sri --type sha256
-          }} $out/lib/firmware/i915/mtl_huc_gsc.bin
-
-          # GSC (Graphics System Controller) firmware for Arrow Lake
-          # Arrow Lake requires GSC version 102.0.10.1878 or newer (higher than Meteor Lake)
-          # Without this, xe driver causes hard lockups and i915 may have stability issues
-          # See: https://www.phoronix.com/news/Intel-Require-Newer-ARL-GSC
-          rm -f $out/lib/firmware/i915/mtl_gsc_1.bin $out/lib/firmware/i915/mtl_gsc_1.bin.zst 2>/dev/null || true
-          cp ${final.fetchurl {
-            url = "https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/plain/i915/mtl_gsc_1.bin";
-            sha256 = "sha256-Aejiuw6ukOO0RxcDuwTRvROttDNzSA+xC+bxAbh34PM="; # nix-prefetch-url "https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/plain/i915/mtl_gsc_1.bin" | xargs nix hash to-sri --type sha256
-          }} $out/lib/firmware/i915/mtl_gsc_1.bin
-        '';
-      });
-    })
   ];
 
   custom = {
@@ -103,11 +63,15 @@
 
     # set display resolution to 1600p
     display.resolution = "1600p";
+
+    # Keep the kernel's NVMe queue depth; no measured benefit from overriding it.
+    storage.nvmeQueueRequests = null;
   };
 
   nix.settings = {
-    # Increase the number of parallel build jobs for Nix to 24
-    max-jobs = lib.mkForce 24;
+    # Bound aggregate build parallelism on the 24-thread CPU.
+    max-jobs = lib.mkForce 4;
+    cores = lib.mkForce 6;
 
     # Enable system features for better performance based on the CPU features
     system-features = [
@@ -149,7 +113,7 @@
       # Hardware-specific issues
       "spd5118" # causes resume errors: spd5118_resume returns -6
 
-      # Intel GPU: use i915, not xe (saves 4.5MB RAM)
+      # Retain i915 for the existing display/suspend workarounds.
       "xe"
 
       # Not needed on Intel systems
@@ -339,9 +303,6 @@
     # enable all firmware regardless of license
     enableAllFirmware = lib.mkForce true;
 
-    # Firmware is overridden via nixpkgs.overlays at the top of this file
-    # This ensures enableAllFirmware uses our patched linux-firmware with correct GuC version
-
     # enable CPU microcode updates
     cpu.intel.updateMicrocode = lib.mkForce true;
 
@@ -352,9 +313,11 @@
       extraPackages = with pkgs; [
         intel-media-driver # LIBVA_DRIVER_NAME=iHD
         vpl-gpu-rt # For Intel QSV (Quick Sync Video)
+        libvdpau-va-gl # VDPAU -> Intel VA-API for VDPAU_DRIVER=va_gl
       ];
-      extraPackages32 = with pkgs.driversi686Linux; [
-        intel-media-driver # LIBVA_DRIVER_NAME=iHD
+      extraPackages32 = [
+        pkgs.driversi686Linux.intel-media-driver
+        pkgs.pkgsi686Linux.libvdpau-va-gl
       ];
     };
 
@@ -483,7 +446,7 @@
   # Keep it off by default for laptop power behavior, but make it easy to A/B test via a specialisation.
   services.irqbalance.enable = lib.mkDefault false;
 
-  # Disable earlyoom on this machine. earlyoom kills at 5% RAM/ZRAM—too aggressive for 96GB + zram100%.
+  # Retain the existing earlyoom policy for 96 GB RAM + 25% logical ZRAM.
   services.earlyoom = {
     enable = lib.mkForce false;
   };
@@ -531,47 +494,41 @@
   environment.sessionVariables = {
     LIBVA_DRIVER_NAME = "iHD"; # Force intel-media-driver; Quick Sync decode/encode
     VDPAU_DRIVER = "va_gl"; # Forces Intel via VAAPI; VDPAU → VAAPI fallback
-    MESA_LOADER_DRIVER_OVERRIDE = "iris"; # Xe OpenGL/Vulkan (not anv; iris=Gen12+)
     __GLX_VENDOR_LIBRARY_NAME = "mesa"; # Mesa GLX (avoid Nouveau/NVIDIA proprietary)
-    ANV_ENABLE_PIPELINE_CACHE = "1"; # Enable Vulkan pipeline caching; Vulkan cache speedup
+    ANV_ENABLE_PIPELINE_CACHE = "1"; # Intel Vulkan pipeline cache
     # NIXOS_OZONE_WL is set system-wide in nixos/modules/kde.nix
     # mesa_glthread = "true"; # Disabled: causes KWin CPU spikes with Intel Xe driver
     # Don't set PRIME/NVIDIA variables globally - let apps default to Intel
     # Steam and other apps can override these as needed
-
-    # Suppress MESA "experimental with Xe KMD" warning (expected for Arrow Lake)
-    MESA_LOG_LEVEL = "error";
 
     # KWin Wayland fixes for Intel Xe (Arrow Lake)
     # https://bugs.kde.org/show_bug.cgi?id=513296
     # Increase safety margin to give Xe driver more time for atomic commits (default 1000µs)
     # Higher value = more latency but fewer "Device or resource busy" errors
     #KWIN_DRM_OVERRIDE_SAFETY_MARGIN = "3000";
-    # NOTE: QT_LOGGING_RULES doesn't work here because kwin_wayland starts before session
-    # variables are loaded. Use environment.etc."xdg/QtProject/qtlogging.ini" instead (below).
-    #KWIN_DRM_NO_AMS = "1"; # Disable Atomic Mode Setting entirely; DISABLED: causes slow kwin rendering
-    # Force software cursor to avoid hardware cursor plane atomic commits
-    #KWIN_FORCE_SW_CURSOR = "1";
-    # NOTE: KWIN_DRM_DEVICES is ':'-separated; don't use /dev/dri/by-path/* (they contain ':' in the PCI address).
-    # Intel iGPU (0000:00:02.0) first, NVIDIA dGPU (0000:02:00.0) second.
-    #KWIN_DRM_DEVICES = "/dev/dri/card-intel:/dev/dri/card-nvidia";
+    # Keep Intel first while allowing NVIDIA-wired displays to be hot-plugged.
+    # Never derive this list from the connectors present only at login.
+    KWIN_DRM_DEVICES = "/dev/dri/card-intel:/dev/dri/card-nvidia";
   };
 
-  # Suppress KWin DRM warnings via Qt logging config file
-  # This is more reliable than QT_LOGGING_RULES env var because kwin_wayland starts
-  # before session variables are loaded (SDDM starts it as the Wayland compositor)
-  # The "atomic commit failed: Device or resource busy" warnings are non-fatal retries
-  # that succeed on retry - normal behavior at 300Hz where timing is tight (3.3ms/frame)
-  environment.etc."xdg/QtProject/qtlogging.ini".text = ''
-    [Rules]
-    kwin_drm.warning=false
-  '';
+  # Set the compositor's environment directly as well as the login environment.
+  # This takes precedence over stale values in the systemd user manager.
+  systemd.user.services.plasma-kwin_wayland = {
+    # Plasma supplies the base unit through the user's profile, not systemd.packages.
+    # An explicit drop-in preserves that unit's ExecStart and dependencies.
+    overrideStrategy = "asDropin";
+    environment.KWIN_DRM_DEVICES = "/dev/dri/card-intel:/dev/dri/card-nvidia";
+  };
+
+  # Keep DRM warnings visible while investigating the missing 300 Hz mode and
+  # suspend behavior. The 300 Hz panel currently exposes only 240 Hz via i915.
 
   # HiDPI fixes => https://github.com/NixOS/nixos-hardware/blob/3f7d0bca003eac1a1a7f4659bbab9c8f8c2a0958/common/hidpi.nix
   console.font = lib.mkDefault "${pkgs.terminus_font}/share/consolefonts/ter-v32n.psf.gz";
   console.earlySetup = lib.mkDefault true;
 
-  # Host-specific udev rules for NVMe optimization
+  # Host-specific device and wake policy. Include bind because the NHI driver
+  # enables wakeup during probe, after the device add event.
   services.udev.extraRules = lib.mkAfter ''
     # Tell ModemManager to ignore WiFi interfaces (fixes "Missing port probe" warnings)
     ACTION=="add|change", SUBSYSTEM=="net", KERNEL=="wlan*", ENV{ID_MM_DEVICE_IGNORE}="1"
@@ -582,62 +539,36 @@
 
     # Disable Thunderbolt wakeup to prevent spurious S0ix wakes (GPE46)
     # TB4 USB Controller and NHI
-    ACTION=="add|change", SUBSYSTEM=="pci", KERNEL=="0000:00:0d.0", ATTR{power/wakeup}="disabled"
-    ACTION=="add|change", SUBSYSTEM=="pci", KERNEL=="0000:00:0d.2", ATTR{power/wakeup}="disabled"
+    ACTION=="add|bind|change", SUBSYSTEM=="pci", KERNEL=="0000:00:0d.0", ATTR{power/wakeup}="disabled"
+    ACTION=="add|bind|change", SUBSYSTEM=="pci", KERNEL=="0000:00:0d.2", ATTR{power/wakeup}="disabled"
     # TB4 PCIe Root Ports
-    ACTION=="add|change", SUBSYSTEM=="pci", KERNEL=="0000:00:07.0", ATTR{power/wakeup}="disabled"
-    ACTION=="add|change", SUBSYSTEM=="pci", KERNEL=="0000:00:07.1", ATTR{power/wakeup}="disabled"
+    ACTION=="add|bind|change", SUBSYSTEM=="pci", KERNEL=="0000:00:07.0", ATTR{power/wakeup}="disabled"
+    ACTION=="add|bind|change", SUBSYSTEM=="pci", KERNEL=="0000:00:07.1", ATTR{power/wakeup}="disabled"
 
     # Stable DRM symlinks for KWin/SDDM Wayland (avoid ':' in names; KWIN_DRM_DEVICES uses ':' as a separator)
     SUBSYSTEM=="drm", KERNEL=="card*", KERNELS=="0000:00:02.0", SYMLINK+="dri/card-intel"
     SUBSYSTEM=="drm", KERNEL=="card*", KERNELS=="0000:02:00.0", SYMLINK+="dri/card-nvidia"
   '';
 
-  # Dynamic KWIN_DRM_DEVICES: only add NVIDIA GPU when an external display is connected to it.
-  # This avoids cross-GPU buffer sharing overhead and "atomic commit failed" log spam
-  # when only the internal Intel display is in use.
-  # Runs before plasma-kwin_wayland.service via systemd user environment.
-  environment.etc."profile.d/kwin-gpu-detect.sh".text = ''
-    # Detect if any NVIDIA-wired connector (HDMI/DP) has a display plugged in.
-    # card0 = NVIDIA (0x10de), card1 = Intel (0x8086) on this machine.
-    # Uses stable symlinks: /dev/dri/card-intel, /dev/dri/card-nvidia
-    _nv_connected=0
-    for _conn in /sys/class/drm/card0-*; do
-      [ -f "$_conn/status" ] && [ "$(cat "$_conn/status" 2>/dev/null)" = "connected" ] && _nv_connected=1
-    done
-
-    if [ "$_nv_connected" = "1" ]; then
-      export KWIN_DRM_DEVICES="/dev/dri/card-intel:/dev/dri/card-nvidia"
-    else
-      export KWIN_DRM_DEVICES="/dev/dri/card-intel"
-    fi
-    unset _nv_connected _conn
-  '';
-
-  # Also set it for the systemd user session so plasma-kwin_wayland.service picks it up.
-  # profile.d scripts only run for login shells; KWin is launched by systemd, not a shell.
-  systemd.user.services.kwin-gpu-detect = {
-    description = "Detect NVIDIA external displays for KWin DRM device selection";
-    wantedBy = [ "graphical-session-pre.target" ];
-    before = [ "plasma-kwin_wayland.service" ];
-    serviceConfig = {
-      Type = "oneshot";
-      RemainAfterExit = true;
-      ExecStart = pkgs.writeShellScript "kwin-gpu-detect" ''
-        nv_connected=0
-        for conn in /sys/class/drm/card0-*; do
-          if [ -f "$conn/status" ] && [ "$(cat "$conn/status" 2>/dev/null)" = "connected" ]; then
-            nv_connected=1
-            break
-          fi
-        done
-
-        if [ "$nv_connected" = "1" ]; then
-          ${pkgs.systemd}/bin/systemctl --user set-environment KWIN_DRM_DEVICES=/dev/dri/card-intel:/dev/dri/card-nvidia
-        else
-          ${pkgs.systemd}/bin/systemctl --user set-environment KWIN_DRM_DEVICES=/dev/dri/card-intel
+  # Reapply the wake policy immediately before every sleep, even if a driver
+  # or userspace component changed it after device binding or a previous resume.
+  systemd.services.stellaris-sleep-wake-policy = {
+    description = "Apply Stellaris wake-source policy before sleep";
+    wantedBy = [ "sleep.target" ];
+    before = [ "sleep.target" ];
+    serviceConfig.Type = "oneshot";
+    script = ''
+      for device in 0000:00:0d.0 0000:00:0d.2 0000:00:07.0 0000:00:07.1; do
+        wakeup="/sys/bus/pci/devices/$device/power/wakeup"
+        if [ -f "$wakeup" ]; then
+          echo disabled > "$wakeup"
         fi
-      '';
-    };
+      done
+      wakeup=/sys/class/power_supply/AC0/power/wakeup
+      if [ -f "$wakeup" ]; then
+        echo disabled > "$wakeup"
+      fi
+    '';
   };
+
 }

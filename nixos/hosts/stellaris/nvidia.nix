@@ -10,12 +10,6 @@
 
   custom.kernel.nvidia.stripFix.enable = true;
 
-  # Enable Nix cache for CUDA packages (append; don't override global caches).
-  nix.settings.substituters = lib.mkAfter [ "https://cuda-maintainers.cachix.org" ];
-  nix.settings.trusted-public-keys = lib.mkAfter [
-    "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E="
-  ];
-
   boot = {
     # Nvidia-specific: kernel parameters
     # See: https://download.nvidia.com/XFree86/Linux-x86_64/580.65.06/README/dynamicpowermanagement.html
@@ -32,8 +26,7 @@
       [
         # NVIDIA PRIME Offloading / suspend helpers
         "nvidia-drm.modeset=1" # Required for PRIME render offload and proper Wayland/XWayland integration
-        "nvidia.NVreg_UsePageAttributeTable=1" # nvidia assume that by default your CPU does not support PAT; why this isn't default is beyond me.
-        "nvidia.NVreg_InitializeSystemMemoryAllocations=0" # Disable pre-allocation of system memory for pinned allocations; helps with memory fragmentation
+        "nvidia.NVreg_InitializeSystemMemoryAllocations=0" # Retain the existing allocation-initialization policy.
         "nvidia.NVreg_DeviceFileUID=0" # Set device file ownership to root
         "nvidia.NVreg_DeviceFileGID=26" # 26 is the GID of the "video" group on NixOS
         "nvidia.NVreg_DeviceFileMode=0660" # Set device file permissions to rw-rw----
@@ -56,14 +49,14 @@
         # - RTX 50 series (Blackwell) has severe GSP timeout bugs causing system lockups
         #   See: https://github.com/NVIDIA/open-gpu-kernel-modules/issues/1045
         # - Even coarse-grained mode (0x01) can trigger GSP hangs on Blackwell
-        # - GPU stays powered on but avoids lockups entirely
+        # - Avoid runtime D3 transitions implicated in previous lockups
         # - Re-enable once NVIDIA fixes GSP issues in a future driver release
         "nvidia.NVreg_DynamicPowerManagement=0x00"
         # Video memory threshold for RTD3: if VRAM usage is below this (in MB), VRAM can be turned off
         # Set to 0 to keep VRAM in self-refresh mode (faster wake, slightly more power) instead of off
         # This reduces RTD3 transition latency and avoids potential issues with VRAM state restoration
         "nvidia.NVreg_DynamicPowerManagementVideoMemoryThreshold=0"
-        "nvidia.NVreg_S0ixPowerManagementVideoMemoryThreshold=16384" # 16 GiB; > 12 GiB VRAM, so always copy vram to /dev/shm + power-off
+        "nvidia.NVreg_S0ixPowerManagementVideoMemoryThreshold=16384" # Above 12 GiB VRAM: prefer copying to system memory over VRAM self-refresh.
         "nvidia.NVreg_PreserveVideoMemoryAllocations=1" # Preserve video memory across suspend/resume; required for stable S0ix
         "nvidia.NVreg_TemporaryFilePath=/dev/shm" # Path to save VRAM contents during suspend; /dev/shm is 47G and VRAM is 12G
       ]
@@ -105,8 +98,7 @@
       #   See: https://github.com/NVIDIA/open-gpu-kernel-modules/issues/1045
       # - Using DynamicPowerManagement=0x00 (disabled) in kernelParams because
       #   even coarse-grained mode (0x01) triggers GSP hangs on Blackwell.
-      #   GPU stays powered on at all times — small power cost, no lockups.
-      # - This reduces D3 state transitions while still providing power savings
+      #   This trades idle power for avoiding the problematic transitions.
       #
       # Note: This setting controls RTD3 (runtime power management while system is awake).
       # S0ix suspend/resume is handled separately by NVreg_EnableS0ixPowerManagement=1
@@ -166,15 +158,6 @@
       };
     };
 
-    # Enable Nvidia graphics acceleration
-    graphics = {
-      extraPackages = with pkgs; [
-        libva-vdpau-driver # For Nvidia VDPAU backend
-      ];
-      extraPackages32 = with pkgs.pkgsi686Linux; [
-        libva-vdpau-driver # For Nvidia VDPAU backend
-      ];
-    };
   };
 
   environment.systemPackages = [

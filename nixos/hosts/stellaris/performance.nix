@@ -45,16 +45,19 @@
       };
     };
 
+  # Use RAM-backed swap only; never spill decrypted memory to the plain SWAP partition.
+  swapDevices = lib.mkForce [ ];
+
   # Enable ZRAM swap for better responsiveness
   zramSwap = {
     enable = true;
     algorithm = "lz4";
-    memoryPercent = 25; # 24GB ZRAM = 48-72GB effective with lz4 ~2-3x compression
-    priority = 100; # Higher priority than disk swap
+    memoryPercent = 25; # ~24 GiB logical swap; compressed pages use RAM on demand
+    priority = 100;
   };
 
   # NOTE: earlyoom is disabled in hardware.nix for this host
-  # With 96GB RAM + 96GB ZRAM, 5% threshold is too aggressive
+  # Retain the existing policy with 96 GB RAM and 25% logical ZRAM.
 
   # DBus service that provides power management support to applications
   services.upower.enable = true;

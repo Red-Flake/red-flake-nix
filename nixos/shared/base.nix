@@ -67,7 +67,9 @@
     # NVMe SSD: Use none scheduler (default for NVMe)
     ACTION=="add|change", SUBSYSTEM=="block", KERNEL=="nvme*n*", ENV{DEVTYPE}=="disk", ATTR{queue/scheduler}="none"
 
-    # Set request queue size for NVMe (can help with highly parallel IO / ZFS)
-    ACTION=="add|change", SUBSYSTEM=="block", KERNEL=="nvme*n*", ENV{DEVTYPE}=="disk", ATTR{queue/nr_requests}="256"
+    ${lib.optionalString (config.custom.storage.nvmeQueueRequests != null) ''
+      # Optional request queue override; leave unset without workload measurements.
+      ACTION=="add|change", SUBSYSTEM=="block", KERNEL=="nvme*n*", ENV{DEVTYPE}=="disk", ATTR{queue/nr_requests}="${toString config.custom.storage.nvmeQueueRequests}"
+    ''}
   '';
 }

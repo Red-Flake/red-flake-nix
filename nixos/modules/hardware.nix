@@ -50,6 +50,12 @@
         default = true;
         description = "Whether the host has NVMe storage (enables NVMe-specific udev optimizations).";
       };
+
+      nvmeQueueRequests = lib.mkOption {
+        type = lib.types.nullOr lib.types.ints.positive;
+        default = 256;
+        description = "NVMe request queue size override; null keeps the kernel default.";
+      };
     };
 
   };
