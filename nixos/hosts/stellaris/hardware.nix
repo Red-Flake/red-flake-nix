@@ -506,19 +506,28 @@
     # Increase safety margin to give Xe driver more time for atomic commits (default 1000µs)
     # Higher value = more latency but fewer "Device or resource busy" errors
     #KWIN_DRM_OVERRIDE_SAFETY_MARGIN = "3000";
-    # Keep Intel first while allowing NVIDIA-wired displays to be hot-plugged.
-    # Never derive this list from the connectors present only at login.
-    KWIN_DRM_DEVICES = "/dev/dri/card-intel:/dev/dri/card-nvidia";
+    # KWIN_DRM_DEVICES is set via the Plasma session env directory below, not here.
   };
 
-  # Set the compositor's environment directly as well as the login environment.
-  # This takes precedence over stale values in the systemd user manager.
-  systemd.user.services.plasma-kwin_wayland = {
-    # Plasma supplies the base unit through the user's profile, not systemd.packages.
-    # An explicit drop-in preserves that unit's ExecStart and dependencies.
-    overrideStrategy = "asDropin";
-    environment.KWIN_DRM_DEVICES = "/dev/dri/card-intel:/dev/dri/card-nvidia";
-  };
+  # KWin GPU priority: Intel first, so the iGPU is the primary render device and
+  # the dGPU is only used on demand via PRIME offload (nvidia-offload / Steam).
+  # NVIDIA is still listed so outputs wired to it can scan out, and so a GPU
+  # hot-plugged after login is not filtered out (KWin gates hot-plugged GPUs on
+  # this list too; see KWin MR !1270). A device that cannot be opened is only a
+  # warning in KWin's DRM backend - init fails only when no device opens at all.
+  #
+  # This must NOT be a systemd.user.services drop-in: NixOS gives every unit a
+  # default `path`, so the generated drop-in emits Environment="PATH=..." that
+  # replaces the user manager's PATH. kwin_wayland_wrapper resolves the
+  # kwin_wayland binary by bare name, so it then never spawns the compositor and
+  # hangs holding wayland-0.lock, breaking every subsequent login.
+  #
+  # startplasma sources $XDG_CONFIG_DIRS/plasma-workspace/env/*.sh before
+  # launching kwin and imports the result into the systemd user manager, so this
+  # is applied to the compositor without going stale.
+  environment.etc."xdg/plasma-workspace/env/10-kwin-drm-devices.sh".text = ''
+    export KWIN_DRM_DEVICES=/dev/dri/card-intel:/dev/dri/card-nvidia
+  '';
 
   # Keep DRM warnings visible while investigating the missing 300 Hz mode and
   # suspend behavior. The 300 Hz panel currently exposes only 240 Hz via i915.
