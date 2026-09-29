@@ -658,6 +658,19 @@
     },
     "nixpkgs_5": {
       "locked": {
+        "lastModified": 1789785513,
+        "narHash": "sha256-BMbikTjbh5H7ac/OjwGoJrlooh4dgNqhs51ABM83M7g=",
+        "rev": "20b1ddd1aa5ace70c9468305030aa4f9ef79671b",
+        "type": "tarball",
+        "url": "https://releases.nixos.org/nixos/unstable/nixos-26.11pre1076192.20b1ddd1aa5a/nixexprs.tar.zst"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://channels.nixos.org/nixos-unstable/nixexprs.tar.zst"
+      }
+    },
+    "nixpkgs_6": {
+      "locked": {
         "lastModified": 1770562336,
         "narHash": "sha256-ub1gpAONMFsT/GU2hV6ZWJjur8rJ6kKxdm9IlCT0j84=",
         "owner": "NixOS",
@@ -669,6 +682,24 @@
         "owner": "NixOS",
         "ref": "nixos-unstable",
         "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "noctalia": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_5"
+      },
+      "locked": {
+        "lastModified": 1790437317,
+        "narHash": "sha256-m0mmslhsM9kL7ZQkfuNjyVnUzcN204iDiwH2ddLzVJ0=",
+        "owner": "noctalia-dev",
+        "repo": "noctalia",
+        "rev": "c0d9a3a4fdfb0d2a9f1618a507427f33b04bbc6d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "noctalia-dev",
+        "repo": "noctalia",
         "type": "github"
       }
     },
@@ -865,6 +896,7 @@
         "nixpkgs": "nixpkgs_4",
         "nixpkgs-neo4j-4-4-11": "nixpkgs-neo4j-4-4-11",
         "nixpkgs-unstable": "nixpkgs-unstable",
+        "noctalia": "noctalia",
         "nur": "nur",
         "plasma-manager": "plasma-manager",
         "pre-commit-hooks": "pre-commit-hooks",
@@ -989,7 +1021,7 @@
     "ucc": {
       "inputs": {
         "flake-utils": "flake-utils",
-        "nixpkgs": "nixpkgs_5",
+        "nixpkgs": "nixpkgs_6",
         "treefmt-nix": "treefmt-nix_2"
       },
       "locked": {

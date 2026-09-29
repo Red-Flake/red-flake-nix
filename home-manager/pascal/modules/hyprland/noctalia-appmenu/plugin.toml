@@ -1,0 +1,52 @@
+# Global application menu for Hyprland. The stellaris-desktop daemon owns the
+# com.canonical.AppMenu.Registrar and matches menus to windows; this plugin only
+# renders its state and sends clicks back.
+id = "stellaris/appmenu"
+name = "App menu"
+version = "1.0.0"
+plugin_api = 24 # direct argv runAsync (24), relative require (22), closures (9)
+author = "stellaris"
+license = "MIT"
+icon = "menu-2"
+description = "macOS-style global application menu for Hyprland, fed by stellaris-desktop."
+
+[[service]]
+id = "feed"
+entry = "service.luau"
+
+[[widget]]
+id = "menu"
+entry = "widget.luau"
+
+# Panel size is fixed per entry, so menus pick the smallest entry that fits.
+[[panel]]
+id = "menu_xs"
+entry = "panel_xs.luau"
+width = 280
+height = 150
+placement = "attached"
+open_near_click = true
+
+[[panel]]
+id = "menu_s"
+entry = "panel_s.luau"
+width = 300
+height = 260
+placement = "attached"
+open_near_click = true
+
+[[panel]]
+id = "menu_m"
+entry = "panel_m.luau"
+width = 320
+height = 470
+placement = "attached"
+open_near_click = true
+
+[[panel]]
+id = "menu_l"
+entry = "panel_l.luau"
+width = 340
+height = 680
+placement = "attached"
+open_near_click = true
