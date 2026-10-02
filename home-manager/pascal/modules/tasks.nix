@@ -45,5 +45,6 @@
   # kdepim-addons: "PIM Events" plugin that shows Akonadi events/tasks in the Digital Clock calendar
   # kcontacts: org.kde.contacts QML module for Merkuro's system tray applet (runs inside plasmashell)
   # akonadi-calendar: KCalendarCore serializer so plasmashell can decode Akonadi events (Merkuro has it via its wrapper)
-  home.packages = with pkgs.kdePackages; [ merkuro kdepim-runtime kdepim-addons kcontacts akonadi-calendar ];
+  # akonadi-contacts: same for contacts, used by Merkuro's contacts tray applet
+  home.packages = with pkgs.kdePackages; [ merkuro kdepim-runtime kdepim-addons kcontacts akonadi-calendar akonadi-contacts ];
 }
