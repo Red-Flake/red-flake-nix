@@ -169,6 +169,13 @@ in
       description = "Hide the 'install Plasma Browser Integration' tray reminder.";
     };
 
+    calendarPlugins = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [ ];
+      example = [ "pimevents" "holidaysevents" ];
+      description = "Digital Clock calendar plugin IDs (e.g. pimevents from kdepim-addons for Akonadi events).";
+    };
+
     panelOpacity = lib.mkOption {
       type = lib.types.enum [ "opaque" "translucent" "adaptive" ];
       default = "opaque";
@@ -308,7 +315,11 @@ in
             }
             {
               digitalClock = {
-                calendar.firstDayOfWeek = "sunday";
+                calendar = {
+                  firstDayOfWeek = "sunday";
+                } // lib.optionalAttrs (cfg.calendarPlugins != [ ]) {
+                  plugins = cfg.calendarPlugins;
+                };
                 time.format = "12h";
                 date.enable = false;
               };

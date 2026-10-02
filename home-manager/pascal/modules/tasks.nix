@@ -42,5 +42,7 @@
   };
 
   # Merkuro: DAV account is added once by hand (Akonadi resources can't be configured declaratively)
-  home.packages = with pkgs.kdePackages; [ merkuro kdepim-runtime ];
+  # kdepim-addons: "PIM Events" plugin that shows Akonadi events/tasks in the Digital Clock calendar
+  # kcontacts: org.kde.contacts QML module for Merkuro's system tray applet (runs inside plasmashell)
+  home.packages = with pkgs.kdePackages; [ merkuro kdepim-runtime kdepim-addons kcontacts ];
 }
