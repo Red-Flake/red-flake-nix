@@ -1,0 +1,15 @@
+# Who can decrypt which secrets file. See SECRETS.md.
+keys:
+  # Admin keys: unlock by hand to edit secrets and re-key hosts
+  - &pascal_fido2 age1fido2-hmac1qqp8zpf3e8r3jhvslzwjafk3wjwtykx5v7fsnwhnqur7g9j9wxjnzlgpyp8jk8xem0c2hfpdnpq7ymdrsdcua7drrpuz2eff880qfat9vkv7jwkwu8j3hsa6kr6xytujxjp52y7tugdm32spv6pegzahn5m49qfu79390g25ernxxlxjf5ttczucw3f6v5jtwptyyzqn0m33qcx54y7x3may
+  - &pascal_passphrase age1w43zsh43c4np85tht76pz2wjcgk6tffkzf7552alpj0ff4nlqc2qsn4w2c
+  # Host keys: ssh-to-age < /persist/etc/ssh/ssh_host_ed25519_key.pub
+  - &host_stellaris age1t53ngpaj7uewydnty6996zmexl94240ugd8hmuz0vuref7dwkdkq07rkpp
+
+creation_rules:
+  - path_regex: secrets/stellaris\.yaml$
+    key_groups:
+      - age:
+          - *pascal_fido2
+          - *pascal_passphrase
+          - *host_stellaris

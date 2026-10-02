@@ -55,6 +55,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Encrypted secrets, decrypted at activation (see SECRETS.md)
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # https://github.com/pjones/plasma-manager
     plasma-manager = {
       url = "github:nix-community/plasma-manager";
