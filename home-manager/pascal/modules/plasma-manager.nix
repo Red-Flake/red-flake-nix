@@ -54,5 +54,8 @@
   #
   # Fix: put the current IDs below, `nixos-rebuild switch`, then
   # `systemctl --user restart plasma-plasmashell` (the plugin only reads this at startup).
+  # Merkuro keeps its own selection by the same IDs (~/.config/merkuro.calendarrc,
+  # [GlobalCollectionSelection]); after an ID change its sidebar comes up unticked and
+  # the calendar looks empty. Re-tick the calendars there; that one isn't reset by Nix.
   programs.plasma.configFile.plasmashellrc.PIMEventsPlugin.calendars = "21,22,23,24,25";
 }
