@@ -183,7 +183,7 @@
 
     # beacon: Self-hosted focus tool on top of Radicale/CalDAV
     beacon = {
-      url = "git+ssh://git@github.com/Mag1cByt3s/beacon";
+      url = "github:Mag1cByt3s/beacon";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

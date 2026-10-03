@@ -25,15 +25,15 @@
       "locked": {
         "lastModified": 1791032623,
         "narHash": "sha256-6b8jldqxN+HutCpCe4lRo8INxymOI/nNcgaw5Pa70Yg=",
-        "ref": "refs/heads/main",
+        "owner": "Mag1cByt3s",
+        "repo": "beacon",
         "rev": "5a6422ca804d39ca911e4cd69dbcc104e09c0b13",
-        "revCount": 38,
-        "type": "git",
-        "url": "ssh://git@github.com/Mag1cByt3s/beacon"
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "ssh://git@github.com/Mag1cByt3s/beacon"
+        "owner": "Mag1cByt3s",
+        "repo": "beacon",
+        "type": "github"
       }
     },
     "burpsuite-nix": {
