@@ -60,10 +60,4 @@ in
     BEACON_SERVER_URL = "https://beacon.netcat.rocks";
     BEACON_TOKEN_FILE = "/run/secrets/beacon-token";
   };
-
-  # Show the current task once when a terminal opens. The hook is printed by
-  # the store path; the snippet itself runs `t prompt` from PATH (home.packages).
-  programs.zsh.initContent = ''
-    eval "$(${beaconT}/bin/t hook zsh)"
-  '';
 }
