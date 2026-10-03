@@ -47,4 +47,11 @@
   # akonadi-calendar: KCalendarCore serializer so plasmashell can decode Akonadi events (Merkuro has it via its wrapper)
   # akonadi-contacts: same for contacts, used by Merkuro's contacts tray applet
   home.packages = with pkgs.kdePackages; [ merkuro kdepim-runtime kdepim-addons kcontacts akonadi-calendar akonadi-contacts ];
+
+  # Config for beacon
+  home.sessionVariables = {
+    BEACON_CALDAV_URL = "https://dav.netcat.rocks/";
+    BEACON_CALDAV_USER = "ppeinecke@netcat.rocks";
+    BEACON_CALDAV_PASSWORD_CMD = "cat /run/secrets/radicale";
+  };
 }
