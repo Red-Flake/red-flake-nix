@@ -1,5 +1,19 @@
 # Pascal's plasma-manager configuration
-{ ... }:
+{ lib, ... }:
+let
+  # Akonadi collection IDs of the Radicale DAV account. How to look them up is
+  # described at the calendar settings below.
+  calendarIds = {
+    todo = 21;
+    defaultTask = 22; # DEFAULT_TASK_CALENDAR_NAME
+    groceries = 23;
+    calendar = 24;
+    factor = 25; # Factor_
+  };
+
+  # Calendars shown in the Plasma clock and ticked in Merkuro.
+  shownCalendars = with calendarIds; [ todo defaultTask calendar factor ];
+in
 {
   imports = [ ../../shared/plasma-manager-base.nix ];
 
@@ -32,13 +46,14 @@
     calendarPlugins = [ "pimevents" ];
   };
 
-  # Calendars shown by the PIM Events plugin (Digital Clock popup). plasmashellrc is
-  # reset on every generation (strictMode), so the GUI selection doesn't stick.
+  # Calendars shown by the PIM Events plugin (Digital Clock popup) and ticked in
+  # Merkuro's sidebar, both from shownCalendars above. strictMode writes these keys on
+  # every generation and makes them immutable, so a selection made in the GUI doesn't
+  # stick; change shownCalendars instead.
   #
-  # Values are Akonadi collection IDs of the Radicale DAV account: Todo,
-  # DEFAULT_TASK_CALENDAR_NAME, Groceries, Calendar, Factor_. They survive reboots and
-  # rebuilds, but change when the DAV account is removed/re-added in Merkuro, a calendar
-  # is recreated on the server, or the Akonadi database is reset.
+  # The values are the Akonadi collection IDs in calendarIds above. They survive
+  # reboots and rebuilds, but change when the DAV account is removed/re-added in
+  # Merkuro, a calendar is recreated on the server, or the Akonadi database is reset.
   #
   # Symptom: the clock shows no events and no calendars under
   # Digital Clock settings -> Calendar -> PIM Events, while Merkuro may still work.
@@ -50,12 +65,16 @@
   #      Merkuro -> Settings -> Accounts -> DAV account -> Remote URLs must contain both
   #      CalDAV and CardDAV for https://dav.netcat.rocks/ (check: grep remoteUrls
   #      ~/.config/akonadi_davgroupware_resource_*rc). Add CalDAV, then repeat step 1.
-  #   3. Calendars listed but with other IDs than below? The IDs changed.
+  #   3. Calendars listed but with other IDs than in calendarIds? The IDs changed.
   #
-  # Fix: put the current IDs below, `nixos-rebuild switch`, then
-  # `systemctl --user restart plasma-plasmashell` (the plugin only reads this at startup).
-  # Merkuro keeps its own selection by the same IDs (~/.config/merkuro.calendarrc,
-  # [GlobalCollectionSelection]); after an ID change its sidebar comes up unticked and
-  # the calendar looks empty. Re-tick the calendars there; that one isn't reset by Nix.
-  programs.plasma.configFile.plasmashellrc.PIMEventsPlugin.calendars = "21,22,23,24,25";
+  # Fix: put the current IDs into calendarIds, `nixos-rebuild switch`, then
+  # `systemctl --user restart plasma-plasmashell` (the plugin only reads this at startup)
+  # and restart Merkuro.
+  programs.plasma.configFile.plasmashellrc.PIMEventsPlugin.calendars =
+    lib.concatMapStringsSep "," toString shownCalendars;
+
+  # Merkuro stores its sidebar selection as "c<ID>" in [GlobalCollectionSelection].
+  # Only this key is managed; the rest of merkuro.calendarrc is left alone.
+  programs.plasma.configFile."merkuro.calendarrc".GlobalCollectionSelection.Selection =
+    lib.concatMapStringsSep "," (id: "c${toString id}") shownCalendars;
 }
