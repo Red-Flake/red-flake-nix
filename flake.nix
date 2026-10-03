@@ -180,6 +180,12 @@
     # TODO: switch back to github:nanomatters/ucc after the libxcb-cursor fix is merged upstream.
     ucc.url = "github:nanomatters/ucc";
     # ucc.url = "github:Mag1cByt3s/ucc/fix/libxcb-cursor-dependency";
+
+    # beacon: Self-hosted focus tool on top of Radicale/CalDAV
+    beacon = {
+      url = "git+ssh://git@github.com/Mag1cByt3s/beacon";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =

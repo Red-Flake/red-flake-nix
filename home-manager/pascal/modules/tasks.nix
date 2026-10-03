@@ -1,4 +1,8 @@
-{ pkgs, ... }:
+{ inputs, pkgs, ... }:
+let
+  # beacon's t CLI, from the beacon flake input
+  beaconT = inputs.beacon.packages.${pkgs.stdenv.hostPlatform.system}.t;
+in
 {
   accounts.calendar = {
     basePath = ".local/share/calendars";
@@ -46,12 +50,20 @@
   # kcontacts: org.kde.contacts QML module for Merkuro's system tray applet (runs inside plasmashell)
   # akonadi-calendar: KCalendarCore serializer so plasmashell can decode Akonadi events (Merkuro has it via its wrapper)
   # akonadi-contacts: same for contacts, used by Merkuro's contacts tray applet
-  home.packages = with pkgs.kdePackages; [ merkuro kdepim-runtime kdepim-addons kcontacts akonadi-calendar akonadi-contacts ];
+  home.packages = (with pkgs.kdePackages; [ merkuro kdepim-runtime kdepim-addons kcontacts akonadi-calendar akonadi-contacts ]) ++ [ beaconT ];
 
   # Config for beacon
   home.sessionVariables = {
     BEACON_CALDAV_URL = "https://dav.netcat.rocks/";
     BEACON_CALDAV_USER = "ppeinecke@netcat.rocks";
     BEACON_CALDAV_PASSWORD_CMD = "cat /run/secrets/radicale";
+    BEACON_SERVER_URL = "https://beacon.netcat.rocks";
+    BEACON_TOKEN_FILE = "/run/secrets/beacon-token";
   };
+
+  # Show the current task once when a terminal opens. The hook is printed by
+  # the store path; the snippet itself runs `t prompt` from PATH (home.packages).
+  programs.zsh.initContent = ''
+    eval "$(${beaconT}/bin/t hook zsh)"
+  '';
 }

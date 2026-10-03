@@ -13,6 +13,12 @@
 
     # Radicale CalDAV password for vdirsyncer (home-manager/pascal/modules/tasks.nix)
     secrets.radicale.owner = user;
+
+    # beacon API token for the t CLI (home-manager/pascal/modules/tasks.nix)
+    secrets.beacon-token = {
+      owner = user;
+      mode = "0400";
+    };
   };
 
   environment.systemPackages = with pkgs; [
