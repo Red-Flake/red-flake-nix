@@ -407,7 +407,7 @@
       "nvidia-resume.service"
     ];
     wantedBy = [ "suspend.target" "hibernate.target" "hybrid-sleep.target" ];
-    path = with pkgs; [ systemd util-linux gawk kdePackages.libkscreen ];
+    path = with pkgs; [ systemd util-linux gawk procps kdePackages.libkscreen ];
     serviceConfig = {
       Type = "oneshot";
       ExecStartPre = "${pkgs.coreutils}/bin/sleep 3";
@@ -416,10 +416,20 @@
         read -r _ uid user _ <<< "$(loginctl list-sessions --no-legend | awk '/seat0/ {print; exit}')"
         [ -z "$user" ] && { echo "No graphical session found"; exit 0; }
 
+        # Only KWin can be recovered this way. Skip other sessions (e.g. Hyprland),
+        # where kscreen-doctor aborts and leaves a coredump.
+        kwin_pid=$(pgrep -u "$uid" -f '/bin/kwin_wayland( |$)' | head -n1)
+        [ -z "$kwin_pid" ] && { echo "KWin not running for user=$user, skipping"; exit 0; }
+
+        # Use the socket KWin was started with instead of assuming wayland-0
+        socket=$(tr '\0' '\n' < "/proc/$kwin_pid/cmdline" | awk 'prev == "--socket" { print; exit } { prev = $0 }')
+        socket=''${socket:-wayland-0}
+        [ -S "/run/user/$uid/$socket" ] || { echo "Wayland socket $socket missing, skipping"; exit 0; }
+
         env_args=(
           "XDG_RUNTIME_DIR=/run/user/$uid"
           "DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$uid/bus"
-          "WAYLAND_DISPLAY=wayland-0"
+          "WAYLAND_DISPLAY=$socket"
           "QT_QPA_PLATFORM=wayland"
         )
 
