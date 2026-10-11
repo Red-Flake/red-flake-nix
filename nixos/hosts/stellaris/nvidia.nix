@@ -7,9 +7,6 @@
 , ...
 }:
 {
-
-  custom.kernel.nvidia.stripFix.enable = true;
-
   boot = {
     # Nvidia-specific: kernel parameters
     # See: https://download.nvidia.com/XFree86/Linux-x86_64/580.65.06/README/dynamicpowermanagement.html

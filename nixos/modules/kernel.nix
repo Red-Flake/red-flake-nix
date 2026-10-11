@@ -46,29 +46,6 @@ let
       zfs_cachyos = selected;
     });
 
-  withNvidiaStripFix =
-    kernelPackages:
-    if !(kernelPackages ? nvidiaPackages) || !(kernelPackages.nvidiaPackages ? latest) then
-      kernelPackages
-    else
-      let
-        latestDrv = kernelPackages.nvidiaPackages.latest.overrideAttrs (old: {
-          passthru =
-            (old.passthru or { })
-            // lib.optionalAttrs (lib.hasAttrByPath [ "passthru" "settings" ] old) {
-              settings = old.passthru.settings.overrideAttrs (sOld: {
-                nativeBuildInputs = (sOld.nativeBuildInputs or [ ]) ++ [ pkgs.binutils ];
-                makeFlags = (sOld.makeFlags or [ ]) ++ [ "STRIP=${pkgs.binutils}/bin/strip" ];
-              });
-            };
-        });
-      in
-      kernelPackages // {
-        nvidiaPackages = kernelPackages.nvidiaPackages // {
-          latest = latestDrv;
-        };
-      };
-
   cachyKernelAttrName =
     let
       ltoSuffix = if cfg.cachyos.lto then "-lto" else "";
@@ -113,14 +90,8 @@ let
     else
       defaultKernelPackages;
 
-  # Apply ZFS 2.4 and optionally NVIDIA strip fix
-  selectedKernelPackagesWithZfs = withZfs24 selectedKernelPackagesBase;
-
-  selectedKernelPackages =
-    if cfg.nvidia.stripFix.enable then
-      withNvidiaStripFix selectedKernelPackagesWithZfs
-    else
-      selectedKernelPackagesWithZfs;
+  # Apply ZFS 2.4
+  selectedKernelPackages = withZfs24 selectedKernelPackagesBase;
 
   # Userspace ZFS package — must match the kernel module version, which the
   # NixOS module asserts. The pre-built CachyOS derivation ships both halves, so
@@ -203,12 +174,6 @@ in
         Note: not all variant + target combinations exist (e.g. hardened has no target suffixes).
         The module will error with available options if a combination is invalid.
       '';
-    };
-
-    nvidia.stripFix.enable = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      description = "Apply a small build fix for NVIDIA driver settings (adds `strip` to PATH during build).";
     };
   };
 

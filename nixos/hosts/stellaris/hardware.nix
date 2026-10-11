@@ -7,31 +7,24 @@
   # TUXEDO driver compatibility with Linux 6.19+. Firmware comes from the
   # flake-pinned linux-firmware package: its MTL GuC/HuC/GSC binaries match
   # the previously overridden versions byte for byte (verified 2026-09-22).
+  #
+  # Gen7 needs no source patch: tuxedo_io matches this machine by
+  # DMI_PRODUCT_SKU "STELLARIS16I07" (TDP table x6ar5xx).
   nixpkgs.overlays = [
-    # Update tuxedo-drivers to 4.22.1 for Linux 6.19+ compatibility
+    # Update tuxedo-drivers to 4.24.0 for Linux 6.19+ compatibility
     (final: prev: {
       linuxKernel = prev.linuxKernel // {
         packagesFor = kernel:
           (prev.linuxKernel.packagesFor kernel).extend (_: lpPrev: {
-            tuxedo-drivers = lpPrev.tuxedo-drivers.overrideAttrs (oldAttrs: {
-              version = "4.22.1";
+            tuxedo-drivers = lpPrev.tuxedo-drivers.overrideAttrs {
+              version = "4.24.0";
               src = final.fetchFromGitLab {
                 group = "tuxedocomputers";
                 owner = "development/packages";
                 repo = "tuxedo-drivers";
-                rev = "v4.22.1";
-                hash = "sha256-KMn3O3Rq8LaZAgr6R7zNeBn637zZDFD2E2X+a3zKN3s=";
+                rev = "v4.24.0";
+                hash = "sha256-rdWEgyjWZKeU3FadbWtAEChfqGhgcLksyRmGXl+Ptqo=";
               };
-
-              postPatch = (oldAttrs.postPatch or "") + ''
-                # Add your specific Board Name to the IO whitelist
-                # cat /sys/class/dmi/id/board_name
-                sed -i '/static const char \*board_names\[\] = {/a \    "X6AR5xxY",' src/tuxedo_io/tuxedo_io.c
-
-                # Add your Product Name to the internal matching table
-                # at /sys/class/dmi/id/product_name
-                sed -i '/"TUXEDO Stellaris 16 Intel Gen6",/a \    "TUXEDO Stellaris 16 Intel Gen7",' src/tuxedo_io/tuxedo_io.c
-              '';
 
               # v4.21.2 moved udev rules to files/usr/lib/udev/rules.d/
               postInstall = ''
@@ -40,7 +33,7 @@
                   --replace-quiet "/bin/sh" "${final.lib.getExe final.bash}"
                 install -Dm 0644 -t $out/etc/udev/rules.d files/usr/lib/udev/rules.d/*
               '';
-            });
+            };
           });
       };
     })
