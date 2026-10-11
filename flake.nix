@@ -121,10 +121,8 @@
     # https://github.com/xddxdd/nix-cachyos-kernel
     # CachyOS kernels via nix-cachyos-kernel (cached via Hydra)
     # https://hydra.lantian.pub/jobset/lantian/nix-cachyos-kernel
-    # Pinned to a master rev for kernel 7.2.0; the `release` branch still ships
-    # 7.1.8. Switch back to `github:xddxdd/nix-cachyos-kernel/release` once it
-    # catches up (it usually trails master by ~a day).
-    nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/c69c33c24148defbcc34ab25456cc460bc33fdbb";
+    # The `release` branch only advances once Hydra has built and cached it.
+    nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
 
     # https://github.com/MoonshotAI/kimi-code
     kimi-code.url = "github:MoonshotAI/kimi-code";
