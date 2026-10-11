@@ -28,18 +28,8 @@ _:
       }
     });
 
-    // Allow gamemode pkexec helpers (cpugovctl, gpuclockctl, procsysctl) without password
-    polkit.addRule(function(action, subject) {
-      if (action.id == "org.freedesktop.policykit.exec") {
-        var program = action.lookup("program") || "";
-        if (program.indexOf("gamemode") !== -1 &&
-            (program.indexOf("cpugovctl") !== -1 ||
-             program.indexOf("gpuclockctl") !== -1 ||
-             program.indexOf("procsysctl") !== -1)) {
-          return polkit.Result.YES;
-        }
-      }
-    });
+    // gamemode helpers need no rule here: gamemode ships its own polkit rule
+    // for members of the gamemode group (com.feralinteractive.GameMode.*).
   '';
 
 }

@@ -70,6 +70,11 @@ in
     libraries = pkgs.steam-run.args.multiPkgs pkgs;
   };
 
+  # The Steam env above sets WINENTSYNC=1 and turns esync/fsync off, so Wine
+  # needs /dev/ntsync. The module is built (CONFIG_NTSYNC=m) but nothing loads
+  # it, and without the device Wine falls back to slow wineserver-based sync.
+  boot.kernelModules = [ "ntsync" ];
+
   # Enable Gamescope Compositor
   programs.gamescope = {
     enable = true;
@@ -95,5 +100,9 @@ in
       };
     };
   };
+
+  # gamemode's polkit rules only let members of the gamemode group run its
+  # privileged helpers (governor, GPU, procsys) without authentication.
+  users.users.${user}.extraGroups = [ "gamemode" ];
 
 }
