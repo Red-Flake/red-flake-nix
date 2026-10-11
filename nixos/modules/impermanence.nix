@@ -29,7 +29,6 @@ _: {
         "/var/lib/postgresql" # persist postgres data
         "/var/lib/flatpak" # persist flatpak data
         "/etc/ssl/certs" # persist ssl certs
-        "/var/lib/tcc" # persist Tuxedo Control Center data
         "/etc/ucc" # persist Uniwill Control Center data
         "/var/lib/AccountsService" # persist user account data
         "/etc/wireguard" # persist WireGuard configs
@@ -45,7 +44,6 @@ _: {
         "/var/lib/docker" # persist docker data
         "/var/lib/containers/storage" # persist container storage
         "/var/lib/libvirt" # persist libvirt data
-        "/var/lib/lxd" # persist LXC data
         "/var/cache/fwupd" # persist fwupd cache
         "/var/cache/ccache" # persist ccache
       ];

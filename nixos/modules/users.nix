@@ -39,7 +39,6 @@
               "input"
               "uinput"
               "docker"
-              "lxd"
               "libvirtd"
               "vboxsf"
               "vboxusers"

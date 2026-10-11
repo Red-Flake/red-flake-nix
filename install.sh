@@ -534,14 +534,10 @@ if [ -d /var/lib/NetworkManager ]; then
 fi
 
 
-# setup Docker persistence
+# setup Docker persistence (impermanence keeps it on /cache, see nixos/modules/impermanence.nix)
 if [ -d /mnt/var/lib/docker ]; then
-    cp -r /mnt/var/lib/docker /mnt/persist/var/lib/docker
-fi
-
-# setup LXC / LXD persistence
-if [ -d /mnt/var/lib/lxd ]; then
-    cp -r /mnt/var/lib/lxd /mnt/persist/var/lib/lxd
+    mkdir -p /mnt/cache/var/lib
+    cp -r /mnt/var/lib/docker /mnt/cache/var/lib/docker
 fi
 
 # setup ssl certs persistence

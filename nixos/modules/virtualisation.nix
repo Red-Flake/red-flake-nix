@@ -29,10 +29,6 @@
       "${matchAll}".allowedUDPPorts = [ 53 ];
     };
 
-  # enable LXC support
-  #virtualisation.lxd.enable = true;    ## LXD has been removed from NixOS due to lack of Nixpkgs maintenance.
-  #virtualisation.lxc.lxcfs.enable = true;
-
   # enable Libvirt support
   virtualisation.libvirtd = {
     enable = true;
