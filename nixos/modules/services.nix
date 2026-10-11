@@ -118,7 +118,9 @@ in
 
     # set PostgreSQL Version to 18
     package = pkgs.postgresql_18;
-    enableTCPIP = true;
+    # Listen on localhost only: BloodHound connects via 127.0.0.1 and the
+    # authentication rules below admit loopback clients only anyway.
+    enableTCPIP = false;
     settings.port = 5432;
     authentication = lib.mkOverride 10 ''
       #type database  DBuser  auth-method
@@ -202,6 +204,11 @@ in
     install -d -m 0700 -o neo4j -g neo4j /var/lib/neo4j/{conf,logs,run,plugins,import,data}
     install -m 0600 -o neo4j -g neo4j ${neo4j44Conf} /var/lib/neo4j/conf/neo4j.conf
   '');
+
+  # BloodHound serves Prometheus metrics on ":2112" (all interfaces) by default.
+  # Set via env: the module only writes its own keys to the JSON config, so a
+  # metrics_port entry in `settings` would be silently dropped.
+  systemd.services.bloodhound-ce.environment.bhe_metrics_port = lib.mkIf isSecurityHost "127.0.0.1:2112";
 
   # BloodHound-CE service settings
   services.bloodhound-ce = lib.mkIf isSecurityHost {
