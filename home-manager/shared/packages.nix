@@ -46,7 +46,7 @@
     mcp-nixos
     opencode
     codex
-    gemini-cli-bin
+    antigravity-cli
     inputs.kimi-code.packages.${pkgsUnstable.system}.kimi-code
   ];
 
