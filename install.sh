@@ -329,19 +329,26 @@ mount --mkdir "$BOOTDISK" /mnt/boot
 #   /cache  cache data is by definition rebuildable.
 #
 # Only /home, /persist and /root keep snapshots, which is where real data lives.
+#
+# Each opt-out must also set com.sun:auto-snapshot:daily=false: zfs-auto-snapshot
+# checks the per-interval property before the generic one, so the
+# :daily=true inherited from the pool root would otherwise win.
 log "INFO" "Creating /nix"
 zfs create -o mountpoint=legacy zroot/nix
 zfs set com.sun:auto-snapshot=false zroot/nix
+zfs set com.sun:auto-snapshot:daily=false zroot/nix
 mount --mkdir -t zfs zroot/nix /mnt/nix
 
 log "INFO" "Creating /tmp"
 zfs create -o mountpoint=legacy zroot/tmp
 zfs set com.sun:auto-snapshot=false zroot/tmp
+zfs set com.sun:auto-snapshot:daily=false zroot/tmp
 mount --mkdir -t zfs zroot/tmp /mnt/tmp
 
 log "INFO" "Creating /cache"
 zfs create -o mountpoint=legacy zroot/cache
 zfs set com.sun:auto-snapshot=false zroot/cache
+zfs set com.sun:auto-snapshot:daily=false zroot/cache
 mount --mkdir -t zfs zroot/cache /mnt/cache
 
 log "INFO" "Creating /home"

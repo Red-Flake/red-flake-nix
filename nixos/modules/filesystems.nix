@@ -69,9 +69,10 @@
 
   };
 
-  # let /cache be world writable
+  # let /cache be world writable; sticky so users cannot rename or replace the
+  # root-owned /cache/var tree that impermanence bind-mounts into /var
   systemd.tmpfiles.rules = [
-    "d /cache 0777 root root -"
+    "d /cache 1777 root root -"
   ];
 
   # https://github.com/openzfs/zfs/issues/10891

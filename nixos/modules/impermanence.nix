@@ -36,7 +36,10 @@ _: {
       ];
     };
 
-    "/persist/cache" = {
+    # Large, rebuildable state goes on the zroot/cache dataset, which opts out
+    # of auto-snapshots. Not /persist/cache: that is a plain directory inside
+    # zroot/persist, so daily snapshots would pin every image and VM disk.
+    "/cache" = {
       hideMounts = true;
       directories = [
         "/var/lib/docker" # persist docker data
