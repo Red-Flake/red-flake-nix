@@ -1,6 +1,11 @@
 # Starship prompt configuration
 # https://starship.rs/config/
-_:
+{ config, lib, ... }:
+let
+  # [journal offen] while today's beacon journal is incomplete; only for
+  # users with the beacon module (tasks.nix), empty for everyone else
+  beaconJournal = lib.optionalString (config.programs.beacon.journal.enable or false) "\${env_var.BEACON_JOURNAL_OPEN}";
+in
 {
   programs.starship = {
     enable = true;
@@ -13,7 +18,7 @@ _:
       # Prompt format - two lines with right-aligned content on each
       # Line 1: path/git info ... IPs (right, using fill)
       # Line 2: character (left) ... time (right, using right_format)
-      format = "$username$hostname$directory$git_branch$git_status$nix_shell$python$rust$nodejs$golang$cmd_duration$fill\${custom.vpn_ip}\${custom.lan_ip}$line_break$character";
+      format = "$username$hostname$directory$git_branch$git_status$nix_shell$python$rust$nodejs$golang$cmd_duration${beaconJournal}$fill\${custom.vpn_ip}\${custom.lan_ip}$line_break$character";
 
       # Right format appears on line 2 next to character
       right_format = "$time";
