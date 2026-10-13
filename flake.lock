@@ -23,11 +23,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1791132957,
-        "narHash": "sha256-49WGK8reYcTv1u6xjpvt/zwl7Oi12WXbpIwNC0SmQAU=",
+        "lastModified": 1791891325,
+        "narHash": "sha256-+besC4mgkhK2JGrrPkHuOMCAT+5bT/qlOoknKWgabdw=",
         "owner": "Mag1cByt3s",
         "repo": "beacon",
-        "rev": "8d505ac677f348039e6e1490110f66137332e7f1",
+        "rev": "2da00ed6bd7686eea8671bdd72223a963a6ff540",
         "type": "github"
       },
       "original": {
