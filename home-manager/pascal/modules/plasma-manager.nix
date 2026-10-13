@@ -44,6 +44,15 @@ in
     hideBrowserIntegrationReminder = true;
     # Akonadi events/tasks (Radicale via Merkuro) in the clock popup; plugin from kdepim-addons in tasks.nix
     calendarPlugins = [ "pimevents" ];
+    commandHotkeys = {
+      # beacon focus timer: starts one, or asks "Was geschafft?" and stops it
+      # (script from the beacon module in tasks.nix)
+      "beacon-timer-toggle" = {
+        name = "beacon: Focus-Timer starten/stoppen";
+        key = "Meta+Shift+T";
+        command = "beacon-timer-toggle";
+      };
+    };
   };
 
   # Calendars shown by the PIM Events plugin (Digital Clock popup) and ticked in

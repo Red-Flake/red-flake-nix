@@ -100,6 +100,19 @@ in
       description = "Terminal emulator to use for Ctrl+Alt+T hotkey.";
     };
 
+    commandHotkeys = lib.mkOption {
+      type = lib.types.attrsOf lib.types.attrs;
+      default = { };
+      example = {
+        "my-script" = {
+          name = "My script";
+          key = "Meta+Shift+M";
+          command = "my-script";
+        };
+      };
+      description = "Additional global hotkeys that run a command (programs.plasma.hotkeys.commands), next to the terminal hotkey.";
+    };
+
     wallpaperResolution = lib.mkOption {
       type = lib.types.enum [ "1080p" "1440p" "1600p" "2160p" "auto" ];
       default = "auto";
@@ -259,7 +272,7 @@ in
         effects = kwinEffects;
       };
 
-      hotkeys.commands = terminalHotkey;
+      hotkeys.commands = terminalHotkey // cfg.commandHotkeys;
 
       fonts = {
         general = {
