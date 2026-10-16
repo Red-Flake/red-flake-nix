@@ -290,6 +290,16 @@
       # Verify headroom after changing:
       #   awk '/^size|^c_max/ {print $1, $3}' /proc/spl/kstat/zfs/arcstats
       options zfs zfs_arc_max=34359738368
+
+      # ZFS vdev queue limits for the Samsung 9100 Pro, picked with fio on uncached data
+      # (2026-10-16). sync_read 10->32: 4K random reads at 64 threads 261K->640K IOPS,
+      # 128K at 64 threads +18%, no change at low thread counts; 64 adds nothing.
+      # async_read (prefetch) 3->32: sequential reads +24% (1 stream) / +23% (4 streams).
+      # Left at default on purpose: async_write 40 cut random reads under a 500 MB/s
+      # background writer by 14% and doubled their p99, and showed no write gain (writes
+      # are CPU-bound); sync_write 32 lowered fsync IOPS at 32 threads; zfetch_max_distance
+      # 256M and aggregation_limit_non_rotating 1M changed nothing.
+      options zfs zfs_vdev_sync_read_min_active=32 zfs_vdev_sync_read_max_active=32 zfs_vdev_async_read_max_active=32
     '';
   };
 
