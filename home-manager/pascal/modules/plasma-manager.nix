@@ -8,11 +8,10 @@ let
     defaultTask = 22; # DEFAULT_TASK_CALENDAR_NAME
     groceries = 23;
     calendar = 24;
-    factor = 25; # Factor_
   };
 
   # Calendars shown in the Plasma clock and ticked in Merkuro.
-  shownCalendars = with calendarIds; [ todo defaultTask calendar factor ];
+  shownCalendars = with calendarIds; [ todo defaultTask calendar ];
 in
 {
   imports = [ ../../shared/plasma-manager-base.nix ];
