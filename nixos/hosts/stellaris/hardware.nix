@@ -61,6 +61,10 @@
     storage.nvmeQueueRequests = null;
   };
 
+  # Builds run SCHED_IDLE: full speed on an otherwise idle machine, but they only get
+  # CPU time that games and interactive apps leave unused.
+  nix.daemonCPUSchedPolicy = "idle";
+
   nix.settings = {
     # Bound aggregate build parallelism on the 24-thread CPU.
     max-jobs = lib.mkForce 4;
