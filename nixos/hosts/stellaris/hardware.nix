@@ -11,19 +11,19 @@
   # Gen7 needs no source patch: tuxedo_io matches this machine by
   # DMI_PRODUCT_SKU "STELLARIS16I07" (TDP table x6ar5xx).
   nixpkgs.overlays = [
-    # Update tuxedo-drivers to 4.24.0 for Linux 6.19+ compatibility
+    # Update tuxedo-drivers to 4.25.0 for Linux 6.19+ compatibility
     (final: prev: {
       linuxKernel = prev.linuxKernel // {
         packagesFor = kernel:
           (prev.linuxKernel.packagesFor kernel).extend (_: lpPrev: {
             tuxedo-drivers = lpPrev.tuxedo-drivers.overrideAttrs {
-              version = "4.24.0";
+              version = "4.25.0";
               src = final.fetchFromGitLab {
                 group = "tuxedocomputers";
                 owner = "development/packages";
                 repo = "tuxedo-drivers";
-                rev = "v4.24.0";
-                hash = "sha256-rdWEgyjWZKeU3FadbWtAEChfqGhgcLksyRmGXl+Ptqo=";
+                rev = "v4.25.0";
+                hash = "sha256-AER+JPl3lem1OFV51VdOZAnr3Uy1BFSpEJNrE+shYis=";
               };
 
               # v4.21.2 moved udev rules to files/usr/lib/udev/rules.d/
