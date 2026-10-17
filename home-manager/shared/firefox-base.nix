@@ -68,6 +68,8 @@ let
 
     # Fingerprinting (disabled for pentesting)
     "privacy.resistFingerprinting" = false;
+    # Lightweight fingerprinting protection (what ETP Strict uses), barely breaks anything
+    "privacy.fingerprintingProtection" = true;
 
     # Translations
     "browser.translations.automaticallyPopup" = false;
@@ -743,6 +745,13 @@ in
             };
           }
           // cfg.extraPolicyExtensions;
+      }
+      # Lock DoH off so a Nightly change can't quietly turn it back on
+      // lib.optionalAttrs (cfg.dnsProvider == "none") {
+        DNSOverHTTPS = {
+          Enabled = false;
+          Locked = true;
+        };
       };
     };
   };
