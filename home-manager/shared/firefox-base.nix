@@ -143,7 +143,6 @@ let
     "extensions.getAddons.cache.enabled" = false;
     "extensions.htmlaboutaddons.recommendations.enabled" = false;
     "extensions.pocket.enabled" = false;
-    "extensions.screenshots.disabled" = true;
     # let Mozilla kill compromised extensions
     "extensions.blocklist.enabled" = true;
     "extensions.update.autoUpdateDefault" = false;
@@ -159,7 +158,6 @@ let
     "toolkit.telemetry.archive.enabled" = false;
     "toolkit.telemetry.bhrPing.enabled" = false;
     "toolkit.telemetry.firstShutdownPing.enabled" = false;
-    "toolkit.telemetry.hybridContent.enabled" = false;
     "toolkit.telemetry.newProfilePing.enabled" = false;
     "toolkit.telemetry.prompted" = 2;
     "toolkit.telemetry.rejected" = true;
@@ -170,7 +168,6 @@ let
     "toolkit.telemetry.unifiedIsOptIn" = false;
     "toolkit.telemetry.updatePing.enabled" = false;
     "app.shield.optoutstudies.enabled" = false;
-    "browser.ping-centre.telemetry" = false;
     "datareporting.healthreport.service.enabled" = false;
     "datareporting.healthreport.uploadEnabled" = false;
     "datareporting.policy.dataSubmissionEnabled" = false;
@@ -183,8 +180,6 @@ let
     "toolkit.telemetry.coverage.opt-out" = true;
     "browser.region.update.enabled" = false;
     "browser.region.network.url" = "";
-    "browser.aboutHomeSnippets.updateUrl" = "";
-    "browser.selfsupport" = false;
 
     # Safe Browsing: phishing/malware on, download checks stay off (those cause the tool false positives)
     "browser.safebrowsing.phishing.enabled" = true;
@@ -201,7 +196,6 @@ let
     # First-run annoyances
     "browser.disableResetPrompt" = true;
     "browser.download.panel.shown" = true;
-    "browser.feeds.showFirstRunUI" = false;
     "browser.messaging-system.whatsNewPanel.enabled" = false;
     "browser.rights.3.shown" = true;
     "browser.shell.defaultBrowserCheckCount" = 1;
@@ -266,9 +260,6 @@ let
     # WebRTC
     "media.peerconnection.ice.default_address_only" = true;
 
-    # Geolocation
-    "geo.provider.network.url" = "https://location.services.mozilla.com/v1/geolocate?key=%MOZILLA_API_KEY%";
-
     # Forms / Autofill
     "signon.rememberSignons" = false;
     "signon.autofillForms" = false;
@@ -296,9 +287,6 @@ let
     "widget.use-xdg-desktop-portal.file-picker" = 1;
 
     # Network performance
-    "network.http.pipelining" = true;
-    "network.http.proxy.pipelining" = true;
-    "network.http.pipelining.maxrequests" = 32;
     "network.http.max-connections" = 900;
     "network.http.max-persistent-connections-per-server" = 10;
     "network.http.max-persistent-connections-per-proxy" = 10;
