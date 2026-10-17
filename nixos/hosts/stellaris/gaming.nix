@@ -1,5 +1,6 @@
 { inputs
 , pkgs
+, chaoticPkgs
 , lib
 , user
 , ...
@@ -23,6 +24,7 @@ in
 
     extraCompatPackages = with pkgs; [
       proton-ge-bin
+      chaoticPkgs.proton-cachyos_x86_64_v3 # from the Nyx cache; pick per game
     ];
 
     extest.enable = false;
