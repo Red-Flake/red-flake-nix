@@ -291,6 +291,7 @@ zpool create -f \
     -O acltype=posixacl \
     -O atime=off \
     -O xattr=sa \
+    -O dnodesize=auto \
     -O normalization=formD \
     -O mountpoint=none \
     -R /mnt \
