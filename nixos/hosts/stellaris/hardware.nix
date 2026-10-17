@@ -188,6 +188,10 @@
       # Select full kernel preemption via PREEMPT_DYNAMIC: lets higher‑prio tasks preempt most kernel code -> lower latency/better interactivity, small throughput/overhead cost.
       "preempt=full"
 
+      # zswap is on by default in this kernel. With zram as the only swap it would
+      # compress pages a second time before they reach zram.
+      "zswap.enabled=0"
+
       # Prefer THP madvise for desktop/gaming workloads.
       "transparent_hugepage=madvise"
 
