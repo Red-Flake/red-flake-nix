@@ -142,7 +142,8 @@ let
     "extensions.htmlaboutaddons.recommendations.enabled" = false;
     "extensions.pocket.enabled" = false;
     "extensions.screenshots.disabled" = true;
-    "extensions.blocklist.enabled" = false;
+    # let Mozilla kill compromised extensions
+    "extensions.blocklist.enabled" = true;
     "extensions.update.autoUpdateDefault" = false;
     "extensions.systemAddon.update.enabled" = false;
     "extensions.systemAddon.update.url" = "";
@@ -183,10 +184,10 @@ let
     "browser.aboutHomeSnippets.updateUrl" = "";
     "browser.selfsupport" = false;
 
-    # Safe browsing (disabled for pentesting)
-    "browser.safebrowsing.phishing.enabled" = false;
-    "browser.safebrowsing.malware.enabled" = false;
-    "browser.safebrowsing.blockedURIs.enabled" = false;
+    # Safe Browsing: phishing/malware on, download checks stay off (those cause the tool false positives)
+    "browser.safebrowsing.phishing.enabled" = true;
+    "browser.safebrowsing.malware.enabled" = true;
+    "browser.safebrowsing.blockedURIs.enabled" = true;
     "browser.safebrowsing.downloads.enabled" = false;
     "browser.safebrowsing.downloads.remote.enabled" = false;
     "browser.safebrowsing.downloads.remote.block_dangerous" = false;
@@ -194,8 +195,6 @@ let
     "browser.safebrowsing.downloads.remote.block_potentially_unwanted" = false;
     "browser.safebrowsing.downloads.remote.block_uncommon" = false;
     "browser.safebrowsing.downloads.remote.url" = "";
-    "browser.safebrowsing.provider.*.gethashURL" = "";
-    "browser.safebrowsing.provider.*.updateURL" = "";
 
     # First-run annoyances
     "browser.disableResetPrompt" = true;
@@ -245,7 +244,9 @@ let
 
     # Media autoplay
     "media.autoplay.default" = 5;
+    # HTTPS-first instead of HTTPS-only: upgrades when possible, HTTP lab targets still work
     "dom.security.https_only_mode" = false;
+    "dom.security.https_first" = true;
     "dom.serviceWorkers.enabled" = false;
 
     # DNS over HTTPS
@@ -465,6 +466,7 @@ let
         "easylist-annoyances"
         "ublock-annoyances"
         "DEU-0"
+        "urlhaus-1"
       ];
     };
     # Cookie-Editor - disable ads
