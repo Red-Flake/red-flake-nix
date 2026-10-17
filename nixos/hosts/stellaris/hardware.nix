@@ -135,6 +135,9 @@
 
       # Device mapper: not needed (using ZFS, not LVM/LUKS)
       "dm_mod"
+
+      # Hardware watchdog: systemd never arms it (RuntimeWatchdogSec=0)
+      "iTCO_wdt"
     ];
     kernelModules = [
       "kvm-intel"
@@ -227,9 +230,11 @@
       "quiet"
       "splash"
 
-      # Watchdog: enabled for detecting hard lockups (Intel iTCO watchdog)
-      # NMI watchdog fires on hard CPU lockups; iTCO_wdt handles system-wide hangs
-      # Watchdog timeout is configured via systemd-watchdog (default 10s)
+      # Lockup watchdogs off: the hard lockups they were kept for came from NVIDIA
+      # RTD3 and the xe driver, both disabled. Frees a perf counter and stops the
+      # periodic NMI on every core.
+      "nowatchdog"
+      "nmi_watchdog=0"
 
       # Security mitigations off for performance (use only on trusted single-user systems)
       "mitigations=off"

@@ -99,9 +99,6 @@ let
   securitySysctls = lib.optionalAttrs cfg.enableSecurityHardening {
     # Hide kernel pointers
     "kernel.kptr_restrict" = 2;
-    # Watchdog settings
-    "kernel.nmi_watchdog" = 1;
-    "kernel.watchdog" = 1;
     # Panic on oops
     "kernel.panic_on_oops" = 0;
   };
@@ -171,7 +168,7 @@ in
     enableSecurityHardening = lib.mkOption {
       type = lib.types.bool;
       default = false;
-      description = "Enable security hardening (kptr_restrict, watchdogs, panic_on_oops).";
+      description = "Enable security hardening (kptr_restrict, panic_on_oops).";
     };
   };
 
