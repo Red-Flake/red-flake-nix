@@ -22,6 +22,7 @@ _: {
         "/var/lib/NetworkManager"
         "/var/lib/iwd"
         "/var/lib/systemd/coredump"
+        "/var/lib/systemd/timers" # last-run stamps, so Persistent= timers catch up after a reboot
         "/var/lib/bluetooth"
         "/var/lib/fwupd"
         "/var/lib/upower"
