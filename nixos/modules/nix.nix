@@ -43,9 +43,6 @@ in
         # Opinionated: disable global registry
         flake-registry = "";
 
-        # Enable deduplication
-        auto-optimise-store = true;
-
         # Don't warn about dirty flakes
         accept-flake-config = true;
         warn-dirty = false;
@@ -82,6 +79,13 @@ in
 
         # Trusted public keys
         trusted-public-keys = nixCaches.trustedPublicKeys;
+      };
+
+      # Deduplicate the store once a week instead of hard-linking every file as it
+      # is written (auto-optimise-store), which slows down every build and download.
+      optimise = {
+        automatic = true;
+        dates = [ "weekly" ];
       };
 
       # Opinionated: disable channels
