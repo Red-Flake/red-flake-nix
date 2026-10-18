@@ -53,22 +53,10 @@ let
                 pkg)
             old.dependencies;
         });
-
-        netexec = prev.netexec.overridePythonAttrs (old: {
-          pythonCatchConflictsPhase = "true";
-          dependencies = map
-            (pkg:
-              if (pkg.pname or "") == "bloodhound-py" then
-                final.python312Packages.bloodhound-py
-              else if (pkg.pname or "") == "pynfsclient" then
-                final.python312Packages.pynfsclient
-              else
-                pkg)
-            old.dependencies;
-        });
       })
 
     (import ../overlays/evil-winrm-py-overlay)
+    (import ../overlays/netexec-overlay)
   ];
 
   # Security tool overlays
