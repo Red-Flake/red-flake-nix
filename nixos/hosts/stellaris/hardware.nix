@@ -66,9 +66,14 @@
   nix.daemonCPUSchedPolicy = "idle";
 
   nix.settings = {
-    # Bound aggregate build parallelism on the 24-thread CPU.
+    # Up to 4 builds at once, each allowed all 24 threads (cores = 0), so a
+    # single big build such as the kernel is not throttled to a fraction of the
+    # CPU. Oversubscription is harmless here because builds run SCHED_IDLE
+    # (daemonCPUSchedPolicy above). The real limit is RAM: if several heavy
+    # C++/LTO builds ever run together and memory gets tight, lower max-jobs
+    # rather than cores.
     max-jobs = lib.mkForce 4;
-    cores = lib.mkForce 6;
+    cores = lib.mkForce 0;
 
     # Enable system features for better performance based on the CPU features
     system-features = [
