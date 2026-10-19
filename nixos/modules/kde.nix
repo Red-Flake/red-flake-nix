@@ -30,6 +30,11 @@ in
 {
   # KDE related packages
   environment.systemPackages = with pkgs; [
+    # ki18n (KCountry/KCountrySubdivision) reads iso-codes/json/iso_3166-*.json
+    # from XDG_DATA_DIRS at runtime. Without it, plasmashell gets no country data
+    # and logs "Unable to open iso_3166-1.json" hundreds of times a day.
+    isocodes
+
     # additional KDE packages to be installed
     kdePackages.powerdevil
     krita
