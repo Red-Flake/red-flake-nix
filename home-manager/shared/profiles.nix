@@ -100,7 +100,6 @@ in
       ../pascal/modules/equibop.nix
       ../pascal/modules/vscode.nix
       ../pascal/modules/plasma-manager.nix
-      ../pascal/modules/ucc.nix
       ../pascal/modules/tasks.nix
     ];
     packages = packages.base ++ packages.desktop ++ packages.gaming ++ packages.development;

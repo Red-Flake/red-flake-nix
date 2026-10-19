@@ -79,6 +79,7 @@
     nur = {
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
     };
 
     # https://github.com/thiagokokada/nix-alien
@@ -91,6 +92,7 @@
     impermanence = {
       url = "github:nix-community/impermanence";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
     };
 
     # https://github.com/pwndbg/pwndbg
@@ -104,6 +106,7 @@
     nix-gaming = {
       url = "github:fufexan/nix-gaming";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
     };
 
     # Modded Spotify
@@ -123,10 +126,20 @@
     # CachyOS kernels via nix-cachyos-kernel (cached via Hydra)
     # https://hydra.lantian.pub/jobset/lantian/nix-cachyos-kernel
     # The `release` branch only advances once Hydra has built and cached it.
-    nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
+    # nixpkgs is deliberately not followed: kernels must match the Hydra cache.
+    # flake-parts only shapes the outputs, so sharing it is safe.
+    nix-cachyos-kernel = {
+      url = "github:xddxdd/nix-cachyos-kernel/release";
+      inputs.flake-parts.follows = "flake-parts";
+    };
 
     # https://github.com/MoonshotAI/kimi-code
-    kimi-code.url = "github:MoonshotAI/kimi-code";
+    # Upstream pins nixos-25.11 only for nodejs_24 >= 24.15; unstable has that,
+    # and following it avoids a second glibc/nodejs/python stack in the closure.
+    kimi-code = {
+      url = "github:MoonshotAI/kimi-code";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
 
     # https://github.com/noctalia-dev/noctalia (v5) - desktop shell for the Stellaris Hyprland session.
     # nixpkgs is deliberately not followed so the noctalia.cachix.org binaries match.
@@ -177,7 +190,12 @@
     #};
     #ucc.url = "github:Mag1cByt3s/ucc/fix/intel-pstate-performance-epp";
     # TODO: switch back to github:nanomatters/ucc after the libxcb-cursor fix is merged upstream.
-    ucc.url = "github:nanomatters/ucc";
+    # Only the NixOS module is used; it builds ucc from the host nixpkgs via its
+    # overlay, so ucc's own nixpkgs pin is never needed.
+    ucc = {
+      url = "github:nanomatters/ucc";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # ucc.url = "github:Mag1cByt3s/ucc/fix/libxcb-cursor-dependency";
 
     # beacon: Self-hosted focus tool on top of Radicale/CalDAV

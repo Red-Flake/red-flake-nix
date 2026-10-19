@@ -6,7 +6,8 @@
     (pkgs.callPackage (inputs.redflake-packages + "/pkgs/outline-electron/package.nix") {
       inherit (pkgs) electron_39;
     })
-    inputs.ucc.packages.x86_64-linux.ucc
+    # ucc itself is installed by services.uccd (the module adds its package,
+    # built from the host nixpkgs, to systemPackages).
     nvtopPackages.full
   ];
 
