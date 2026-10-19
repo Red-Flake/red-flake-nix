@@ -16,12 +16,15 @@
       # old lantian: key; wait for a re-keyed cache.
       "https://nyx-cache.chaotic.cx/"
       "https://noctalia.cachix.org/"
+      # NixOS CUDA team cache: pre-built cudaSupport packages (opencv, ollama, ...)
+      "https://cache.nixos-cuda.org"
     ];
     extra-trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "nyx-cache.chaotic.cx:dJxTrgMC3V3cFfyIiBQDQorG6k1LsqurH/srpMSq7qk="
       "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
+      "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
     ];
     extra-deprecated-features = [
       "url-literals"
