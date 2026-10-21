@@ -939,16 +939,16 @@
         "treefmt-nix": "treefmt-nix_2"
       },
       "locked": {
-        "lastModified": 1782991211,
-        "narHash": "sha256-u2co0O0bjUJWnBAXNhvrZwRmc+HMiOhBL4vxKTcHJpY=",
-        "owner": "nanomatters",
-        "repo": "ucc",
-        "rev": "d2987af6cbaa39a7357dc610d107da269d42b3a0",
+        "lastModified": 1791076103,
+        "narHash": "sha256-TkCOlZuywIFkmnflFqOrmzgAS6ZVdTVAgj5PGREgl4M=",
+        "owner": "noteMASTER11",
+        "repo": "UCC-Revorked",
+        "rev": "eb98bfa2bec621d052e5c7a99169a540ca52197b",
         "type": "github"
       },
       "original": {
-        "owner": "nanomatters",
-        "repo": "ucc",
+        "owner": "noteMASTER11",
+        "repo": "UCC-Revorked",
         "type": "github"
       }
     },

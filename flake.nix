@@ -196,7 +196,7 @@
     # Only the NixOS module is used; it builds ucc from the host nixpkgs via its
     # overlay, so ucc's own nixpkgs pin is never needed.
     ucc = {
-      url = "github:nanomatters/ucc";
+      url = "github:noteMASTER11/UCC-Revorked";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     # ucc.url = "github:Mag1cByt3s/ucc/fix/libxcb-cursor-dependency";
