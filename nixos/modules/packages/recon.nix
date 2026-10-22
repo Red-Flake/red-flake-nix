@@ -11,6 +11,7 @@
     wafw00f
     nikto
     davtest
+    cadaver
     whatweb
     onesixtyone
     whois
