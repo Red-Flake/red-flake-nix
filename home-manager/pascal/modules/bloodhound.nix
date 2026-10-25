@@ -1,5 +1,4 @@
 { config
-, lib
 , ...
 }:
 
@@ -9,30 +8,14 @@ let
   sourceConfigJsonPath = "${./bloodhound/config.json}";
 in
 {
-  home.activation = {
-    bloodhound = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      # Check if bloodhound folder exists
-      if [ ! -d "${bloodhoundPath}" ]; then
-        # If not, create bloodhound folderbloodhound
-        mkdir -p "${bloodhoundPath}"
-      fi
-
-      # Ensure the existing config file is removed before activation
-      if [ -f "${configJsonPath}" ]; then
-        rm -f "${configJsonPath}"
-      fi
-
-      # Copy the new config file
-      cp "${sourceConfigJsonPath}" "${configJsonPath}"
-
-      # Ensure the config file has the correct permissions
-      if [ -f "${configJsonPath}" ]; then
-        chmod u+w "${configJsonPath}"
-      else
-        echo "Config file not found: ${configJsonPath}"
-      fi
-    '';
-  };
+  # BloodHound writes to config.json at runtime, so it can't be a store link.
+  # Replace it with a fresh writable copy at every login (and on switch when
+  # the rules change): "r" removes the old file, "C" copies the new one.
+  systemd.user.tmpfiles.rules = [
+    "d ${bloodhoundPath} 0755 - - -"
+    "r ${configJsonPath}"
+    "C ${configJsonPath} 0644 - - - ${sourceConfigJsonPath}"
+  ];
 
   xdg.desktopEntries.bloodhound = {
     name = "BloodHound";

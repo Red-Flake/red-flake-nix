@@ -499,6 +499,8 @@ let
 
   extensionSettings = baseExtensionSettings // cfg.extraExtensionSettings;
 
+  profilesIni = "${config.programs.firefox.configPath}/profiles.ini";
+
   # Home Manager's own extensions.settings links storage.js to a read-only store
   # file. Firefox replaces that link on its next write, and every activation
   # (also at boot) puts it back, wiping logins and runtime state
@@ -513,10 +515,12 @@ let
           winner = if ext.force or false then "nix" else "extension";
         in
         lib.optionalString (ext.settings != { }) ''
-          run mergeFirefoxExtensionStorage ${lib.escapeShellArg id} ${nixJson} ${winner}
+          mergeFirefoxExtensionStorage ${lib.escapeShellArg id} ${nixJson} ${winner}
         '';
     in
-    ''
+    pkgs.writeShellScript "firefox-extension-storage" ''
+      set -eu
+
       mergeFirefoxExtensionStorage() {
         local dir="${dataDir}/$1" nixJson="$2" winner="$3"
         local file="$dir/storage.js" tmp="$dir/storage.js.hm-tmp" filter
@@ -551,7 +555,7 @@ let
           mv -f "$tmp" "$file"
         else
           rm -f "$tmp"
-          warnEcho "Firefox: could not merge settings into $file, leaving it untouched"
+          echo "Could not merge settings into $file, leaving it untouched" >&2
         fi
       }
 
@@ -559,6 +563,8 @@ let
     '';
 in
 {
+  imports = [ ./writable-files.nix ];
+
   options.custom.firefox = {
     enable = lib.mkEnableOption "custom firefox configuration";
 
@@ -661,57 +667,28 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    # Ensure profiles.ini is writable
-    home.activation.ensureWritableFirefoxProfilesIni = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
-      set -euo pipefail
-      ff_dir="$HOME/.mozilla/firefox"
-      profiles_ini="$ff_dir/profiles.ini"
-
-      mkdir -p "$ff_dir"
-
-      if [ -L "$profiles_ini" ]; then
-        tmp="$(mktemp)"
-        cp -aL "$profiles_ini" "$tmp" || true
-        rm -f "$profiles_ini"
-        if [ -s "$tmp" ]; then
-          cat "$tmp" > "$profiles_ini"
-        else
-          : > "$profiles_ini"
-        fi
-        rm -f "$tmp"
-      fi
-
-      if [ ! -s "$profiles_ini" ]; then
-        cat > "$profiles_ini" <<EOF
-      [General]
-      Version=2
-      StartWithLastProfile=1
-
-      [Profile0]
-      Name=${config.programs.firefox.profiles.redflake.name or "Red-Flake"}
-      IsRelative=1
-      Path=${config.programs.firefox.profiles.redflake.path or "redflake"}
-      Default=1
-      EOF
-      fi
-
-      chmod u+rw "$profiles_ini" || true
-    '';
+    # Firefox writes to profiles.ini, so it can't be a store link. Take the
+    # file over from the Firefox module and keep a writable copy of the
+    # generated one instead (see writable-files.nix).
+    home.file."${profilesIni}".enable = false;
+    custom.writableFiles."${config.home.homeDirectory}/${profilesIni}".source =
+      config.home.file."${profilesIni}".source;
 
     # Merge declared extension settings into the writable storage.js files.
-    # Runs after linkGeneration so links from older generations are gone.
-    home.activation.firefoxExtensionStorage =
-      lib.hm.dag.entryAfter [ "linkGeneration" ] extensionStorageScript;
-
-    # Fix profile directory
-    home.activation.fixFirefoxProfileDir = lib.hm.dag.entryBefore [ "linkGeneration" ] ''
-      profile_dir="$HOME/.mozilla/firefox/${config.programs.firefox.profiles.redflake.path or "redflake"}"
-      if [ -e "$profile_dir" ] && [ ! -d "$profile_dir" ]; then
-        backup="$profile_dir.hm-backup-$(date +%s)"
-        echo "Home Manager: '$profile_dir' is not a directory; moving it to '$backup'..."
-        mv "$profile_dir" "$backup"
-      fi
-    '';
+    # Runs at login before the desktop session (so before Firefox can start),
+    # and again on switch when the settings change.
+    systemd.user.services.firefox-extension-storage = {
+      Unit = {
+        Description = "Merge declared Firefox extension settings";
+        Before = [ "graphical-session-pre.target" ];
+      };
+      Service = {
+        Type = "oneshot";
+        RemainAfterExit = true;
+        ExecStart = "${extensionStorageScript}";
+      };
+      Install.WantedBy = [ "default.target" ];
+    };
 
     programs.firefox = {
       enable = true;
@@ -759,7 +736,7 @@ in
           ];
         };
 
-        # Settings are applied by home.activation.firefoxExtensionStorage,
+        # Settings are applied by the firefox-extension-storage service,
         # not extensions.settings (see extensionStorageScript)
         extensions.packages = baseExtensionPackages ++ cfg.extraExtensionPackages;
       };

@@ -1,5 +1,4 @@
 { config
-, lib
 , ...
 }:
 
@@ -8,24 +7,9 @@ let
   sourceKwalletrcPath = "${./kwallet/kwalletrc}";
 in
 {
-  home.activation = {
-    kwallet = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      # Remove the config file only if it is a symlink
-      if [ -L "${kwalletrcPath}" ]; then
-        rm -f "${kwalletrcPath}"
-      fi
-
-      # Copy the new config file only if it doesn't already exist
-      if [ ! -e "${kwalletrcPath}" ]; then
-        cp "${sourceKwalletrcPath}" "${kwalletrcPath}"
-      fi
-
-      # Ensure the config file has the correct permissions
-      if [ -f "${kwalletrcPath}" ]; then
-        chmod u+w "${kwalletrcPath}"
-      else
-        echo "Config file not found: ${kwalletrcPath}"
-      fi
-    '';
-  };
+  # KWallet writes to kwalletrc, so seed a writable copy only when it is
+  # missing and leave later changes alone.
+  systemd.user.tmpfiles.rules = [
+    "C ${kwalletrcPath} 0644 - - - ${sourceKwalletrcPath}"
+  ];
 }

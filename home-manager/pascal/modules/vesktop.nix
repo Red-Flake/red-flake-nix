@@ -10,7 +10,12 @@ let
     base00 = "1e1e2e"; # background
     base05 = "cdd6f4"; # default fg
   };
-  initialVesktopSettingsJson = builtins.toJSON {
+  vesktopConfigDir = config.programs.nixcord.vesktop.configDir;
+  vencordSettingsFile = "${vesktopConfigDir}/settings/settings.json";
+  initialVesktopState = pkgs.writeText "vesktop-state.json" (builtins.toJSON {
+    firstLaunch = false;
+  });
+  initialVesktopSettings = pkgs.writeText "vesktop-settings.json" (builtins.toJSON {
     minimizeToTray = "on";
     discordBranch = "stable";
     arRPC = "on";
@@ -21,9 +26,11 @@ let
     disableMinSize = true;
     tray = true;
     hardwareAcceleration = true;
-  };
+  });
 in
 {
+  imports = [ ../../shared/writable-files.nix ];
+
   programs.nixcord = {
     enable = lib.mkDefault true;
 
@@ -68,43 +75,29 @@ in
     };
   };
 
-  # INFO: Vesktop writes its config at runtime. Home Manager/Nixcord may create
-  # the settings file as a /nix/store symlink (read-only), which breaks Vesktop.
-  # Keep HM-managed defaults, but replace the symlink with a mutable copy after
-  # link generation.
+  # INFO: Vesktop writes its config at runtime, but nixcord links the Vencord
+  # settings (plugins) as a read-only store file, which breaks Vesktop.
+  # Take that file over from nixcord and keep a writable copy instead, replaced
+  # at every login (see writable-files.nix).
   #
-  # Also create vesktop initial state to ignore "firstLaunch".
-  home.activation.create-vesktop-initial-state = lib.mkIf vesktopEnabled (
-    let
-      vesktopConfigDir = config.xdg.configHome + "/vesktop";
-      vesktopStateDir = config.xdg.stateHome + "/vesktop";
-      vesktopStateFile = vesktopStateDir + "/state.json";
-      vesktopSettingsDir = vesktopConfigDir + "/settings";
-      vesktopSettingsFile = vesktopSettingsDir + "/settings.json";
-    in
-    lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      set -eu
-      install -d -m 700 "${vesktopSettingsDir}"
-      rm -f "${vesktopSettingsFile}.bak"
-      if [ -L "${vesktopSettingsFile}" ]; then
-        cp "${vesktopSettingsFile}" "${vesktopSettingsFile}.tmp" || true
-        rm -f "${vesktopSettingsFile}"
-        if [ -f "${vesktopSettingsFile}.tmp" ]; then
-          mv -f "${vesktopSettingsFile}.tmp" "${vesktopSettingsFile}"
-        fi
-      fi
-      if [ ! -e "${vesktopSettingsFile}" ]; then
-        printf '%s\n' '${initialVesktopSettingsJson}' > "${vesktopSettingsFile}.tmp"
-        mv -f "${vesktopSettingsFile}.tmp" "${vesktopSettingsFile}"
-      fi
-      chmod 600 "${vesktopSettingsFile}" 2>/dev/null || true
-      if [ ! -f "${vesktopStateFile}" ]; then
-        # Ensure both dirs exist
-        install -d -m 700 "${vesktopConfigDir}" "${vesktopStateDir}"
-        # Write atomically
-        printf '%s\n' '{"firstLaunch":false}' > "${vesktopStateFile}.tmp"
-        mv -f "${vesktopStateFile}.tmp" "${vesktopStateFile}"
-      fi
-    ''
-  );
+  # Vesktop's own settings.json and state.json (firstLaunch = false skips the
+  # first-launch screen) are only seeded when missing, so Vesktop keeps
+  # whatever it writes there later.
+  home.file = lib.mkIf vesktopEnabled {
+    ${vencordSettingsFile}.enable = false;
+  };
+
+  custom.writableFiles = lib.mkIf vesktopEnabled {
+    ${vencordSettingsFile} = {
+      source = config.home.file.${vencordSettingsFile}.source;
+      mode = "0600";
+    };
+  };
+
+  systemd.user.tmpfiles.rules = lib.mkIf vesktopEnabled [
+    "d ${vesktopConfigDir} 0700 - - -"
+    "d ${vesktopConfigDir}/settings 0700 - - -"
+    "C ${vesktopConfigDir}/settings.json 0600 - - - ${initialVesktopSettings}"
+    "C ${vesktopConfigDir}/state.json 0600 - - - ${initialVesktopState}"
+  ];
 }

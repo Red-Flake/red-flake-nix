@@ -1,16 +1,11 @@
-{ pkgsUnstable, lib, ... }:
+{ pkgsUnstable, pkgs, ... }:
+let
+  msfdb = "${pkgsUnstable.metasploit}/bin/msfdb";
+in
 {
-  # Initialize Metasploit database on first activation
+  # Systemd user service to auto-start msfdb
   # msfdb manages its own embedded PostgreSQL on port 5433
   # Uses system PostgreSQL from /run/current-system/sw/bin to ensure version consistency
-  home.activation.msfdbInit = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    if [ ! -d "$HOME/.msf4/db" ]; then
-      export PATH="/run/current-system/sw/bin:$PATH"
-      run ${pkgsUnstable.metasploit}/bin/msfdb init --use-defaults
-    fi
-  '';
-
-  # Systemd user service to auto-start msfdb
   systemd.user.services.msfdb = {
     Unit = {
       Description = "Metasploit PostgreSQL Database";
@@ -20,8 +15,14 @@
       Type = "oneshot";
       RemainAfterExit = true;
       Environment = "PATH=/run/current-system/sw/bin";
-      ExecStart = "${pkgsUnstable.metasploit}/bin/msfdb start";
-      ExecStop = "${pkgsUnstable.metasploit}/bin/msfdb stop";
+      # Initialize the database on first start
+      ExecStartPre = "${pkgs.writeShellScript "msfdb-init" ''
+        if [ ! -d "$HOME/.msf4/db" ]; then
+          ${msfdb} init --use-defaults
+        fi
+      ''}";
+      ExecStart = "${msfdb} start";
+      ExecStop = "${msfdb} stop";
     };
     Install = {
       WantedBy = [ "default.target" ];

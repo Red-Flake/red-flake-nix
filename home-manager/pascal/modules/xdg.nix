@@ -1,7 +1,4 @@
-{ config
-, lib
-, ...
-}:
+_:
 
 let
   browser = "firefox-nightly.desktop";
@@ -12,23 +9,27 @@ let
   pdfViewer = "org.kde.okular.desktop";
 in
 {
-  home.activation = {
-    mimeapps = lib.hm.dag.entryBefore [ "writeBoundary" ] ''
-      # Check if ~/.config/mimeapps.list exists
-      if [ -f "${config.xdg.configHome}/mimeapps.list" ]; then
-        # Ensure the existing config file is removed before activation
-        rm -f "${config.xdg.configHome}/mimeapps.list"
-      fi
-    '';
+  # Desktop settings dialogs replace mimeapps.list with their own copy; take
+  # it back on every activation instead of failing on the collision.
+  xdg.configFile."mimeapps.list".force = true;
 
-    remminaAutostart = lib.hm.dag.entryBefore [ "writeBoundary" ] ''
-      # Remmina sometimes creates an autostart entry for the tray applet; remove it.
-      rm -f "${config.xdg.configHome}/autostart/remmina-applet.desktop"
+  # Remmina (tray applet) and Equibop add their own autostart entries. Equibop
+  # then starts in Wayland mode with speech dispatcher on and keeps producing
+  # coredumps. An entry with the same name and Hidden=true turns them off
+  # (XDG autostart spec), and the read-only link keeps the apps from
+  # writing their own.
+  xdg.configFile."autostart/remmina-applet.desktop" = {
+    force = true;
+    text = ''
+      [Desktop Entry]
+      Hidden=true
     '';
-
-    equibopAutostart = lib.hm.dag.entryBefore [ "writeBoundary" ] ''
-      # Equibop creates an autostart entry for the tray applet; If Equibop autostarts, it starts in wayland mode with speech dispatcher enabled and generates systemd-coredumps. Remove it.
-      rm -f "${config.xdg.configHome}/autostart/equibop.desktop"
+  };
+  xdg.configFile."autostart/equibop.desktop" = {
+    force = true;
+    text = ''
+      [Desktop Entry]
+      Hidden=true
     '';
   };
 
