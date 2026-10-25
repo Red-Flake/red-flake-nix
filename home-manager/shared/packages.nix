@@ -43,7 +43,10 @@
   # AI/Development tools
   development = with pkgsUnstable; [
     claude-code
-    mcp-nixos
+    # From stable for now: unstable's mcp-nixos 3.x needs fastmcp, which is
+    # marked broken since nixpkgs moved python mcp to 2.x (2026-10). Switch back
+    # once fastmcp-slim builds again.
+    pkgs.mcp-nixos
     opencode
     codex
     antigravity-cli

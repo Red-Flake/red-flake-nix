@@ -1,4 +1,5 @@
 { pkgs
+, pkgsUnstable
 , ...
 }:
 
@@ -9,10 +10,11 @@
     cutter
     cutterPlugins.jsdec
     cutterPlugins.rz-ghidra
-    ghidra-bin
+    pkgsUnstable.ghidra-bin # REA supports Ghidra 12.1.x only
     jadx
     radare2
     avalonia-ilspy
     binaryninja-free
+    pkgsUnstable.rea-agents # REA MCP server + CLI (needs unstable's Node)
   ];
 }
