@@ -36,25 +36,38 @@ let
   #};
 in
 {
-  system.activationScripts.setup-neo4j.text = ''
-    set -eu
+  config = lib.mkIf config.services.neo4j.enable {
+    # Directories owned by neo4j, plus the GDS plugin linked from the store.
+    # "L+" re-points the link if the jar changes.
+    systemd.tmpfiles.settings."10-neo4j" =
+      let
+        neo4jDir = {
+          mode = "0700";
+          user = "neo4j";
+          group = "neo4j";
+        };
+      in
+      {
+        "/var/lib/neo4j".d = neo4jDir // { mode = "0755"; };
+        "/var/lib/neo4j/conf".d = neo4jDir;
+        "/var/lib/neo4j/data".d = neo4jDir;
+        "/var/lib/neo4j/data/dbms".d = neo4jDir;
+        "/var/lib/neo4j/plugins".d = neo4jDir;
+        "/var/lib/neo4j/plugins/${gdsJarName}"."L+".argument = "${gdsJar}";
+      };
 
-    # Ensure dirs owned by neo4j
-    install -d -m 0700 -o neo4j -g neo4j /var/lib/neo4j/{data,plugins,conf}
-    install -d -m 0700 -o neo4j -g neo4j /var/lib/neo4j/data/dbms
-
-    # Install (symlink) GDS plugin immutably
-    if [ ! -e /var/lib/neo4j/plugins/${gdsJarName} ]; then
-      ln -sfn ${gdsJar} /var/lib/neo4j/plugins/${gdsJarName}
-      chown -h neo4j:neo4j /var/lib/neo4j/plugins/${gdsJarName}
-    fi
-
-    # Set initial password only once (before first start)
-    if [ ! -f /var/lib/neo4j/data/dbms/auth.ini ]; then
-      echo "Setting initial Neo4j password…"
-      ${pkgs.shadow.su}/bin/su -s /bin/sh -c \
-        'NEO4J_HOME=/var/lib/neo4j NEO4J_CONF=/var/lib/neo4j/conf ${lib.getExe' neo4jPkg "neo4j-admin"} set-initial-password "Password1337"' \
-        neo4j || true
-    fi
-  '';
+    # Set the initial password once, right before the first start.
+    # The neo4j module sets PermissionsStartOnly, so this runs as root and
+    # drops to the neo4j user itself; NEO4J_HOME/NEO4J_CONF come from the unit.
+    systemd.services.neo4j.serviceConfig.ExecStartPre = lib.mkAfter [
+      (pkgs.writeShellScript "neo4j-initial-password" ''
+        if [ ! -f /var/lib/neo4j/data/dbms/auth.ini ]; then
+          echo "Setting initial Neo4j password"
+          ${pkgs.util-linux}/bin/runuser -u neo4j -- \
+            ${lib.getExe' neo4jPkg "neo4j-admin"} set-initial-password "Password1337" \
+            || echo "Could not set the initial Neo4j password" >&2
+        fi
+      '')
+    ];
+  };
 }
