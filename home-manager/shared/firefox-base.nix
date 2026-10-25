@@ -439,8 +439,9 @@ let
   # Base extension settings
   baseExtensionSettings = {
     # uBlock Origin - comprehensive filter lists
-    "${addons.ublock-origin.addonId}".settings = {
-      selectedFilterLists = [
+    "${addons.ublock-origin.addonId}" = {
+      force = true;
+      settings.selectedFilterLists = [
         "user-filters"
         "ublock-filters"
         "ublock-badware"
@@ -495,6 +496,67 @@ let
       };
     };
   };
+
+  extensionSettings = baseExtensionSettings // cfg.extraExtensionSettings;
+
+  # Home Manager's own extensions.settings links storage.js to a read-only store
+  # file. Firefox replaces that link on its next write, and every activation
+  # (also at boot) puts it back, wiping logins and runtime state
+  # (nix-community/home-manager#9211). Instead, merge the declared keys into
+  # the real file and keep everything else the extension stored.
+  extensionStorageScript =
+    let
+      dataDir = "$HOME/${config.programs.firefox.configPath}/${config.programs.firefox.profiles.redflake.path}/browser-extension-data";
+      mkEntry = id: ext:
+        let
+          nixJson = pkgs.writeText "firefox-extension-storage.json" (builtins.toJSON ext.settings);
+          winner = if ext.force or false then "nix" else "extension";
+        in
+        lib.optionalString (ext.settings != { }) ''
+          run mergeFirefoxExtensionStorage ${lib.escapeShellArg id} ${nixJson} ${winner}
+        '';
+    in
+    ''
+      mergeFirefoxExtensionStorage() {
+        local dir="${dataDir}/$1" nixJson="$2" winner="$3"
+        local file="$dir/storage.js" tmp="$dir/storage.js.hm-tmp" filter
+
+        mkdir -p "$dir"
+
+        # Turn links left over from the upstream option into real files
+        if [[ -L $file ]]; then
+          if [[ -e $file ]]; then
+            cp -L "$file" "$tmp"
+            chmod 0644 "$tmp"
+            mv -f "$tmp" "$file"
+          else
+            rm -f "$file"
+          fi
+        fi
+
+        if [[ ! -s $file ]]; then
+          install -m 0644 "$nixJson" "$file"
+          return
+        fi
+
+        # jq's * is a deep merge where the right-hand side wins
+        if [[ $winner == nix ]]; then
+          filter='.[0] * .[1]'
+        else
+          filter='.[1] * .[0]'
+        fi
+
+        if ${lib.getExe pkgs.jq} -c -s "$filter" "$file" "$nixJson" > "$tmp"; then
+          chmod 0644 "$tmp"
+          mv -f "$tmp" "$file"
+        else
+          rm -f "$tmp"
+          warnEcho "Firefox: could not merge settings into $file, leaving it untouched"
+        fi
+      }
+
+      ${lib.concatStrings (lib.mapAttrsToList mkEntry extensionSettings)}
+    '';
 in
 {
   options.custom.firefox = {
@@ -549,9 +611,28 @@ in
     };
 
     extraExtensionSettings = lib.mkOption {
-      type = lib.types.attrsOf lib.types.attrs;
+      type = lib.types.attrsOf (lib.types.submodule {
+        options = {
+          force = lib.mkOption {
+            type = lib.types.bool;
+            default = false;
+            description = ''
+              Re-apply the declared keys on every activation. When false, they
+              are only written if the extension has not stored them yet.
+            '';
+          };
+          settings = lib.mkOption {
+            type = lib.types.attrsOf lib.types.anything;
+            default = { };
+            description = "Keys to merge into the extension's storage.local.";
+          };
+        };
+      });
       default = { };
-      description = "Additional extension settings (keyed by addon ID).";
+      description = ''
+        Additional extension settings (keyed by addon ID). These are merged into
+        the extension's storage.js; anything else the extension stores is kept.
+      '';
     };
 
     extraPolicyExtensions = lib.mkOption {
@@ -617,6 +698,11 @@ in
       chmod u+rw "$profiles_ini" || true
     '';
 
+    # Merge declared extension settings into the writable storage.js files.
+    # Runs after linkGeneration so links from older generations are gone.
+    home.activation.firefoxExtensionStorage =
+      lib.hm.dag.entryAfter [ "linkGeneration" ] extensionStorageScript;
+
     # Fix profile directory
     home.activation.fixFirefoxProfileDir = lib.hm.dag.entryBefore [ "linkGeneration" ] ''
       profile_dir="$HOME/.mozilla/firefox/${config.programs.firefox.profiles.redflake.path or "redflake"}"
@@ -655,7 +741,12 @@ in
           baseSettings
           // scrollTuningSettings
           // aiBlockingSettings
-          // aggressiveAccelerationSettings;
+          // aggressiveAccelerationSettings
+          // {
+            # Keep extension storage.local in storage.js so the settings
+            # merged by firefoxExtensionStorage are the ones Firefox reads
+            "extensions.webextensions.ExtensionStorageIDB.enabled" = false;
+          };
 
         bookmarks = {
           force = true;
@@ -668,11 +759,9 @@ in
           ];
         };
 
-        extensions = {
-          force = true;
-          packages = baseExtensionPackages ++ cfg.extraExtensionPackages;
-          settings = baseExtensionSettings // cfg.extraExtensionSettings;
-        };
+        # Settings are applied by home.activation.firefoxExtensionStorage,
+        # not extensions.settings (see extensionStorageScript)
+        extensions.packages = baseExtensionPackages ++ cfg.extraExtensionPackages;
       };
 
       policies = {
