@@ -1,5 +1,4 @@
 { pkgs
-, pkgsUnstable
 , ...
 }:
 
@@ -38,7 +37,6 @@ in
       doCheck = false;
     }))
     python314Packages.bpython
-    pkgsUnstable.nodejs_26 # stable's 26.x is too old for rea-agents (needs >=26.12.1)
     mingwW64-gcc-wrapped # x86_64-w64-mingw32-gcc & g++ (wrapped with mcfgthreads path)
     pkgs.pkgsCross.mingw32.buildPackages.gcc # i686-w64-mingw32-gcc & g++
     pkgs.pkgsCross.mingwW64.buildPackages.binutils # Binutils for 64-bit

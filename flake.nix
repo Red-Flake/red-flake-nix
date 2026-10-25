@@ -144,6 +144,14 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
+    # https://github.com/Fractal-Tess/rea-flake
+    # REA (Reverse Engineer Anything), tracks npm releases. Wrapped with its
+    # optional tools in nixos/overlays/rea-overlay.
+    rea-flake = {
+      url = "github:Fractal-Tess/rea-flake";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
     # https://github.com/noctalia-dev/noctalia (v5) - desktop shell for the Stellaris Hyprland session.
     # nixpkgs is deliberately not followed so the noctalia.cachix.org binaries match.
     noctalia.url = "github:noctalia-dev/noctalia";

@@ -733,6 +733,26 @@
         "type": "github"
       }
     },
+    "rea-flake": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-unstable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1792335871,
+        "narHash": "sha256-PFuBt3lp5JMwoCJiVQZxgGS/bhxL9tfXZ6Uk2ku8eQ0=",
+        "owner": "Fractal-Tess",
+        "repo": "rea-flake",
+        "rev": "540ac7792d9ec2ddeee4f18a83c667e9b61a57a2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Fractal-Tess",
+        "repo": "rea-flake",
+        "type": "github"
+      }
+    },
     "redflake-packages": {
       "inputs": {
         "nixpkgs": [
@@ -792,6 +812,7 @@
         "plasma-manager": "plasma-manager",
         "pre-commit-hooks": "pre-commit-hooks",
         "pwndbg": "pwndbg",
+        "rea-flake": "rea-flake",
         "redflake-packages": "redflake-packages",
         "redflakePlymouth": "redflakePlymouth",
         "sops-nix": "sops-nix",

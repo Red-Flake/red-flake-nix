@@ -91,7 +91,7 @@ let
     (import ../overlays/apachetomcatscanner-overlay)
     (import ../overlays/jwtcrack-overlay)
     (import ../overlays/freerdp-overlay)
-    (import ../overlays/rea-overlay)
+    (import ../overlays/rea-overlay { inherit inputs; })
     #(import ../overlays/burpsuite-overlay)
   ];
 

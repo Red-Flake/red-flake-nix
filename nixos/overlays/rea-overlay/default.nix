@@ -2,49 +2,20 @@
 # REA (Reverse Engineer Anything) - MCP server + CLI for reverse engineering.
 # https://github.com/morluto/rea
 #
-# The npm tarball ships no lockfile, so package-lock.json is generated with:
-#   npm pack rea-agents@<version> && tar xzf rea-agents-<version>.tgz
-#   cd package
-#   jq 'del(.optionalDependencies)' package.json > p.json && mv p.json package.json
-#   npm install --package-lock-only --ignore-scripts
+# The package itself comes from github:Fractal-Tess/rea-flake (input `rea-flake`),
+# which tracks npm releases and carries the lockfile. This overlay only points it
+# at ghidra-bin and wraps it with the optional analysis tools (see ./package.nix).
 #
-# frida (optional, dynamic instrumentation) is dropped: its install script
-# downloads prebuilt binaries, which the Nix sandbox blocks.
-#
-# Needs Node ^22.23.4 || ^24.22.1 || >=26.12.1. Install it from pkgsUnstable
-# (stable's nodejs_26 is too old).
+# Use it from pkgsUnstable: rea-flake follows nixpkgs-unstable, and several pinned
+# tools (unblob 26.6.x, ghidra-bin 12.1.x) only exist there.
+{ inputs }:
 final: _prev:
 
 {
-  rea-agents = final.buildNpmPackage rec {
-    pname = "rea-agents";
-    version = "6.8.0";
-
-    src = final.fetchurl {
-      url = "https://registry.npmjs.org/rea-agents/-/rea-agents-${version}.tgz";
-      hash = "sha256-jVQux2qcs1BYS2CmycCIcG/4EtW7WwlMIMlbbcJWmLs=";
-    };
-
-    nodejs = final.nodejs_26;
-
-    # Drop the optionalDependencies block (frida only); also runs in the
-    # npm-deps fetcher, so stick to coreutils/sed.
-    postPatch = ''
-      sed -i '/"optionalDependencies": {/,/},/d' package.json
-      cp ${./package-lock.json} package-lock.json
-    '';
-
-    npmDepsHash = "sha256-WCxgux8D0+G2siPua3k1xSUMiV/Yry4s/evhpX2EEe4=";
-
-    # Published tarball is already built.
-    dontNpmBuild = true;
-
-    meta = with final.lib; {
-      description = "One MCP for reverse engineering across binaries, applications, and runtime behavior";
-      homepage = "https://github.com/morluto/rea";
-      license = licenses.mit;
-      mainProgram = "rea";
-      platforms = platforms.linux;
+  rea-agents = final.callPackage ./package.nix {
+    rea = inputs.rea-flake.packages.${final.stdenv.hostPlatform.system}.rea.override {
+      # Same Ghidra the system already installs, instead of a second source build.
+      ghidra = final.ghidra-bin;
     };
   };
 }

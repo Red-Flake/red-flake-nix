@@ -15,6 +15,11 @@
     radare2
     avalonia-ilspy
     binaryninja-free
-    pkgsUnstable.rea-agents # REA MCP server + CLI (needs unstable's Node)
+    # REA MCP server + CLI, wrapped with its optional tools (rea-overlay).
+    # Reuse the system's stable Chromium and Wireshark rather than unstable's.
+    (pkgsUnstable.rea-agents.override {
+      inherit (pkgs) chromium;
+      wireshark-cli = pkgs.wireshark;
+    })
   ];
 }
