@@ -1,8 +1,35 @@
-{ lib
+{ config
+, lib
 , pkgs
 , ...
 }:
+let
+  equibopEnabled = config.programs.nixcord.enable && config.programs.nixcord.equibop.enable;
+  equibopConfigDir = config.programs.nixcord.equibop.configDir;
+  equicordSettingsFile = "${equibopConfigDir}/settings/settings.json";
+  initialEquibopState = pkgs.writeText "equibop-state.json" (builtins.toJSON {
+    firstLaunch = false;
+  });
+  initialEquibopSettings = pkgs.writeText "equibop-settings.json" (builtins.toJSON {
+    discordBranch = "stable";
+    minimizeToTray = true;
+    # Rich Presence off: don't start the bundled arRPC server (an extra
+    # process that also scans running processes to detect games)
+    arRPC = false;
+    arRPCDisabled = true;
+    splashColor = "rgb(212, 213, 216)";
+    splashBackground = "rgb(0, 0, 0)";
+    enableSplashScreen = false;
+    splashTheming = false;
+    hardwareVideoAcceleration = true;
+    clickTrayToShowHide = true;
+    trayMainOverride = false;
+    spellCheckLanguages = [ "en-US" "en" ];
+  });
+in
 {
+  imports = [ ../../shared/writable-files.nix ];
+
   programs.nixcord = {
     enable = lib.mkDefault true;
 
@@ -18,10 +45,6 @@
       package = lib.mkDefault pkgs.equibop;
       autoscroll.enable = true;
     };
-
-    # Disable arRPC (Discord RPC compatibility bridge).
-    # This is written to `~/.config/equibop/settings/settings.json`.
-    equibopConfig.arRPC = "off";
 
     # Reduce background/theme overhead (no themes in use).
     equibopConfig.enableOnlineThemes = false;
@@ -59,4 +82,30 @@
       };
     };
   };
+
+  # INFO: Equibop writes its config at runtime, but nixcord links the Equicord
+  # settings (plugins) as a read-only store file, which breaks Equibop.
+  # Take that file over from nixcord and keep a writable copy instead, replaced
+  # at every login (see writable-files.nix).
+  #
+  # Equibop's own settings.json and state.json (firstLaunch = false skips the
+  # first-launch screen) are only seeded when missing, so Equibop keeps
+  # whatever it writes there later.
+  home.file = lib.mkIf equibopEnabled {
+    ${equicordSettingsFile}.enable = false;
+  };
+
+  custom.writableFiles = lib.mkIf equibopEnabled {
+    ${equicordSettingsFile} = {
+      source = config.home.file.${equicordSettingsFile}.source;
+      mode = "0600";
+    };
+  };
+
+  systemd.user.tmpfiles.rules = lib.mkIf equibopEnabled [
+    "d ${equibopConfigDir} 0755 - - -"
+    "d ${equibopConfigDir}/settings 0755 - - -"
+    "C ${equibopConfigDir}/settings.json 0644 - - - ${initialEquibopSettings}"
+    "C ${equibopConfigDir}/state.json 0644 - - - ${initialEquibopState}"
+  ];
 }
