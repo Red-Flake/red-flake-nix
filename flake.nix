@@ -11,9 +11,10 @@
     extra-substituters = [
       "https://cache.nixos.org/"
       "https://nix-community.cachix.org/"
-      # attic.xuyh0120.win/lantian (nix-cachyos-kernel) removed 2026-10-19: its
-      # servers were compromised (xddxdd/nix-cachyos-kernel#110). Do not re-add the
-      # old lantian: key; wait for a re-keyed cache.
+      # nix-cachyos-kernel: new URL + key after the 2026-10 compromise
+      # (xddxdd/nix-cachyos-kernel#110). Never re-add the old
+      # attic.xuyh0120.win URL or the lantian:EeAU... key.
+      "https://cache.lantian.pub/lantian"
       "https://nyx-cache.chaotic.cx/"
       "https://noctalia.cachix.org/"
       # NixOS CUDA team cache: pre-built cudaSupport packages (opencv, ollama, ...)
@@ -24,6 +25,7 @@
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "nyx-cache.chaotic.cx:dJxTrgMC3V3cFfyIiBQDQorG6k1LsqurH/srpMSq7qk="
       "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
+      "lantian:WVGO7vsRMSEN+h7Lp7kv6SAmrkEXgUGbbXm7jMDjBuQ="
       "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
     ];
     extra-deprecated-features = [
