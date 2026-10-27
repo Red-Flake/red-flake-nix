@@ -33,6 +33,11 @@ in
   programs.nixcord = {
     enable = lib.mkDefault true;
 
+    # Build Equicord/Equibop with nixcord's own pinned nixpkgs-unstable. Its
+    # bun.lock needs a newer bun than stable nixpkgs ships (lockfileVersion 2
+    # fails on bun 1.3.x).
+    useGlobalPkgs = false;
+
     # Disable Discord and Vencord to use Equibop instead
     discord = {
       enable = lib.mkForce false;

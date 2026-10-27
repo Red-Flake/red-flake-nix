@@ -26,12 +26,25 @@
                 hash = "sha256-AER+JPl3lem1OFV51VdOZAnr3Uy1BFSpEJNrE+shYis=";
               };
 
+              # The Makefile pastes $(MAKEFLAGS) into the shell command. Since
+              # kernel 7.3 the module make flags include
+              # cmd_sign=kmodigest$$(space)$$@, which the shell cannot parse.
+              # $(MAKE) passes MAKEFLAGS to the sub-make via the environment.
+              postPatch = ''
+                substituteInPlace Makefile \
+                  --replace-fail 'make -C $(KDIR) M=$(PWD) $(MAKEFLAGS)' '$(MAKE) -C $(KDIR) M=$(PWD)'
+              '';
+
               # v4.21.2 moved udev rules to files/usr/lib/udev/rules.d/
               postInstall = ''
                 substituteInPlace files/usr/lib/udev/rules.d/* \
                   --replace-quiet "/bin/bash" "${final.lib.getExe final.bash}" \
                   --replace-quiet "/bin/sh" "${final.lib.getExe final.bash}"
                 install -Dm 0644 -t $out/etc/udev/rules.d files/usr/lib/udev/rules.d/*
+
+                # modules_install now also runs depmod; its index files clash
+                # with the kernel's when NixOS merges modules (it reruns depmod).
+                rm -f $out/lib/modules/*/modules.*
               '';
             };
           });

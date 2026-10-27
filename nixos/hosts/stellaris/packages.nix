@@ -4,7 +4,7 @@
     #linuxKernel.packages.linux_xanmod_latest.turbostat
     intel-gpu-tools
     (pkgs.callPackage (inputs.redflake-packages + "/pkgs/outline-electron/package.nix") {
-      inherit (pkgs) electron_39;
+      electron = pkgs.electron_44;
     })
     # ucc itself is installed by services.uccd (the module adds its package,
     # built from the host nixpkgs, to systemPackages).
