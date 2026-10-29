@@ -1,5 +1,5 @@
 # Pascal's firefox configuration
-{ pkgs, ... }:
+{ pkgs, osConfig, ... }:
 let
   addons = pkgs.nur.repos.rycee.firefox-addons;
 in
@@ -38,10 +38,19 @@ in
           };
         };
       };
+      # aw-watcher-web only enables itself and detects the hostname in its
+      # onInstalled handler, which never fires for extensions placed in the
+      # profile by Home Manager. Seed what that handler would store.
+      "${addons.aw-watcher-web.addonId}".settings = {
+        enabled = true;
+        consentRequired = false;
+        consent = true;
+        hostname = osConfig.networking.hostName;
+      };
     };
   };
 
-  # Consent for aw-watcher-web given by policy, so it starts without the consent
-  # tab. The data only goes to the local ActivityWatch server (127.0.0.1:5600).
+  # Consent for aw-watcher-web given by policy, so a reinstall does not open the
+  # consent tab. The data only goes to the local ActivityWatch server (127.0.0.1:5600).
   programs.firefox.policies."3rdparty".Extensions.${addons.aw-watcher-web.addonId}.consentOfflineDataCollection = true;
 }
