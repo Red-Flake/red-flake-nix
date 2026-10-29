@@ -101,6 +101,7 @@ in
       ../pascal/modules/vscode.nix
       ../pascal/modules/plasma-manager.nix
       ../pascal/modules/tasks.nix
+      ../pascal/modules/productivity
     ];
     packages = packages.base ++ packages.desktop ++ packages.gaming ++ packages.development;
   };
