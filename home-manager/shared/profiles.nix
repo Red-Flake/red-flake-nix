@@ -102,6 +102,7 @@ in
       ../pascal/modules/plasma-manager.nix
       ../pascal/modules/tasks.nix
       ../pascal/modules/productivity
+      ../pascal/modules/claude-code
     ];
     packages = packages.base ++ packages.desktop ++ packages.gaming ++ packages.development;
   };
