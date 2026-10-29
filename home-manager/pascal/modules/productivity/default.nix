@@ -34,7 +34,7 @@ let
   regex = patterns: lib.escapeShellArg (lib.concatStringsSep "|" patterns);
   productivityToday = pkgs.writeShellScriptBin "productivity-today" ''
     export AW_URL=${awUrl} NOTIFY_SEND=${notifySend}
-    export WORK_APPS=${regex cfg.workApps} WORK_TITLES=${regex cfg.workTitles}
+    export WORK_APPS=${regex cfg.workApps} WORK_TITLES=${regex cfg.workTitles} WORK_DOMAINS=${regex cfg.workDomains}
     exec ${pkgs.python3.interpreter} -I ${./productivity-today.py} "$@"
   '';
 
@@ -223,7 +223,7 @@ in
         # AI assistants
         "Claude"
         "ChatGPT"
-        # Homelab administration (media apps like Plex or Sonarr stay leisure)
+        # Homelab administration
         "Proxmox"
         "Home Assistant"
         "Uptime Kuma"
@@ -245,6 +245,110 @@ in
         "BundID"
       ];
       description = "Case-insensitive regexes on the window title that count as work.";
+    };
+    workDomains = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [
+        # Development and docs
+        "github.com"
+        "github.io"
+        "githubusercontent.com"
+        "gitlab.com"
+        "gitlab.io"
+        "stackoverflow.com"
+        "stackexchange.com"
+        "serverfault.com"
+        "superuser.com"
+        "askubuntu.com"
+        "nixos.org"
+        "nix.dev"
+        "mynixos.com"
+        "noogle.dev"
+        "archlinux.org"
+        "gentoo.org"
+        "debian.org"
+        "ubuntu.com"
+        "freebsd.org"
+        "freshports.org"
+        "kernel.org"
+        "kde.org"
+        "qt.io"
+        "go.dev"
+        "golang.org"
+        "python.org"
+        "pypi.org"
+        "rust-lang.org"
+        "docs.rs"
+        "crates.io"
+        "developer.mozilla.org"
+        "php.net"
+        "php.watch"
+        "docker.com"
+        "developer.apple.com"
+        "appstoreconnect.apple.com"
+        "tuxedocomputers.com"
+        "rea.tools"
+        # AI assistants
+        "claude.ai"
+        "claude.com"
+        "anthropic.com"
+        "chatgpt.com"
+        "openai.com"
+        # Pentest training, labs and references
+        "hackthebox.com"
+        "offsec.com"
+        "tryhackme.com"
+        "portswigger.net"
+        "alteredsecurity.com"
+        "ine.com"
+        "maldevacademy.com"
+        "vulnlab.com"
+        "sans.org"
+        "overthewire.org"
+        "root-me.org"
+        "crackmes.one"
+        "ctftime.org"
+        "exploited.fun"
+        "hacktricks.wiki"
+        "hacktricks.xyz"
+        "thehacker.recipes"
+        "ired.team"
+        "exploit-db.com"
+        "mitre.org"
+        "cve.org"
+        "nvd.nist.gov"
+        "revshells.com"
+        "ippsec.rocks"
+        "learn.microsoft.com"
+        # Security news and research
+        "aikido.dev"
+        "upwind.io"
+        "brandefense.io"
+        "jsmon.sh"
+        "patchtonight.com"
+        "bleepingcomputer.com"
+        "thehackernews.com"
+        "heise.de"
+        "news.ycombinator.com"
+        # Homelab, local services and lab targets
+        "netcat.rocks"
+        "home-assistant.io"
+        "getarcane.app"
+        "localhost"
+        "127.0.0.0/8"
+        "10.0.0.0/8"
+        "172.16.0.0/12"
+        "192.168.0.0/16"
+        # Job search and authorities
+        "arbeitsagentur.de"
+        "jobcenter.digital"
+        "id.bund.de"
+      ];
+      description = ''
+        Domains whose Firefox tabs count as work (needs the aw-watcher-web extension).
+        A domain also covers its subdomains; an entry with a slash is an IP network.
+        Page titles still count via workTitles.
+      '';
     };
   };
 

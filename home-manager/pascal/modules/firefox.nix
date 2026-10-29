@@ -20,6 +20,8 @@ in
     extraExtensionPackages = [
       addons.betterttv
       addons.frankerfacez
+      # Reports the active tab's URL to ActivityWatch (see modules/productivity)
+      addons.aw-watcher-web
     ];
     extraExtensionSettings = {
       "${addons.bitwarden.addonId}" = {
@@ -38,4 +40,8 @@ in
       };
     };
   };
+
+  # Consent for aw-watcher-web given by policy, so it starts without the consent
+  # tab. The data only goes to the local ActivityWatch server (127.0.0.1:5600).
+  programs.firefox.policies."3rdparty".Extensions.${addons.aw-watcher-web.addonId}.consentOfflineDataCollection = true;
 }
