@@ -4,6 +4,11 @@ often goes past midnight.
 
 Each run logs today so far and the complete previous day, so the log has full
 days even though the evening summary comes before the day is over.
+
+  productivity-today                 summary of today, updates the log
+  productivity-today --notify        same, also as a desktop notification
+  productivity-today --unmatched [N] active windows that did not count as work,
+                                     today or over the last N days
 """
 import csv
 import json
@@ -12,6 +17,7 @@ import re
 import subprocess
 import sys
 import urllib.request
+from collections import Counter
 from datetime import datetime, timedelta
 
 AW = os.environ.get("AW_URL", "http://127.0.0.1:5600")
@@ -97,9 +103,28 @@ def write_log(days):
             w.writerow(rows[day])
 
 
+def print_unmatched(start, end, top=40):
+    """Lists active windows that did not count as work, longest first."""
+    spent = Counter()
+    for e in aw_query(start, end)["events"]:
+        if not is_work(e):
+            data = e.get("data", {})
+            spent[(data.get("app", ""), data.get("title", ""))] += e["duration"]
+    print(f"Not counted as work since {start:%a %Y-%m-%d %H:%M} (app | title):")
+    for (app, title), seconds in spent.most_common(top):
+        print(f"{seconds / 60:6.0f} min  {app or '?'} | {title[:100]}")
+    if not spent:
+        print("  nothing")
+
+
 def main():
     now = datetime.now().astimezone()
     start = day_start(now)
+    if "--unmatched" in sys.argv:
+        rest = sys.argv[sys.argv.index("--unmatched") + 1:]
+        days = int(rest[0]) if rest and rest[0].isdigit() else 1
+        print_unmatched(start - timedelta(days=days - 1), now)
+        return
     yesterday = start - timedelta(days=1)
     today = report(start, now)
     write_log({f"{yesterday:%Y-%m-%d}": report(yesterday, start), f"{start:%Y-%m-%d}": today})

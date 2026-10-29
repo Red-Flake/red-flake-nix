@@ -4,6 +4,8 @@
 #  - break-reminder: reminds after N active minutes without a real break
 #  - productivity-today: active and work time of the day (04:00 to 04:00), as a
 #    command and as an evening notification, logged to ~/.local/share/productivity/log.csv
+#    `productivity-today --unmatched 7` lists what did not count as work in the last
+#    7 days; add missing apps to workApps and sites to workTitles below.
 #
 # Check after a rebuild:
 #   systemctl --user status activitywatch activitywatch-watcher-awatcher break-reminder
@@ -89,9 +91,10 @@ in
         "org.kde.kate"
         "org.kde.kwrite"
         "gvim"
-        # Web
+        # Web and API testing
         "burp"
         "zaproxy"
+        "soapui"
         # Reverse engineering
         "ghidra"
         "cutter"
@@ -104,13 +107,35 @@ in
         # Network and AD
         "wireshark"
         "bloodhound"
-        "krdc"
+        "ettercap"
         "filezilla"
+        # Remote desktops and lab VMs
+        "krdc"
+        "freerdp"
+        "rdesktop"
+        "remmina"
+        "virt-manager"
+        "virt-viewer"
+        "remote-viewer"
+        "qemu" # QEMU GTK window, e.g. the macOS VM (OneClick-macOS-Simple-KVM) for iOS dev
+        # iOS development on the Linux side (xtool and adb run in the terminal)
+        "iloader"
         # Databases
         "dbeaver"
         "sqlitebrowser"
+        # System administration and development of this machine (UCC, red-flake-nix)
+        "^ucc"
+        "uniwill"
+        "^systemsettings$"
+        "gparted"
+        "missioncenter"
+        "systemmonitor"
+        "kinfocenter"
+        "nvidia-settings"
+        "boxbuddy"
         # Notes, reports and course PDFs
         "outline"
+        "anytype"
         "okular"
         "libreoffice"
         "onlyoffice"
@@ -121,29 +146,103 @@ in
     workTitles = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       default = [
-        # Mostly browser tabs.
+        # App windows whose app id varies (Java apps can get a generic class)
         "Visual Studio Code"
+        "FreeRDP"
+        "Burp Suite"
+        "\\bZAP\\b"
+        "SoapUI"
+        # Training, certifications and labs (see ~/Pentesting)
         "Hack ?The ?Box"
+        "\\bHTB\\b"
         "Proving Grounds"
         "OffSec"
+        "\\bOS(CP|EP|WE|ED|DA|WA|MR|EE)\\b"
+        "\\bPEN-\\d{3}\\b"
+        "Altered Security"
+        "\\bCRT[PE]\\b"
+        "eJPT"
+        "INE Security"
+        "\\bGOAD\\b"
+        "Maldev Academy"
+        "Vulnlab"
+        "(?-i:\\bSANS\\b)" # case-sensitive, so "Noto Sans" does not count
         "TryHackMe"
         "PortSwigger"
+        "OverTheWire"
+        "Root ?Me"
+        "crackmes"
+        "CTFtime"
+        "exploited\\.fun"
+        "Cyberwave"
+        # Pentest references and tools
         "HackTricks"
+        "The Hacker Recipes"
+        "ired\\.team"
         "PayloadsAllTheThings"
         "GTFOBins"
         "LOLBAS"
         "Exploit-DB"
         "Exploit Database"
+        "MITRE ATT&CK"
         "CyberChef"
         "Reverse Shell Generator"
         "BloodHound"
+        "Microsoft Learn"
         "IppSec"
         "0xdf"
+        # Development (red-flake-nix, beacon, UCC, KDE, iOS)
         "GitHub"
+        "GitLab"
         "Stack Overflow"
         "NixOS"
         "Home Manager"
+        "ArchWiki"
+        "Gentoo"
+        "\\bDebian\\b"
+        "\\bUbuntu\\b"
+        "FreeBSD"
+        "FreshPorts"
+        "The Linux Kernel"
+        "\\[PATCH"
+        "(?-i:TUXEDO)" # case-sensitive, so a tuxedo suit does not count
+        "Go Packages"
+        "The Go Programming Language"
+        "\\bPHP\\b"
+        "MDN Web Docs"
+        "Python documentation"
+        "\\bPyPI\\b"
+        "docs\\.rs"
+        "crates\\.io"
+        "\\| Qt "
+        "KDE Developer"
+        "KDE Bugtracking"
+        "App Store Connect"
+        "Apple Developer"
         "beacon"
+        # AI assistants
+        "Claude"
+        "ChatGPT"
+        # Homelab administration (media apps like Plex or Sonarr stay leisure)
+        "Proxmox"
+        "Home Assistant"
+        "Uptime Kuma"
+        "\\bntfy\\b"
+        "Radicale"
+        "Authelia"
+        "OPNsense"
+        "pfSense"
+        "OpenWrt"
+        "\\bLuCI\\b"
+        "FRITZ!Box"
+        "UniFi"
+        # IT news
+        "heise online"
+        "Hacker News"
+        # Job and authorities
+        "job"
+        "arbeit"
+        "BundID"
       ];
       description = "Case-insensitive regexes on the window title that count as work.";
     };
