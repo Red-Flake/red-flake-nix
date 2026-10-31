@@ -1,5 +1,5 @@
 # Pascal's plasma-manager configuration
-{ lib, ... }:
+{ config, lib, pkgs, ... }:
 let
   # Akonadi collection IDs of the Radicale DAV account. How to look them up is
   # described at the calendar settings below.
@@ -85,4 +85,20 @@ in
   # Only this key is managed; the rest of merkuro.calendarrc is left alone.
   programs.plasma.configFile."merkuro.calendarrc".GlobalCollectionSelection.Selection =
     lib.concatMapStringsSep "," (id: "c${toString id}") shownCalendars;
+
+  # Apply a rebuild to the running session right away. strictMode deletes
+  # Plasma's config files on every rebuild (plasmashellrc too, which holds each
+  # panel's size, floating and hiding), but plasma-manager only re-applies the
+  # panel layout, themes and wallpaper (its startup scripts) at the next login.
+  # Until then the session is half reset, e.g. the dock turns into a full-width
+  # bar. So run those scripts now when Plasma is running. At boot, or in another
+  # desktop, it isn't, and the next login runs them as before.
+  home.activation.applyPlasmaNow = lib.hm.dag.entryAfter [ "configure-plasma" "linkGeneration" ] ''
+    if ${pkgs.kdePackages.qttools}/bin/qdbus org.kde.plasmashell /PlasmaShell >/dev/null 2>&1; then
+      verboseEcho "Applying the Plasma layout and themes to the running session"
+      run env PATH="${config.home.profileDirectory}/bin:/run/current-system/sw/bin:$PATH" \
+        ${config.xdg.dataHome}/plasma-manager/run_all.sh \
+        || warnEcho "Could not apply the Plasma layout and themes, log out and in to apply them"
+    fi
+  '';
 }
