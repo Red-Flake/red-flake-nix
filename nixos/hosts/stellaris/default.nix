@@ -11,6 +11,7 @@
     ./on-demand-services.nix
     ./packages.nix
     ./hyprland.nix
+    ./sddm-theme.nix
     ./secrets.nix
   ];
 
