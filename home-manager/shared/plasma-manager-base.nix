@@ -270,6 +270,10 @@ in
           number = 8;
         };
         effects = kwinEffects;
+        # No buttons on the left of the title bar (no "on all desktops" /
+        # "keep above"). An empty list writes ButtonsOnLeft= ; leaving it
+        # unset would bring back KWin's default left buttons.
+        titlebarButtons.left = [ ];
       };
 
       hotkeys.commands = terminalHotkey // cfg.commandHotkeys;
@@ -416,7 +420,6 @@ in
         # the per-key colours that uccd applied from the active profile.
         "kdeglobals"."General"."DeviceLedsAccentColored" = false;
         "kwinrc" = {
-          "org.kde.kdecoration2"."ButtonsOnLeft" = "SF";
           "Desktops"."Number" = {
             value = 8;
             immutable = true;
