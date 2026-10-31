@@ -1,0 +1,12 @@
+# Everything this style doesn't ship (all but the dock's SVGs) comes from Breeze
+[Settings]
+FallbackTheme=default
+
+# Same as Breeze, so panels and popups look the same behind blur
+[ContrastEffect]
+enabled=true
+contrast=1.0
+saturation=1.5
+
+[AdaptiveTransparency]
+enabled=true

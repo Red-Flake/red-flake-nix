@@ -38,7 +38,9 @@ in
     strictMode = true;
     autoLock = true;
     displayTimeouts = { turnOff = 900; dim = 600; };
-    disableBlur = true;
+    # Blur back on for the rice (translucent panels, menus and terminal).
+    # Set to true again if kwin_wayland CPU usage jumps on the Intel iGPU.
+    disableBlur = false;
     enableTripleBuffering = true;
     hideBrowserIntegrationReminder = true;
     # Akonadi events/tasks (Radicale via Merkuro) in the clock popup; plugin from kdepim-addons in tasks.nix

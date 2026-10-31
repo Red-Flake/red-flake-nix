@@ -1,0 +1,19 @@
+{
+  "KPackageStructure": "Plasma/Applet",
+  "KPlugin": {
+    "Authors": [
+      {
+        "Name": "Red Flake"
+      }
+    ],
+    "Category": "Windows and Tasks",
+    "Description": "Workspaces as pills with the windows on each: click to switch, drag a window onto another workspace to move it",
+    "EnabledByDefault": false,
+    "Icon": "virtual-desktops",
+    "Id": "org.redflake.workspaces",
+    "License": "GPL-2.0-or-later",
+    "Name": "Red Flake Workspaces",
+    "Version": "1.0.0"
+  },
+  "X-Plasma-API-Minimum-Version": "6.0"
+}

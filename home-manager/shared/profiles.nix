@@ -100,6 +100,7 @@ in
       ../pascal/modules/equibop.nix
       ../pascal/modules/vscode.nix
       ../pascal/modules/plasma-manager.nix
+      ../pascal/modules/rice # Red Flake Noir desktop theme (pascal only)
       ../pascal/modules/tasks.nix
       ../pascal/modules/productivity
       ../pascal/modules/claude-code
