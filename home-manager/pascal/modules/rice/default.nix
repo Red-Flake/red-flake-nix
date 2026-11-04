@@ -371,6 +371,11 @@ in
               launchers = cfg.taskbarApps;
               iconSpacing = 2;
               maxStripes = 1;
+              # Off: by default the dock stays shown while any window wants
+              # attention (e.g. a chat with unread messages), so it would stop
+              # moving out of the way. The top bar's workspaces widget still
+              # marks those windows.
+              unhideOnAttention = "false";
             };
           }
         ];
