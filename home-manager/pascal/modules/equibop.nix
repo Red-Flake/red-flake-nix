@@ -110,7 +110,7 @@ in
   systemd.user.tmpfiles.rules = lib.mkIf equibopEnabled [
     "d ${equibopConfigDir} 0755 - - -"
     "d ${equibopConfigDir}/settings 0755 - - -"
-    "C ${equibopConfigDir}/settings.json 0644 - - - ${initialEquibopSettings}"
-    "C ${equibopConfigDir}/state.json 0644 - - - ${initialEquibopState}"
+    "C ${equibopConfigDir}/settings.json 0644 ${config.home.username} users - ${initialEquibopSettings}"
+    "C ${equibopConfigDir}/state.json 0644 ${config.home.username} users - ${initialEquibopState}"
   ];
 }

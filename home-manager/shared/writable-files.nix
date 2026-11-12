@@ -33,12 +33,14 @@ in
     # often come from another module's home.file, and reading those from that
     # option makes the evaluation recursive. NixOS enables the user
     # systemd-tmpfiles-setup.service, which applies this at login.
-    # "r" removes the old copy, "C" copies the source.
+    # "r" removes the old copy, "C" copies the source. The owner must be
+    # given: with "-" tmpfiles keeps the store file's root owner, which fails
+    # with EPERM for the user instance and leaves a read-only copy behind.
     xdg.configFile."user-tmpfiles.d/writable-files.conf" = {
       text = lib.concatStrings (lib.mapAttrsToList
         (path: file: ''
           r ${path}
-          C ${path} ${file.mode} - - - ${file.source}
+          C ${path} ${file.mode} ${config.home.username} users - ${file.source}
         '')
         cfg);
       onChange = ''

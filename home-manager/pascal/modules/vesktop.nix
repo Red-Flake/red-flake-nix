@@ -97,7 +97,7 @@ in
   systemd.user.tmpfiles.rules = lib.mkIf vesktopEnabled [
     "d ${vesktopConfigDir} 0700 - - -"
     "d ${vesktopConfigDir}/settings 0700 - - -"
-    "C ${vesktopConfigDir}/settings.json 0600 - - - ${initialVesktopSettings}"
-    "C ${vesktopConfigDir}/state.json 0600 - - - ${initialVesktopState}"
+    "C ${vesktopConfigDir}/settings.json 0600 ${config.home.username} users - ${initialVesktopSettings}"
+    "C ${vesktopConfigDir}/state.json 0600 ${config.home.username} users - ${initialVesktopState}"
   ];
 }

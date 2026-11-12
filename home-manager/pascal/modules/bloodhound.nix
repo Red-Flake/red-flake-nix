@@ -14,7 +14,7 @@ in
   systemd.user.tmpfiles.rules = [
     "d ${bloodhoundPath} 0755 - - -"
     "r ${configJsonPath}"
-    "C ${configJsonPath} 0644 - - - ${sourceConfigJsonPath}"
+    "C ${configJsonPath} 0644 ${config.home.username} users - ${sourceConfigJsonPath}"
   ];
 
   xdg.desktopEntries.bloodhound = {

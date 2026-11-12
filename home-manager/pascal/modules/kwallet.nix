@@ -10,6 +10,6 @@ in
   # KWallet writes to kwalletrc, so seed a writable copy only when it is
   # missing and leave later changes alone.
   systemd.user.tmpfiles.rules = [
-    "C ${kwalletrcPath} 0644 - - - ${sourceKwalletrcPath}"
+    "C ${kwalletrcPath} 0644 ${config.home.username} users - ${sourceKwalletrcPath}"
   ];
 }
