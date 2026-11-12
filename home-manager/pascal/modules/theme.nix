@@ -220,7 +220,7 @@ in
 
   # set ~/.Xresources
   xresources.properties = {
-    "Xft.dpi" = 147456;
+    "Xft.dpi" = 144; # plain DPI (96*1.5), unlike gtk-xft-dpi which is in 1/1024ths
     "Xft.autohint" = 1;
     "Xft.hinting" = 1;
     "Xft.hintstyle" = "hintslight";
