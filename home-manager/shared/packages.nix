@@ -50,6 +50,7 @@
     opencode
     codex
     pi-coding-agent
+    inputs.redflake-packages.packages.${pkgsUnstable.system}.omo
     antigravity-cli
     inputs.kimi-code.packages.${pkgsUnstable.system}.kimi-code
   ];
