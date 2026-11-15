@@ -49,6 +49,7 @@
     pkgs.mcp-nixos
     opencode
     codex
+    pi-coding-agent
     antigravity-cli
     inputs.kimi-code.packages.${pkgsUnstable.system}.kimi-code
   ];
