@@ -525,11 +525,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1794386569,
-        "narHash": "sha256-x9sADJvoVG0L6RejZB+/BB4YiGZFBZrfTlhF4uBq1tQ=",
+        "lastModified": 1794890597,
+        "narHash": "sha256-lME2lHoDHAaSHP3/okgiVoJ0icVEvsQH8LeU3We7tcc=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "d4f25a3e562008648d45bcf2d70bcc7422cad84e",
+        "rev": "04906337b6d53e8bb0eaf0470ae9f070a4d4eb55",
         "type": "github"
       },
       "original": {
@@ -751,11 +751,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1792941250,
-        "narHash": "sha256-vfTNrPRklqNPmXNY1jPb08Y9dBHwTfVJSOPmLTF0TKI=",
+        "lastModified": 1794792918,
+        "narHash": "sha256-DxrQGMX3mOo0UGf9O5N8xx9lbCamPZuYILyl1nO2p9Y=",
         "owner": "Fractal-Tess",
         "repo": "rea-flake",
-        "rev": "440520d01a4a76b952597c5eb6c6250de19a5ffc",
+        "rev": "46e10499d45175a6be2cfa355bd063971c33040f",
         "type": "github"
       },
       "original": {

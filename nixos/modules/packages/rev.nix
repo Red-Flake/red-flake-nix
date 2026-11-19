@@ -10,7 +10,7 @@
     cutter
     cutterPlugins.jsdec
     cutterPlugins.rz-ghidra
-    pkgsUnstable.ghidra-bin # REA supports Ghidra 12.1.x only
+    pkgsUnstable.ghidra-bin # REA supports Ghidra 12.x (>=12.1)
     jadx
     radare2
     avalonia-ilspy
