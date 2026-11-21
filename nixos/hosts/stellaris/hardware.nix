@@ -595,6 +595,12 @@
     ACTION=="add|bind|change", SUBSYSTEM=="pci", KERNEL=="0000:00:07.0", ATTR{power/wakeup}="disabled"
     ACTION=="add|bind|change", SUBSYSTEM=="pci", KERNEL=="0000:00:07.1", ATTR{power/wakeup}="disabled"
 
+    # Disable PCH xHCI wakeup (all 3 USB-A ports + USB 2.0 lines of the USB-C port).
+    # A charging iPhone periodically drops its USB link, which woke the laptop
+    # from s2idle with the lid closed (GPE46). Lid, power button and the internal
+    # keyboard still wake; external USB input devices no longer do.
+    ACTION=="add|bind|change", SUBSYSTEM=="pci", KERNEL=="0000:80:14.0", ATTR{power/wakeup}="disabled"
+
     # Stable DRM symlinks for KWin/SDDM Wayland (avoid ':' in names; KWIN_DRM_DEVICES uses ':' as a separator)
     SUBSYSTEM=="drm", KERNEL=="card*", KERNELS=="0000:00:02.0", SYMLINK+="dri/card-intel"
     SUBSYSTEM=="drm", KERNEL=="card*", KERNELS=="0000:02:00.0", SYMLINK+="dri/card-nvidia"
@@ -608,7 +614,9 @@
     before = [ "sleep.target" ];
     serviceConfig.Type = "oneshot";
     script = ''
-      for device in 0000:00:0d.0 0000:00:0d.2 0000:00:07.0 0000:00:07.1; do
+      # 00:0d.x / 00:07.x: Thunderbolt 4 (USB-C SuperSpeed/TB lanes)
+      # 80:14.0: PCH xHCI (3x USB-A + USB-C USB 2.0 lines)
+      for device in 0000:00:0d.0 0000:00:0d.2 0000:00:07.0 0000:00:07.1 0000:80:14.0; do
         wakeup="/sys/bus/pci/devices/$device/power/wakeup"
         if [ -f "$wakeup" ]; then
           echo disabled > "$wakeup"
