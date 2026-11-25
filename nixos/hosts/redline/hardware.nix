@@ -37,7 +37,6 @@
 
       # Boot / quiet
       "quiet"
-      "splash"
 
       # Security mitigations off for performance
       "mitigations=off"
@@ -56,7 +55,6 @@
 
       # Classic network interface naming (eth0, wlan0)
       "net.ifnames=0"
-      "biosdevname=0"
     ];
   };
 

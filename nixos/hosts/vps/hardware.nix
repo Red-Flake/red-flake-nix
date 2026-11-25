@@ -28,14 +28,12 @@
 
     kernelParams = [
       "quiet"
-      "splash"
       "mitigations=off"
       "libahci.ignore_sss=1"
       "sysrq_always_enabled=1"
       "split_lock_detect=off"
       "audit=0"
       "net.ifnames=0"
-      "biosdevname=0"
     ];
   };
 

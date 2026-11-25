@@ -259,7 +259,6 @@
 
       # Boot / quiet
       "quiet"
-      "splash"
 
       # Lockup watchdogs off: the hard lockups they were kept for came from NVIDIA
       # RTD3 and the xe driver, both disabled. Frees a perf counter and stops the
@@ -278,7 +277,6 @@
 
       # Classic network interface naming (eth0, wlan0)
       "net.ifnames=0"
-      "biosdevname=0"
 
       # Timer/clock optimizations
       #"tsc=reliable"
