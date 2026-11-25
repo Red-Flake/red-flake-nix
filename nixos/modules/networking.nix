@@ -119,6 +119,12 @@
   networking.wireless.iwd = {
     enable = true;
     settings = {
+      # The home mesh (WPA3-SAE + FT) often forgets cached PMKSAs: reconnecting
+      # with PMKSA caching (one Open auth frame) gets associated and then
+      # immediately deauthenticated with reason 2 (PREV_AUTH_NOT_VALID); iwd then
+      # times out on other BSSes and only the next full SAE attempt (two auth
+      # frames) succeeds. That cost 3-5 s after most resumes. Always do full SAE.
+      General.DisablePMKSA = true;
       Network.EnableIPv6 = true;
       Settings.AutoConnect = true;
       DriverQuirks.PowerSaveDisable = "*";
