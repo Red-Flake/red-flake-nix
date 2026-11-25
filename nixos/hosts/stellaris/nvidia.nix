@@ -27,11 +27,13 @@
         "nvidia.NVreg_DeviceFileUID=0" # Set device file ownership to root
         "nvidia.NVreg_DeviceFileGID=26" # 26 is the GID of the "video" group on NixOS
         "nvidia.NVreg_DeviceFileMode=0660" # Set device file permissions to rw-rw----
-        "nvidia.NVreg_EnableS0ixPowerManagement=1" # Enable S0ix support in NVIDIA driver
+        # Key setting for s2idle: powers the GPU down during S0ix. The driver default is 0
+        # (disabled), which leaves the dGPU powered and heating up in a closed laptop.
+        "nvidia.NVreg_EnableS0ixPowerManagement=1"
 
-        # Use Message Signaled Interrupts (MSI) instead of traditional line-based interrupts.
-        # Reduces CPU overhead and latency; helps prevent "PHY refclk" and timing race 
-        # conditions on modern PCIe 5.0 buses (Arrow Lake + Blackwell).
+        # Use MSI/MSI-X instead of line-based interrupts. This is already the driver default
+        # (nv-reg.h: EnableMSI default 1); kept explicit only. Unrelated to the i915
+        # "PHY refclk" display errors.
         "nvidia.NVreg_EnableMSI=1"
         # RTD3 (Runtime D3) Power Management - controls GPU power state while system is awake
         # See: https://download.nvidia.com/XFree86/Linux-x86_64/580.65.06/README/dynamicpowermanagement.html
@@ -52,8 +54,14 @@
         # Video memory threshold for RTD3: if VRAM usage is below this (in MB), VRAM can be turned off
         # Set to 0 to keep VRAM in self-refresh mode (faster wake, slightly more power) instead of off
         # This reduces RTD3 transition latency and avoids potential issues with VRAM state restoration
+        # NOTE: RTD3 only (runtime idle). Inert while DynamicPowerManagement=0x00 and has no
+        # effect on system suspend; S0ix uses S0ixPowerManagementVideoMemoryThreshold below.
+        # Kept so the intent survives if RTD3 is ever re-enabled.
         "nvidia.NVreg_DynamicPowerManagementVideoMemoryThreshold=0"
-        "nvidia.NVreg_S0ixPowerManagementVideoMemoryThreshold=16384" # Above 12 GiB VRAM: prefer copying to system memory over VRAM self-refresh.
+        # During S0ix, VRAM usage below this threshold is copied to system memory and VRAM is
+        # powered off with the GPU; above it, VRAM stays in self-refresh. Default 256 MB.
+        # 16384 MB exceeds the 12 GB VRAM, so the GPU is always powered off completely.
+        "nvidia.NVreg_S0ixPowerManagementVideoMemoryThreshold=16384"
         "nvidia.NVreg_PreserveVideoMemoryAllocations=1" # Preserve video memory across suspend/resume; required for stable S0ix
         "nvidia.NVreg_TemporaryFilePath=/dev/shm" # Path to save VRAM contents during suspend; /dev/shm is 47G and VRAM is 12G
       ]

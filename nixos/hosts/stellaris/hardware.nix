@@ -64,9 +64,6 @@
     # enable ZFS encryption
     zfs.encryption = true;
 
-    # disable Intel OpenCL legacy runtime
-    IntelComputeRuntimeLegacy.enable = false;
-
     # set display resolution to 1600p
     display.resolution = "1600p";
 
@@ -175,8 +172,13 @@
       "acpi_enforce_resources=lax" # Allow legacy driver access to ACPI resources; fixes non-compliant SW_LID implementations on some laptops
 
       # Modern standby / suspend
-      "mem_sleep_default=s2idle" # Use s2idle (a.k.a. S0ix / modern standby) instead of deep (S3); Core Ultra CPUs don’t support S3
+      # Use s2idle (S0ix / modern standby) instead of deep (S3).
+      # The silicon could do S3: Intel's 200S/200HX datasheet (doc 832586) lists
+      # S0ix, S3, S4, S5, and this BIOS advertises _S3 ("ACPI: PM: (supports S0 S3 S4 S5)",
+      # mem_sleep offers deep). But TUXEDO only validates s2idle on Core Ultra, and the
+      # whole NVIDIA suspend setup (NVreg_EnableS0ixPowerManagement etc.) is built for S0ix.
       # See: https://www.tuxedocomputers.com/en/Power-management-with-suspend-for-current-hardware.tuxedo
+      "mem_sleep_default=s2idle"
 
       # Intel Xe / i915 binding for Meteor Lake / Arrow Lake
       #"i915.force_probe=!7d67" # Prevent old i915 driver from binding this GPU
@@ -187,12 +189,18 @@
       "i915.enable_psr=0"
       "i915.enable_dc=0"
       # "i915.enable_sagv=0"    # Did not help with PHY refclk error. It governs iGPU memory bandwidth allocation.
-      "i915.enable_dmc_wl=1" # Prevent the Display Microcontroller from entering low-power state during display operations. May help with the PHY A refclk errors.
+      # DMC wakelock is a no-op on this GPU: intel_dmc_wl_sanitize_param() forces it to 0
+      # for DISPLAY_VER < 20 (Arrow Lake uses the MTL display IP, ver 14), and it only acts
+      # while dynamic DC states are on, which enable_dc=0 already turns off. Setting it
+      # just tainted the kernel ("Setting dangerous option enable_dmc_wl").
+      #"i915.enable_dmc_wl=1"
       "i915.enable_panel_replay=0" # Disable Panel Replay / PSR2 selective fetch. Some panels/firmware combos misbehave here. Can cause flicker or timing issues.
       "i915.enable_psr2_sel_fetch=0" # Disable PSR2 selective fetch. Some panels/firmware combos misbehave here. Can cause flicker or timing issues.
 
-      # Intel i915: Load GuC + HuC
-      "i915.enable_guc=3"
+      # Intel i915: GuC submission + HuC load. This is already the default (-1) here:
+      # uc_expand_default_options() picks 3 for every Gen12+ platform except TGL/RKL/ADL-S.
+      # Setting it explicitly only tainted the kernel ("Setting dangerous option enable_guc").
+      #"i915.enable_guc=3"
 
       # Kernel log buffer (2MB is enough for reduced logging)
       "log_buf_len=2M"
@@ -221,8 +229,9 @@
       # reducing interactive/gaming latency.
       "cpuidle.governor=teo"
 
-      # PCIe ASPM: prioritize latency over power saving.
-      # Monitor S0ix (s2idle) suspend power draw/residency; disabling ASPM can increase sleep drain on some laptops.
+      # PCIe ASPM: prioritize latency over power saving while awake.
+      # This blocks S0ix, so stellaris-aspm-sleep / stellaris-aspm-resume (below)
+      # switch to powersupersave for the duration of each suspend.
       "pcie_aspm.policy=performance"
 
       # NVMe: force PS0-only (disable APST sleep states) for zero-latency IO.
@@ -626,6 +635,39 @@
       if [ -f "$wakeup" ]; then
         echo disabled > "$wakeup"
       fi
+    '';
+  };
+
+  # S0ix needs PCIe L1 substates. With pcie_aspm.policy=performance (kernelParams)
+  # the platform never reached SLP_S0 during s2idle: 14 of 14 suspends had
+  # /sys/power/suspend_stats/total_hw_sleep = 0, and intel_pmc_core reported
+  # "CPU did not enter SLP_S0" with SPA_PGD0_PG_STS (PCH PCIe cluster A, SD reader)
+  # not power gated. With powersupersave the same 120 s test suspend spent 117.8 s
+  # in hardware sleep (2026-11-25). Keep performance while awake and switch only
+  # around suspend.
+  # Verify after a suspend: cat /sys/power/suspend_stats/last_hw_sleep (µs, must be > 0)
+  systemd.services.stellaris-aspm-sleep = {
+    description = "Switch PCIe ASPM to powersupersave before sleep for S0ix";
+    wantedBy = [ "sleep.target" ];
+    before = [ "sleep.target" ];
+    serviceConfig.Type = "oneshot";
+    script = ''
+      echo powersupersave > /sys/module/pcie_aspm/parameters/policy
+    '';
+  };
+
+  systemd.services.stellaris-aspm-resume = {
+    description = "Restore PCIe ASPM performance policy after resume";
+    after = [
+      "suspend.target"
+      "hibernate.target"
+      "hybrid-sleep.target"
+      "nvidia-resume.service"
+    ];
+    wantedBy = [ "suspend.target" "hibernate.target" "hybrid-sleep.target" ];
+    serviceConfig.Type = "oneshot";
+    script = ''
+      echo performance > /sys/module/pcie_aspm/parameters/policy
     '';
   };
 
